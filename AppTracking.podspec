@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
     s.homepage     = "https://github.com/ringpublishing/RingPublishingGDPR-iOS"
     s.source       = { :git => "https://github.com/ringpublishing/RingPublishingGDPR-iOS.git", :tag => s.version }
 
-    s.platform = :ios, '12.0'
-    s.ios.deployment_target = '12.0'
+    s.platform = :ios, '11.0'
+    s.ios.deployment_target = '11.0'
 
     s.static_framework = true
     s.requires_arc = true
