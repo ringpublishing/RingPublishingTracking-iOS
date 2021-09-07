@@ -9,11 +9,15 @@ import Foundation
 
 public class AppTracking {
 
-    public static let test = "Test"
-}
+    public init() {
 
+    }
 
-class NotPublicAppTracking {
+    public func samplePublicMethod() -> String {
+        return "Public"
+    }
 
-    static let test = "Test"
+    func sampleInternalMethod() -> String {
+        return "Internal"
+    }
 }
