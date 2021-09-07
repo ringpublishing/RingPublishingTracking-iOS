@@ -30,8 +30,3 @@ build
 Pods/*
 Example/Pods
 ./Example/Pods
-
-## Fastlane
-fastlane
-fastlane/*
-./fastlane
