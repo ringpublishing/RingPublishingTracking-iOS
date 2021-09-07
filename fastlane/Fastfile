@@ -1,0 +1,18 @@
+import_from_git(url: 'ssh://git@stash.grupa.onet:7999/dep/bamboo-mobile-ios.git')
+
+lane :build_open_source_demo do |options|
+
+  clear_derived_data
+  install_pods_conditionally(skip_cocoapods: options[:skip_cocoapods])
+
+  workspace_directory = ENV["DL_PROJECT_DIRECTORY_PATH"]
+  workspace_file_name = ENV["DL_WORKSPACE_FILE_NAME"]
+
+  xcodebuild(
+    workspace: "#{workspace_directory}#{workspace_file_name}",
+    scheme: ENV["DL_BUILD_SCHEME"],
+    configuration: "Debug",
+    build: true,
+    sdk: "iphonesimulator"
+  )
+end
