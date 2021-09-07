@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2536E3B07B61A064628951DB /* Pods_AppTrackingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED067BC36C6C6FA35D9F88B6 /* Pods_AppTrackingTests.framework */; };
 		7D1A2B5026E744C000648882 /* AppTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2B4F26E744C000648882 /* AppTracking.swift */; };
-		7D1A2B5326E745B100648882 /* AppTrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2B5226E745B100648882 /* AppTrackingTests.swift */; };
+		7D1A2B5626E7567C00648882 /* AppTrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2B5526E7567C00648882 /* AppTrackingTests.swift */; };
 		7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4626E657430051A267 /* AppDelegate.swift */; };
 		7D1C1B4B26E657430051A267 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4A26E657430051A267 /* ViewController.swift */; };
 		7D1C1B4E26E657430051A267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4C26E657430051A267 /* Main.storyboard */; };
@@ -33,7 +33,7 @@
 		2278D1C8F7C5BBD725418D51 /* Pods-AppTrackingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTrackingTests.debug.xcconfig"; path = "Target Support Files/Pods-AppTrackingTests/Pods-AppTrackingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		76FA62F5BE77A68BB521D5F8 /* Pods-AppTracking-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTracking-Example.release.xcconfig"; path = "Target Support Files/Pods-AppTracking-Example/Pods-AppTracking-Example.release.xcconfig"; sourceTree = "<group>"; };
 		7D1A2B4F26E744C000648882 /* AppTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTracking.swift; sourceTree = "<group>"; };
-		7D1A2B5226E745B100648882 /* AppTrackingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppTrackingTests.swift; path = ../AppTrackingTests.swift; sourceTree = "<group>"; };
+		7D1A2B5526E7567C00648882 /* AppTrackingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingTests.swift; sourceTree = "<group>"; };
 		7D1C1B4326E657430051A267 /* AppTracking-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppTracking-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1C1B4626E657430051A267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D1C1B4A26E657430051A267 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,12 +86,12 @@
 			path = ../Sources;
 			sourceTree = "<group>";
 		};
-		7D1A2B5126E744CA00648882 /* Tests */ = {
+		7D1A2B5426E7567000648882 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				7D1A2B5226E745B100648882 /* AppTrackingTests.swift */,
+				7D1A2B5526E7567C00648882 /* AppTrackingTests.swift */,
 			);
-			path = Tests;
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		7D1C1B3A26E657430051A267 = {
@@ -130,7 +130,7 @@
 		7D1C1B5C26E657460051A267 /* AppTrackingTests */ = {
 			isa = PBXGroup;
 			children = (
-				7D1A2B5126E744CA00648882 /* Tests */,
+				7D1A2B5426E7567000648882 /* Tests */,
 				7D1A2B4E26E744C000648882 /* Sources */,
 				7D1C1B5F26E657460051A267 /* Info.plist */,
 			);
@@ -325,7 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D1A2B5326E745B100648882 /* AppTrackingTests.swift in Sources */,
+				7D1A2B5626E7567C00648882 /* AppTrackingTests.swift in Sources */,
 				7D1A2B5026E744C000648882 /* AppTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
