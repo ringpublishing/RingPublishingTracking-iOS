@@ -1,0 +1,17 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '12.0'
+use_frameworks!
+
+def appTrackingSDK
+    pod 'AppTracking', :path => '../'
+end
+
+target 'AppTracking-Example' do
+  appTrackingSDK
+  pod 'SwiftLint'
+end
+
+target 'AppTrackingTests' do
+  
+end
