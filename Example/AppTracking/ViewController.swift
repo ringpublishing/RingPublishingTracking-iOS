@@ -14,6 +14,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         let appTracking = AppTracking()
+        appTracking.loggerOutput = { message in
+            print("SDK message: \(message)")
+        }
+
         _ = appTracking.samplePublicMethod()
     }
 }
