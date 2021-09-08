@@ -10,36 +10,56 @@ import Foundation
 @propertyWrapper
 struct StoredValueInUserDefaults<T> {
 
-    private let defaults = UserDefaults.standard
     private let key: String
+    private let storage: Storage
 
     var wrappedValue: T? {
         get {
             switch T.self {
             case is Date.Type:
-                guard let saveInterval = defaults.object(forKey: key) as? Double else { return nil }
+                guard let saveInterval = storage.object(forKey: key) as? Double else { return nil }
 
                 return Date(timeIntervalSince1970: saveInterval) as? T
 
             default:
-                return defaults.object(forKey: key) as? T
+                return storage.object(forKey: key) as? T
             }
         }
         set {
             switch T.self {
             case is Date.Type:
                 let newDate = (newValue as? Date)?.timeIntervalSince1970
-                defaults.set(newDate, forKey: key)
+                storage.set(newDate, forKey: key)
 
             default:
-                defaults.set(newValue, forKey: key)
+                storage.set(newValue, forKey: key)
             }
         }
     }
 
     // MARK: Init
 
-    init(key: String) {
+    /// Init
+    ///
+    /// - Parameters:
+    ///   - key: Key under which value will be stored
+    ///   - storage: Storage object (by default it is set to standard UserDefaults)
+    init(key: String, storage: Storage = UserDefaults.standard) {
         self.key = key
+        self.storage = storage
     }
+}
+
+// MARK: Storage
+
+protocol Storage {
+
+    func object(forKey defaultName: String) -> Any?
+    func set(_ value: Any?, forKey defaultName: String)
+}
+
+// MARK: UserDefaults+Storage
+
+extension UserDefaults: Storage {
+
 }

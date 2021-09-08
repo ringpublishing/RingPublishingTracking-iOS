@@ -10,94 +10,120 @@ import XCTest
 
 class StoredValueInUserDefaultsTests: XCTestCase {
 
-    @StoredValueInUserDefaults(key: "testString")
-    var storedString: String?
-
-    @StoredValueInUserDefaults(key: "testDate")
-    var storedDate: Date?
-
     // MARK: Setup
 
     override func setUp() {
         super.setUp()
 
-        storedString = nil
-        storedDate = nil
-
-        UserDefaults.resetStandardUserDefaults()
     }
 
     // MARK: Tests
 
     func testStoredValueWithString_setNewValue_valueIsAccessibleWithWrapper() {
         // Given
+        let storedValue = StoredValueInUserDefaultsWrapper()
         let value = "This is a test"
 
         // When
-        storedString = value
+        storedValue.storedString = value
 
         // Then
-        XCTAssertEqual(storedString, value, "Value should be accessible and stored")
+        XCTAssertEqual(storedValue.storedString, value, "Value should be accessible and stored")
     }
 
     func testStoredValueWithString_setNewValueAndRemoveIt_valueIsNotAccessibleWithWrapper() {
         // Given
+        let storedValue = StoredValueInUserDefaultsWrapper()
         let value = "This is a test"
-        storedString = value
 
         // When
-        storedString = nil
+        storedValue.storedString = value
+        storedValue.storedString = nil
 
         // Then
-        XCTAssertEqual(storedString, nil, "Value should not be accessible and not stored")
+        XCTAssertEqual(storedValue.storedString, nil, "Value should not be accessible and not stored")
     }
 
     func testStoredValueWithString_setNewValueAndUpdateIt_updatedValueIsAccessibleWithWrapper() {
         // Given
+        let storedValue = StoredValueInUserDefaultsWrapper()
         let value = "This is a test"
-        storedString = value
 
         // When
+        storedValue.storedString = value
+
         let updatedValue = "This is updated vvalue"
-        storedString = updatedValue
+        storedValue.storedString = updatedValue
 
         // Then
-        XCTAssertEqual(storedString, updatedValue, "Updated value should be accessible and stored")
+        XCTAssertEqual(storedValue.storedString, updatedValue, "Updated value should be accessible and stored")
     }
 
     func testStoredValueWithDate_setNewValue_valueIsAccessibleWithWrapper() {
         // Given
+        let storedValue = StoredValueInUserDefaultsWrapper()
         let value = Date()
 
         // When
-        storedDate = value
+        storedValue.storedDate = value
 
         // Then
-        XCTAssertEqual(storedDate?.timeIntervalSince1970, value.timeIntervalSince1970, "Date should be accessible and stored")
+        XCTAssertEqual(storedValue.storedDate?.timeIntervalSince1970, value.timeIntervalSince1970, "Date should be accessible and stored")
     }
 
     func testStoredValueWithDate_setNewValueAndRemoveIt_valueIsNotAccessibleWithWrapper() {
         // Given
+        let storedValue = StoredValueInUserDefaultsWrapper()
         let value = Date()
-        storedDate = value
 
         // When
-        storedDate = nil
+        storedValue.storedDate = value
+        storedValue.storedDate = nil
 
         // Then
-        XCTAssertEqual(storedDate, nil, "Date should not be accessible and not stored")
+        XCTAssertEqual(storedValue.storedDate, nil, "Date should not be accessible and not stored")
     }
 
     func testStoredValueWithDate_setNewValueAndUpdateIt_updatedValueIsAccessibleWithWrapper() {
         // Given
+        let storedValue = StoredValueInUserDefaultsWrapper()
         let value = Date()
-        storedDate = value
 
         // When
+        storedValue.storedDate = value
+
         let updatedValue = Date(timeIntervalSince1970: 12345)
-        storedDate = updatedValue
+        storedValue.storedDate = updatedValue
 
         // Then
-        XCTAssertEqual(storedDate, updatedValue, "Updated date should be accessible and stored")
+        XCTAssertEqual(storedValue.storedDate, updatedValue, "Updated date should be accessible and stored")
     }
+}
+
+// MARK: TestStorage
+
+class TestStorage: Storage {
+
+    private var storedObjects: [String: Any] = [:]
+
+    // MARK: Methods
+
+    func object(forKey defaultName: String) -> Any? {
+        return storedObjects[defaultName]
+    }
+
+    func set(_ value: Any?, forKey defaultName: String) {
+        storedObjects[defaultName] = value
+    }
+}
+
+// MARK: StoredValueInUserDefaultsWrapper
+
+class StoredValueInUserDefaultsWrapper {
+
+    @StoredValueInUserDefaults(key: "testString", storage: TestStorage())
+    var storedString: String?
+
+    @StoredValueInUserDefaults(key: "testDate", storage: TestStorage())
+    var storedDate: Date?
 }
