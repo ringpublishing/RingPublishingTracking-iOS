@@ -19,7 +19,7 @@ class StoredValueInUserDefaultsTests: XCTestCase {
 
     // MARK: Tests
 
-    func testStoredValueWithString_setNewValue_valueIsAccessibleWithWrapper() {
+    func testStoredValueInUserDefaults_setNewStringValue_valueIsAccessibleWithWrapper() {
         // Given
         let storedValue = StoredValueInUserDefaultsWrapper()
         let value = "This is a test"
@@ -31,7 +31,7 @@ class StoredValueInUserDefaultsTests: XCTestCase {
         XCTAssertEqual(storedValue.storedString, value, "Value should be accessible and stored")
     }
 
-    func testStoredValueWithString_setNewValueAndRemoveIt_valueIsNotAccessibleWithWrapper() {
+    func testStoredValueInUserDefaults_setNewStringValueAndRemoveIt_valueIsNotAccessibleWithWrapper() {
         // Given
         let storedValue = StoredValueInUserDefaultsWrapper()
         let value = "This is a test"
@@ -44,7 +44,7 @@ class StoredValueInUserDefaultsTests: XCTestCase {
         XCTAssertEqual(storedValue.storedString, nil, "Value should not be accessible and not stored")
     }
 
-    func testStoredValueWithString_setNewValueAndUpdateIt_updatedValueIsAccessibleWithWrapper() {
+    func testStoredValueInUserDefaults_setNewStringValueAndUpdateIt_updatedValueIsAccessibleWithWrapper() {
         // Given
         let storedValue = StoredValueInUserDefaultsWrapper()
         let value = "This is a test"
@@ -59,7 +59,7 @@ class StoredValueInUserDefaultsTests: XCTestCase {
         XCTAssertEqual(storedValue.storedString, updatedValue, "Updated value should be accessible and stored")
     }
 
-    func testStoredValueWithDate_setNewValue_valueIsAccessibleWithWrapper() {
+    func testStoredValueInUserDefaults_setNewDateValue_valueIsAccessibleWithWrapper() {
         // Given
         let storedValue = StoredValueInUserDefaultsWrapper()
         let value = Date()
@@ -71,7 +71,7 @@ class StoredValueInUserDefaultsTests: XCTestCase {
         XCTAssertEqual(storedValue.storedDate?.timeIntervalSince1970, value.timeIntervalSince1970, "Date should be accessible and stored")
     }
 
-    func testStoredValueWithDate_setNewValueAndRemoveIt_valueIsNotAccessibleWithWrapper() {
+    func testStoredValueInUserDefaults_setNewDateValueAndRemoveIt_valueIsNotAccessibleWithWrapper() {
         // Given
         let storedValue = StoredValueInUserDefaultsWrapper()
         let value = Date()
@@ -84,7 +84,7 @@ class StoredValueInUserDefaultsTests: XCTestCase {
         XCTAssertEqual(storedValue.storedDate, nil, "Date should not be accessible and not stored")
     }
 
-    func testStoredValueWithDate_setNewValueAndUpdateIt_updatedValueIsAccessibleWithWrapper() {
+    func testStoredValueInUserDefaults_setNewDateValueAndUpdateIt_updatedValueIsAccessibleWithWrapper() {
         // Given
         let storedValue = StoredValueInUserDefaultsWrapper()
         let value = Date()
