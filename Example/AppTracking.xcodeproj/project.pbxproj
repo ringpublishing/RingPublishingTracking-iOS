@@ -237,6 +237,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
+				ORGANIZATIONNAME = "Ringier Axel Springer Tech";
 				TargetAttributes = {
 					7D1C1B4226E657430051A267 = {
 						CreatedOnToolsVersion = 12.5;

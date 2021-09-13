@@ -3,6 +3,7 @@
 //  Service
 //
 //  Created by Artur Rymarz on 09/09/2021.
+//  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
@@ -11,22 +12,19 @@ public typealias HTTPHeaders = [String: String]
 public typealias Parameters = [String: Any]
 
 struct APIService: Service {
-    init() {
+    let configuration: Configuration
 
+    init(configuration: Configuration) {
+        self.configuration = configuration
     }
 
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void) {
-        var request = URLRequest(url: URL(string: "")!)
+        var request = URLRequest(url: configuration.apiUrl ?? Constants.apiUrl)
         request.httpMethod = endpoint.method.rawValue
         request.allHTTPHeaderFields = endpoint.headers
-//        request.addHeaders(endpoint.headers)
 
         switch endpoint.method {
         case .post:
-            guard let parameters = endpoint.parameters else {
-                return
-            }
-
             do {
                 request.httpBody = try endpoint.encodedBody()
             } catch {
@@ -61,11 +59,3 @@ struct APIService: Service {
         }.resume()
     }
 }
-
-//extension URLRequest {
-//    mutating func addHeaders(_ headers: HTTPHeaders?) {
-//        headers?.forEach {
-//            addValue($0.value, forHTTPHeaderField: $0.key)
-//        }
-//    }
-//}
