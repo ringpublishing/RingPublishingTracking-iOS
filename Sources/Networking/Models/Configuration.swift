@@ -8,13 +8,27 @@
 
 import Foundation
 
+/// Configuration of AppTracking SDK
 public struct Configuration {
-    
-    let tenantId: String
-    let apiKey: String
-    let publicationsRootName: String
-    let apiUrl: URL?
 
+    /// Tenant identifier
+    public let tenantId: String
+
+    /// API key
+    public let apiKey: String
+
+    /// Publication's root name
+    public let publicationsRootName: String
+
+    /// API url
+    public let apiUrl: URL?
+
+    /// Initialize for configuration data used in AppTracking SDK
+    /// - Parameters:
+    ///   - tenantId: Identifier of the tenant
+    ///   - apiKey: API key
+    ///   - publicationsRootName: Publication's root name
+    ///   - apiUrl: API url
     public init(tenantId: String, apiKey: String, publicationsRootName: String, apiUrl: URL? = nil) {
         self.tenantId = tenantId
         self.apiKey = apiKey
