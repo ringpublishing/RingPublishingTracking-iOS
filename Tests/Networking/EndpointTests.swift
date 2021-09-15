@@ -50,7 +50,7 @@ class EndpointTests: XCTestCase {
         let expectation = self.expectation(description: "request made")
 
         // When
-        var testResponse: IdentityResponse?
+        var testResponse: IdentifyResponse?
         service.call(endpoint) { result in
             switch result {
             case .failure:

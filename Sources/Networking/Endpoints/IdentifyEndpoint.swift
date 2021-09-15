@@ -12,7 +12,7 @@ struct IdentifyEnpoint: Endpoint {
     
     let path: String = "\(Constants.apiVersion)/me"
     let method: HTTPMethod = .post
-    let body: IdentityRequest?
+    let body: IdentifyRequest?
 
     func encodedBody() throws -> Data? {
         guard let body = body else {
@@ -22,7 +22,7 @@ struct IdentifyEnpoint: Endpoint {
         return try JSONEncoder().encode(body)
     }
 
-    func decode(data: Data) throws -> IdentityResponse? {
-        try JSONDecoder().decode(IdentityResponse.self, from: data)
+    func decode(data: Data) throws -> IdentifyResponse? {
+        try JSONDecoder().decode(IdentifyResponse.self, from: data)
     }
 }
