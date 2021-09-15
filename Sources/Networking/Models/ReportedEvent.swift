@@ -9,11 +9,13 @@
 import Foundation
 
 struct ReportedEvent: Encodable {
+
     let clientId: String
     let eventType: String
     let data: [String: Encodable]
 
     enum CodingKeys: String, CodingKey {
+        
         case clientId = "ac"
         case eventType = "et"
         case data

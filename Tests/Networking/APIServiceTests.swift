@@ -9,7 +9,9 @@
 import XCTest
 
 private struct TestEndpoint: Endpoint {
+
     struct Response: Decodable {
+        
         let value: String
     }
 
@@ -31,12 +33,11 @@ class APIServiceTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
     }
 
     // MARK: Tests
 
-    func testSimpleServiceRequest() {
+    func testApiService_sendSimpleRequest_closureIsCalledWithSuccessResult() {
         // Given
         let config = Configuration(tenantId: "test",
                                    apiKey: "test_key",

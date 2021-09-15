@@ -9,6 +9,7 @@
 import Foundation
 
 struct IdsWithLifetime: Decodable {
+    
     let value: String?
     let lifetime: Int?
 }

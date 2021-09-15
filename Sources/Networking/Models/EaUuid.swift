@@ -9,6 +9,7 @@
 import Foundation
 
 struct EaUuid {
+    
     let value: String
     let lifetime: Int
 }

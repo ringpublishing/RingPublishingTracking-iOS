@@ -9,7 +9,8 @@
 import Foundation
 
 struct IdentifyEnpoint: Endpoint {
-    let path: String = "v3/me"
+    
+    let path: String = "\(Constants.apiVersion)/me"
     let method: HTTPMethod = .post
     let body: IdentityRequest?
 

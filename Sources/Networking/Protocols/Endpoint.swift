@@ -11,6 +11,7 @@ import Foundation
 public typealias HTTPHeaders = [String: String]
 
 protocol Endpoint {
+
     associatedtype Body = Encodable
     associatedtype Response = Decodable
 
@@ -24,6 +25,7 @@ protocol Endpoint {
 }
 
 extension Endpoint {
+
     var headers: HTTPHeaders {
         [
             "Content-Type": "application/json",

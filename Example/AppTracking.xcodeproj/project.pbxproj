@@ -29,9 +29,10 @@
 		20C2393926F1574A005A734A /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2392226F1574A005A734A /* Endpoint.swift */; };
 		20C2393A26F1574A005A734A /* StoredValueInUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2392426F1574A005A734A /* StoredValueInUserDefaults.swift */; };
 		20C2393B26F1574A005A734A /* AppTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2392526F1574A005A734A /* AppTracking.swift */; };
-		20C2393D26F1575C005A734A /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2393C26F1575C005A734A /* APIServiceTests.swift */; };
-		20C2394126F1D07B005A734A /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394026F1D07B005A734A /* EndpointTests.swift */; };
-		20C2394426F1D11F005A734A /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394326F1D11F005A734A /* NetworkSessionMock.swift */; };
+		20C2394626F21A14005A734A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394526F21A14005A734A /* NetworkService.swift */; };
+		20C2394B26F22238005A734A /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394826F22238005A734A /* EndpointTests.swift */; };
+		20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394926F22238005A734A /* NetworkSessionMock.swift */; };
+		20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394A26F22238005A734A /* APIServiceTests.swift */; };
 		2536E3B07B61A064628951DB /* Pods_AppTrackingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED067BC36C6C6FA35D9F88B6 /* Pods_AppTrackingTests.framework */; };
 		7D1A2B5626E7567C00648882 /* AppTrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2B5526E7567C00648882 /* AppTrackingTests.swift */; };
 		7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */; };
@@ -78,9 +79,10 @@
 		20C2392226F1574A005A734A /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		20C2392426F1574A005A734A /* StoredValueInUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredValueInUserDefaults.swift; sourceTree = "<group>"; };
 		20C2392526F1574A005A734A /* AppTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTracking.swift; sourceTree = "<group>"; };
-		20C2393C26F1575C005A734A /* APIServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
-		20C2394026F1D07B005A734A /* EndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
-		20C2394326F1D11F005A734A /* NetworkSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
+		20C2394526F21A14005A734A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		20C2394826F22238005A734A /* EndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
+		20C2394926F22238005A734A /* NetworkSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
+		20C2394A26F22238005A734A /* APIServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
 		2278D1C8F7C5BBD725418D51 /* Pods-AppTrackingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTrackingTests.debug.xcconfig"; path = "Target Support Files/Pods-AppTrackingTests/Pods-AppTrackingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		76FA62F5BE77A68BB521D5F8 /* Pods-AppTracking-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTracking-Example.release.xcconfig"; path = "Target Support Files/Pods-AppTracking-Example/Pods-AppTracking-Example.release.xcconfig"; sourceTree = "<group>"; };
 		7D1A2B5526E7567C00648882 /* AppTrackingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingTests.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				20C2392126F1574A005A734A /* Service.swift */,
 				20C2392226F1574A005A734A /* Endpoint.swift */,
+				20C2394526F21A14005A734A /* NetworkService.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -222,22 +225,22 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		20C2393F26F1D060005A734A /* Networking */ = {
+		20C2394726F22238005A734A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				20C2394226F1D10A005A734A /* Helpers */,
-				20C2393C26F1575C005A734A /* APIServiceTests.swift */,
-				20C2394026F1D07B005A734A /* EndpointTests.swift */,
+				20C2394E26F22241005A734A /* Mocks */,
+				20C2394826F22238005A734A /* EndpointTests.swift */,
+				20C2394A26F22238005A734A /* APIServiceTests.swift */,
 			);
-			name = Networking;
+			path = Networking;
 			sourceTree = "<group>";
 		};
-		20C2394226F1D10A005A734A /* Helpers */ = {
+		20C2394E26F22241005A734A /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				20C2394326F1D11F005A734A /* NetworkSessionMock.swift */,
+				20C2394926F22238005A734A /* NetworkSessionMock.swift */,
 			);
-			name = Helpers;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		29B7D76AA282158CF190E0E4 /* Frameworks */ = {
@@ -252,7 +255,7 @@
 		7D1A2B5426E7567000648882 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				20C2393F26F1D060005A734A /* Networking */,
+				20C2394726F22238005A734A /* Networking */,
 				7D1A2B5526E7567C00648882 /* AppTrackingTests.swift */,
 				7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */,
 				7DE4453A26E8913900A93431 /* LoggerTests.swift */,
@@ -499,6 +502,7 @@
 				20C2393526F1574A005A734A /* Configuration.swift in Sources */,
 				7D1A2B5626E7567C00648882 /* AppTrackingTests.swift in Sources */,
 				20C2393226F1574A005A734A /* EaUuid.swift in Sources */,
+				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
 				7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */,
 				20C2393B26F1574A005A734A /* AppTracking.swift in Sources */,
@@ -512,13 +516,13 @@
 				20C2392626F1574A005A734A /* Constants.swift in Sources */,
 				20C2392C26F1574A005A734A /* EventRequest.swift in Sources */,
 				20C2393926F1574A005A734A /* Endpoint.swift in Sources */,
-				20C2394426F1D11F005A734A /* NetworkSessionMock.swift in Sources */,
 				20C2392F26F1574A005A734A /* HTTPMethod.swift in Sources */,
 				20C2392E26F1574A005A734A /* APIService.swift in Sources */,
-				20C2394126F1D07B005A734A /* EndpointTests.swift in Sources */,
+				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
+				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
 				20C2393826F1574A005A734A /* Service.swift in Sources */,
 				20C2393026F1574A005A734A /* ServiceError.swift in Sources */,
-				20C2393D26F1575C005A734A /* APIServiceTests.swift in Sources */,
+				20C2394626F21A14005A734A /* NetworkService.swift in Sources */,
 				20C2392A26F1574A005A734A /* SendEventEndpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

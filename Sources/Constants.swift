@@ -9,5 +9,7 @@
 import Foundation
 
 struct Constants {
+
     static let apiUrl: URL = URL(string: "https://events.ocdn.eu")!
+    static let apiVersion: String = "v3"
 }

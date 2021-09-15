@@ -9,6 +9,7 @@
 import Foundation
 
 struct IdentityRequest: Encodable {
+    
     let ids: [String: String]
     let user: User?
 }

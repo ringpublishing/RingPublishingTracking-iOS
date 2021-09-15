@@ -9,6 +9,7 @@
 import Foundation
 
 enum ServiceError: Error {
+    
     case noData
     case invalidUrl
     case incorrectRequestBody

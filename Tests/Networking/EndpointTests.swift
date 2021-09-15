@@ -9,11 +9,13 @@
 import XCTest
 
 class EndpointTests: XCTestCase {
+
+    // MARK: Setup
+
     let config = Configuration(tenantId: "test",
                                apiKey: "test_key",
                                publicationsRootName: "test_root_name",
                                apiUrl: URL(string: "https://test.com"))
-    // MARK: Setup
 
     override func setUp() {
         super.setUp()
@@ -21,7 +23,7 @@ class EndpointTests: XCTestCase {
 
     // MARK: Tests
 
-    func testIdentifyEndpoint() {
+    func testIdentifyEndpoint_sendIdentifyRequest_responseIsProperlyDecoded() {
         // Given
         let endpoint = IdentifyEnpoint(body: nil)
 
@@ -65,7 +67,7 @@ class EndpointTests: XCTestCase {
         XCTAssertEqual(testResponse?.postInterval, 30000, "postInterval of decoded response should match")
     }
 
-    func testSendEventEndpoint() {
+    func testSendEventEndpoint_sendEventsRequest_responseIsProperlyDecoded() {
         // Given
         let body = EventRequest(ids: ["eaUUID": "12345678"],
                                 user: User(adpConsent: nil, pubConsent: nil),

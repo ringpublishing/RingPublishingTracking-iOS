@@ -8,23 +8,15 @@
 
 import Foundation
 
-protocol NetworkSession {
-    func dataTask(with request: URLRequest,
-                  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
-}
-
-extension URLSession: NetworkSession {
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        dataTask(with: request, completionHandler: completionHandler).resume()
-    }
-}
-
 struct APIService: Service {
-    let configuration: Configuration
+
+    let apiUrl: URL
+    let apiKey: String
     let session: NetworkSession
 
     init(configuration: Configuration, session: NetworkSession = URLSession.shared) {
-        self.configuration = configuration
+        self.apiUrl = configuration.apiUrl ?? Constants.apiUrl
+        self.apiKey = configuration.apiKey
         self.session = session
     }
 
@@ -34,14 +26,14 @@ struct APIService: Service {
             return
         }
 
-        let urlString = (configuration.apiUrl ?? Constants.apiUrl).appendingPathComponent(path).absoluteString
+        let urlString = apiUrl.appendingPathComponent(path).absoluteString
         guard var urlComponents = URLComponents(string: urlString) else {
             completion(.failure(.invalidUrl))
             return
         }
 
         urlComponents.queryItems = [
-            URLQueryItem(name: "_key", value: configuration.apiKey)
+            URLQueryItem(name: "_key", value: apiKey)
         ]
 
         guard let url = urlComponents.url else {

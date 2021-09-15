@@ -9,6 +9,7 @@
 import Foundation
 
 public struct Configuration {
+    
     let tenantId: String
     let apiKey: String
     let publicationsRootName: String

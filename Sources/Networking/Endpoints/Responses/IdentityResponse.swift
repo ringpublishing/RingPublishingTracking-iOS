@@ -9,6 +9,7 @@
 import Foundation
 
 struct IdentityResponse: Decodable {
+    
     let ids: [String: IdsWithLifetime]
     let profile: Profile
     let postInterval: Int

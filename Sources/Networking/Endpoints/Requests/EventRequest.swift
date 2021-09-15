@@ -9,6 +9,7 @@
 import Foundation
 
 struct EventRequest: Encodable {
+    
     let ids: [String: String]
     let user: User
     let events: [ReportedEvent]

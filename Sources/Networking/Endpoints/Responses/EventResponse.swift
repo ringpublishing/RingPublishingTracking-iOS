@@ -9,5 +9,6 @@
 import Foundation
 
 struct EventResponse: Decodable {
+    
     let postInterval: Int
 }
