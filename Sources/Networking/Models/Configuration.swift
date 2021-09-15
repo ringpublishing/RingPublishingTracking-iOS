@@ -8,9 +8,16 @@
 
 import Foundation
 
-struct Configuration {
+public struct Configuration {
     let tenantId: String
     let apiKey: String
     let publicationsRootName: String
     let apiUrl: URL?
+
+    public init(tenantId: String, apiKey: String, publicationsRootName: String, apiUrl: URL? = nil) {
+        self.tenantId = tenantId
+        self.apiKey = apiKey
+        self.publicationsRootName = publicationsRootName
+        self.apiUrl = apiUrl
+    }
 }

@@ -8,16 +8,31 @@
 
 import Foundation
 
+public typealias HTTPHeaders = [String: String]
+
 protocol Endpoint {
     associatedtype Body = Encodable
     associatedtype Response = Decodable
 
     var path: String { get }
     var method: HTTPMethod { get }
-    var headers: HTTPHeaders? { get }
-    var parameters: Parameters? { get }
+    var headers: HTTPHeaders { get }
     var body: Body? { get }
 
     func encodedBody() throws -> Data?
     func decode(data: Data) throws -> Response?
+}
+
+extension Endpoint {
+    var headers: HTTPHeaders {
+        [
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": UserAgent.appTrackingUserAgent
+        ]
+    }
+
+    var body: Void? {
+        nil
+    }
 }
