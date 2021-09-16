@@ -9,6 +9,6 @@
 import Foundation
 
 struct Profile: Decodable {
-    
+
     let segments: [String: String]?
 }

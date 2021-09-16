@@ -4,8 +4,8 @@ excluded:
 - build
 included:
 - ./
-- ../Sources/
-- ../Tests/
+- ../Sources
+- ../Tests
 force_cast: warning
 force_try: warning
 opt_in_rules:

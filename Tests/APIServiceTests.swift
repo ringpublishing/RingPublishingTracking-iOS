@@ -39,10 +39,10 @@ class APIServiceTests: XCTestCase {
 
     func testApiService_sendSimpleRequest_closureIsCalledWithSuccessResult() {
         // Given
-        let config = Configuration(tenantId: "test",
-                                   apiKey: "test_key",
-                                   publicationsRootName: "test_root_name",
-                                   apiUrl: URL(string: "https://test.com"))
+        let config = AppTrackingConfiguration(tenantId: "test",
+                                              publicationsRootName: "test_root_name",
+                                              apiKey: "test_key",
+                                              apiUrl: URL(string: "https://test.com"))
         let sessionMock = NetworkSessionMock()
         sessionMock.data = Data()
 

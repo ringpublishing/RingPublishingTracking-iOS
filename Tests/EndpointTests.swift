@@ -12,10 +12,10 @@ class EndpointTests: XCTestCase {
 
     // MARK: Setup
 
-    let config = Configuration(tenantId: "test",
-                               apiKey: "test_key",
-                               publicationsRootName: "test_root_name",
-                               apiUrl: URL(string: "https://test.com"))
+    let config = AppTrackingConfiguration(tenantId: "test",
+                                          publicationsRootName: "test_root_name",
+                                          apiKey: "test_key",
+                                          apiUrl: URL(string: "https://test.com"))
 
     override func setUp() {
         super.setUp()

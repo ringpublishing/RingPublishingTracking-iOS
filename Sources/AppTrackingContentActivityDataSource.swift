@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 /// Content activity status
 public typealias ContentActivityStatus = (scrollOffset: CGFloat, contentSize: CGSize)

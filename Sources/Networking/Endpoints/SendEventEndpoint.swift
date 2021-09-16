@@ -9,7 +9,7 @@
 import Foundation
 
 struct SendEventEnpoint: Endpoint {
-    
+
     let path: String = Constants.apiVersion
     let method: HTTPMethod = .post
     let body: EventRequest

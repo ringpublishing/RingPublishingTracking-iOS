@@ -9,7 +9,7 @@
 import Foundation
 
 struct IdsWithLifetime: Decodable {
-    
+
     /// The identifier refresh's date (format: yyyyMMddHHmmssSSSSSSSSSS)
     let value: String?
 
