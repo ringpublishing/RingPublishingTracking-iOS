@@ -15,7 +15,7 @@ struct ReportedEvent: Encodable {
     let data: [String: Encodable]
 
     enum CodingKeys: String, CodingKey {
-        
+
         case clientId = "ac"
         case eventType = "et"
         case data

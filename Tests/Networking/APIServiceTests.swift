@@ -11,7 +11,7 @@ import XCTest
 private struct TestEndpoint: Endpoint {
 
     struct Response: Decodable {
-        
+
         let value: String
     }
 

@@ -17,7 +17,7 @@ struct User: Encodable {
     let userEmailMD5: String? = nil
 
     enum CodingKeys: String, CodingKey {
-        
+
         case adpConsent, pubConsent, deviceId
         case advertisementId = "advId"
         case userEmailMD5 = "aId"
