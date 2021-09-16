@@ -14,7 +14,7 @@ struct APIService: Service {
     let apiKey: String
     let session: NetworkSession
 
-    init(configuration: Configuration, session: NetworkSession = URLSession.shared) {
+    init(configuration: AppTrackingConfiguration, session: NetworkSession = URLSession.shared) {
         self.apiUrl = configuration.apiUrl ?? Constants.apiUrl
         self.apiKey = configuration.apiKey
         self.session = session

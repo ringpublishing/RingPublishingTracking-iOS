@@ -8,8 +8,17 @@
 
 import Foundation
 
+// swiftlint:disable force_unwrapping
+
 struct Constants {
+
+    // MARK: API
 
     static let apiUrl: URL = URL(string: "https://events.ocdn.eu")!
     static let apiVersion: String = "v3"
+
+    // MARK: Event params
+
+    static let eventDefaultAnalyticsSystemName = "_GENERIC"
+    static let eventDefaultName = "Event"
 }
