@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--AppTracking demo app-->
+        <!--AppTracking demo-->
         <scene sceneID="Ou0-Lz-V4x">
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Idk-ZO-Td5" customClass="HomeViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="AppTracking demo app" id="MJe-mJ-u0v"/>
+                    <navigationItem key="navigationItem" title="AppTracking demo" id="MJe-mJ-u0v"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AxA-V9-EVG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -41,9 +41,29 @@
                     <view key="view" contentMode="scaleToFill" id="8Fv-Sv-P6F">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="i0Q-uj-vFb">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dKT-N0-4Ci" id="GoI-sZ-a8y"/>
+                                    <outlet property="delegate" destination="dKT-N0-4Ci" id="XpO-3q-zl1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="5Lv-Vs-bRk"/>
-                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="i0Q-uj-vFb" firstAttribute="leading" secondItem="5Lv-Vs-bRk" secondAttribute="leading" id="Bph-a9-LBe"/>
+                            <constraint firstItem="5Lv-Vs-bRk" firstAttribute="bottom" secondItem="i0Q-uj-vFb" secondAttribute="bottom" id="DvS-QQ-Ik4"/>
+                            <constraint firstItem="i0Q-uj-vFb" firstAttribute="top" secondItem="5Lv-Vs-bRk" secondAttribute="top" id="XAl-7W-HNV"/>
+                            <constraint firstItem="5Lv-Vs-bRk" firstAttribute="trailing" secondItem="i0Q-uj-vFb" secondAttribute="trailing" id="h4M-7G-Wa9"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="i0Q-uj-vFb" id="WAM-er-q34"/>
+                        <segue destination="t9l-qS-kSS" kind="show" identifier="DetailViewControllerSegue" id="j11-ek-b2W"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSz-eg-bSN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -66,13 +86,29 @@
             </objects>
             <point key="canvasLocation" x="-60" y="112"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Nu8-Et-rtu">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="t9l-qS-kSS" customClass="DetailViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JZT-F4-9QQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Ioj-CY-hTd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hga-h6-7gq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bp0-FX-JjT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2613" y="163"/>
+        </scene>
     </scenes>
     <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
