@@ -36,7 +36,7 @@ public struct ContentMetadata {
     ///   - publicationUrl: Website url address for given publication
     ///   - sourceSystemName: Source system (CMS) name
     ///   - contentPartIndex: Index of displayed content part (applies only if given content can be consumed in parts).
-    ///   - contentWasPaidFor: Did user paid for access to this content?
+    ///   - contentWasPaidFor: Did user pay for access to this content?
     public init(publicationId: String,
                 publicationUrl: URL,
                 sourceSystemName: String,
