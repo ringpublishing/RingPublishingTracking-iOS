@@ -75,6 +75,32 @@ public class AppTracking {
         // TODO: Implementation missing
     }
 
+    // MARK: Dynamic tracking properties
+
+    /// Update application user identifier for tracking purpose.
+    /// If user is not logged in, pass nil as 'userId'.
+    ///
+    /// - Parameters:
+    ///   - ssoSystemName: Name of SSO system used to login
+    ///   - userId: User identifier
+    public func updateApplicationUserData(ssoSystemName: String, userId: String?) {
+        // TODO: Implementation missing
+    }
+
+    /// Update application area used to identify application screen, for example "list/sport".
+    ///
+    /// - Parameter currentAppArea: String
+    public func updateApplicationArea(currentAppArea: String) {
+        // TODO: Implementation missing
+    }
+
+    /// Update ad space name of the application, for example "ads/list/sport"
+    ///
+    /// - Parameter currentAdvertisementArea: String
+    public func updateApplicationAdvertisementArea(currentAdvertisementArea: String) {
+        // TODO: Implementation missing
+    }
+
     // MARK: Generic event
 
     /// Reports generic event which is not predefined in module

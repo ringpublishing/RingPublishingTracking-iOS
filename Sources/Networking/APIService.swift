@@ -14,6 +14,7 @@ struct APIService: Service {
     let apiKey: String
     let session: NetworkSession
 
+    // TODO: [ASZ] In my opinion it would be better to pass here only what is needed - not whole public config
     init(configuration: AppTrackingConfiguration, session: NetworkSession = URLSession.shared) {
         self.apiUrl = configuration.apiUrl ?? Constants.apiUrl
         self.apiKey = configuration.apiKey
