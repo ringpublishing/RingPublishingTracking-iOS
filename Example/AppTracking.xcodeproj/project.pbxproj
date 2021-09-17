@@ -42,9 +42,12 @@
 		7D0B887526F4AD9B0080A764 /* AppTracking+CurrentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885626F4AD9B0080A764 /* AppTracking+CurrentState.swift */; };
 		7D0B887626F4AD9B0080A764 /* AppTrackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885726F4AD9B0080A764 /* AppTrackingConfiguration.swift */; };
 		7D0B887726F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885826F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift */; };
+		7D0B887A26F4B0AF0080A764 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B887926F4B0AF0080A764 /* ListViewController.swift */; };
+		7D0B887C26F4B0DC0080A764 /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B887B26F4B0DC0080A764 /* ActionsViewController.swift */; };
+		7D0B887F26F4B2040080A764 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B887E26F4B2040080A764 /* PagerViewController.swift */; };
 		7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */; };
 		7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4626E657430051A267 /* AppDelegate.swift */; };
-		7D1C1B4B26E657430051A267 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4A26E657430051A267 /* ViewController.swift */; };
+		7D1C1B4B26E657430051A267 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4A26E657430051A267 /* HomeViewController.swift */; };
 		7D1C1B4E26E657430051A267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4C26E657430051A267 /* Main.storyboard */; };
 		7D1C1B5026E657460051A267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4F26E657460051A267 /* Assets.xcassets */; };
 		7D1C1B5326E657460051A267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B5126E657460051A267 /* LaunchScreen.storyboard */; };
@@ -100,10 +103,13 @@
 		7D0B885626F4AD9B0080A764 /* AppTracking+CurrentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+CurrentState.swift"; sourceTree = "<group>"; };
 		7D0B885726F4AD9B0080A764 /* AppTrackingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingConfiguration.swift; sourceTree = "<group>"; };
 		7D0B885826F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+ContentPerformanceMonitor.swift"; sourceTree = "<group>"; };
+		7D0B887926F4B0AF0080A764 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		7D0B887B26F4B0DC0080A764 /* ActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
+		7D0B887E26F4B2040080A764 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredValueInUserDefaultsTests.swift; sourceTree = "<group>"; };
 		7D1C1B4326E657430051A267 /* AppTracking-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppTracking-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1C1B4626E657430051A267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7D1C1B4A26E657430051A267 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7D1C1B4A26E657430051A267 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7D1C1B4D26E657430051A267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7D1C1B4F26E657460051A267 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D1C1B5226E657460051A267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -272,6 +278,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		7D0B887826F4AF960080A764 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7D1C1B4A26E657430051A267 /* HomeViewController.swift */,
+				7D0B887926F4B0AF0080A764 /* ListViewController.swift */,
+				7D0B887B26F4B0DC0080A764 /* ActionsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7D0B887D26F4B1F00080A764 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				7D0B887E26F4B2040080A764 /* PagerViewController.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		7D1A2B5426E7567000648882 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,7 +332,8 @@
 			isa = PBXGroup;
 			children = (
 				7D1C1B4626E657430051A267 /* AppDelegate.swift */,
-				7D1C1B4A26E657430051A267 /* ViewController.swift */,
+				7D0B887D26F4B1F00080A764 /* Protocol */,
+				7D0B887826F4AF960080A764 /* Controller */,
 				7D1C1B4C26E657430051A267 /* Main.storyboard */,
 				7D1C1B4F26E657460051A267 /* Assets.xcassets */,
 				7D1C1B5126E657460051A267 /* LaunchScreen.storyboard */,
@@ -507,8 +532,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D1C1B4B26E657430051A267 /* ViewController.swift in Sources */,
+				7D1C1B4B26E657430051A267 /* HomeViewController.swift in Sources */,
 				7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */,
+				7D0B887C26F4B0DC0080A764 /* ActionsViewController.swift in Sources */,
+				7D0B887A26F4B0AF0080A764 /* ListViewController.swift in Sources */,
+				7D0B887F26F4B2040080A764 /* PagerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
