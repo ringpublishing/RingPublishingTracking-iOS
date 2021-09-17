@@ -17,6 +17,11 @@ struct Constants {
     static let apiUrl: URL = URL(string: "https://events.ocdn.eu")!
     static let apiVersion: String = "v3"
 
+    // MARK: Config
+
+    static let applicationDefaultStructurePath = "undefined"
+    static let applicationDefaultAdvertisementArea = "undefined"
+
     // MARK: Event params
 
     static let eventDefaultAnalyticsSystemName = "_GENERIC"

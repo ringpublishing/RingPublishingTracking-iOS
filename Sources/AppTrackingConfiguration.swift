@@ -20,17 +20,17 @@ public struct AppTrackingConfiguration {
     /// API url
     public let apiUrl: URL?
 
-    /// Application root area, for example app name like "onet" or "blick".
-    /// This value will be used together with application current area to identify app screen
-    public let applicationRootArea: String
+    /// Application root path, for example app name like "onet" or "blick".
+    /// This value will be used together with application current structure path to identify app screen
+    public let applicationRootPath: String
 
-    /// Application default area, for example "list/sport".
+    /// Application structure path used to identify application screen, for example "home_screen".
     /// If no new value will be set during app session, this value will be always used.
-    public let applicationDefaultArea: String
+    public let applicationDefaultStructurePath: String
 
     /// Default ad space name of the application, for example "ads/list/sport"
     /// If no new value will be set during app session, this value will be always used.
-    public let applicationDefaultAdvertisementArea: String?
+    public let applicationDefaultAdvertisementArea: String
 
     // MARK: Init
 
@@ -40,20 +40,21 @@ public struct AppTrackingConfiguration {
     ///   - tenantId: Identifier of the tenant
     ///   - apiKey: API key
     ///   - apiUrl: Optional API url. If not set, default endpoint will be used.
-    ///   - applicationRootArea: Application root area, for example app name like "onet" or "blick".
-    ///   - applicationDefaultArea: Application default area, for example "list/sport".
-    ///   - applicationDefaultAdvertisementArea: Default ad space name of the application, for example "ads/list/sport"
+    ///   - aapplicationRootPath: Application root path, for example app name like "onet" or "blick".
+    ///   - applicationDefaultStructurePath: Application default area, for example "home_screen", "undefined" by default
+    ///   - applicationDefaultAdvertisementArea: Default ad space name of the application,
+    ///   for example "ads/list/sport", "undefined" by default
     public init(tenantId: String,
                 apiKey: String,
                 apiUrl: URL? = nil,
-                applicationRootArea: String,
-                applicationDefaultArea: String,
+                applicationRootPath: String,
+                applicationDefaultStructurePath: String? = nil,
                 applicationDefaultAdvertisementArea: String? = nil) {
         self.tenantId = tenantId
         self.apiKey = apiKey
         self.apiUrl = apiUrl
-        self.applicationRootArea = applicationRootArea
-        self.applicationDefaultArea = applicationDefaultArea
-        self.applicationDefaultAdvertisementArea = applicationDefaultAdvertisementArea
+        self.applicationRootPath = applicationRootPath
+        self.applicationDefaultStructurePath = applicationDefaultStructurePath ?? Constants.applicationDefaultStructurePath
+        self.applicationDefaultAdvertisementArea = applicationDefaultAdvertisementArea ?? Constants.applicationDefaultAdvertisementArea
     }
 }
