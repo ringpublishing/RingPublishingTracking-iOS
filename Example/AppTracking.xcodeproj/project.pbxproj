@@ -53,6 +53,8 @@
 		7D1C1B5326E657460051A267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B5126E657460051A267 /* LaunchScreen.storyboard */; };
 		7D436B4726F4C5DC00510ED8 /* SampleArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D436B4626F4C5DC00510ED8 /* SampleArticle.swift */; };
 		7D436B4A26F4C87700510ED8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D436B4926F4C87700510ED8 /* DetailViewController.swift */; };
+		7D5DDF9E26F7235300A4375F /* TraceableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5DDF9D26F7235300A4375F /* TraceableScreen.swift */; };
+		7D5DDFA026F7239400A4375F /* ScreenTrackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5DDF9F26F7239400A4375F /* ScreenTrackingData.swift */; };
 		7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE4453A26E8913900A93431 /* LoggerTests.swift */; };
 		854F1289D6E3FA4BC790018B /* Pods_AppTracking_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2945259492AA544792B04F /* Pods_AppTracking_Example.framework */; };
 /* End PBXBuildFile section */
@@ -120,6 +122,8 @@
 		7D1C1B5F26E657460051A267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Tests/Info.plist; sourceTree = SOURCE_ROOT; };
 		7D436B4626F4C5DC00510ED8 /* SampleArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleArticle.swift; sourceTree = "<group>"; };
 		7D436B4926F4C87700510ED8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		7D5DDF9D26F7235300A4375F /* TraceableScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceableScreen.swift; sourceTree = "<group>"; };
+		7D5DDF9F26F7239400A4375F /* ScreenTrackingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTrackingData.swift; sourceTree = "<group>"; };
 		7DE4453A26E8913900A93431 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		8E2A37C5A1593C87B0EB5A44 /* Pods-AppTrackingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTrackingTests.release.xcconfig"; path = "Target Support Files/Pods-AppTrackingTests/Pods-AppTrackingTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF2945259492AA544792B04F /* Pods_AppTracking_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppTracking_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				7D0B887E26F4B2040080A764 /* PagerViewController.swift */,
+				7D5DDF9D26F7235300A4375F /* TraceableScreen.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -336,14 +341,12 @@
 		7D1C1B4526E657430051A267 /* AppTracking */ = {
 			isa = PBXGroup;
 			children = (
+				7D1C1B5426E657460051A267 /* Info.plist */,
 				7D1C1B4626E657430051A267 /* AppDelegate.swift */,
+				7D5DDFA126F7243800A4375F /* Resources */,
 				7D436B4826F4C63000510ED8 /* Model */,
 				7D0B887D26F4B1F00080A764 /* Protocol */,
 				7D0B887826F4AF960080A764 /* Controller */,
-				7D1C1B4C26E657430051A267 /* Main.storyboard */,
-				7D1C1B4F26E657460051A267 /* Assets.xcassets */,
-				7D1C1B5126E657460051A267 /* LaunchScreen.storyboard */,
-				7D1C1B5426E657460051A267 /* Info.plist */,
 			);
 			path = AppTracking;
 			sourceTree = "<group>";
@@ -363,8 +366,19 @@
 			isa = PBXGroup;
 			children = (
 				7D436B4626F4C5DC00510ED8 /* SampleArticle.swift */,
+				7D5DDF9F26F7239400A4375F /* ScreenTrackingData.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7D5DDFA126F7243800A4375F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D1C1B4C26E657430051A267 /* Main.storyboard */,
+				7D1C1B4F26E657460051A267 /* Assets.xcassets */,
+				7D1C1B5126E657460051A267 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D8F2BCCA6D38846157E01D50 /* Pods */ = {
@@ -549,9 +563,11 @@
 				7D436B4726F4C5DC00510ED8 /* SampleArticle.swift in Sources */,
 				7D1C1B4B26E657430051A267 /* HomeViewController.swift in Sources */,
 				7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */,
+				7D5DDF9E26F7235300A4375F /* TraceableScreen.swift in Sources */,
 				7D0B887C26F4B0DC0080A764 /* ActionsViewController.swift in Sources */,
 				7D0B887A26F4B0AF0080A764 /* ListViewController.swift in Sources */,
 				7D0B887F26F4B2040080A764 /* PagerViewController.swift in Sources */,
+				7D5DDFA026F7239400A4375F /* ScreenTrackingData.swift in Sources */,
 				7D436B4A26F4C87700510ED8 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

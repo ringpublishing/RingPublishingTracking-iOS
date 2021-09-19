@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import AppTracking
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, TraceableScreen {
 
     @IBOutlet private weak var tableView: UITableView!
 
@@ -23,6 +24,45 @@ class DetailViewController: UIViewController {
         }
     }
 
+    // MARK: TraceableScreen
+
+    var screenTrackingData: ScreenTrackingData {
+        return ScreenTrackingData(structurePath: "Detail", advertisementArea: "DetailAdsArea")
+    }
+
+    // MARK: Life cycle
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Update our tracking properties for this screen
+
+        updateTrackingProperties()
+
+        // Report content page view event and start keep alive tracking
+
+        reportContentPageView(partiallyReloaded: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        let isClosing = isBeingDismissed || isMovingFromParent
+
+        // If our controller with content will not longer be presented we have to stop keep alive tracking
+
+        if isClosing {
+            AppTracking.shared.stopContentKeepAliveTracking()
+            return
+        }
+
+        // If our content controller will be obscured (not by content view) we should pause keep alive tracking and then resume it
+        // when view which covered our content will be dismissed
+        // To resume tracking we can call either again 'reportContentPageView' method or 'resumeContentKeepAliveTracking'
+
+        AppTracking.shared.pauseContentKeepAliveTracking()
+    }
+
     // MARK: Actions
 
     @IBAction func onAddMoreContentActionTouch(_ sender: Any) {
@@ -30,6 +70,23 @@ class DetailViewController: UIViewController {
 
         detailContentBlocks.append(contentsOf: article.content)
         tableView.reloadData()
+
+        // Report page view event when screen was partially reloaded
+        // Keep alive tracking for the same content will not be interrupted
+
+        reportContentPageView(partiallyReloaded: true)
+    }
+
+    @IBAction func onShowModalActionTouch(_ sender: Any) {
+        // Show empty view controller to pause detail content tracking
+        // For demo purpose we are pushing empty controller but this should be handled by the app in all cases:
+        // - pushing view controllers
+        // - presenting modally view controllers
+        // - presenting views which obscure content
+
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .systemBackground
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -49,5 +106,34 @@ extension DetailViewController: UITableViewDataSource {
         cell.textLabel?.numberOfLines = 0
 
         return cell
+    }
+}
+
+// MARK: Private
+private extension DetailViewController {
+
+    func reportContentPageView(partiallyReloaded: Bool) {
+        guard let article = article else { return }
+
+        let contentMetadata = ContentMetadata(publicationId: article.publicationId,
+                                              publicationUrl: article.publicationUrl,
+                                              sourceSystemName: article.sourceSystemName,
+                                              contentWasPaidFor: article.contentWasPaidFor)
+
+        AppTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+                                                 partiallyReloaded: partiallyReloaded,
+                                                 contentKeepAliveDataSource: self)
+    }
+}
+
+// MARK: AppTrackingKeepAliveDataSource
+extension DetailViewController: AppTrackingKeepAliveDataSource {
+
+    func appTracking(_ appTracking: AppTracking,
+                     didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
+        // Return information about content at given point in time
+        // We have to return how big content is and how far the user has scrolled
+
+        return KeepAliveContentStatus(scrollOffset: tableView.contentOffset.y, contentSize: tableView.contentSize)
     }
 }

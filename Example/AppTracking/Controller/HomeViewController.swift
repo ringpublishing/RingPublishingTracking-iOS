@@ -3,6 +3,7 @@
 //  AppTracking
 //
 //  Created by Adam Szeremeta on 06/09/2021.
+//  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +18,6 @@ class HomeViewController: UIPageViewController {
         super.viewDidLoad()
 
         dataSource = self
-        delegate = self
 
         guard let initialController = pagerViewControllers.first else { return }
 
@@ -63,9 +63,4 @@ extension HomeViewController: UIPageViewControllerDataSource {
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return 0
     }
-}
-
-// MARK: UIPageViewControllerDelegate
-extension HomeViewController: UIPageViewControllerDelegate {
-
 }

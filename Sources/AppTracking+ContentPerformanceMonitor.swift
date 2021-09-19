@@ -31,6 +31,9 @@ public extension AppTracking {
     ///   - selectedElementName: String
     ///   - publicationUrl: URL
     func reportContentClick(selectedElementName: String, publicationUrl: URL) {
+        let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
+        Logger.log("Reporting content click event for element named: \(logData)")
+
         // TODO: Implementation missing
     }
 
@@ -68,6 +71,8 @@ public extension AppTracking {
     /// - Parameter partiallyReloaded: Pass true if you content was partially reloaded,
     /// for example next page of articles on the list was added or paid content was presented after user paid for it on the same screen.
     func reportPageView(partiallyReloaded: Bool) {
+        Logger.log("Reporting page view event, partially reloaded: '\(partiallyReloaded)'")
+
         // TODO: Implementation missing
     }
 
@@ -88,21 +93,29 @@ public extension AppTracking {
                                pageViewSource: ContentPageViewSource = .default,
                                partiallyReloaded: Bool,
                                contentKeepAliveDataSource: AppTrackingKeepAliveDataSource) {
+        Logger.log("Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)'")
+
         // TODO: Implementation missing
     }
 
     /// Pauses tracking for currently displayed content
     func pauseContentKeepAliveTracking() {
+        Logger.log("Pausing content keep alive tracking")
+
         // TODO: Implementation missing
     }
 
     /// Resumes tracking for currently displayed content
     func resumeContentKeepAliveTracking() {
+        Logger.log("Resuming content keep alive tracking")
+
         // TODO: Implementation missing
     }
 
     /// Stops tracking for currently displayed content
     func stopContentKeepAliveTracking() {
+        Logger.log("Stopping content keep alive tracking")
+
         // TODO: Implementation missing
     }
 }

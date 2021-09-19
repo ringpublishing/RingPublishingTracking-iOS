@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--AppTracking demo-->
+        <!--Demo-->
         <scene sceneID="Ou0-Lz-V4x">
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Idk-ZO-Td5" customClass="HomeViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="AppTracking demo" id="MJe-mJ-u0v"/>
+                    <navigationItem key="navigationItem" title="Demo" id="MJe-mJ-u0v"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AxA-V9-EVG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -259,11 +259,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Hga-h6-7gq">
-                        <barButtonItem key="rightBarButtonItem" title="Add more content" style="plain" id="bkp-kJ-LBj">
-                            <connections>
-                                <action selector="onAddMoreContentActionTouch:" destination="t9l-qS-kSS" id="zOa-5n-Bi5"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Add more content" style="plain" id="iBw-jl-O7C">
+                                <connections>
+                                    <action selector="onAddMoreContentActionTouch:" destination="t9l-qS-kSS" id="cDU-tl-Daf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Obscure content" style="plain" id="bkp-kJ-LBj">
+                                <connections>
+                                    <action selector="onShowModalActionTouch:" destination="t9l-qS-kSS" id="YTz-NX-LAY"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="N2L-wm-aKb" id="D6t-0M-NrF"/>

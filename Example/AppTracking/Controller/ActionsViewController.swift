@@ -8,11 +8,34 @@
 
 import Foundation
 import UIKit
+import AppTracking
 
-class ActionsViewController: UIViewController, PagerViewController {
+class ActionsViewController: UIViewController, PagerViewController, TraceableScreen {
+
+    // MARK: PagerViewController
 
     var pageIndex: Int {
         return 1
+    }
+
+    // MARK: TraceableScreen
+
+    var screenTrackingData: ScreenTrackingData {
+        return ScreenTrackingData(structurePath: "Actions", advertisementArea: "ActionsAdsArea")
+    }
+
+    // MARK: Life cycle
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Update our tracking properties for this screen
+
+        updateTrackingProperties()
+
+        // Report page view event
+
+        AppTracking.shared.reportPageView(partiallyReloaded: false)
     }
 
     // MARK: Actions (Login + logout)

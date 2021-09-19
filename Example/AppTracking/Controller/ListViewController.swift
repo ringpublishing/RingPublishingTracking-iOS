@@ -8,10 +8,11 @@
 
 import Foundation
 import UIKit
+import AppTracking
 
 // swiftlint:disable force_unwrapping
 
-class ListViewController: UIViewController, PagerViewController {
+class ListViewController: UIViewController, PagerViewController, TraceableScreen {
 
     @IBOutlet private weak var tableView: UITableView!
 
@@ -29,8 +30,30 @@ class ListViewController: UIViewController, PagerViewController {
                       contentWasPaidFor: true)
     ]
 
+    // MARK: PagerViewController
+
     var pageIndex: Int {
         return 0
+    }
+
+    // MARK: TraceableScreen
+
+    var screenTrackingData: ScreenTrackingData {
+        return ScreenTrackingData(structurePath: "List", advertisementArea: "ListAdsArea")
+    }
+
+    // MARK: Life cycle
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Update our tracking properties for this screen
+
+        updateTrackingProperties()
+
+        // Report page view event
+
+        AppTracking.shared.reportPageView(partiallyReloaded: false)
     }
 
     // MARK: Segue
@@ -71,5 +94,11 @@ extension ListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: detailSegueIdentifier, sender: self)
+
+        // Report content click event
+
+        let selectedArticle = sampleArticleData[indexPath.row]
+        AppTracking.shared.reportContentClick(selectedElementName: selectedArticle.title,
+                                              publicationUrl: selectedArticle.publicationUrl)
     }
 }

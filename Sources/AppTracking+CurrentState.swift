@@ -27,6 +27,8 @@ public extension AppTracking {
     ///
     /// - Parameter currentAppArea: String
     func updateApplicationStructurePath(currentStructurePath: String) {
+        Logger.log("Updating application structure path to: '\(currentStructurePath)'")
+
         // TODO: Implementation missing
     }
 
@@ -45,6 +47,8 @@ public extension AppTracking {
     ///
     /// - Parameter currentAdvertisementArea: String
     func updateApplicationAdvertisementArea(currentAdvertisementArea: String) {
+        Logger.log("Updating application advertisement area to: '\(currentAdvertisementArea)'")
+
         // TODO: Implementation missing
     }
 }
