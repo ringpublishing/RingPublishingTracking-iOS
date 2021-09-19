@@ -103,25 +103,75 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="d0H-zo-woo">
+                                <rect key="frame" x="46" y="365" width="322" height="31"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oc-cE-CoI">
+                                        <rect key="frame" x="0.0" y="0.0" width="157" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Enable debug mode"/>
+                                        <connections>
+                                            <action selector="onEnableDebugModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="9y7-MH-nzj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHP-RH-qfw">
+                                        <rect key="frame" x="165" y="0.0" width="157" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Disable debug mode"/>
+                                        <connections>
+                                            <action selector="onDisableDebugModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="RQ4-zp-L76"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Li-kJ-9c6">
+                                <rect key="frame" x="38.5" y="432" width="337" height="31"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-FH-JXI">
+                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Enable opt-out mode"/>
+                                        <connections>
+                                            <action selector="onEnableOptOutModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="J1O-0x-xpg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nmb-kg-zU3">
+                                        <rect key="frame" x="172.5" y="0.0" width="164.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Disable opt-out mode"/>
+                                        <connections>
+                                            <action selector="onDisableOptOutModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="tzT-QP-ifc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sJr-lE-joG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="top" secondItem="sJr-lE-joG" secondAttribute="top" constant="36" id="440-Hn-74I"/>
+                            <constraint firstItem="d0H-zo-woo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="9Sk-wj-wC4"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="C3m-rM-iZg"/>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="D8B-WT-t6P"/>
                             <constraint firstItem="A0L-Do-Ynd" firstAttribute="top" secondItem="hhu-dd-hha" secondAttribute="bottom" constant="36" id="J10-n6-dre"/>
                             <constraint firstItem="hhu-dd-hha" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="KnU-6K-rbv"/>
+                            <constraint firstItem="6Li-kJ-9c6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="Obg-M8-HSO"/>
+                            <constraint firstItem="6Li-kJ-9c6" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="R1g-h2-kso"/>
                             <constraint firstItem="hhu-dd-hha" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="RBC-sn-0NK"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yYw-mN-t3Q" secondAttribute="trailing" constant="16" id="VXe-gw-GGB"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="d0H-zo-woo" secondAttribute="trailing" constant="16" id="Wli-cg-NAX"/>
+                            <constraint firstItem="d0H-zo-woo" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="dLX-kW-iln"/>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="e7u-aI-aQB"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4gW-eV-fJ9" secondAttribute="trailing" constant="16" id="eB7-M7-tRO"/>
                             <constraint firstItem="A0L-Do-Ynd" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="efH-9Y-Ix2"/>
+                            <constraint firstItem="d0H-zo-woo" firstAttribute="top" secondItem="A0L-Do-Ynd" secondAttribute="bottom" constant="36" id="fBT-ws-n3H"/>
+                            <constraint firstItem="6Li-kJ-9c6" firstAttribute="top" secondItem="d0H-zo-woo" secondAttribute="bottom" constant="36" id="g5W-CY-YIt"/>
                             <constraint firstItem="A0L-Do-Ynd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="nCS-oW-AuU"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="ubv-vO-h7a"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hhu-dd-hha" secondAttribute="trailing" constant="16" id="ujC-3x-0yD"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A0L-Do-Ynd" secondAttribute="trailing" constant="16" id="uvY-fJ-BYX"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="top" secondItem="yYw-mN-t3Q" secondAttribute="bottom" constant="36" id="wFK-Cv-c3Q"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Li-kJ-9c6" secondAttribute="trailing" constant="16" id="xfo-PU-s9r"/>
                             <constraint firstItem="hhu-dd-hha" firstAttribute="top" secondItem="4gW-eV-fJ9" secondAttribute="bottom" constant="36" id="xr7-7j-7v3"/>
                         </constraints>
                     </view>

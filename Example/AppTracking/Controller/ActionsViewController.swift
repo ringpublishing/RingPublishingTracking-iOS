@@ -15,7 +15,7 @@ class ActionsViewController: UIViewController, PagerViewController {
         return 1
     }
 
-    // MARK: Actions
+    // MARK: Actions (Login + logout)
 
     @IBAction func onLoginActionTouch(_ sender: Any) {
 
@@ -25,6 +25,8 @@ class ActionsViewController: UIViewController, PagerViewController {
 
     }
 
+    // MARK: Actions (User action)
+
     @IBAction func onReportUserActionAsStringTouch(_ sender: Any) {
 
     }
@@ -32,6 +34,8 @@ class ActionsViewController: UIViewController, PagerViewController {
     @IBAction func onReportUserActionAsDictionaryTouch(_ sender: Any) {
 
     }
+
+    // MARK: Actions (Detail)
 
     @IBAction func onDetailFromPushActionTouch(_ sender: Any) {
 
@@ -41,7 +45,29 @@ class ActionsViewController: UIViewController, PagerViewController {
 
     }
 
+    // MARK: Actions (Generic event)
+
     @IBAction func onReportGenericEventActionTouch(_ sender: Any) {
+
+    }
+
+    // MARK: Actions (Debug mode)
+
+    @IBAction func onEnableDebugModeActionTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onDisableDebugModeActionTouch(_ sender: Any) {
+
+    }
+
+    // MARK: Actions (Opt-out mode)
+
+    @IBAction func onEnableOptOutModeActionTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onDisableOptOutModeActionTouch(_ sender: Any) {
 
     }
 }
