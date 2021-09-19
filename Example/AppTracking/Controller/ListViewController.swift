@@ -56,7 +56,7 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let articleData = sampleArticleData[indexPath.row]
 
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "AppTrackingDemo")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ListAppTrackingDemo")
         cell.selectionStyle = .none
         cell.textLabel?.text = articleData.title
         cell.textLabel?.numberOfLines = 0

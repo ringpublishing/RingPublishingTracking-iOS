@@ -93,10 +93,35 @@
                     <view key="view" contentMode="scaleToFill" id="JZT-F4-9QQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="N2L-wm-aKb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="t9l-qS-kSS" id="b8g-rM-KGi"/>
+                                    <outlet property="delegate" destination="t9l-qS-kSS" id="isr-pB-hDd"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Ioj-CY-hTd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="N2L-wm-aKb" secondAttribute="bottom" id="6eP-uA-uMI"/>
+                            <constraint firstItem="Ioj-CY-hTd" firstAttribute="trailing" secondItem="N2L-wm-aKb" secondAttribute="trailing" id="Ue2-9P-Ufs"/>
+                            <constraint firstItem="N2L-wm-aKb" firstAttribute="top" secondItem="Ioj-CY-hTd" secondAttribute="top" id="XJi-Dy-1cY"/>
+                            <constraint firstItem="N2L-wm-aKb" firstAttribute="leading" secondItem="Ioj-CY-hTd" secondAttribute="leading" id="tmb-9X-Fr5"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Hga-h6-7gq"/>
+                    <navigationItem key="navigationItem" id="Hga-h6-7gq">
+                        <barButtonItem key="rightBarButtonItem" title="Add more content" style="plain" id="bkp-kJ-LBj">
+                            <connections>
+                                <action selector="onAddMoreContentActionTouch:" destination="t9l-qS-kSS" id="zOa-5n-Bi5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="N2L-wm-aKb" id="D6t-0M-NrF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bp0-FX-JjT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
