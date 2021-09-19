@@ -15,8 +15,33 @@ class ActionsViewController: UIViewController, PagerViewController {
         return 1
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    // MARK: Actions
+
+    @IBAction func onLoginActionTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onLogoutActionTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onReportUserActionAsStringTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onReportUserActionAsDictionaryTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onDetailFromPushActionTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onDetailFromSocialActionTouch(_ sender: Any) {
+
+    }
+
+    @IBAction func onReportGenericEventActionTouch(_ sender: Any) {
 
     }
 }
