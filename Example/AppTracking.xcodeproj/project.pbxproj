@@ -11,37 +11,6 @@
 		20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394926F22238005A734A /* NetworkSessionMock.swift */; };
 		20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394A26F22238005A734A /* APIServiceTests.swift */; };
 		2536E3B07B61A064628951DB /* Pods_AppTrackingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED067BC36C6C6FA35D9F88B6 /* Pods_AppTrackingTests.framework */; };
-		7D0B885926F4AD9B0080A764 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883026F4AD9B0080A764 /* Constants.swift */; };
-		7D0B885A26F4AD9B0080A764 /* AppTrackingKeepAliveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883126F4AD9B0080A764 /* AppTrackingKeepAliveDataSource.swift */; };
-		7D0B885B26F4AD9B0080A764 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883326F4AD9B0080A764 /* Logger.swift */; };
-		7D0B885C26F4AD9B0080A764 /* AppTracking+Aureus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883426F4AD9B0080A764 /* AppTracking+Aureus.swift */; };
-		7D0B885D26F4AD9B0080A764 /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883826F4AD9B0080A764 /* EventResponse.swift */; };
-		7D0B885E26F4AD9B0080A764 /* IdentifyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883926F4AD9B0080A764 /* IdentifyResponse.swift */; };
-		7D0B885F26F4AD9B0080A764 /* SendEventEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883A26F4AD9B0080A764 /* SendEventEndpoint.swift */; };
-		7D0B886026F4AD9B0080A764 /* IdentifyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883C26F4AD9B0080A764 /* IdentifyRequest.swift */; };
-		7D0B886126F4AD9B0080A764 /* EventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883D26F4AD9B0080A764 /* EventRequest.swift */; };
-		7D0B886226F4AD9B0080A764 /* IdentifyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883E26F4AD9B0080A764 /* IdentifyEndpoint.swift */; };
-		7D0B886326F4AD9B0080A764 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B883F26F4AD9B0080A764 /* APIService.swift */; };
-		7D0B886426F4AD9B0080A764 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884126F4AD9B0080A764 /* HTTPMethod.swift */; };
-		7D0B886526F4AD9B0080A764 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884226F4AD9B0080A764 /* ServiceError.swift */; };
-		7D0B886626F4AD9B0080A764 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884426F4AD9B0080A764 /* Profile.swift */; };
-		7D0B886726F4AD9B0080A764 /* EaUuid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884526F4AD9B0080A764 /* EaUuid.swift */; };
-		7D0B886826F4AD9B0080A764 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884626F4AD9B0080A764 /* User.swift */; };
-		7D0B886926F4AD9B0080A764 /* IdsWithLifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884726F4AD9B0080A764 /* IdsWithLifetime.swift */; };
-		7D0B886A26F4AD9B0080A764 /* ReportedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884826F4AD9B0080A764 /* ReportedEvent.swift */; };
-		7D0B886B26F4AD9B0080A764 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884926F4AD9B0080A764 /* UserAgent.swift */; };
-		7D0B886C26F4AD9B0080A764 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884B26F4AD9B0080A764 /* Service.swift */; };
-		7D0B886D26F4AD9B0080A764 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884C26F4AD9B0080A764 /* NetworkService.swift */; };
-		7D0B886E26F4AD9B0080A764 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884D26F4AD9B0080A764 /* Endpoint.swift */; };
-		7D0B886F26F4AD9B0080A764 /* StoredValueInUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B884F26F4AD9B0080A764 /* StoredValueInUserDefaults.swift */; };
-		7D0B887026F4AD9B0080A764 /* AppTrackingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885026F4AD9B0080A764 /* AppTrackingDelegate.swift */; };
-		7D0B887126F4AD9B0080A764 /* AppTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885126F4AD9B0080A764 /* AppTracking.swift */; };
-		7D0B887226F4AD9B0080A764 /* ContentPageViewSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885326F4AD9B0080A764 /* ContentPageViewSource.swift */; };
-		7D0B887326F4AD9B0080A764 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885426F4AD9B0080A764 /* Event.swift */; };
-		7D0B887426F4AD9B0080A764 /* ContentMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885526F4AD9B0080A764 /* ContentMetadata.swift */; };
-		7D0B887526F4AD9B0080A764 /* AppTracking+CurrentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885626F4AD9B0080A764 /* AppTracking+CurrentState.swift */; };
-		7D0B887626F4AD9B0080A764 /* AppTrackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885726F4AD9B0080A764 /* AppTrackingConfiguration.swift */; };
-		7D0B887726F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B885826F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift */; };
 		7D0B887A26F4B0AF0080A764 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B887926F4B0AF0080A764 /* ListViewController.swift */; };
 		7D0B887C26F4B0DC0080A764 /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B887B26F4B0DC0080A764 /* ActionsViewController.swift */; };
 		7D0B887F26F4B2040080A764 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B887E26F4B2040080A764 /* PagerViewController.swift */; };
@@ -51,6 +20,38 @@
 		7D1C1B4E26E657430051A267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4C26E657430051A267 /* Main.storyboard */; };
 		7D1C1B5026E657460051A267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4F26E657460051A267 /* Assets.xcassets */; };
 		7D1C1B5326E657460051A267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C1B5126E657460051A267 /* LaunchScreen.storyboard */; };
+		7D3E545026F87662000F5E38 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E542626F87662000F5E38 /* Constants.swift */; };
+		7D3E545126F87662000F5E38 /* AppTrackingKeepAliveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E542726F87662000F5E38 /* AppTrackingKeepAliveDataSource.swift */; };
+		7D3E545226F87662000F5E38 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E542926F87662000F5E38 /* Logger.swift */; };
+		7D3E545326F87662000F5E38 /* Optional+Logable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E542A26F87662000F5E38 /* Optional+Logable.swift */; };
+		7D3E545426F87662000F5E38 /* AppTracking+Aureus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E542B26F87662000F5E38 /* AppTracking+Aureus.swift */; };
+		7D3E545526F87662000F5E38 /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E542F26F87662000F5E38 /* EventResponse.swift */; };
+		7D3E545626F87662000F5E38 /* IdentifyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543026F87662000F5E38 /* IdentifyResponse.swift */; };
+		7D3E545726F87662000F5E38 /* SendEventEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543126F87662000F5E38 /* SendEventEndpoint.swift */; };
+		7D3E545826F87662000F5E38 /* IdentifyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543326F87662000F5E38 /* IdentifyRequest.swift */; };
+		7D3E545926F87662000F5E38 /* EventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543426F87662000F5E38 /* EventRequest.swift */; };
+		7D3E545A26F87662000F5E38 /* IdentifyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543526F87662000F5E38 /* IdentifyEndpoint.swift */; };
+		7D3E545B26F87662000F5E38 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543626F87662000F5E38 /* APIService.swift */; };
+		7D3E545C26F87662000F5E38 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543826F87662000F5E38 /* HTTPMethod.swift */; };
+		7D3E545D26F87662000F5E38 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543926F87662000F5E38 /* ServiceError.swift */; };
+		7D3E545E26F87662000F5E38 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543B26F87662000F5E38 /* Profile.swift */; };
+		7D3E545F26F87662000F5E38 /* EaUuid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543C26F87662000F5E38 /* EaUuid.swift */; };
+		7D3E546026F87662000F5E38 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543D26F87662000F5E38 /* User.swift */; };
+		7D3E546126F87662000F5E38 /* IdsWithLifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543E26F87662000F5E38 /* IdsWithLifetime.swift */; };
+		7D3E546226F87662000F5E38 /* ReportedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E543F26F87662000F5E38 /* ReportedEvent.swift */; };
+		7D3E546326F87662000F5E38 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544026F87662000F5E38 /* UserAgent.swift */; };
+		7D3E546426F87662000F5E38 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544226F87662000F5E38 /* Service.swift */; };
+		7D3E546526F87662000F5E38 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544326F87662000F5E38 /* NetworkService.swift */; };
+		7D3E546626F87662000F5E38 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544426F87662000F5E38 /* Endpoint.swift */; };
+		7D3E546726F87662000F5E38 /* StoredValueInUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544626F87662000F5E38 /* StoredValueInUserDefaults.swift */; };
+		7D3E546826F87662000F5E38 /* AppTrackingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544726F87662000F5E38 /* AppTrackingDelegate.swift */; };
+		7D3E546926F87662000F5E38 /* AppTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544826F87662000F5E38 /* AppTracking.swift */; };
+		7D3E546A26F87662000F5E38 /* ContentPageViewSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544A26F87662000F5E38 /* ContentPageViewSource.swift */; };
+		7D3E546B26F87662000F5E38 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544B26F87662000F5E38 /* Event.swift */; };
+		7D3E546C26F87662000F5E38 /* ContentMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544C26F87662000F5E38 /* ContentMetadata.swift */; };
+		7D3E546D26F87663000F5E38 /* AppTracking+CurrentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544D26F87662000F5E38 /* AppTracking+CurrentState.swift */; };
+		7D3E546E26F87663000F5E38 /* AppTrackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544E26F87662000F5E38 /* AppTrackingConfiguration.swift */; };
+		7D3E546F26F87663000F5E38 /* AppTracking+ContentPerformanceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E544F26F87662000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */; };
 		7D436B4726F4C5DC00510ED8 /* SampleArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D436B4626F4C5DC00510ED8 /* SampleArticle.swift */; };
 		7D436B4A26F4C87700510ED8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D436B4926F4C87700510ED8 /* DetailViewController.swift */; };
 		7D5DDF9E26F7235300A4375F /* TraceableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5DDF9D26F7235300A4375F /* TraceableScreen.swift */; };
@@ -76,37 +77,6 @@
 		20C2394A26F22238005A734A /* APIServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
 		2278D1C8F7C5BBD725418D51 /* Pods-AppTrackingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTrackingTests.debug.xcconfig"; path = "Target Support Files/Pods-AppTrackingTests/Pods-AppTrackingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		76FA62F5BE77A68BB521D5F8 /* Pods-AppTracking-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTracking-Example.release.xcconfig"; path = "Target Support Files/Pods-AppTracking-Example/Pods-AppTracking-Example.release.xcconfig"; sourceTree = "<group>"; };
-		7D0B883026F4AD9B0080A764 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		7D0B883126F4AD9B0080A764 /* AppTrackingKeepAliveDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingKeepAliveDataSource.swift; sourceTree = "<group>"; };
-		7D0B883326F4AD9B0080A764 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		7D0B883426F4AD9B0080A764 /* AppTracking+Aureus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+Aureus.swift"; sourceTree = "<group>"; };
-		7D0B883826F4AD9B0080A764 /* EventResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
-		7D0B883926F4AD9B0080A764 /* IdentifyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyResponse.swift; sourceTree = "<group>"; };
-		7D0B883A26F4AD9B0080A764 /* SendEventEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEventEndpoint.swift; sourceTree = "<group>"; };
-		7D0B883C26F4AD9B0080A764 /* IdentifyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyRequest.swift; sourceTree = "<group>"; };
-		7D0B883D26F4AD9B0080A764 /* EventRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRequest.swift; sourceTree = "<group>"; };
-		7D0B883E26F4AD9B0080A764 /* IdentifyEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyEndpoint.swift; sourceTree = "<group>"; };
-		7D0B883F26F4AD9B0080A764 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		7D0B884126F4AD9B0080A764 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		7D0B884226F4AD9B0080A764 /* ServiceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
-		7D0B884426F4AD9B0080A764 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		7D0B884526F4AD9B0080A764 /* EaUuid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EaUuid.swift; sourceTree = "<group>"; };
-		7D0B884626F4AD9B0080A764 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		7D0B884726F4AD9B0080A764 /* IdsWithLifetime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdsWithLifetime.swift; sourceTree = "<group>"; };
-		7D0B884826F4AD9B0080A764 /* ReportedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportedEvent.swift; sourceTree = "<group>"; };
-		7D0B884926F4AD9B0080A764 /* UserAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgent.swift; sourceTree = "<group>"; };
-		7D0B884B26F4AD9B0080A764 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		7D0B884C26F4AD9B0080A764 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		7D0B884D26F4AD9B0080A764 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		7D0B884F26F4AD9B0080A764 /* StoredValueInUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredValueInUserDefaults.swift; sourceTree = "<group>"; };
-		7D0B885026F4AD9B0080A764 /* AppTrackingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingDelegate.swift; sourceTree = "<group>"; };
-		7D0B885126F4AD9B0080A764 /* AppTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTracking.swift; sourceTree = "<group>"; };
-		7D0B885326F4AD9B0080A764 /* ContentPageViewSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPageViewSource.swift; sourceTree = "<group>"; };
-		7D0B885426F4AD9B0080A764 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		7D0B885526F4AD9B0080A764 /* ContentMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMetadata.swift; sourceTree = "<group>"; };
-		7D0B885626F4AD9B0080A764 /* AppTracking+CurrentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+CurrentState.swift"; sourceTree = "<group>"; };
-		7D0B885726F4AD9B0080A764 /* AppTrackingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingConfiguration.swift; sourceTree = "<group>"; };
-		7D0B885826F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+ContentPerformanceMonitor.swift"; sourceTree = "<group>"; };
 		7D0B887926F4B0AF0080A764 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		7D0B887B26F4B0DC0080A764 /* ActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
 		7D0B887E26F4B2040080A764 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +90,38 @@
 		7D1C1B5426E657460051A267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D1C1B5926E657460051A267 /* AppTrackingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTrackingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1C1B5F26E657460051A267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Tests/Info.plist; sourceTree = SOURCE_ROOT; };
+		7D3E542626F87662000F5E38 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7D3E542726F87662000F5E38 /* AppTrackingKeepAliveDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingKeepAliveDataSource.swift; sourceTree = "<group>"; };
+		7D3E542926F87662000F5E38 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		7D3E542A26F87662000F5E38 /* Optional+Logable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Logable.swift"; sourceTree = "<group>"; };
+		7D3E542B26F87662000F5E38 /* AppTracking+Aureus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+Aureus.swift"; sourceTree = "<group>"; };
+		7D3E542F26F87662000F5E38 /* EventResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
+		7D3E543026F87662000F5E38 /* IdentifyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyResponse.swift; sourceTree = "<group>"; };
+		7D3E543126F87662000F5E38 /* SendEventEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEventEndpoint.swift; sourceTree = "<group>"; };
+		7D3E543326F87662000F5E38 /* IdentifyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyRequest.swift; sourceTree = "<group>"; };
+		7D3E543426F87662000F5E38 /* EventRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRequest.swift; sourceTree = "<group>"; };
+		7D3E543526F87662000F5E38 /* IdentifyEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyEndpoint.swift; sourceTree = "<group>"; };
+		7D3E543626F87662000F5E38 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		7D3E543826F87662000F5E38 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		7D3E543926F87662000F5E38 /* ServiceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		7D3E543B26F87662000F5E38 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		7D3E543C26F87662000F5E38 /* EaUuid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EaUuid.swift; sourceTree = "<group>"; };
+		7D3E543D26F87662000F5E38 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7D3E543E26F87662000F5E38 /* IdsWithLifetime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdsWithLifetime.swift; sourceTree = "<group>"; };
+		7D3E543F26F87662000F5E38 /* ReportedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportedEvent.swift; sourceTree = "<group>"; };
+		7D3E544026F87662000F5E38 /* UserAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgent.swift; sourceTree = "<group>"; };
+		7D3E544226F87662000F5E38 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		7D3E544326F87662000F5E38 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		7D3E544426F87662000F5E38 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		7D3E544626F87662000F5E38 /* StoredValueInUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredValueInUserDefaults.swift; sourceTree = "<group>"; };
+		7D3E544726F87662000F5E38 /* AppTrackingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingDelegate.swift; sourceTree = "<group>"; };
+		7D3E544826F87662000F5E38 /* AppTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTracking.swift; sourceTree = "<group>"; };
+		7D3E544A26F87662000F5E38 /* ContentPageViewSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPageViewSource.swift; sourceTree = "<group>"; };
+		7D3E544B26F87662000F5E38 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		7D3E544C26F87662000F5E38 /* ContentMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMetadata.swift; sourceTree = "<group>"; };
+		7D3E544D26F87662000F5E38 /* AppTracking+CurrentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+CurrentState.swift"; sourceTree = "<group>"; };
+		7D3E544E26F87662000F5E38 /* AppTrackingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingConfiguration.swift; sourceTree = "<group>"; };
+		7D3E544F26F87662000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+ContentPerformanceMonitor.swift"; sourceTree = "<group>"; };
 		7D436B4626F4C5DC00510ED8 /* SampleArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleArticle.swift; sourceTree = "<group>"; };
 		7D436B4926F4C87700510ED8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7D5DDF9D26F7235300A4375F /* TraceableScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceableScreen.swift; sourceTree = "<group>"; };
@@ -165,125 +167,6 @@
 				ED067BC36C6C6FA35D9F88B6 /* Pods_AppTrackingTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7D0B882F26F4AD9B0080A764 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B883026F4AD9B0080A764 /* Constants.swift */,
-				7D0B883126F4AD9B0080A764 /* AppTrackingKeepAliveDataSource.swift */,
-				7D0B883226F4AD9B0080A764 /* Logger */,
-				7D0B883426F4AD9B0080A764 /* AppTracking+Aureus.swift */,
-				7D0B883526F4AD9B0080A764 /* Networking */,
-				7D0B884E26F4AD9B0080A764 /* Utils */,
-				7D0B885026F4AD9B0080A764 /* AppTrackingDelegate.swift */,
-				7D0B885126F4AD9B0080A764 /* AppTracking.swift */,
-				7D0B885226F4AD9B0080A764 /* Model */,
-				7D0B885626F4AD9B0080A764 /* AppTracking+CurrentState.swift */,
-				7D0B885726F4AD9B0080A764 /* AppTrackingConfiguration.swift */,
-				7D0B885826F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift */,
-			);
-			name = Sources;
-			path = ../Sources;
-			sourceTree = "<group>";
-		};
-		7D0B883226F4AD9B0080A764 /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B883326F4AD9B0080A764 /* Logger.swift */,
-			);
-			path = Logger;
-			sourceTree = "<group>";
-		};
-		7D0B883526F4AD9B0080A764 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B883626F4AD9B0080A764 /* Endpoints */,
-				7D0B883F26F4AD9B0080A764 /* APIService.swift */,
-				7D0B884026F4AD9B0080A764 /* Enums */,
-				7D0B884326F4AD9B0080A764 /* Models */,
-				7D0B884926F4AD9B0080A764 /* UserAgent.swift */,
-				7D0B884A26F4AD9B0080A764 /* Protocols */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		7D0B883626F4AD9B0080A764 /* Endpoints */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B883726F4AD9B0080A764 /* Responses */,
-				7D0B883A26F4AD9B0080A764 /* SendEventEndpoint.swift */,
-				7D0B883B26F4AD9B0080A764 /* Requests */,
-				7D0B883E26F4AD9B0080A764 /* IdentifyEndpoint.swift */,
-			);
-			path = Endpoints;
-			sourceTree = "<group>";
-		};
-		7D0B883726F4AD9B0080A764 /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B883826F4AD9B0080A764 /* EventResponse.swift */,
-				7D0B883926F4AD9B0080A764 /* IdentifyResponse.swift */,
-			);
-			path = Responses;
-			sourceTree = "<group>";
-		};
-		7D0B883B26F4AD9B0080A764 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B883C26F4AD9B0080A764 /* IdentifyRequest.swift */,
-				7D0B883D26F4AD9B0080A764 /* EventRequest.swift */,
-			);
-			path = Requests;
-			sourceTree = "<group>";
-		};
-		7D0B884026F4AD9B0080A764 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B884126F4AD9B0080A764 /* HTTPMethod.swift */,
-				7D0B884226F4AD9B0080A764 /* ServiceError.swift */,
-			);
-			path = Enums;
-			sourceTree = "<group>";
-		};
-		7D0B884326F4AD9B0080A764 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B884426F4AD9B0080A764 /* Profile.swift */,
-				7D0B884526F4AD9B0080A764 /* EaUuid.swift */,
-				7D0B884626F4AD9B0080A764 /* User.swift */,
-				7D0B884726F4AD9B0080A764 /* IdsWithLifetime.swift */,
-				7D0B884826F4AD9B0080A764 /* ReportedEvent.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		7D0B884A26F4AD9B0080A764 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B884B26F4AD9B0080A764 /* Service.swift */,
-				7D0B884C26F4AD9B0080A764 /* NetworkService.swift */,
-				7D0B884D26F4AD9B0080A764 /* Endpoint.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		7D0B884E26F4AD9B0080A764 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B884F26F4AD9B0080A764 /* StoredValueInUserDefaults.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		7D0B885226F4AD9B0080A764 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				7D0B885326F4AD9B0080A764 /* ContentPageViewSource.swift */,
-				7D0B885426F4AD9B0080A764 /* Event.swift */,
-				7D0B885526F4AD9B0080A764 /* ContentMetadata.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		7D0B887826F4AF960080A764 /* Controller */ = {
@@ -354,13 +237,133 @@
 		7D1C1B5C26E657460051A267 /* AppTrackingTests */ = {
 			isa = PBXGroup;
 			children = (
-				7D0B882F26F4AD9B0080A764 /* Sources */,
+				7D3E542526F87662000F5E38 /* Sources */,
 				7D1A2B5426E7567000648882 /* Tests */,
 				7D1C1B5F26E657460051A267 /* Info.plist */,
 			);
 			name = AppTrackingTests;
 			path = ../Tests;
 			sourceTree = SOURCE_ROOT;
+		};
+		7D3E542526F87662000F5E38 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E542626F87662000F5E38 /* Constants.swift */,
+				7D3E542726F87662000F5E38 /* AppTrackingKeepAliveDataSource.swift */,
+				7D3E542826F87662000F5E38 /* Logger */,
+				7D3E542B26F87662000F5E38 /* AppTracking+Aureus.swift */,
+				7D3E542C26F87662000F5E38 /* Networking */,
+				7D3E544526F87662000F5E38 /* Utils */,
+				7D3E544726F87662000F5E38 /* AppTrackingDelegate.swift */,
+				7D3E544826F87662000F5E38 /* AppTracking.swift */,
+				7D3E544926F87662000F5E38 /* Model */,
+				7D3E544D26F87662000F5E38 /* AppTracking+CurrentState.swift */,
+				7D3E544E26F87662000F5E38 /* AppTrackingConfiguration.swift */,
+				7D3E544F26F87662000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */,
+			);
+			name = Sources;
+			path = ../Sources;
+			sourceTree = "<group>";
+		};
+		7D3E542826F87662000F5E38 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E542926F87662000F5E38 /* Logger.swift */,
+				7D3E542A26F87662000F5E38 /* Optional+Logable.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		7D3E542C26F87662000F5E38 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E542D26F87662000F5E38 /* Endpoints */,
+				7D3E543626F87662000F5E38 /* APIService.swift */,
+				7D3E543726F87662000F5E38 /* Enums */,
+				7D3E543A26F87662000F5E38 /* Models */,
+				7D3E544026F87662000F5E38 /* UserAgent.swift */,
+				7D3E544126F87662000F5E38 /* Protocols */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		7D3E542D26F87662000F5E38 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E542E26F87662000F5E38 /* Responses */,
+				7D3E543126F87662000F5E38 /* SendEventEndpoint.swift */,
+				7D3E543226F87662000F5E38 /* Requests */,
+				7D3E543526F87662000F5E38 /* IdentifyEndpoint.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		7D3E542E26F87662000F5E38 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E542F26F87662000F5E38 /* EventResponse.swift */,
+				7D3E543026F87662000F5E38 /* IdentifyResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		7D3E543226F87662000F5E38 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E543326F87662000F5E38 /* IdentifyRequest.swift */,
+				7D3E543426F87662000F5E38 /* EventRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		7D3E543726F87662000F5E38 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E543826F87662000F5E38 /* HTTPMethod.swift */,
+				7D3E543926F87662000F5E38 /* ServiceError.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		7D3E543A26F87662000F5E38 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E543B26F87662000F5E38 /* Profile.swift */,
+				7D3E543C26F87662000F5E38 /* EaUuid.swift */,
+				7D3E543D26F87662000F5E38 /* User.swift */,
+				7D3E543E26F87662000F5E38 /* IdsWithLifetime.swift */,
+				7D3E543F26F87662000F5E38 /* ReportedEvent.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7D3E544126F87662000F5E38 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E544226F87662000F5E38 /* Service.swift */,
+				7D3E544326F87662000F5E38 /* NetworkService.swift */,
+				7D3E544426F87662000F5E38 /* Endpoint.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7D3E544526F87662000F5E38 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E544626F87662000F5E38 /* StoredValueInUserDefaults.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		7D3E544926F87662000F5E38 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E544A26F87662000F5E38 /* ContentPageViewSource.swift */,
+				7D3E544B26F87662000F5E38 /* Event.swift */,
+				7D3E544C26F87662000F5E38 /* ContentMetadata.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
 		};
 		7D436B4826F4C63000510ED8 /* Model */ = {
 			isa = PBXGroup;
@@ -576,42 +579,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D0B885A26F4AD9B0080A764 /* AppTrackingKeepAliveDataSource.swift in Sources */,
-				7D0B886E26F4AD9B0080A764 /* Endpoint.swift in Sources */,
-				7D0B887726F4AD9B0080A764 /* AppTracking+ContentPerformanceMonitor.swift in Sources */,
-				7D0B886F26F4AD9B0080A764 /* StoredValueInUserDefaults.swift in Sources */,
+				7D3E545B26F87662000F5E38 /* APIService.swift in Sources */,
+				7D3E546B26F87662000F5E38 /* Event.swift in Sources */,
+				7D3E546426F87662000F5E38 /* Service.swift in Sources */,
+				7D3E545E26F87662000F5E38 /* Profile.swift in Sources */,
+				7D3E546C26F87662000F5E38 /* ContentMetadata.swift in Sources */,
+				7D3E545126F87662000F5E38 /* AppTrackingKeepAliveDataSource.swift in Sources */,
+				7D3E545826F87662000F5E38 /* IdentifyRequest.swift in Sources */,
+				7D3E546926F87662000F5E38 /* AppTracking.swift in Sources */,
+				7D3E545426F87662000F5E38 /* AppTracking+Aureus.swift in Sources */,
 				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
-				7D0B886C26F4AD9B0080A764 /* Service.swift in Sources */,
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
-				7D0B886A26F4AD9B0080A764 /* ReportedEvent.swift in Sources */,
+				7D3E546D26F87663000F5E38 /* AppTracking+CurrentState.swift in Sources */,
+				7D3E546126F87662000F5E38 /* IdsWithLifetime.swift in Sources */,
 				7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */,
-				7D0B887626F4AD9B0080A764 /* AppTrackingConfiguration.swift in Sources */,
-				7D0B887426F4AD9B0080A764 /* ContentMetadata.swift in Sources */,
-				7D0B887326F4AD9B0080A764 /* Event.swift in Sources */,
+				7D3E546326F87662000F5E38 /* UserAgent.swift in Sources */,
+				7D3E546826F87662000F5E38 /* AppTrackingDelegate.swift in Sources */,
+				7D3E545526F87662000F5E38 /* EventResponse.swift in Sources */,
+				7D3E546726F87662000F5E38 /* StoredValueInUserDefaults.swift in Sources */,
+				7D3E545326F87662000F5E38 /* Optional+Logable.swift in Sources */,
+				7D3E546526F87662000F5E38 /* NetworkService.swift in Sources */,
+				7D3E546626F87662000F5E38 /* Endpoint.swift in Sources */,
+				7D3E546E26F87663000F5E38 /* AppTrackingConfiguration.swift in Sources */,
+				7D3E546026F87662000F5E38 /* User.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
-				7D0B886026F4AD9B0080A764 /* IdentifyRequest.swift in Sources */,
-				7D0B886526F4AD9B0080A764 /* ServiceError.swift in Sources */,
-				7D0B886326F4AD9B0080A764 /* APIService.swift in Sources */,
-				7D0B885D26F4AD9B0080A764 /* EventResponse.swift in Sources */,
+				7D3E546226F87662000F5E38 /* ReportedEvent.swift in Sources */,
+				7D3E545626F87662000F5E38 /* IdentifyResponse.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
-				7D0B885F26F4AD9B0080A764 /* SendEventEndpoint.swift in Sources */,
-				7D0B886226F4AD9B0080A764 /* IdentifyEndpoint.swift in Sources */,
-				7D0B886726F4AD9B0080A764 /* EaUuid.swift in Sources */,
-				7D0B887226F4AD9B0080A764 /* ContentPageViewSource.swift in Sources */,
-				7D0B885E26F4AD9B0080A764 /* IdentifyResponse.swift in Sources */,
-				7D0B886426F4AD9B0080A764 /* HTTPMethod.swift in Sources */,
-				7D0B887526F4AD9B0080A764 /* AppTracking+CurrentState.swift in Sources */,
-				7D0B886B26F4AD9B0080A764 /* UserAgent.swift in Sources */,
-				7D0B886126F4AD9B0080A764 /* EventRequest.swift in Sources */,
-				7D0B885C26F4AD9B0080A764 /* AppTracking+Aureus.swift in Sources */,
-				7D0B886626F4AD9B0080A764 /* Profile.swift in Sources */,
-				7D0B885926F4AD9B0080A764 /* Constants.swift in Sources */,
-				7D0B887126F4AD9B0080A764 /* AppTracking.swift in Sources */,
-				7D0B887026F4AD9B0080A764 /* AppTrackingDelegate.swift in Sources */,
-				7D0B886926F4AD9B0080A764 /* IdsWithLifetime.swift in Sources */,
-				7D0B885B26F4AD9B0080A764 /* Logger.swift in Sources */,
-				7D0B886D26F4AD9B0080A764 /* NetworkService.swift in Sources */,
-				7D0B886826F4AD9B0080A764 /* User.swift in Sources */,
+				7D3E545D26F87662000F5E38 /* ServiceError.swift in Sources */,
+				7D3E545026F87662000F5E38 /* Constants.swift in Sources */,
+				7D3E546F26F87663000F5E38 /* AppTracking+ContentPerformanceMonitor.swift in Sources */,
+				7D3E545726F87662000F5E38 /* SendEventEndpoint.swift in Sources */,
+				7D3E546A26F87662000F5E38 /* ContentPageViewSource.swift in Sources */,
+				7D3E545C26F87662000F5E38 /* HTTPMethod.swift in Sources */,
+				7D3E545926F87662000F5E38 /* EventRequest.swift in Sources */,
+				7D3E545F26F87662000F5E38 /* EaUuid.swift in Sources */,
+				7D3E545A26F87662000F5E38 /* IdentifyEndpoint.swift in Sources */,
+				7D3E545226F87662000F5E38 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
