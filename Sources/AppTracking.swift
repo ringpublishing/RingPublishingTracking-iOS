@@ -17,7 +17,7 @@ public class AppTracking {
     public static let shared = AppTracking()
 
     /// Tracking identifier assigned by the module for this device
-    public var trackingIdentifier: String?
+    public private(set) var trackingIdentifier: String?
 
     /// Closure which can be used to gather module logs inside host application
     ///

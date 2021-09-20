@@ -8,8 +8,12 @@
 
 import Foundation
 
-struct IdentifyRequest: Encodable {
+struct IdentifyRequest: Encodable, Bodable {
 
     let ids: [String: String]
     let user: User?
+
+    func toBodyData() throws -> Data {
+        try JSONEncoder().encode(self)
+    }
 }

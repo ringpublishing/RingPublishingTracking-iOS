@@ -14,8 +14,17 @@ struct Constants {
 
     // MARK: API
 
+    /// API url
     static let apiUrl: URL = URL(string: "https://events.ocdn.eu")!
+
+    /// Current version of API
     static let apiVersion: String = "v3"
+
+    /// Size limit in bytes of events that might be send in a single request
+    static let eventSizeLimit = UInt(16000)
+
+    /// Size limit of  body for single events request
+    static let requestBodySizeLimit = UInt(1000 * 1000)
 
     // MARK: Config
 

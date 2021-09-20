@@ -15,7 +15,7 @@ struct SendEventEnpoint: Endpoint {
     let body: EventRequest
 
     func encodedBody() throws -> Data? {
-        try JSONEncoder().encode(body)
+        try body.toBodyData()
     }
 
     func decode(data: Data) throws -> EventResponse? {
