@@ -33,3 +33,21 @@ private extension SampleArticle {
     }
     // swiftlint:enable line_length
 }
+
+// swiftlint:disable force_unwrapping
+
+// MARK: Test data
+extension SampleArticle {
+
+    static let testData = [
+        SampleArticle(title: "France cancels Washington reception amid submarine spat",
+                      publicationUrl: URL(string: "https://example.com/politics/battle-of-the-capes")!,
+                      contentWasPaidFor: false),
+        SampleArticle(title: "Australia's decades-long balancing act between the US and China is over",
+                      publicationUrl: URL(string: "https://example.com/australia-china-us-aukus-submarine")!,
+                      contentWasPaidFor: false),
+        SampleArticle(title: "Kids worried about the vaccine? Medical expert answers their questions",
+                      publicationUrl: URL(string: "https://example.com/sanjay-gupta-students-kids-ask")!,
+                      contentWasPaidFor: true)
+    ]
+}

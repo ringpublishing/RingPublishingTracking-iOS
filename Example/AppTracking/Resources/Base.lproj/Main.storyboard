@@ -28,20 +28,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yYw-mN-t3Q">
-                                <rect key="frame" x="130" y="80" width="154" height="31"/>
+                                <rect key="frame" x="151" y="80" width="112" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCh-7s-Xud">
-                                        <rect key="frame" x="0.0" y="0.0" width="73" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Log in"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Log in"/>
                                         <connections>
                                             <action selector="onLoginActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="Ung-FB-YtY"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bU3-9c-VoT">
-                                        <rect key="frame" x="81" y="0.0" width="73" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Log out"/>
+                                        <rect key="frame" x="60" y="0.0" width="52" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Log out"/>
                                         <connections>
                                             <action selector="onLogoutActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="uJQ-3G-FfF"/>
                                         </connections>
@@ -49,20 +49,20 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4gW-eV-fJ9">
-                                <rect key="frame" x="55.5" y="147" width="303" height="48"/>
+                                <rect key="frame" x="16" y="146" width="382" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEF-Nv-tL5">
-                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="48"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Report user action - string"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kEF-Nv-tL5">
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report user action - string"/>
                                         <connections>
                                             <action selector="onReportUserActionAsStringTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="Wms-bu-R6f"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-P7-swQ">
-                                        <rect key="frame" x="155.5" y="0.0" width="147.5" height="48"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Report user action - dictionary"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-P7-swQ">
+                                        <rect key="frame" x="195" y="0.0" width="187" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report user action - dictionary"/>
                                         <connections>
                                             <action selector="onReportUserActionAsDictionaryTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="gnj-PE-lzc"/>
                                         </connections>
@@ -70,20 +70,20 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hhu-dd-hha">
-                                <rect key="frame" x="29.5" y="231" width="355" height="31"/>
+                                <rect key="frame" x="44" y="212" width="326" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8s-zn-chz">
-                                        <rect key="frame" x="0.0" y="0.0" width="173.5" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Open detail from push"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Open detail from push"/>
                                         <connections>
                                             <action selector="onDetailFromPushActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="yoM-lp-G72"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Vv-cx-C4C">
-                                        <rect key="frame" x="181.5" y="0.0" width="173.5" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Open detail from social"/>
+                                        <rect key="frame" x="167" y="0.0" width="159" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Open detail from social"/>
                                         <connections>
                                             <action selector="onDetailFromSocialActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="xPc-FS-XXT"/>
                                         </connections>
@@ -91,12 +91,12 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="A0L-Do-Ynd">
-                                <rect key="frame" x="127.5" y="298" width="159.5" height="31"/>
+                                <rect key="frame" x="135" y="278" width="144" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5V-VG-5Ot">
-                                        <rect key="frame" x="0.0" y="0.0" width="159.5" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Report generic event"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="144" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report generic event"/>
                                         <connections>
                                             <action selector="onReportGenericEventActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="apB-uR-gAk"/>
                                         </connections>
@@ -104,20 +104,20 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="d0H-zo-woo">
-                                <rect key="frame" x="46" y="365" width="322" height="31"/>
+                                <rect key="frame" x="61" y="344" width="292" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oc-cE-CoI">
-                                        <rect key="frame" x="0.0" y="0.0" width="157" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Enable debug mode"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="142" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Enable debug mode"/>
                                         <connections>
                                             <action selector="onEnableDebugModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="9y7-MH-nzj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHP-RH-qfw">
-                                        <rect key="frame" x="165" y="0.0" width="157" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Disable debug mode"/>
+                                        <rect key="frame" x="150" y="0.0" width="142" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Disable debug mode"/>
                                         <connections>
                                             <action selector="onDisableDebugModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="RQ4-zp-L76"/>
                                         </connections>
@@ -125,20 +125,20 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Li-kJ-9c6">
-                                <rect key="frame" x="38.5" y="432" width="337" height="31"/>
+                                <rect key="frame" x="53" y="410" width="308" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-FH-JXI">
-                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Enable opt-out mode"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Enable opt-out mode"/>
                                         <connections>
                                             <action selector="onEnableOptOutModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="J1O-0x-xpg"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nmb-kg-zU3">
-                                        <rect key="frame" x="172.5" y="0.0" width="164.5" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Disable opt-out mode"/>
+                                        <rect key="frame" x="158" y="0.0" width="150" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Disable opt-out mode"/>
                                         <connections>
                                             <action selector="onDisableOptOutModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="tzT-QP-ifc"/>
                                         </connections>
@@ -175,6 +175,9 @@
                             <constraint firstItem="hhu-dd-hha" firstAttribute="top" secondItem="4gW-eV-fJ9" secondAttribute="bottom" constant="36" id="xr7-7j-7v3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="t9l-qS-kSS" kind="show" identifier="DetailViewControllerSegue" id="UvW-j4-KWo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fwe-ZI-sZZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -260,12 +263,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="Hga-h6-7gq">
                         <rightBarButtonItems>
-                            <barButtonItem title="Add more content" style="plain" id="iBw-jl-O7C">
+                            <barButtonItem title="Add more content" style="done" id="iBw-jl-O7C">
                                 <connections>
                                     <action selector="onAddMoreContentActionTouch:" destination="t9l-qS-kSS" id="cDU-tl-Daf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Obscure content" style="plain" id="bkp-kJ-LBj">
+                            <barButtonItem title="Obscure content" style="done" id="bkp-kJ-LBj">
                                 <connections>
                                     <action selector="onShowModalActionTouch:" destination="t9l-qS-kSS" id="YTz-NX-LAY"/>
                                 </connections>
@@ -281,6 +284,9 @@
             <point key="canvasLocation" x="2613" y="163"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="UvW-j4-KWo"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

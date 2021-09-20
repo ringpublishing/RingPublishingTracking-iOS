@@ -10,25 +10,13 @@ import Foundation
 import UIKit
 import AppTracking
 
-// swiftlint:disable force_unwrapping
-
 class ListViewController: UIViewController, PagerViewController, TraceableScreen {
 
     @IBOutlet private weak var tableView: UITableView!
 
     private let detailSegueIdentifier = "DetailViewControllerSegue"
 
-    private var sampleArticleData = [
-        SampleArticle(title: "France cancels Washington reception amid submarine spat",
-                      publicationUrl: URL(string: "https://example.com/politics/battle-of-the-capes")!,
-                      contentWasPaidFor: false),
-        SampleArticle(title: "Australia's decades-long balancing act between the US and China is over",
-                      publicationUrl: URL(string: "https://example.com/australia-china-us-aukus-submarine")!,
-                      contentWasPaidFor: false),
-        SampleArticle(title: "Kids worried about the vaccine? Medical expert answers their questions",
-                      publicationUrl: URL(string: "https://example.com/sanjay-gupta-students-kids-ask")!,
-                      contentWasPaidFor: true)
-    ]
+    private var sampleArticleData = SampleArticle.testData
 
     // MARK: PagerViewController
 

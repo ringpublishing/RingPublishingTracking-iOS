@@ -18,6 +18,9 @@ class Logger {
     /// Logger instance
     private let logger: OSLog
 
+    /// Is logger functionality enabled?
+    private var enabled = true
+
     /// Closure which can be used to gather module logs inside host application
     var loggerOutput: ((_ message: String) -> Void)?
 
@@ -33,11 +36,17 @@ class Logger {
 
     // MARK: Methods
 
+    class func setLogger(enabled: Bool) {
+        Self.shared.enabled = enabled
+    }
+
     class func log(_ message: String,
                    level: OSLogType = .default,
                    file: String = #file,
                    functionName: String = #function,
                    lineNumber: Int = #line) {
+        guard Self.shared.enabled else { return }
+
         let fileName = (file as NSString).lastPathComponent
         let messageWithMetadata = "[\(fileName):\(lineNumber) \(functionName)] \(message)"
 

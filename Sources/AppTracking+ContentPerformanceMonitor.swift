@@ -49,6 +49,8 @@ public extension AppTracking {
     ///   - actionSubtypeName: String
     ///   - parameters: [String: AnyHashable]
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: [String: AnyHashable]) {
+        Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
+
         // TODO: Implementation missing
     }
 
@@ -60,6 +62,8 @@ public extension AppTracking {
     ///   - actionSubtypeName: String
     ///   - parameters: [String: AnyHashable]
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: String) {
+        Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
+
         // TODO: Implementation missing
     }
 

@@ -24,6 +24,8 @@ class DetailViewController: UIViewController, TraceableScreen {
         }
     }
 
+    var contentViewSource: ContentPageViewSource = .default
+
     // MARK: TraceableScreen
 
     var screenTrackingData: ScreenTrackingData {
@@ -121,6 +123,7 @@ private extension DetailViewController {
                                               contentWasPaidFor: article.contentWasPaidFor)
 
         AppTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+                                                 pageViewSource: contentViewSource,
                                                  partiallyReloaded: partiallyReloaded,
                                                  contentKeepAliveDataSource: self)
     }

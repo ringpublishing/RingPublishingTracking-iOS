@@ -12,6 +12,11 @@ import AppTracking
 
 class ActionsViewController: UIViewController, PagerViewController, TraceableScreen {
 
+    private let detailSegueIdentifier = "DetailViewControllerSegue"
+
+    private let sampleArticle = SampleArticle.testData[0]
+    private var pageViewSource = ContentPageViewSource.default
+
     // MARK: PagerViewController
 
     var pageIndex: Int {
@@ -36,6 +41,17 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // Report page view event
 
         AppTracking.shared.reportPageView(partiallyReloaded: false)
+    }
+
+    // MARK: Segue
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        guard let detailController = segue.destination as? DetailViewController else { return }
+
+        detailController.article = sampleArticle
+        detailController.contentViewSource = pageViewSource
     }
 
     // MARK: Actions (Login + logout)
@@ -63,47 +79,97 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     // MARK: Actions (User action)
 
     @IBAction func onReportUserActionAsStringTouch(_ sender: Any) {
+        // Each user action which you want to track can be reported with String parameters
+        // This could be either plain string or encoded JSON prepared by your app
 
+        let userActionPayload = "in_app_purchase_product=product1;value=20"
+        AppTracking.shared.reportUserAction(actionName: "UserPurchase",
+                                            actionSubtypeName: "In-app purchase",
+                                            parameters: userActionPayload)
+
+        // Each non content button click we can report using 'reportClick' method
+
+        reportButtonClickEvent(sender)
     }
 
     @IBAction func onReportUserActionAsDictionaryTouch(_ sender: Any) {
+        // Each user action which you want to track can be reported with Dictionary parameters
+        // This will be encoded to JSON by AppTracking module
 
+        let userActionPayload: [String: AnyHashable] = [
+            "in_app_purchase_product": "product1",
+            "value": 20
+        ]
+        AppTracking.shared.reportUserAction(actionName: "UserPurchase",
+                                            actionSubtypeName: "In-app purchase",
+                                            parameters: userActionPayload)
+
+        // Each non content button click we can report using 'reportClick' method
+
+        reportButtonClickEvent(sender)
     }
 
     // MARK: Actions (Detail)
 
     @IBAction func onDetailFromPushActionTouch(_ sender: Any) {
+        // If you know in your application if your content was opened from push notification
+        // (and not in usuall way directly from the app), you can pass that information to tracking module
 
+        pageViewSource = ContentPageViewSource.pushNotiifcation
+
+        performSegue(withIdentifier: detailSegueIdentifier, sender: self)
     }
 
     @IBAction func onDetailFromSocialActionTouch(_ sender: Any) {
+        // If you know in your application if your content was opened from social media, for example
+        // using universal links (and not in usuall way directly from the app), you can pass that information to tracking module
 
+        pageViewSource = ContentPageViewSource.socialMedia
+
+        performSegue(withIdentifier: detailSegueIdentifier, sender: self)
     }
 
     // MARK: Actions (Generic event)
 
     @IBAction func onReportGenericEventActionTouch(_ sender: Any) {
+        // If you have the need to report custom event (which is not defined in module interface) you can
+        // always do that using generic 'reportEvent' method, but you must construct Event yourself and know
+        // it's parameters
 
+        let customEvent = Event(analyticsSystemName: "GENERIC",
+                                eventName: "DemoCustomEvent",
+                                eventParameters: ["myParam": "myValue"])
+        AppTracking.shared.reportEvent(customEvent)
     }
 
     // MARK: Actions (Debug mode)
 
     @IBAction func onEnableDebugModeActionTouch(_ sender: Any) {
+        // If you don't want to send events to API during development (or for some other reason) but you still want
+        // to see events being processed by the SDK, you can enable debug mode
 
+        AppTracking.shared.setDebugMode(enabled: true)
     }
 
     @IBAction func onDisableDebugModeActionTouch(_ sender: Any) {
+        // You can always disable debug mode
 
+        AppTracking.shared.setDebugMode(enabled: false)
     }
 
     // MARK: Actions (Opt-out mode)
 
     @IBAction func onEnableOptOutModeActionTouch(_ sender: Any) {
+        // If you don't want to send events to API and also don't want to see events being processed by the SDK,
+        // you can enable opt-out mode. In this mode, SDK functionality is disabled (events processing, logger, API calls)
 
+        AppTracking.shared.setOptOutMode(enabled: true)
     }
 
     @IBAction func onDisableOptOutModeActionTouch(_ sender: Any) {
+        // You can always disable opt-out mode
 
+        AppTracking.shared.setOptOutMode(enabled: false)
     }
 }
 

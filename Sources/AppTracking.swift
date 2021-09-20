@@ -76,6 +76,9 @@ public class AppTracking {
     ///
     /// - Parameter enabled: Bool
     public func setOptOutMode(enabled: Bool) {
+        Logger.log("Setting opt-out mode enabled: '\(enabled)'")
+        Logger.setLogger(enabled: !enabled)
+
         // TODO: Implementation missing
     }
 
@@ -92,6 +95,8 @@ public class AppTracking {
     ///
     /// - Parameter events: [Event]
     public func reportEvents(_ events: [Event]) {
+        Logger.log("Reporting generic events, events count: '\(events.count)'")
+
         // TODO: Implementation missing
     }
 }
