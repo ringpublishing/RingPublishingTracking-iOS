@@ -9,7 +9,7 @@
 import Foundation
 
 class NetworkSessionMock: NetworkSession {
-    
+
     var data: Data?
     var error: Error?
     var response: URLResponse?

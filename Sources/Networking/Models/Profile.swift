@@ -9,6 +9,6 @@
 import Foundation
 
 struct Profile: Codable {
-    
+
     let segments: [String: String]?
 }

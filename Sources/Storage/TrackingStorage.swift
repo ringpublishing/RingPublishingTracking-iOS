@@ -13,4 +13,3 @@ protocol TrackingStorage {
     var trackingIds: [String: IdsWithLifetime]? { get set }
     var postInterval: Int? { get set }
 }
-

@@ -9,7 +9,7 @@
 import Foundation
 
 struct IdsWithLifetime: Codable {
-    
+
     /// The identifier
     let value: String?
 

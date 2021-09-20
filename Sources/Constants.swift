@@ -8,7 +8,11 @@
 
 import Foundation
 
+// swiftlint:disable force_unwrapping
+
 struct Constants {
+
+    // MARK: API
 
     /// API url
     static let apiUrl: URL = URL(string: "https://events.ocdn.eu")!
@@ -21,4 +25,14 @@ struct Constants {
 
     /// Size limit of  body for single events request
     static let requestBodySizeLimit = UInt(1000 * 1000)
+
+    // MARK: Config
+
+    static let applicationDefaultStructurePath = "undefined"
+    static let applicationDefaultAdvertisementArea = "undefined"
+
+    // MARK: Event params
+
+    static let eventDefaultAnalyticsSystemName = "_GENERIC"
+    static let eventDefaultName = "Event"
 }

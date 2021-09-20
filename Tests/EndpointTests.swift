@@ -10,15 +10,14 @@ import XCTest
 
 class EndpointTests: XCTestCase {
 
-    // MARK: Setup
+    private let apiKey = "test_key"
+    private let apiUrl = URL(string: "https://test.com")
 
-    let config = Configuration(tenantId: "test",
-                               apiKey: "test_key",
-                               publicationsRootName: "test_root_name",
-                               apiUrl: URL(string: "https://test.com"))
+    // MARK: Setup
 
     override func setUp() {
         super.setUp()
+
     }
 
     // MARK: Tests
@@ -45,7 +44,7 @@ class EndpointTests: XCTestCase {
         }
         """.data(using: .utf8)
 
-        let service: APIService = APIService(configuration: config, session: sessionMock)
+        let service: APIService = APIService(apiUrl: apiUrl, apiKey: apiKey, session: sessionMock)
 
         let expectation = self.expectation(description: "request made")
 
@@ -86,7 +85,7 @@ class EndpointTests: XCTestCase {
         }
         """.data(using: .utf8)
 
-        let service: APIService = APIService(configuration: config, session: sessionMock)
+        let service: APIService = APIService(apiUrl: apiUrl, apiKey: apiKey, session: sessionMock)
 
         let expectation = self.expectation(description: "request made")
 
@@ -107,5 +106,4 @@ class EndpointTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
         XCTAssertEqual(testResponse?.postInterval, 30000, "postInterval of decoded response should match")
     }
-
 }

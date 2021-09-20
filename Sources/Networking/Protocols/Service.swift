@@ -9,6 +9,6 @@
 import Foundation
 
 protocol Service {
-    
+
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void)
 }

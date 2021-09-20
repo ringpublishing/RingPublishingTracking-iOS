@@ -14,11 +14,20 @@ struct APIService: Service {
     let apiKey: String
     let session: NetworkSession
 
-    init(configuration: Configuration, session: NetworkSession = URLSession.shared) {
-        self.apiUrl = configuration.apiUrl ?? Constants.apiUrl
-        self.apiKey = configuration.apiKey
+    // MARK: Init
+
+    init(apiUrl: URL?, apiKey: String, session: NetworkSession = URLSession.shared) {
+        self.apiUrl = apiUrl ?? Constants.apiUrl
+        self.apiKey = apiKey
         self.session = session
     }
+
+    // MARK: Methods
+
+    // TODO: [Artur Rymasz] Fix pls
+
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
 
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void) {
         guard let path = endpoint.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
