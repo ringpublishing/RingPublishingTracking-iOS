@@ -41,7 +41,7 @@ class Logger {
     }
 
     class func log(_ message: String,
-                   level: OSLogType = .default,
+                   level: OSLogType = .info,
                    file: String = #file,
                    functionName: String = #function,
                    lineNumber: Int = #line) {
