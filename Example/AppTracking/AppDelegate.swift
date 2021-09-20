@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Example
 
         // Initialize AppTracking module before your app wants to send any events.
-        // The earlier you will do it - the aerlier you will receive assigned 'trackingIdentifier' from SDK by 'AppTrackingDelegate'
+        // The earlier you will do it - the earlier you will receive assigned 'trackingIdentifier' from SDK by 'AppTrackingDelegate'
 
         // We are enabling debug mode by default in demo app
 
