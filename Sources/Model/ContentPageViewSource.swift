@@ -17,6 +17,6 @@ public enum ContentPageViewSource {
     /// Content was displayed after opening push notification
     case pushNotiifcation
 
-    /// Content was displayed after interacting with uniwersal link / deep link on social media
+    /// Content was displayed after interacting with universal link / deep link on social media
     case socialMedia
 }
