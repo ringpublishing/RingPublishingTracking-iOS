@@ -9,6 +9,7 @@
 import Foundation
 
 final class EventsManager {
+
     private let storage: TrackingStorage
 
     private var events: [Event] = []

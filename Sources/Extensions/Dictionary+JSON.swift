@@ -9,6 +9,7 @@
 import Foundation
 
 extension Dictionary where Key == String {
+
     var sizeInBytes: UInt {
         do {
             let data = try dataUsingJSONSerialization()

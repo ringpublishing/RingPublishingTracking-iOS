@@ -1,14 +1,14 @@
 //
-//  Bodable.swift
+//  BodableError.swift
 //  AppTrackingTests
 //
-//  Created by Artur Rymarz on 17/09/2021.
+//  Created by Artur Rymarz on 20/09/2021.
 //  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
 
-protocol Bodable {
+enum BodableError: Error {
 
-    func toBodyData() throws -> Data
+    case incorrectBody
 }

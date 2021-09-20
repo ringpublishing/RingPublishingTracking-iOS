@@ -9,14 +9,8 @@
 import Foundation
 
 protocol TrackingStorage {
+
     var trackingIds: [String: IdsWithLifetime]? { get set }
     var postInterval: Int? { get set }
 }
 
-final class UserDefaultsStorage: TrackingStorage {
-    @StoredValueInUserDefaults(key: "trackingIds", storage: UserDefaults.standard)
-    var trackingIds: [String: IdsWithLifetime]?
-
-    @StoredValueInUserDefaults(key: "postInterval", storage: UserDefaults.standard)
-    var postInterval: Int?
-}

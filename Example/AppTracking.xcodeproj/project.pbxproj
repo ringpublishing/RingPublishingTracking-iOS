@@ -12,6 +12,8 @@
 		208CD60E26F38421006A406C /* TrackingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD60D26F38421006A406C /* TrackingStorage.swift */; };
 		208CD61026F477C2006A406C /* Bodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD60F26F477C2006A406C /* Bodable.swift */; };
 		208CD61326F85659006A406C /* Dictionary+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61226F85659006A406C /* Dictionary+JSON.swift */; };
+		208CD61626F85A25006A406C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61526F85A25006A406C /* UserDefaultsStorage.swift */; };
+		208CD61826F85A53006A406C /* BodableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61726F85A53006A406C /* BodableError.swift */; };
 		20C2392626F1574A005A734A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2390626F1574A005A734A /* Constants.swift */; };
 		20C2392726F1574A005A734A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2390826F1574A005A734A /* Logger.swift */; };
 		20C2392826F1574A005A734A /* IdentifyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2390C26F1574A005A734A /* IdentifyResponse.swift */; };
@@ -67,6 +69,8 @@
 		208CD60D26F38421006A406C /* TrackingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingStorage.swift; sourceTree = "<group>"; };
 		208CD60F26F477C2006A406C /* Bodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bodable.swift; sourceTree = "<group>"; };
 		208CD61226F85659006A406C /* Dictionary+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
+		208CD61526F85A25006A406C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		208CD61726F85A53006A406C /* BodableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodableError.swift; sourceTree = "<group>"; };
 		20C2390626F1574A005A734A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		20C2390826F1574A005A734A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		20C2390C26F1574A005A734A /* IdentifyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyResponse.swift; sourceTree = "<group>"; };
@@ -140,6 +144,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		208CD61426F85A11006A406C /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				208CD60D26F38421006A406C /* TrackingStorage.swift */,
+				208CD61526F85A25006A406C /* UserDefaultsStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		20C2390526F1574A005A734A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +162,7 @@
 				20C2390726F1574A005A734A /* Logger */,
 				20C2390926F1574A005A734A /* Networking */,
 				20C2392326F1574A005A734A /* Utils */,
-				208CD60D26F38421006A406C /* TrackingStorage.swift */,
+				208CD61426F85A11006A406C /* Storage */,
 				208CD61126F85643006A406C /* Extensions */,
 			);
 			name = Sources;
@@ -211,6 +224,7 @@
 			children = (
 				20C2391626F1574A005A734A /* HTTPMethod.swift */,
 				20C2391726F1574A005A734A /* ServiceError.swift */,
+				208CD61726F85A53006A406C /* BodableError.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -533,6 +547,7 @@
 				20C2393B26F1574A005A734A /* AppTracking.swift in Sources */,
 				20C2393326F1574A005A734A /* User.swift in Sources */,
 				20C2392926F1574A005A734A /* EventResponse.swift in Sources */,
+				208CD61626F85A25006A406C /* UserDefaultsStorage.swift in Sources */,
 				208CD60C26F29622006A406C /* Event.swift in Sources */,
 				20C2392D26F1574A005A734A /* IdentifyEndpoint.swift in Sources */,
 				20C2392826F1574A005A734A /* IdentifyResponse.swift in Sources */,
@@ -547,6 +562,7 @@
 				208CD60E26F38421006A406C /* TrackingStorage.swift in Sources */,
 				20C2392E26F1574A005A734A /* APIService.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
+				208CD61826F85A53006A406C /* BodableError.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
 				20C2393826F1574A005A734A /* Service.swift in Sources */,
 				20C2393026F1574A005A734A /* ServiceError.swift in Sources */,
