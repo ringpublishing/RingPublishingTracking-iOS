@@ -24,6 +24,11 @@ struct APIService: Service {
 
     // MARK: Methods
 
+    // TODO: [Artur Rymasz] Fix pls
+
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
+
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void) {
         guard let path = endpoint.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
             completion(.failure(.invalidUrl))
@@ -52,6 +57,14 @@ struct APIService: Service {
         switch endpoint.method {
         case .post:
             do {
+                #if DEBUG
+                if let data = try? endpoint.encodedBody() {
+                    let dataString = String(data: data, encoding: .utf8)
+                    let string = dataString ?? "Unknown data"
+                    Logger.log("REQUEST BODY:\n\(string)", level: .debug)
+                }
+                #endif
+
                 request.httpBody = try endpoint.encodedBody()
             } catch {
                 completion(.failure(.incorrectRequestBody))
@@ -75,6 +88,12 @@ struct APIService: Service {
             if let response = response as? HTTPURLResponse, response.statusCode == 403 {
                 completion(.failure(.unauthorized))
             }
+
+            #if DEBUG
+            let dataString = String(data: data, encoding: .utf8)
+            let string = dataString ?? "Unknown data"
+            Logger.log("RESPONSE:\n\(string)", level: .debug)
+            #endif
 
             guard let decoded = try? endpoint.decode(data: data) else {
                 completion(.failure(.failedToDecode))
