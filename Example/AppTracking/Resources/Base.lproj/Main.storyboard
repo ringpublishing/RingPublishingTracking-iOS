@@ -308,14 +308,19 @@
                     </view>
                     <navigationItem key="navigationItem" id="Hga-h6-7gq">
                         <rightBarButtonItems>
-                            <barButtonItem title="Add more content" style="done" id="iBw-jl-O7C">
+                            <barButtonItem title="Add content" style="done" id="iBw-jl-O7C">
                                 <connections>
                                     <action selector="onAddMoreContentActionTouch:" destination="t9l-qS-kSS" id="cDU-tl-Daf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Obscure content" style="done" id="bkp-kJ-LBj">
+                            <barButtonItem title="Modal" style="done" id="wHA-Z0-2GL">
                                 <connections>
-                                    <action selector="onShowModalActionTouch:" destination="t9l-qS-kSS" id="YTz-NX-LAY"/>
+                                    <action selector="onShowModalActionTouch:" destination="t9l-qS-kSS" id="TF8-nt-PHF"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Push" style="done" id="bkp-kJ-LBj">
+                                <connections>
+                                    <action selector="onPushActionTouch:" destination="t9l-qS-kSS" id="HOE-43-iQG"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>

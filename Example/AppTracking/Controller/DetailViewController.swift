@@ -79,16 +79,49 @@ class DetailViewController: UIViewController, TraceableScreen {
         reportContentPageView(partiallyReloaded: true)
     }
 
-    @IBAction func onShowModalActionTouch(_ sender: Any) {
+    @IBAction func onPushActionTouch(_ sender: Any) {
         // Show empty view controller to pause detail content tracking
-        // For demo purpose we are pushing empty controller but this should be handled by the app in all cases:
+        // For demo purpose we are pushing here empty controller but this should be handled by the app in all cases:
         // - pushing view controllers
         // - presenting modally view controllers
         // - presenting views which obscure content
 
         let viewController = UIViewController()
-        viewController.view.backgroundColor = .systemBackground
+        viewController.view.backgroundColor = .systemGray
+
         navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    @IBAction func onShowModalActionTouch(_ sender: Any) {
+        // Show empty view controller to pause detail content tracking
+        // For demo purpose we are presenting here empty controller but this should be handled by the app in all cases:
+        // - pushing view controllers
+        // - presenting modally view controllers
+        // - presenting views which obscure content
+
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .systemGray
+        viewController.presentationController?.delegate = self
+
+        present(viewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: UIAdaptivePresentationControllerDelegate
+extension DetailViewController: UIAdaptivePresentationControllerDelegate {
+
+    func presentationController(_ presentationController: UIPresentationController,
+                                willPresentWithAdaptiveStyle style: UIModalPresentationStyle,
+                                transitionCoordinator: UIViewControllerTransitionCoordinator?) {
+        // Pause keep alive tracking when modal controller is presented
+
+        AppTracking.shared.pauseContentKeepAliveTracking()
+    }
+
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        // Resume keep alive tracking when modal controller is dismissed
+
+        AppTracking.shared.resumeContentKeepAliveTracking()
     }
 }
 
