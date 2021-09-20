@@ -8,9 +8,21 @@
 
 import Foundation
 
-struct EventRequest: Encodable {
-    
+struct EventRequest: Bodable {
+
     let ids: [String: String]
     let user: User
     let events: [ReportedEvent]
+
+    var dictionary: [String: Any] {
+        [
+            "ids": ids,
+            "user": user.dictionary,
+            "events": events.map { $0.dictionary }
+        ]
+    }
+
+    func toBodyData() throws -> Data {
+        try dictionary.dataUsingJSONSerialization()
+    }
 }

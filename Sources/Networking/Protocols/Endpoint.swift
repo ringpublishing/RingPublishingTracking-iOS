@@ -12,7 +12,7 @@ public typealias HTTPHeaders = [String: String]
 
 protocol Endpoint {
 
-    associatedtype Body = Encodable
+    associatedtype Body = Bodable
     associatedtype Response = Decodable
 
     var path: String { get }

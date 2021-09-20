@@ -8,25 +8,23 @@
 
 import Foundation
 
-struct ReportedEvent: Encodable {
+struct ReportedEvent {
 
     let clientId: String
     let eventType: String
-    let data: [String: Encodable]
+    let data: [String: AnyHashable]
+}
 
-    enum CodingKeys: String, CodingKey {
-        
-        case clientId = "ac"
-        case eventType = "et"
-        case data
+extension ReportedEvent {
+    var dictionary: [String: Any] {
+        [
+            "ac": clientId,
+            "et": eventType,
+            "data": data
+        ]
     }
 
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(clientId, forKey: .clientId)
-        try container.encode(eventType, forKey: .eventType)
-
-        let json = try JSONSerialization.data(withJSONObject: data, options: [.prettyPrinted, .sortedKeys])
-        try container.encode(json, forKey: .data)
+    var sizeInBytes: UInt {
+        dictionary.sizeInBytes
     }
 }

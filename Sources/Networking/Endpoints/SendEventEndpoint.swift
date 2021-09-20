@@ -9,13 +9,13 @@
 import Foundation
 
 struct SendEventEnpoint: Endpoint {
-    
+
     let path: String = Constants.apiVersion
     let method: HTTPMethod = .post
     let body: EventRequest
 
     func encodedBody() throws -> Data? {
-        try JSONEncoder().encode(body)
+        try body.toBodyData()
     }
 
     func decode(data: Data) throws -> EventResponse? {

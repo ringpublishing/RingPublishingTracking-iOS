@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct IdsWithLifetime: Decodable {
+struct IdsWithLifetime: Codable {
     
-    /// The identifier refresh's date (format: yyyyMMddHHmmssSSSSSSSSSS)
+    /// The identifier
     let value: String?
 
     /// The time in seconds of how long the identifier is valid for since the refresh's date

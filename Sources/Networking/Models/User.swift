@@ -17,9 +17,27 @@ struct User: Encodable {
     let userEmailMD5: String? = nil
 
     enum CodingKeys: String, CodingKey {
-        
+
         case adpConsent, pubConsent, deviceId
         case advertisementId = "advId"
         case userEmailMD5 = "aId"
+    }
+}
+
+extension User {
+    var dictionary: [String: Any] {
+        var dic = [String: Any]()
+
+        dic["adpConsent"] = adpConsent
+        dic["pubConsent"] = pubConsent
+        dic["advId"] = advertisementId
+        dic["deviceId"] = deviceId
+        dic["aId"] = userEmailMD5
+
+        return dic
+    }
+
+    var sizeInBytes: UInt {
+        dictionary.sizeInBytes
     }
 }

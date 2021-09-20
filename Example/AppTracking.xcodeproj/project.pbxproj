@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		208CD60A26F294EB006A406C /* EventsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD60926F294EB006A406C /* EventsManager.swift */; };
+		208CD60C26F29622006A406C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD60B26F29622006A406C /* Event.swift */; };
+		208CD60E26F38421006A406C /* TrackingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD60D26F38421006A406C /* TrackingStorage.swift */; };
+		208CD61026F477C2006A406C /* Bodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD60F26F477C2006A406C /* Bodable.swift */; };
+		208CD61326F85659006A406C /* Dictionary+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61226F85659006A406C /* Dictionary+JSON.swift */; };
 		20C2392626F1574A005A734A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2390626F1574A005A734A /* Constants.swift */; };
 		20C2392726F1574A005A734A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2390826F1574A005A734A /* Logger.swift */; };
 		20C2392826F1574A005A734A /* IdentifyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2390C26F1574A005A734A /* IdentifyResponse.swift */; };
@@ -57,6 +62,11 @@
 
 /* Begin PBXFileReference section */
 		18028B7103996E83DEE225F1 /* Pods-AppTracking-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTracking-Example.debug.xcconfig"; path = "Target Support Files/Pods-AppTracking-Example/Pods-AppTracking-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		208CD60926F294EB006A406C /* EventsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManager.swift; sourceTree = "<group>"; };
+		208CD60B26F29622006A406C /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		208CD60D26F38421006A406C /* TrackingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingStorage.swift; sourceTree = "<group>"; };
+		208CD60F26F477C2006A406C /* Bodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bodable.swift; sourceTree = "<group>"; };
+		208CD61226F85659006A406C /* Dictionary+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
 		20C2390626F1574A005A734A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		20C2390826F1574A005A734A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		20C2390C26F1574A005A734A /* IdentifyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyResponse.swift; sourceTree = "<group>"; };
@@ -122,14 +132,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		208CD61126F85643006A406C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				208CD61226F85659006A406C /* Dictionary+JSON.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		20C2390526F1574A005A734A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				20C2392526F1574A005A734A /* AppTracking.swift */,
+				208CD60926F294EB006A406C /* EventsManager.swift */,
 				20C2390626F1574A005A734A /* Constants.swift */,
 				20C2390726F1574A005A734A /* Logger */,
 				20C2390926F1574A005A734A /* Networking */,
 				20C2392326F1574A005A734A /* Utils */,
+				208CD60D26F38421006A406C /* TrackingStorage.swift */,
+				208CD61126F85643006A406C /* Extensions */,
 			);
 			name = Sources;
 			path = ../Sources;
@@ -203,6 +224,7 @@
 				20C2391C26F1574A005A734A /* IdsWithLifetime.swift */,
 				20C2391D26F1574A005A734A /* Configuration.swift */,
 				20C2391E26F1574A005A734A /* ReportedEvent.swift */,
+				208CD60B26F29622006A406C /* Event.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -213,6 +235,7 @@
 				20C2392126F1574A005A734A /* Service.swift */,
 				20C2392226F1574A005A734A /* Endpoint.swift */,
 				20C2394526F21A14005A734A /* NetworkService.swift */,
+				208CD60F26F477C2006A406C /* Bodable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -486,6 +509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				208CD61326F85659006A406C /* Dictionary+JSON.swift in Sources */,
 				7D1C1B4B26E657430051A267 /* ViewController.swift in Sources */,
 				7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */,
 			);
@@ -505,18 +529,22 @@
 				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
 				7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */,
+				208CD61026F477C2006A406C /* Bodable.swift in Sources */,
 				20C2393B26F1574A005A734A /* AppTracking.swift in Sources */,
 				20C2393326F1574A005A734A /* User.swift in Sources */,
 				20C2392926F1574A005A734A /* EventResponse.swift in Sources */,
+				208CD60C26F29622006A406C /* Event.swift in Sources */,
 				20C2392D26F1574A005A734A /* IdentifyEndpoint.swift in Sources */,
 				20C2392826F1574A005A734A /* IdentifyResponse.swift in Sources */,
 				20C2393426F1574A005A734A /* IdsWithLifetime.swift in Sources */,
 				20C2393A26F1574A005A734A /* StoredValueInUserDefaults.swift in Sources */,
 				20C2393626F1574A005A734A /* ReportedEvent.swift in Sources */,
+				208CD60A26F294EB006A406C /* EventsManager.swift in Sources */,
 				20C2392626F1574A005A734A /* Constants.swift in Sources */,
 				20C2392C26F1574A005A734A /* EventRequest.swift in Sources */,
 				20C2393926F1574A005A734A /* Endpoint.swift in Sources */,
 				20C2392F26F1574A005A734A /* HTTPMethod.swift in Sources */,
+				208CD60E26F38421006A406C /* TrackingStorage.swift in Sources */,
 				20C2392E26F1574A005A734A /* APIService.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
