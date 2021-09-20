@@ -145,11 +145,25 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WHw-fV-Ebm">
+                                <rect key="frame" x="96.5" y="476" width="221" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asP-Ys-kCE">
+                                        <rect key="frame" x="0.0" y="0.0" width="221" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report Aureus offers impression"/>
+                                        <connections>
+                                            <action selector="onReportAureusOffersImpressionActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="Kdg-Su-Lyn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sJr-lE-joG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="top" secondItem="sJr-lE-joG" secondAttribute="top" constant="36" id="440-Hn-74I"/>
+                            <constraint firstItem="WHw-fV-Ebm" firstAttribute="top" secondItem="6Li-kJ-9c6" secondAttribute="bottom" constant="36" id="7s9-ah-g31"/>
                             <constraint firstItem="d0H-zo-woo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="9Sk-wj-wC4"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="C3m-rM-iZg"/>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="D8B-WT-t6P"/>
@@ -160,6 +174,8 @@
                             <constraint firstItem="hhu-dd-hha" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="RBC-sn-0NK"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yYw-mN-t3Q" secondAttribute="trailing" constant="16" id="VXe-gw-GGB"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="d0H-zo-woo" secondAttribute="trailing" constant="16" id="Wli-cg-NAX"/>
+                            <constraint firstItem="WHw-fV-Ebm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="aMt-3T-lwG"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WHw-fV-Ebm" secondAttribute="trailing" constant="16" id="bdO-vz-7Mx"/>
                             <constraint firstItem="d0H-zo-woo" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="dLX-kW-iln"/>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="e7u-aI-aQB"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4gW-eV-fJ9" secondAttribute="trailing" constant="16" id="eB7-M7-tRO"/>
@@ -173,6 +189,7 @@
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="top" secondItem="yYw-mN-t3Q" secondAttribute="bottom" constant="36" id="wFK-Cv-c3Q"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Li-kJ-9c6" secondAttribute="trailing" constant="16" id="xfo-PU-s9r"/>
                             <constraint firstItem="hhu-dd-hha" firstAttribute="top" secondItem="4gW-eV-fJ9" secondAttribute="bottom" constant="36" id="xr7-7j-7v3"/>
+                            <constraint firstItem="WHw-fV-Ebm" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="yF4-7X-tBY"/>
                         </constraints>
                     </view>
                     <connections>

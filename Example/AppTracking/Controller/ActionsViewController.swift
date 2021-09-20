@@ -171,6 +171,16 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
         AppTracking.shared.setOptOutMode(enabled: false)
     }
+
+    // MARK: Actions (Aureus offers impression)
+
+    @IBAction func onReportAureusOffersImpressionActionTouch(_ sender: Any) {
+        // If you have recomendations delivered by personalization engine (Aureus) you should report
+        // when those items are displayed to the user
+
+        let offerIds = ["123", "456", "789"]
+        AppTracking.shared.reportAureusOffersImpressions(offerIds: offerIds)
+    }
 }
 
 // MARK: Private

@@ -17,6 +17,8 @@ public extension AppTracking {
     ///
     /// - Parameter offerIds: [String]
     func reportAureusOffersImpressions(offerIds: [String]) {
+        Logger.log("Reporting 'Aureus' offers impression event for offers: '\(offerIds)'")
+
         // TODO: Implementation missing
     }
 }
