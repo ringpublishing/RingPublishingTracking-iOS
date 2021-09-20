@@ -20,6 +20,8 @@ public extension AppTracking {
     ///
     /// - Parameter selectedElementName: String
     func reportClick(selectedElementName: String?) {
+        Logger.log("Reporting click event for element named: '\(selectedElementName.logable)'")
+
         // TODO: Implementation missing
     }
 

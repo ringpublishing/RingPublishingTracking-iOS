@@ -20,6 +20,9 @@ public extension AppTracking {
     ///   - ssoSystemName: Name of SSO system used to login
     ///   - userId: User identifier
     func updateUserData(ssoSystemName: String, userId: String?) {
+        let obscuredId: String? = userId == nil ? nil : String(repeating: "*", count: userId?.count ?? 0)
+        Logger.log("Updating application user data, SSO: '\(ssoSystemName)' and userId: '\(obscuredId.logable)'")
+
         // TODO: Implementation missing
     }
 
