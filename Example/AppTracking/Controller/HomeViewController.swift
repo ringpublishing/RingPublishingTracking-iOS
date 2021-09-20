@@ -29,7 +29,7 @@ class HomeViewController: UIPageViewController {
 private extension HomeViewController {
 
     func preparePagerViewControllers() -> [UIViewController] {
-        let controllerIdentifiers = ["ListViewController", "ActionsViewController"]
+        let controllerIdentifiers = ["ListViewController", "ActionsViewController", "NonContentViewController"]
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
 
         return controllerIdentifiers.compactMap { storyboard.instantiateViewController(withIdentifier: $0) as? PagerViewController }

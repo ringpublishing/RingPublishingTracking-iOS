@@ -58,6 +58,7 @@
 		7D3E557726F88771000F5E38 /* EventsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E555126F88771000F5E38 /* EventsManager.swift */; };
 		7D3E557826F88771000F5E38 /* AppTrackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E555226F88771000F5E38 /* AppTrackingConfiguration.swift */; };
 		7D3E557926F88771000F5E38 /* AppTracking+ContentPerformanceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E555326F88771000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */; };
+		7D3E557B26F88893000F5E38 /* NonContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E557A26F88893000F5E38 /* NonContentViewController.swift */; };
 		7D436B4726F4C5DC00510ED8 /* SampleArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D436B4626F4C5DC00510ED8 /* SampleArticle.swift */; };
 		7D436B4A26F4C87700510ED8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D436B4926F4C87700510ED8 /* DetailViewController.swift */; };
 		7D5DDF9E26F7235300A4375F /* TraceableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5DDF9D26F7235300A4375F /* TraceableScreen.swift */; };
@@ -134,6 +135,7 @@
 		7D3E555126F88771000F5E38 /* EventsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsManager.swift; sourceTree = "<group>"; };
 		7D3E555226F88771000F5E38 /* AppTrackingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTrackingConfiguration.swift; sourceTree = "<group>"; };
 		7D3E555326F88771000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppTracking+ContentPerformanceMonitor.swift"; sourceTree = "<group>"; };
+		7D3E557A26F88893000F5E38 /* NonContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonContentViewController.swift; sourceTree = "<group>"; };
 		7D436B4626F4C5DC00510ED8 /* SampleArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleArticle.swift; sourceTree = "<group>"; };
 		7D436B4926F4C87700510ED8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7D5DDF9D26F7235300A4375F /* TraceableScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceableScreen.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				7D0B887926F4B0AF0080A764 /* ListViewController.swift */,
 				7D0B887B26F4B0DC0080A764 /* ActionsViewController.swift */,
 				7D436B4926F4C87700510ED8 /* DetailViewController.swift */,
+				7D3E557A26F88893000F5E38 /* NonContentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				7D436B4726F4C5DC00510ED8 /* SampleArticle.swift in Sources */,
 				7D1C1B4B26E657430051A267 /* HomeViewController.swift in Sources */,
 				7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */,
+				7D3E557B26F88893000F5E38 /* NonContentViewController.swift in Sources */,
 				7D5DDF9E26F7235300A4375F /* TraceableScreen.swift in Sources */,
 				7D0B887C26F4B0DC0080A764 /* ActionsViewController.swift in Sources */,
 				7D0B887A26F4B0AF0080A764 /* ListViewController.swift in Sources */,
