@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// User identifier
 struct EaUuid: Codable {
 
     /// The identifier

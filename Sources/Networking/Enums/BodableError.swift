@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Error used for issues with encoding `Bodable` to data
 enum BodableError: Error {
 
     case incorrectBody

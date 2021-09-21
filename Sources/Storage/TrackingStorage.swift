@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Protocol for persistent storage for data that is used for network requests
 protocol TrackingStorage {
 
     var eaUuid: EaUuid? { get set }

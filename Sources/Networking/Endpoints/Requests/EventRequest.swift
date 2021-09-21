@@ -8,18 +8,27 @@
 
 import Foundation
 
+/// Request body for send event endpoint
 struct EventRequest: Bodable {
 
+    /// Stored tracking identifiers
     let ids: [String: String]
-    let user: User
+
+    /// Optional additional data used to track user
+    let user: User?
+
+    /// Not empty list of reported events to send
     let events: [ReportedEvent]
 
     var dictionary: [String: Any] {
-        [
+        var dictionary: [String: Any] = [
             "ids": ids,
-            "user": user.dictionary,
             "events": events.map { $0.dictionary }
         ]
+
+        dictionary["user"] = user?.dictionary
+
+        return dictionary
     }
 
     func toBodyData() throws -> Data {

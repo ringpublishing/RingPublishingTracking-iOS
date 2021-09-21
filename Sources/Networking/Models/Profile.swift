@@ -8,7 +8,9 @@
 
 import Foundation
 
+/// Additional tracking data for current user
 struct Profile: Codable {
 
+    /// Tracking data, ie. audience segments
     let segments: [String: String]?
 }

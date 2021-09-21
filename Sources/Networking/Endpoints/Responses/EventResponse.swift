@@ -8,7 +8,9 @@
 
 import Foundation
 
+/// Structure of the JSON response for Event Request
 struct EventResponse: Decodable {
 
+    /// Minimum time in milliseconds between consequitve HTTP requests
     let postInterval: Int
 }

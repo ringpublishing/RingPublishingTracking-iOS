@@ -8,12 +8,22 @@
 
 import Foundation
 
+/// Additional data used to track user
 struct User: Encodable {
 
+    /// Properly encoded string that holds partners' consents
     let adpConsent: String?
+
+    /// Properly encoded string that holds publisher's consents
     let pubConsent: String?
+
+    /// IDFA
     let advertisementId: String? = nil
+
+    /// Device ID used when `advertisementId` is not available
     let deviceId: String? = nil
+
+    /// MD5 of the email for logged-in users
     let userEmailMD5: String? = nil
 
     enum CodingKeys: String, CodingKey {

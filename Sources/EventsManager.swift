@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Manager for managing events that should be added to the queue and then send
 final class EventsManager {
 
     private let storage: TrackingStorage
@@ -21,12 +22,16 @@ final class EventsManager {
         self.userManager = userManager
     }
 
+    /// Adds list of events to the queue when the size of each event is appropriate
+    /// - Parameter events: Array of `Event` that should be added to the queue
     func addEvents(_ events: [Event]) {
         for event in events {
             addEvent(event)
         }
     }
 
+    /// Adds single event to the queue when the size is appropriate
+    /// - Parameter event: `Event` that should be added to the queue
     private func addEvent(_ event: Event) {
         let reportedEvent = ReportedEvent(clientId: event.analyticsSystemName, eventType: event.eventName, data: event.eventParameters)
         let eventSize = reportedEvent.sizeInBytes
@@ -41,6 +46,7 @@ final class EventsManager {
 
 extension EventsManager {
 
+    /// Checks if stored eaUUID is not expired
     var isEaUuidValid: Bool {
         guard let eaUuid = storage.eaUuid else {
             return false
@@ -52,6 +58,8 @@ extension EventsManager {
         return expirationDate > now
     }
 
+    /// Builds dictionary of stored tracking identifiers
+    /// - Returns: Dictionary
     func storedIds() -> [String: String] {
         var ids = [String: String]()
 
@@ -70,6 +78,8 @@ extension EventsManager {
         return ids
     }
 
+    /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
+    /// - Returns: `EventRequest`
     func buildEventRequest() -> EventRequest {
         let ids = storedIds()
         let idsSize: UInt = ids.jsonSizeInBytes

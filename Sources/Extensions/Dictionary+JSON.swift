@@ -10,6 +10,7 @@ import Foundation
 
 extension Dictionary where Key == String {
 
+    /// Size in bytes of the dictionary after JSON serialization
     var jsonSizeInBytes: UInt {
         do {
             let data = try dataUsingJSONSerialization()
@@ -19,6 +20,8 @@ extension Dictionary where Key == String {
         }
     }
 
+    /// Serializes dictionary into JSON data object
+    /// - Returns: Data
     func dataUsingJSONSerialization() throws -> Data {
         try JSONSerialization.data(withJSONObject: self, options: [.sortedKeys])
     }

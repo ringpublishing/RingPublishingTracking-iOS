@@ -10,12 +10,22 @@ import Foundation
 
 struct APIService: Service {
 
+    /// API url
     let apiUrl: URL
+
+    /// API key
     let apiKey: String
+
+    /// Session object used to create requests
     let session: NetworkSession
 
     // MARK: Init
 
+    /// Initialization for  API service
+    /// - Parameters:
+    ///   - apiUrl: API url. If not provided the default URL will be used
+    ///   - apiKey: API key
+    ///   - session: Session object used to create requests. Defaults to `URLSession.shared`
     init(apiUrl: URL?, apiKey: String, session: NetworkSession = URLSession.shared) {
         self.apiUrl = apiUrl ?? Constants.apiUrl
         self.apiKey = apiKey
@@ -24,6 +34,7 @@ struct APIService: Service {
 
     // MARK: Methods
 
+    /// Makes a network request with the given endpoint providing a response in the completion closure.
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void) {
         guard let path = endpoint.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
             completion(.failure(.invalidUrl))
@@ -87,6 +98,7 @@ struct APIService: Service {
 }
 
 extension URLRequest {
+    /// Fills `URLRequest` body with data from the endpoint
     mutating func withBody<T: Endpoint>(for endpoint: T) throws {
         switch endpoint.method {
         case .post:

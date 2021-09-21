@@ -8,9 +8,13 @@
 
 import Foundation
 
+/// Request body for identify endpoint
 struct IdentifyRequest: Encodable, Bodable {
 
+    /// Stored tracking identifiers
     let ids: [String: String]
+
+    /// Optional additional data used to track user
     let user: User?
 
     func toBodyData() throws -> Data {
