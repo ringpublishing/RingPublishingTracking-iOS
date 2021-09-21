@@ -24,11 +24,6 @@ struct APIService: Service {
 
     // MARK: Methods
 
-    // TODO: [Artur Rymasz] Fix pls
-
-    // swiftlint:disable cyclomatic_complexity
-    // swiftlint:disable function_body_length
-
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void) {
         guard let path = endpoint.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
             completion(.failure(.invalidUrl))
@@ -54,24 +49,11 @@ struct APIService: Service {
         request.httpMethod = endpoint.method.rawValue
         request.allHTTPHeaderFields = endpoint.headers
 
-        switch endpoint.method {
-        case .post:
-            do {
-                #if DEBUG
-                if let data = try? endpoint.encodedBody() {
-                    let dataString = String(data: data, encoding: .utf8)
-                    let string = dataString ?? "Unknown data"
-                    Logger.log("REQUEST BODY:\n\(string)", level: .debug)
-                }
-                #endif
-
-                request.httpBody = try endpoint.encodedBody()
-            } catch {
-                completion(.failure(.incorrectRequestBody))
-                return
-            }
-        default:
-            break
+        do {
+            try request.withBody(for: endpoint)
+        } catch {
+            completion(.failure(.incorrectRequestBody))
+            return
         }
 
         session.dataTask(with: request) { data, response, error in
@@ -90,9 +72,8 @@ struct APIService: Service {
             }
 
             #if DEBUG
-            let dataString = String(data: data, encoding: .utf8)
-            let string = dataString ?? "Unknown data"
-            Logger.log("RESPONSE:\n\(string)", level: .debug)
+            let dataString = String(data: data, encoding: .utf8) ?? "Unknown data"
+            Logger.log("RESPONSE:\n\(dataString)", level: .debug)
             #endif
 
             guard let decoded = try? endpoint.decode(data: data) else {
@@ -101,6 +82,28 @@ struct APIService: Service {
             }
 
             completion(.success(decoded))
+        }
+    }
+}
+
+extension URLRequest {
+    mutating func withBody<T: Endpoint>(for endpoint: T) throws {
+        switch endpoint.method {
+        case .post:
+            do {
+                #if DEBUG
+                if let data = try? endpoint.encodedBody() {
+                    let dataString = String(data: data, encoding: .utf8) ?? "Unknown data"
+                    Logger.log("REQUEST BODY:\n\(dataString)", level: .debug)
+                }
+                #endif
+
+                httpBody = try endpoint.encodedBody()
+            } catch {
+                throw ServiceError.incorrectRequestBody
+            }
+        default:
+            break
         }
     }
 }

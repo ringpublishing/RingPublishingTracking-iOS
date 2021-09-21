@@ -8,11 +8,14 @@
 
 import Foundation
 
-struct EaUuid {
+struct EaUuid: Codable {
 
     /// The identifier
     let value: String
 
     /// The time in seconds of how long the identifier is valid for since the refresh's date
     let lifetime: Int
+
+    /// Date when the identifier was created
+    let creationDate: Date
 }

@@ -38,6 +38,6 @@ extension User {
     }
 
     var sizeInBytes: UInt {
-        dictionary.sizeInBytes
+        dictionary.jsonSizeInBytes
     }
 }

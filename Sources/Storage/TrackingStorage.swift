@@ -10,6 +10,7 @@ import Foundation
 
 protocol TrackingStorage {
 
+    var eaUuid: EaUuid? { get set }
     var trackingIds: [String: IdsWithLifetime]? { get set }
     var postInterval: Int? { get set }
 }

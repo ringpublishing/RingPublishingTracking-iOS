@@ -33,11 +33,25 @@ final class EventsManager {
 
 extension EventsManager {
 
+    var isEaUuidValid: Bool {
+        guard let eaUuid = storage.eaUuid else {
+            return false
+        }
+
+        let expirationDate = eaUuid.creationDate.addingTimeInterval(TimeInterval(eaUuid.lifetime))
+        let now = Date()
+
+        return expirationDate > now
+    }
+}
+
+extension EventsManager {
+
     private func buildEventRequest() -> EventRequest {
         let singleEventSizeLimit = Constants.eventSizeLimit
 
         let ids = [String: String]()
-        let idsSize: UInt = ids.sizeInBytes
+        let idsSize: UInt = ids.jsonSizeInBytes
 
         let user = User(adpConsent: nil, pubConsent: nil)
         let userSize = user.sizeInBytes

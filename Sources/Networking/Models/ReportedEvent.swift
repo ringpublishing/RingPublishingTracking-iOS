@@ -25,6 +25,6 @@ extension ReportedEvent {
     }
 
     var sizeInBytes: UInt {
-        dictionary.sizeInBytes
+        dictionary.jsonSizeInBytes
     }
 }

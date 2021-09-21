@@ -10,7 +10,7 @@ import Foundation
 
 extension Dictionary where Key == String {
 
-    var sizeInBytes: UInt {
+    var jsonSizeInBytes: UInt {
         do {
             let data = try dataUsingJSONSerialization()
             return UInt(data.count)

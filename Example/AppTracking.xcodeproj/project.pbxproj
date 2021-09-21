@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		208CD61A26F9B276006A406C /* EventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61926F9B276006A406C /* EventsManagerTests.swift */; };
+		208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61B26F9B3C0006A406C /* StaticStorage.swift */; };
+		208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61D26F9BADA006A406C /* DictionaryTests.swift */; };
 		20C2394B26F22238005A734A /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394826F22238005A734A /* EndpointTests.swift */; };
 		20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394926F22238005A734A /* NetworkSessionMock.swift */; };
 		20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394A26F22238005A734A /* APIServiceTests.swift */; };
@@ -70,6 +73,9 @@
 
 /* Begin PBXFileReference section */
 		18028B7103996E83DEE225F1 /* Pods-AppTracking-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTracking-Example.debug.xcconfig"; path = "Target Support Files/Pods-AppTracking-Example/Pods-AppTracking-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		208CD61926F9B276006A406C /* EventsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerTests.swift; sourceTree = "<group>"; };
+		208CD61B26F9B3C0006A406C /* StaticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticStorage.swift; sourceTree = "<group>"; };
+		208CD61D26F9BADA006A406C /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
 		20C2394826F22238005A734A /* EndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		20C2394926F22238005A734A /* NetworkSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
 		20C2394A26F22238005A734A /* APIServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
@@ -152,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				20C2394926F22238005A734A /* NetworkSessionMock.swift */,
+				208CD61B26F9B3C0006A406C /* StaticStorage.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -173,6 +180,8 @@
 				20C2394A26F22238005A734A /* APIServiceTests.swift */,
 				7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */,
 				7DE4453A26E8913900A93431 /* LoggerTests.swift */,
+				208CD61926F9B276006A406C /* EventsManagerTests.swift */,
+				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -555,6 +564,7 @@
 				7D3E552026F88579000F5E38 /* AppTracking+ContentPerformanceMonitor.swift in Sources */,
 				7D3E551626F88579000F5E38 /* UserDefaultsStorage.swift in Sources */,
 				7D3E54FD26F88579000F5E38 /* AppTrackingKeepAliveDataSource.swift in Sources */,
+				208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */,
 				7D3E551326F88579000F5E38 /* Endpoint.swift in Sources */,
 				7D3E551026F88579000F5E38 /* Service.swift in Sources */,
 				7D3E550A26F88579000F5E38 /* Profile.swift in Sources */,
@@ -569,9 +579,11 @@
 				7D3E550D26F88579000F5E38 /* IdsWithLifetime.swift in Sources */,
 				7D3E550626F88579000F5E38 /* APIService.swift in Sources */,
 				7D3E550F26F88579000F5E38 /* UserAgent.swift in Sources */,
+				208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */,
 				7D3E551B26F88579000F5E38 /* Event.swift in Sources */,
 				7D3E551426F88579000F5E38 /* StoredValueInUserDefaults.swift in Sources */,
 				7D3E550026F88579000F5E38 /* EventResponse.swift in Sources */,
+				208CD61A26F9B276006A406C /* EventsManagerTests.swift in Sources */,
 				7D3E551A26F88579000F5E38 /* ContentPageViewSource.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
 				7D3E550C26F88579000F5E38 /* User.swift in Sources */,
