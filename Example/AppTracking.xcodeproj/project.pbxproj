@@ -10,6 +10,7 @@
 		208CD61A26F9B276006A406C /* EventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61926F9B276006A406C /* EventsManagerTests.swift */; };
 		208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61B26F9B3C0006A406C /* StaticStorage.swift */; };
 		208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61D26F9BADA006A406C /* DictionaryTests.swift */; };
+		208CD62026F9DEDF006A406C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61F26F9DEDF006A406C /* UserManager.swift */; };
 		20C2394B26F22238005A734A /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394826F22238005A734A /* EndpointTests.swift */; };
 		20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394926F22238005A734A /* NetworkSessionMock.swift */; };
 		20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394A26F22238005A734A /* APIServiceTests.swift */; };
@@ -76,6 +77,7 @@
 		208CD61926F9B276006A406C /* EventsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerTests.swift; sourceTree = "<group>"; };
 		208CD61B26F9B3C0006A406C /* StaticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticStorage.swift; sourceTree = "<group>"; };
 		208CD61D26F9BADA006A406C /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
+		208CD61F26F9DEDF006A406C /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		20C2394826F22238005A734A /* EndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		20C2394926F22238005A734A /* NetworkSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
 		20C2394A26F22238005A734A /* APIServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				7D3E54F426F88579000F5E38 /* Model */,
 				7D3E54F826F88579000F5E38 /* AppTracking+CurrentState.swift */,
 				7D3E54F926F88579000F5E38 /* EventsManager.swift */,
+				208CD61F26F9DEDF006A406C /* UserManager.swift */,
 				7D3E54FA26F88579000F5E38 /* AppTrackingConfiguration.swift */,
 				7D3E54FB26F88579000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */,
 			);
@@ -589,6 +592,7 @@
 				7D3E550C26F88579000F5E38 /* User.swift in Sources */,
 				7D3E550226F88579000F5E38 /* SendEventEndpoint.swift in Sources */,
 				7D3E550E26F88579000F5E38 /* ReportedEvent.swift in Sources */,
+				208CD62026F9DEDF006A406C /* UserManager.swift in Sources */,
 				7D3E551726F88579000F5E38 /* Dictionary+JSON.swift in Sources */,
 				7D3E550526F88579000F5E38 /* IdentifyEndpoint.swift in Sources */,
 				7D3E551826F88579000F5E38 /* AppTrackingDelegate.swift in Sources */,

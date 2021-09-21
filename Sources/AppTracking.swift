@@ -36,6 +36,8 @@ public class AppTracking {
 
     // MARK: Private properties
 
+    private let eventsManager = EventsManager()
+
     /// Module delegate
     private weak var delegate: AppTrackingDelegate?
 
@@ -89,5 +91,6 @@ public class AppTracking {
     /// - Parameter events: [Event]
     public func reportEvents(_ events: [Event]) {
         // TODO: Implementation missing
+        eventsManager.addEvents(events)
     }
 }
