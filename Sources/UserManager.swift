@@ -12,6 +12,6 @@ final class UserManager {
 
     func buildUser() -> User {
         // TODO: missing implementation
-        User(adpConsent: nil, pubConsent: nil)
+        User()
     }
 }
