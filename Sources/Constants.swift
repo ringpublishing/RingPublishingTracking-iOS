@@ -21,10 +21,10 @@ struct Constants {
     static let apiVersion: String = "v3"
 
     /// Size limit in bytes of events that might be send in a single request
-    static let eventSizeLimit = UInt(16000)
+    static let eventSizeLimit = UInt(16 * 1024)
 
     /// Size limit of  body for single events request
-    static let requestBodySizeLimit = UInt(1000 * 1000)
+    static let requestBodySizeLimit = UInt(1024 * 1024)
 
     // MARK: Config
 

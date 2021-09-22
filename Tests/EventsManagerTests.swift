@@ -152,7 +152,7 @@ private extension Event {
     }
 
     // swiftlint:disable function_body_length
-    static func tooBigEvent() -> Self { // over 16000 bytes
+    static func tooBigEvent() -> Self { // over 16 KB
         Event(eventParameters: [
             // swiftlint:disable line_length
             "key": """
@@ -208,7 +208,12 @@ Nam a aliquam dui, vitae accumsan mauris. Nulla lacinia sollicitudin ligula, at 
 
 Pellentesque auctor ullamcorper dignissim. Donec quis lacus tincidunt, luctus mauris sit amet, tempus tortor. In hac habitasse platea dictumst. Integer varius, orci in suscipit rhoncus, libero augue dapibus urna, quis vulputate sapien sapien eget ligula. Mauris purus neque, auctor et nibh ac, consectetur ullamcorper mauris. Proin fringilla molestie lorem, vitae eleifend neque malesuada quis. Sed facilisis iaculis sapien in bibendum. Nam vel erat ac massa dapibus mollis. Integer vehicula lectus et convallis dignissim. Cras eget fermentum orci, vel dignissim tortor. Nam at suscipit urna. Fusce iaculis diam sollicitudin, posuere lacus sit amet, tristique nunc. Cras aliquet volutpat ex, quis commodo massa interdum eget. Mauris semper nulla eu commodo lacinia. Integer ac lacinia sapien, id vehicula diam.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eros nulla, commodo vitae lectus ut, sagittis lacinia nisl. Phasellus faucibus felis at bibendum elementum. Proin interdum, tellus in fringilla bibendum, libero ante congue mi, non placerat libero sem non justo. In hac habitasse platea dictumst. In hac habitasse platea dictumst. Morbi iaculis augue nunc, porttitor semper arcu pellentesque eget. Phasellus sem libero, elementum eget augue quis, dapibus leo.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eros nulla, commodo vitae lectus ut, sagittis lacinia nisl. Phasellus faucibus felis at bibendum elementum. Proin
+interdum, tellus in fringilla bibendum, libero ante congue mi, non placerat libero sem non justo. In hac habitasse platea dictumst. In hac habitasse platea dictumst. Morbi iaculis augue nunc, porttitor semper arcu pellentesque eget. Phasellus sem libero, elementum eget augue quis, dapibus leo.
+
+Nulla vehicula, felis a rhoncus malesuada, nulla massa vestibulum magna, sit amet faucibus dolor velit vel purus. Duis ac justo et justo convallis efficitur. Morbi mi dolor, egestas ac viverra vitae, elementum a lacus. Mauris placerat tempus purus, nec malesuada metus cursus eu. In ac ornare dolor. Fusce sit amet libero et augue ullamcorper varius. Vivamus varius pulvinar efficitur. Sed laoreet egestas semper. Aenean accumsan velit sit amet risus congue condimentum. Sed condimentum ante nec massa auctor, a interdum nibh interdum.
+
+Duis libero nunc, imperdiet sit amet condimentum sit amet, finibus vel augue. In aliquam dignissim ornare. Donec tempus finibus odio, fringilla pulvinar nulla elementum non. Donec vulputate convallis tortor, non ultrices ex lobortis vel. Morbi eu tellus lacinia, pharetra massa a, luctus sapien. Cras at consequat lorem, non interdum mi. Mauris eget odio ultrices, ultrices magna sit amet, sodales quam. Praesent bibendum vehicula turpis sed porta. Nunc ut vehicula magna, luctus sollicitudin nisi. Donec laoreet purus risus, in sollicitudin purus tincidunt sed.
 """
         ])
     }
