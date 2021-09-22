@@ -37,7 +37,7 @@ class APIServiceTests: XCTestCase {
 
     // MARK: Tests
 
-    func testApiService_sendSimpleRequest_closureIsCalledWithSuccessResult() {
+    func testCallEndpoint_simpleRequestCreated_closureIsCalledWithSuccessResult() {
         // Given
         let sessionMock = NetworkSessionMock()
         sessionMock.data = Data()
@@ -55,13 +55,13 @@ class APIServiceTests: XCTestCase {
                 break
             case .success(let response):
                 testResponse = response
-            }
 
-            expectation.fulfill()
+                expectation.fulfill()
+            }
         }
 
         // Then
         waitForExpectations(timeout: 3, handler: nil)
-        XCTAssertEqual(testResponse?.value, "value", "Value of decoded response should match")
+        XCTAssertNotNil(testResponse, "Decoded response should not be nil")
     }
 }

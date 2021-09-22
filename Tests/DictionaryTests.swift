@@ -18,7 +18,7 @@ class DictionaryTests: XCTestCase {
 
     // MARK: Tests
 
-    func testDictionarySizeCaluclating_createSampleDictionary_itsSizeInBytesIsCorrect() {
+    func testJsonSizeInBytes_sampleDictionaryCreated_returnedSizeInBytesIsCorrect() {
         // Given
         let emptyDictionary: [String: Any] = [:] // {}
         let dictionaryWithData: [String: Any] = [ // {"key":"value","key2":"value2"}
@@ -31,7 +31,7 @@ class DictionaryTests: XCTestCase {
         XCTAssertEqual(dictionaryWithData.jsonSizeInBytes, 31, "Size in bytes should be correct")
     }
 
-    func testDictionarySizeCaluclating_createInvalidDictionary_itsSizeInBytesIsEqual0() {
+    func testJsonSizeInBytes_invalidDictionaryCreated_returnedSizeInBytesIsZero() {
         // Given
         let specialString = String(bytes: [0xD8, 0x00] as [UInt8],
                                    encoding: String.Encoding.utf16BigEndian)

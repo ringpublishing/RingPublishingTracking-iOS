@@ -22,88 +22,80 @@ class EndpointTests: XCTestCase {
 
     // MARK: Tests
 
-    func testIdentifyEndpoint_sendIdentifyRequest_responseIsProperlyDecoded() {
+    func testIdentifyRequestEncoding_sampleIdentifyEnpointCreated_encodedBodyIsReturned() {
         // Given
-        let endpoint = IdentifyEnpoint(body: nil)
-
-        let sessionMock = NetworkSessionMock()
-        sessionMock.data = """
-        {
-            "ids": {
-                "eaUUID": {
-                    "value": "12345678",
-                    "lifetime": 31536000
-                },
-                "tukanId": {
-                    "value": null
-                }
-            },
-            "profile": {
-            },
-            "postInterval": 30000
-        }
-        """.data(using: .utf8)
-
-        let service: APIService = APIService(apiUrl: apiUrl, apiKey: apiKey, session: sessionMock)
-
-        let expectation = self.expectation(description: "request made")
+        let identifyRequest = IdentifyRequest(ids: [
+            "id1": "value1",
+            "id2": "value2"
+        ], user: User(adpConsent: "adpConsent", pubConsent: "pubConsent"))
+        let endpoint = IdentifyEnpoint(body: identifyRequest)
 
         // When
-        var testResponse: IdentifyResponse?
-        service.call(endpoint) { result in
-            switch result {
-            case .failure:
-                break
-            case .success(let response):
-                testResponse = response
-            }
-
-            expectation.fulfill()
-        }
+        let encoded = try? endpoint.encodedBody()
 
         // Then
-        waitForExpectations(timeout: 3, handler: nil)
-        XCTAssertEqual(testResponse?.postInterval, 30000, "postInterval of decoded response should match")
+        XCTAssertNotNil(encoded)
     }
 
-    func testSendEventEndpoint_sendEventsRequest_responseIsProperlyDecoded() {
+    func testIdentifyRequestDecoding_sampleIdentifyResponseDataCreated_decodedResponseIsReturned() {
         // Given
-        let body = EventRequest(ids: ["eaUUID": "12345678"],
-                                user: User(adpConsent: nil, pubConsent: nil),
-                                events: [
-                                    ReportedEvent(clientId: "service", eventType: "pv", data: [
-                                        "key": "value",
-                                        "key2": 1
-                                    ])
-                                ])
-        let endpoint = SendEventEnpoint(body: body)
-
-        let sessionMock = NetworkSessionMock()
-        sessionMock.data = """
-        {
-            "postInterval": 30000
-        }
-        """.data(using: .utf8)
-
-        let service: APIService = APIService(apiUrl: apiUrl, apiKey: apiKey, session: sessionMock)
-
-        let expectation = self.expectation(description: "request made")
+        let data = """
+                {
+                    "ids": {
+                        "eaUUID": {
+                            "value": "12345678",
+                            "lifetime": 31536000
+                        },
+                        "tukanId": {
+                            "value": null
+                        }
+                    },
+                    "profile": {
+                    },
+                    "postInterval": 30000
+                }
+                """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
 
         // When
-        var testResponse: EventResponse?
-        service.call(endpoint) { result in
-            switch result {
-            case .failure:
-                break
-            case .success(let response):
-                testResponse = response
-            }
-
-            expectation.fulfill()
-        }
+        let endpoint = IdentifyEnpoint(body: nil)
+        let decoded = try? endpoint.decode(data: data)
 
         // Then
-        waitForExpectations(timeout: 3, handler: nil)
-        XCTAssertEqual(testResponse?.postInterval, 30000, "postInterval of decoded response should match")
+        XCTAssertNotNil(decoded)
+        XCTAssertEqual(decoded?.ids.count, 2, "number of ids of decoded response should match")
+        XCTAssertNotNil(decoded?.profile, "profile of decoded response should be present")
+        XCTAssertEqual(decoded?.postInterval, 30000, "postInterval of decoded response should match")
+    }
+
+    func testEventRequestEncoding_sampleSendEventEnpointCreated_encodedBodyIsReturned() {
+        // Given
+        let eventRequest = EventRequest(ids: [
+            "id": "value"
+        ], user: User(adpConsent: "adpConsent", pubConsent: "pubConsent"), events: [
+            ReportedEvent(clientId: "clientId", eventType: "eventType", data: ["key": "some value"])
+        ])
+        let endpoint = SendEventEnpoint(body: eventRequest)
+
+        // When
+        let encoded = try? endpoint.encodedBody()
+
+        // Then
+        XCTAssertNotNil(encoded)
+    }
+
+    func testEventRequestDecoding_sampleSendEventResponseDataCreated_decodedResponseIsReturned() {
+        // Given
+        let data = """
+                {
+                    "postInterval": 30000
+                }
+                """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+
+        // When
+        let endpoint = SendEventEnpoint(body: .init(ids: [:], user: nil, events: []))
+        let decoded = try? endpoint.decode(data: data)
+
+        // Then
+        XCTAssertEqual(decoded?.postInterval, 30000, "postInterval of decoded response should match")
     }
 }

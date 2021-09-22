@@ -18,7 +18,7 @@ class EventsManagerTests: XCTestCase {
 
     // MARK: Tests
 
-    func testEventsManager_setEaUuidDateInNearFuture_theIdentifierIsValid() {
+    func testIsEaUuidValid_eaUuidDateIsSetInNearPast_theIdentifierIsValid() {
         // Given
 
         // Lifetime = 24h
@@ -33,7 +33,31 @@ class EventsManagerTests: XCTestCase {
         XCTAssertTrue(manager.isEaUuidValid, "The identifier should be valid")
     }
 
-    func testEventsManager_storeIds_storedIdsAreProperlyLoaded() {
+    func testIsEaUuidValid_eaUuidDateIsSetInFarPast_theIdentifierIsExpired() {
+        // Given
+
+        // Lifetime = 24h
+        // Creation Date = 48 hours ago
+        let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 48))
+        let eaUuid = EaUuid(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
+
+        let storage = StaticStorage(eaUuid: eaUuid, trackingIds: nil, postInterval: nil)
+        let manager = EventsManager(storage: storage)
+
+        // Then
+        XCTAssertFalse(manager.isEaUuidValid, "The identifier should be expired")
+    }
+
+    func testIsEaUuidValid_eaUuidDateIsNotSet_theIdentifierIsInvalid() {
+        // Given
+        let storage = StaticStorage(eaUuid: nil, trackingIds: nil, postInterval: nil)
+        let manager = EventsManager(storage: storage)
+
+        // Then
+        XCTAssertFalse(manager.isEaUuidValid, "The identifier should be invalid")
+    }
+
+    func testStoredIds_sampleTrackingIdentifiersAddedToStorage_storedIdsAreProperlyLoaded() {
         // Given
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUuid(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
@@ -48,16 +72,7 @@ class EventsManagerTests: XCTestCase {
         XCTAssertEqual(manager.storedIds().count, 4, "Stored ids number should be correct")
     }
 
-    func testEventsManager_doNotSetEaUuid_theIdentifierIsInvalid() {
-        // Given
-        let storage = StaticStorage(eaUuid: nil, trackingIds: nil, postInterval: nil)
-        let manager = EventsManager(storage: storage)
-
-        // Then
-        XCTAssertFalse(manager.isEaUuidValid, "The identifier should be invalid")
-    }
-
-    func testEventsManager_add5EventsToTheQueue_builtRequestContains5Events() {
+    func testAddEvents_FiveEventsAddedToQueue_builtRequestContainsFiveEvents() {
         // Given
         let manager = EventsManager(storage: StaticStorage())
 
@@ -77,7 +92,7 @@ class EventsManagerTests: XCTestCase {
         XCTAssertEqual(events.count, 5, "Event request should contain proper number of events")
     }
 
-    func testEventsManager_add1TooBigEventToTheQueue_builtRequestContains0Events() {
+    func testAddEvents_oneTooBigEventAddedToQueue_builtRequestContainsNoEvents() {
         // Given
         let manager = EventsManager(storage: StaticStorage())
 
@@ -91,7 +106,7 @@ class EventsManagerTests: XCTestCase {
         XCTAssertEqual(events.count, 0, "Event request should contain proper number of events")
     }
 
-    func testEventsManager_addEventsOverRequestBodySizeLimit_builtRequestBodySizeIsBelow1MB() {
+    func testAddEvents_eventsOverRequestBodySizeLimitAddedToQueue_builtRequestBodySizeIsBelowSizeLimit() {
         // Given
         let manager = EventsManager(storage: StaticStorage())
 
