@@ -74,10 +74,13 @@ public extension AppTracking {
     /// - Use this method if you want to report page view event which is not article content.
     /// - For reporting article content, see `reportContentPageView(...)`
     ///
-    /// - Parameter partiallyReloaded: Pass true if you content was partially reloaded,
-    /// for example next page of articles on the list was added or paid content was presented after user paid for it on the same screen.
-    func reportPageView(partiallyReloaded: Bool) {
-        Logger.log("Reporting page view event, partially reloaded: '\(partiallyReloaded)'")
+    /// - Parameters:
+    ///   - currentStructurePath: Current application structure path used to identify application screen,
+    ///   for example "home/sport_list_screen"
+    ///   - partiallyReloaded: Pass true if you content was partially reloaded,
+    ///   for example next page of articles on the list was added or paid content was presented after user paid for it on the same screen.
+    func reportPageView(currentStructurePath: String, partiallyReloaded: Bool) {
+        Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
 
         // TODO: Implementation missing
     }
@@ -93,13 +96,20 @@ public extension AppTracking {
     /// - Parameters:
     ///   - contentMetdata: ContentMetadata
     ///   - pageViewSource: ContentPageViewSource
+    ///   - currentStructurePath: Current application structure path used to identify application screen,
+    ///   for example "home/sport_list_screen"
     ///   - partiallyReloaded: Pass true if you content was partially reloaded, for example content was refreshed after in app purchase
     ///   - contentKeepAliveDataSource: AppTrackingKeepAliveDataSource
     func reportContentPageView(contentMetadata: ContentMetadata,
                                pageViewSource: ContentPageViewSource = .default,
+                               currentStructurePath: String,
                                partiallyReloaded: Bool,
                                contentKeepAliveDataSource: AppTrackingKeepAliveDataSource) {
-        Logger.log("Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)'")
+        let log = """
+        Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
+        structure path: '\(currentStructurePath)'
+        """
+        Logger.log(log )
 
         // TODO: Implementation missing
     }

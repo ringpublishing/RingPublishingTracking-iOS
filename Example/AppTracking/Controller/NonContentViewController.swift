@@ -35,6 +35,6 @@ class NonContentViewController: UIViewController, PagerViewController, Traceable
 
         // Report page view event
 
-        AppTracking.shared.reportPageView(partiallyReloaded: false)
+        AppTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
     }
 }

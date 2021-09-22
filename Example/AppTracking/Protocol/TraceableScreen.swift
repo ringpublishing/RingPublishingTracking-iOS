@@ -20,9 +20,8 @@ extension TraceableScreen {
 
     func updateTrackingProperties() {
         // When application changes currently displayed view, we should update it's current advertisement area
-        // and structure path so each event send from this moment will be correctly assigned to this screen
+        // so each event send from this moment will have it correctly assigned
 
-        AppTracking.shared.updateApplicationStructurePath(currentStructurePath: screenTrackingData.structurePath)
         AppTracking.shared.updateApplicationAdvertisementArea(currentAdvertisementArea: screenTrackingData.advertisementArea)
     }
 }

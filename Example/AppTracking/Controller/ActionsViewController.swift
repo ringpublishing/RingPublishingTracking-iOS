@@ -40,7 +40,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
         // Report page view event
 
-        AppTracking.shared.reportPageView(partiallyReloaded: false)
+        AppTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
     }
 
     // MARK: Segue

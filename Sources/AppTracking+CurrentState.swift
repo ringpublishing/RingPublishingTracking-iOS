@@ -26,26 +26,6 @@ public extension AppTracking {
         // TODO: Implementation missing
     }
 
-    /// Update application structure path used to identify application screen, for example "home_screen".
-    ///
-    /// - Parameter currentAppArea: String
-    func updateApplicationStructurePath(currentStructurePath: String) {
-        Logger.log("Updating application structure path to: '\(currentStructurePath)'")
-
-        // TODO: Implementation missing
-    }
-
-    /// Update application structure path used to identify application screen, for example "home_screen".
-    ///
-    /// - If you want to have maintain your app navigation hierarchy, you can pass multiple paths which will be joined together.
-    ///
-    /// - Parameter currentAppArea: String
-    func updateApplicationStructurePath(currentStructurePath: [String]) {
-        let joinedPath = currentStructurePath.joined(separator: "/")
-
-        updateApplicationStructurePath(currentStructurePath: joinedPath)
-    }
-
     /// Update ad space name of the application, for example "ads/list/sport"
     ///
     /// - Parameter currentAdvertisementArea: String

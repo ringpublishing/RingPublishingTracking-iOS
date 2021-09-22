@@ -157,6 +157,7 @@ private extension DetailViewController {
 
         AppTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
                                                  pageViewSource: contentViewSource,
+                                                 currentStructurePath: screenTrackingData.structurePath,
                                                  partiallyReloaded: partiallyReloaded,
                                                  contentKeepAliveDataSource: self)
     }
