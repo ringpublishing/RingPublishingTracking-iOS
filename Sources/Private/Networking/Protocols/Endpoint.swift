@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias HTTPHeaders = [String: String]
+typealias HTTPHeaders = [String: String]
 
 /// Protocol describing each API method
 protocol Endpoint {

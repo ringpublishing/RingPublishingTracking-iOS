@@ -156,6 +156,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		208CD62126FB437B006A406C /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E54CB26F88579000F5E38 /* Constants.swift */,
+				7D3E54F926F88579000F5E38 /* EventsManager.swift */,
+				208CD61F26F9DEDF006A406C /* UserManager.swift */,
+				7D3E54ED26F88579000F5E38 /* Storage */,
+				7D3E54F026F88579000F5E38 /* Extensions */,
+				7D3E54EB26F88579000F5E38 /* Utils */,
+				7D3E54D026F88579000F5E38 /* Networking */,
+				7D3E54CD26F88579000F5E38 /* Logger */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		208CD62226FB437F006A406C /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				7D3E54F326F88579000F5E38 /* AppTracking.swift */,
+				7D3E54FB26F88579000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */,
+				7D3E54FA26F88579000F5E38 /* AppTrackingConfiguration.swift */,
+				7D3E54CC26F88579000F5E38 /* AppTrackingKeepAliveDataSource.swift */,
+				7D3E54CF26F88579000F5E38 /* AppTracking+Aureus.swift */,
+				7D3E54F226F88579000F5E38 /* AppTrackingDelegate.swift */,
+				7D3E54F826F88579000F5E38 /* AppTracking+CurrentState.swift */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
 		20C2394E26F22241005A734A /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,22 +264,9 @@
 		7D3E54CA26F88579000F5E38 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7D3E54CB26F88579000F5E38 /* Constants.swift */,
-				7D3E54CC26F88579000F5E38 /* AppTrackingKeepAliveDataSource.swift */,
-				7D3E54CD26F88579000F5E38 /* Logger */,
-				7D3E54CF26F88579000F5E38 /* AppTracking+Aureus.swift */,
-				7D3E54D026F88579000F5E38 /* Networking */,
-				7D3E54EB26F88579000F5E38 /* Utils */,
-				7D3E54ED26F88579000F5E38 /* Storage */,
-				7D3E54F026F88579000F5E38 /* Extensions */,
-				7D3E54F226F88579000F5E38 /* AppTrackingDelegate.swift */,
-				7D3E54F326F88579000F5E38 /* AppTracking.swift */,
+				208CD62226FB437F006A406C /* Public */,
+				208CD62126FB437B006A406C /* Private */,
 				7D3E54F426F88579000F5E38 /* Model */,
-				7D3E54F826F88579000F5E38 /* AppTracking+CurrentState.swift */,
-				7D3E54F926F88579000F5E38 /* EventsManager.swift */,
-				208CD61F26F9DEDF006A406C /* UserManager.swift */,
-				7D3E54FA26F88579000F5E38 /* AppTrackingConfiguration.swift */,
-				7D3E54FB26F88579000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */,
 			);
 			name = Sources;
 			path = ../Sources;
