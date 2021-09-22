@@ -174,6 +174,7 @@
 		208CD62226FB437F006A406C /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				7D3E54F426F88579000F5E38 /* Model */,
 				7D3E54F326F88579000F5E38 /* AppTracking.swift */,
 				7D3E54FB26F88579000F5E38 /* AppTracking+ContentPerformanceMonitor.swift */,
 				7D3E54FA26F88579000F5E38 /* AppTrackingConfiguration.swift */,
@@ -183,6 +184,29 @@
 				7D3E54F826F88579000F5E38 /* AppTracking+CurrentState.swift */,
 			);
 			path = Public;
+			sourceTree = "<group>";
+		};
+		208CD62326FB571D006A406C /* AppTrackingTests */ = {
+			isa = PBXGroup;
+			children = (
+				20C2394E26F22241005A734A /* Mocks */,
+				20C2394826F22238005A734A /* EndpointTests.swift */,
+				20C2394A26F22238005A734A /* APIServiceTests.swift */,
+				7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */,
+				7DE4453A26E8913900A93431 /* LoggerTests.swift */,
+				208CD61926F9B276006A406C /* EventsManagerTests.swift */,
+				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
+			);
+			path = AppTrackingTests;
+			sourceTree = "<group>";
+		};
+		208CD62426FB57CA006A406C /* AppTracking */ = {
+			isa = PBXGroup;
+			children = (
+				208CD62226FB437F006A406C /* Public */,
+				208CD62126FB437B006A406C /* Private */,
+			);
+			path = AppTracking;
 			sourceTree = "<group>";
 		};
 		20C2394E26F22241005A734A /* Mocks */ = {
@@ -206,13 +230,7 @@
 		7D1A2B5426E7567000648882 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				20C2394E26F22241005A734A /* Mocks */,
-				20C2394826F22238005A734A /* EndpointTests.swift */,
-				20C2394A26F22238005A734A /* APIServiceTests.swift */,
-				7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */,
-				7DE4453A26E8913900A93431 /* LoggerTests.swift */,
-				208CD61926F9B276006A406C /* EventsManagerTests.swift */,
-				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
+				208CD62326FB571D006A406C /* AppTrackingTests */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -264,9 +282,7 @@
 		7D3E54CA26F88579000F5E38 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				208CD62226FB437F006A406C /* Public */,
-				208CD62126FB437B006A406C /* Private */,
-				7D3E54F426F88579000F5E38 /* Model */,
+				208CD62426FB57CA006A406C /* AppTracking */,
 			);
 			name = Sources;
 			path = ../Sources;
