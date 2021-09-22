@@ -36,6 +36,7 @@ public class AppTracking {
 
     // MARK: Private properties
 
+    // TODO: refactor to use here class responsible for building and decorating events
     private let eventsManager = EventsManager()
 
     /// Module delegate

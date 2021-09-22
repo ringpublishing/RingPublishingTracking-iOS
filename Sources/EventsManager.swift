@@ -37,6 +37,7 @@ final class EventsManager {
         let eventSize = reportedEvent.sizeInBytes
 
         guard eventSize <= Constants.eventSizeLimit else {
+            Logger.log("Event's size exceeded size limit")
             return
         }
 
