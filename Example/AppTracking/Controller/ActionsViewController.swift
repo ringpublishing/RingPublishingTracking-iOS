@@ -115,7 +115,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // If you know in your application if your content was opened from push notification
         // (and not in usuall way directly from the app), you can pass that information to tracking module
 
-        pageViewSource = ContentPageViewSource.pushNotiifcation
+        pageViewSource = ContentPageViewSource.pushNotifcation
 
         performSegue(withIdentifier: detailSegueIdentifier, sender: self)
     }
