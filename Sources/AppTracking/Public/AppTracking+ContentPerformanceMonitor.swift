@@ -20,6 +20,8 @@ public extension AppTracking {
     ///
     /// - Parameter selectedElementName: String
     func reportClick(selectedElementName: String?) {
+        Logger.log("Reporting click event for element named: '\(selectedElementName.logable)'")
+
         // TODO: Implementation missing
     }
 
@@ -31,6 +33,9 @@ public extension AppTracking {
     ///   - selectedElementName: String
     ///   - publicationUrl: URL
     func reportContentClick(selectedElementName: String, publicationUrl: URL) {
+        let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
+        Logger.log("Reporting content click event for element named: \(logData)")
+
         // TODO: Implementation missing
     }
 
@@ -44,6 +49,8 @@ public extension AppTracking {
     ///   - actionSubtypeName: String
     ///   - parameters: [String: AnyHashable]
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: [String: AnyHashable]) {
+        Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
+
         // TODO: Implementation missing
     }
 
@@ -55,6 +62,8 @@ public extension AppTracking {
     ///   - actionSubtypeName: String
     ///   - parameters: [String: AnyHashable]
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: String) {
+        Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
+
         // TODO: Implementation missing
     }
 
@@ -65,9 +74,14 @@ public extension AppTracking {
     /// - Use this method if you want to report page view event which is not article content.
     /// - For reporting article content, see `reportContentPageView(...)`
     ///
-    /// - Parameter partiallyReloaded: Pass true if you content was partially reloaded,
-    /// for example next page of articles on the list was added or paid content was presented after user paid for it on the same screen.
-    func reportPageView(partiallyReloaded: Bool) {
+    /// - Parameters:
+    ///   - currentStructurePath: Current application structure path used to identify application screen,
+    ///   for example "home/sport_list_screen"
+    ///   - partiallyReloaded: Pass true if your content was partially reloaded,
+    ///   for example next page of articles on the list was added or paid content was presented after user paid for it on the same screen.
+    func reportPageView(currentStructurePath: [String], partiallyReloaded: Bool) {
+        Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
+
         // TODO: Implementation missing
     }
 
@@ -82,27 +96,42 @@ public extension AppTracking {
     /// - Parameters:
     ///   - contentMetdata: ContentMetadata
     ///   - pageViewSource: ContentPageViewSource
-    ///   - partiallyReloaded: Pass true if you content was partially reloaded, for example content was refreshed after in app purchase
+    ///   - currentStructurePath: Current application structure path used to identify application screen,
+    ///   for example "home/sport_list_screen"
+    ///   - partiallyReloaded: Pass true if your content was partially reloaded, for example content was refreshed after in app purchase
     ///   - contentKeepAliveDataSource: AppTrackingKeepAliveDataSource
     func reportContentPageView(contentMetadata: ContentMetadata,
                                pageViewSource: ContentPageViewSource = .default,
+                               currentStructurePath: [String],
                                partiallyReloaded: Bool,
                                contentKeepAliveDataSource: AppTrackingKeepAliveDataSource) {
+        let log = """
+        Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
+        structure path: '\(currentStructurePath)'
+        """
+        Logger.log(log )
+
         // TODO: Implementation missing
     }
 
     /// Pauses tracking for currently displayed content
     func pauseContentKeepAliveTracking() {
+        Logger.log("Pausing content keep alive tracking")
+
         // TODO: Implementation missing
     }
 
     /// Resumes tracking for currently displayed content
     func resumeContentKeepAliveTracking() {
+        Logger.log("Resuming content keep alive tracking")
+
         // TODO: Implementation missing
     }
 
     /// Stops tracking for currently displayed content
     func stopContentKeepAliveTracking() {
+        Logger.log("Stopping content keep alive tracking")
+
         // TODO: Implementation missing
     }
 }

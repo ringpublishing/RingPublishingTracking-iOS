@@ -28,7 +28,7 @@ struct Constants {
 
     // MARK: Config
 
-    static let applicationDefaultStructurePath = "undefined"
+    static let applicationDefaultStructurePath = ["undefined"]
     static let applicationDefaultAdvertisementArea = "undefined"
 
     // MARK: Event params

@@ -54,6 +54,8 @@ public class AppTracking {
     ///   - configuration: AppTrackingConfiguration
     ///   - delegate: AppTrackingDelegate
     public func initialize(configuration: AppTrackingConfiguration, delegate: AppTrackingDelegate?) {
+        Logger.log("Initializing module with configuration: '\(configuration)'")
+
         self.delegate = delegate
 
         // TODO: Implementation missing
@@ -66,6 +68,8 @@ public class AppTracking {
     ///
     /// - Parameter enabled: Bool
     public func setDebugMode(enabled: Bool) {
+        Logger.log("Setting debug mode enabled: '\(enabled)'")
+
         // TODO: Implementation missing
     }
 
@@ -75,6 +79,8 @@ public class AppTracking {
     ///
     /// - Parameter enabled: Bool
     public func setOptOutMode(enabled: Bool) {
+        Logger.log("Setting opt-out mode enabled: '\(enabled)'")
+
         // TODO: Implementation missing
     }
 
@@ -91,6 +97,8 @@ public class AppTracking {
     ///
     /// - Parameter events: [Event]
     public func reportEvents(_ events: [Event]) {
+        Logger.log("Reporting generic events, events count: '\(events.count)'")
+
         // TODO: Implementation missing
         eventsManager.addEvents(events)
     }

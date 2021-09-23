@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RZf-xB-t58">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Demo-->
+        <scene sceneID="Ou0-Lz-V4x">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Idk-ZO-Td5" customClass="HomeViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Demo" id="MJe-mJ-u0v"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AxA-V9-EVG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="758" y="112"/>
+        </scene>
+        <!--Actions View Controller-->
+        <scene sceneID="eIa-4A-gD0">
+            <objects>
+                <viewController storyboardIdentifier="ActionsViewController" id="BDG-lq-n5Z" customClass="ActionsViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jBZ-js-FHy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yYw-mN-t3Q">
+                                <rect key="frame" x="151" y="80" width="112" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCh-7s-Xud">
+                                        <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Log in"/>
+                                        <connections>
+                                            <action selector="onLoginActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="Ung-FB-YtY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bU3-9c-VoT">
+                                        <rect key="frame" x="60" y="0.0" width="52" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Log out"/>
+                                        <connections>
+                                            <action selector="onLogoutActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="uJQ-3G-FfF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4gW-eV-fJ9">
+                                <rect key="frame" x="16" y="146" width="382" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kEF-Nv-tL5">
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report user action - string"/>
+                                        <connections>
+                                            <action selector="onReportUserActionAsStringTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="Wms-bu-R6f"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-P7-swQ">
+                                        <rect key="frame" x="195" y="0.0" width="187" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report user action - dictionary"/>
+                                        <connections>
+                                            <action selector="onReportUserActionAsDictionaryTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="gnj-PE-lzc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hhu-dd-hha">
+                                <rect key="frame" x="44" y="212" width="326" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8s-zn-chz">
+                                        <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Open detail from push"/>
+                                        <connections>
+                                            <action selector="onDetailFromPushActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="yoM-lp-G72"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Vv-cx-C4C">
+                                        <rect key="frame" x="167" y="0.0" width="159" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Open detail from social"/>
+                                        <connections>
+                                            <action selector="onDetailFromSocialActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="xPc-FS-XXT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="A0L-Do-Ynd">
+                                <rect key="frame" x="135" y="278" width="144" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5V-VG-5Ot">
+                                        <rect key="frame" x="0.0" y="0.0" width="144" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report generic event"/>
+                                        <connections>
+                                            <action selector="onReportGenericEventActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="apB-uR-gAk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="d0H-zo-woo">
+                                <rect key="frame" x="61" y="344" width="292" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oc-cE-CoI">
+                                        <rect key="frame" x="0.0" y="0.0" width="142" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Enable debug mode"/>
+                                        <connections>
+                                            <action selector="onEnableDebugModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="9y7-MH-nzj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHP-RH-qfw">
+                                        <rect key="frame" x="150" y="0.0" width="142" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Disable debug mode"/>
+                                        <connections>
+                                            <action selector="onDisableDebugModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="RQ4-zp-L76"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Li-kJ-9c6">
+                                <rect key="frame" x="53" y="410" width="308" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-FH-JXI">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Enable opt-out mode"/>
+                                        <connections>
+                                            <action selector="onEnableOptOutModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="J1O-0x-xpg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nmb-kg-zU3">
+                                        <rect key="frame" x="158" y="0.0" width="150" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Disable opt-out mode"/>
+                                        <connections>
+                                            <action selector="onDisableOptOutModeActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="tzT-QP-ifc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WHw-fV-Ebm">
+                                <rect key="frame" x="96.5" y="476" width="221" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asP-Ys-kCE">
+                                        <rect key="frame" x="0.0" y="0.0" width="221" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report Aureus offers impression"/>
+                                        <connections>
+                                            <action selector="onReportAureusOffersImpressionActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="Kdg-Su-Lyn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sJr-lE-joG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yYw-mN-t3Q" firstAttribute="top" secondItem="sJr-lE-joG" secondAttribute="top" constant="36" id="440-Hn-74I"/>
+                            <constraint firstItem="WHw-fV-Ebm" firstAttribute="top" secondItem="6Li-kJ-9c6" secondAttribute="bottom" constant="36" id="7s9-ah-g31"/>
+                            <constraint firstItem="d0H-zo-woo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="9Sk-wj-wC4"/>
+                            <constraint firstItem="4gW-eV-fJ9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="C3m-rM-iZg"/>
+                            <constraint firstItem="yYw-mN-t3Q" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="D8B-WT-t6P"/>
+                            <constraint firstItem="A0L-Do-Ynd" firstAttribute="top" secondItem="hhu-dd-hha" secondAttribute="bottom" constant="36" id="J10-n6-dre"/>
+                            <constraint firstItem="hhu-dd-hha" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="KnU-6K-rbv"/>
+                            <constraint firstItem="6Li-kJ-9c6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="Obg-M8-HSO"/>
+                            <constraint firstItem="6Li-kJ-9c6" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="R1g-h2-kso"/>
+                            <constraint firstItem="hhu-dd-hha" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="RBC-sn-0NK"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yYw-mN-t3Q" secondAttribute="trailing" constant="16" id="VXe-gw-GGB"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="d0H-zo-woo" secondAttribute="trailing" constant="16" id="Wli-cg-NAX"/>
+                            <constraint firstItem="WHw-fV-Ebm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="aMt-3T-lwG"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WHw-fV-Ebm" secondAttribute="trailing" constant="16" id="bdO-vz-7Mx"/>
+                            <constraint firstItem="d0H-zo-woo" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="dLX-kW-iln"/>
+                            <constraint firstItem="yYw-mN-t3Q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="e7u-aI-aQB"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4gW-eV-fJ9" secondAttribute="trailing" constant="16" id="eB7-M7-tRO"/>
+                            <constraint firstItem="A0L-Do-Ynd" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="efH-9Y-Ix2"/>
+                            <constraint firstItem="d0H-zo-woo" firstAttribute="top" secondItem="A0L-Do-Ynd" secondAttribute="bottom" constant="36" id="fBT-ws-n3H"/>
+                            <constraint firstItem="6Li-kJ-9c6" firstAttribute="top" secondItem="d0H-zo-woo" secondAttribute="bottom" constant="36" id="g5W-CY-YIt"/>
+                            <constraint firstItem="A0L-Do-Ynd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="nCS-oW-AuU"/>
+                            <constraint firstItem="4gW-eV-fJ9" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="ubv-vO-h7a"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hhu-dd-hha" secondAttribute="trailing" constant="16" id="ujC-3x-0yD"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A0L-Do-Ynd" secondAttribute="trailing" constant="16" id="uvY-fJ-BYX"/>
+                            <constraint firstItem="4gW-eV-fJ9" firstAttribute="top" secondItem="yYw-mN-t3Q" secondAttribute="bottom" constant="36" id="wFK-Cv-c3Q"/>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Li-kJ-9c6" secondAttribute="trailing" constant="16" id="xfo-PU-s9r"/>
+                            <constraint firstItem="hhu-dd-hha" firstAttribute="top" secondItem="4gW-eV-fJ9" secondAttribute="bottom" constant="36" id="xr7-7j-7v3"/>
+                            <constraint firstItem="WHw-fV-Ebm" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="yF4-7X-tBY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="t9l-qS-kSS" kind="show" identifier="DetailViewControllerSegue" id="UvW-j4-KWo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fwe-ZI-sZZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1677" y="476"/>
+        </scene>
+        <!--Non Content View Controller-->
+        <scene sceneID="RFY-XM-PJV">
+            <objects>
+                <viewController storyboardIdentifier="NonContentViewController" id="sCd-Rg-UJq" customClass="NonContentViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oVc-YY-fqn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is &quot;non content&quot; view but we still shoud track it and report 'pageView' for it and update application structure path." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="me4-Yj-8rF">
+                                <rect key="frame" x="16" y="412" width="382" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1cq-hi-nYf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="me4-Yj-8rF" firstAttribute="centerY" secondItem="oVc-YY-fqn" secondAttribute="centerY" id="7Ze-cQ-6Qz"/>
+                            <constraint firstItem="me4-Yj-8rF" firstAttribute="leading" secondItem="1cq-hi-nYf" secondAttribute="leading" constant="16" id="toS-tf-eh7"/>
+                            <constraint firstItem="1cq-hi-nYf" firstAttribute="trailing" secondItem="me4-Yj-8rF" secondAttribute="trailing" constant="16" id="wdT-lV-OAk"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bkR-8d-wc7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1677" y="1144"/>
+        </scene>
+        <!--List View Controller-->
+        <scene sceneID="Yc5-5k-XdX">
+            <objects>
+                <viewController storyboardIdentifier="ListViewController" id="dKT-N0-4Ci" customClass="ListViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Fv-Sv-P6F">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="i0Q-uj-vFb">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dKT-N0-4Ci" id="GoI-sZ-a8y"/>
+                                    <outlet property="delegate" destination="dKT-N0-4Ci" id="XpO-3q-zl1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5Lv-Vs-bRk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="i0Q-uj-vFb" firstAttribute="leading" secondItem="5Lv-Vs-bRk" secondAttribute="leading" id="Bph-a9-LBe"/>
+                            <constraint firstItem="5Lv-Vs-bRk" firstAttribute="bottom" secondItem="i0Q-uj-vFb" secondAttribute="bottom" id="DvS-QQ-Ik4"/>
+                            <constraint firstItem="i0Q-uj-vFb" firstAttribute="top" secondItem="5Lv-Vs-bRk" secondAttribute="top" id="XAl-7W-HNV"/>
+                            <constraint firstItem="5Lv-Vs-bRk" firstAttribute="trailing" secondItem="i0Q-uj-vFb" secondAttribute="trailing" id="h4M-7G-Wa9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="i0Q-uj-vFb" id="WAM-er-q34"/>
+                        <segue destination="t9l-qS-kSS" kind="show" identifier="DetailViewControllerSegue" id="j11-ek-b2W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aSz-eg-bSN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1677" y="-200"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Z3G-Ua-sag">
+            <objects>
+                <navigationController id="RZf-xB-t58" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="I7d-tC-daw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Idk-ZO-Td5" kind="relationship" relationship="rootViewController" id="8d0-YW-lli"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zzU-Dn-TW2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-60" y="112"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Nu8-Et-rtu">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="t9l-qS-kSS" customClass="DetailViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JZT-F4-9QQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="N2L-wm-aKb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="t9l-qS-kSS" id="b8g-rM-KGi"/>
+                                    <outlet property="delegate" destination="t9l-qS-kSS" id="isr-pB-hDd"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ioj-CY-hTd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="N2L-wm-aKb" secondAttribute="bottom" id="6eP-uA-uMI"/>
+                            <constraint firstItem="Ioj-CY-hTd" firstAttribute="trailing" secondItem="N2L-wm-aKb" secondAttribute="trailing" id="Ue2-9P-Ufs"/>
+                            <constraint firstItem="N2L-wm-aKb" firstAttribute="top" secondItem="Ioj-CY-hTd" secondAttribute="top" id="XJi-Dy-1cY"/>
+                            <constraint firstItem="N2L-wm-aKb" firstAttribute="leading" secondItem="Ioj-CY-hTd" secondAttribute="leading" id="tmb-9X-Fr5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hga-h6-7gq">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Add content" style="done" id="iBw-jl-O7C">
+                                <connections>
+                                    <action selector="onAddMoreContentActionTouch:" destination="t9l-qS-kSS" id="cDU-tl-Daf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Modal" style="done" id="wHA-Z0-2GL">
+                                <connections>
+                                    <action selector="onShowModalActionTouch:" destination="t9l-qS-kSS" id="TF8-nt-PHF"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Push" style="done" id="bkp-kJ-LBj">
+                                <connections>
+                                    <action selector="onPushActionTouch:" destination="t9l-qS-kSS" id="HOE-43-iQG"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="N2L-wm-aKb" id="D6t-0M-NrF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bp0-FX-JjT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2613" y="163"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="UvW-j4-KWo"/>
+    </inferredMetricsTieBreakers>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

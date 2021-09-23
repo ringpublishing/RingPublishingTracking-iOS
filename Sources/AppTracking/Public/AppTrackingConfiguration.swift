@@ -24,9 +24,9 @@ public struct AppTrackingConfiguration {
     /// This value will be used together with application current structure path to identify app screen
     public let applicationRootPath: String
 
-    /// Application structure path used to identify application screen, for example "home_screen".
-    /// If no new value will be set during app session, this value will be always used.
-    public let applicationDefaultStructurePath: String
+    /// Application structure path used to identify application screen, for example "home/sport_list_screen".
+    /// If no new value will be set during app session when reporting 'pageView', this value will be always used.
+    public let applicationDefaultStructurePath: [String]
 
     /// Default ad space name of the application, for example "ads/list/sport"
     /// If no new value will be set during app session, this value will be always used.
@@ -48,7 +48,7 @@ public struct AppTrackingConfiguration {
                 apiKey: String,
                 apiUrl: URL? = nil,
                 applicationRootPath: String,
-                applicationDefaultStructurePath: String? = nil,
+                applicationDefaultStructurePath: [String]? = nil,
                 applicationDefaultAdvertisementArea: String? = nil) {
         self.tenantId = tenantId
         self.apiKey = apiKey
