@@ -130,7 +130,7 @@ class EventsManagerTests: XCTestCase {
         XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
     }
 
-    func testAddEvents_eventsAddedConcurrently_allEventsHasBeenAddedToQueue() {
+    func testAddEvents_eventsAddedConcurrently_allEventsHaveBeenAddedToQueue() {
         // Given
         let manager = EventsManager(storage: StaticStorage())
         let count = 100
