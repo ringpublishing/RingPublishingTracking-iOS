@@ -79,7 +79,7 @@ public extension AppTracking {
     ///   for example "home/sport_list_screen"
     ///   - partiallyReloaded: Pass true if you content was partially reloaded,
     ///   for example next page of articles on the list was added or paid content was presented after user paid for it on the same screen.
-    func reportPageView(currentStructurePath: String, partiallyReloaded: Bool) {
+    func reportPageView(currentStructurePath: [String], partiallyReloaded: Bool) {
         Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
 
         // TODO: Implementation missing
@@ -102,7 +102,7 @@ public extension AppTracking {
     ///   - contentKeepAliveDataSource: AppTrackingKeepAliveDataSource
     func reportContentPageView(contentMetadata: ContentMetadata,
                                pageViewSource: ContentPageViewSource = .default,
-                               currentStructurePath: String,
+                               currentStructurePath: [String],
                                partiallyReloaded: Bool,
                                contentKeepAliveDataSource: AppTrackingKeepAliveDataSource) {
         let log = """

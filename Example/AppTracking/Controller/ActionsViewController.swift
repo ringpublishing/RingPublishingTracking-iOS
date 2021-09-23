@@ -26,7 +26,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     // MARK: TraceableScreen
 
     var screenTrackingData: ScreenTrackingData {
-        return ScreenTrackingData(structurePath: "Actions", advertisementArea: "ActionsAdsArea")
+        return ScreenTrackingData(structurePath: ["Home", "Actions"], advertisementArea: "ActionsAdsArea")
     }
 
     // MARK: Life cycle

@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tenantId = "<YOUR_TENANT_ID>"
         let apiKey = "<YOUR_API_KEY>"
         let applicationRootPath = "AppTrackingDemo"
-        let applicationDefaultStructurePath = "Default"
+        let applicationDefaultStructurePath = ["Default"]
         let applicationDefaultAdvertisementArea = "DemoAdvertisementArea"
 
         // Prepare module configuration

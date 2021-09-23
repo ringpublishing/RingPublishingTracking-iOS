@@ -29,7 +29,7 @@ class DetailViewController: UIViewController, TraceableScreen {
     // MARK: TraceableScreen
 
     var screenTrackingData: ScreenTrackingData {
-        return ScreenTrackingData(structurePath: "Detail", advertisementArea: "DetailAdsArea")
+        return ScreenTrackingData(structurePath: ["Home", "Detail"], advertisementArea: "DetailAdsArea")
     }
 
     // MARK: Life cycle

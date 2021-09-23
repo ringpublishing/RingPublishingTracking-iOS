@@ -27,7 +27,7 @@ class ListViewController: UIViewController, PagerViewController, TraceableScreen
     // MARK: TraceableScreen
 
     var screenTrackingData: ScreenTrackingData {
-        return ScreenTrackingData(structurePath: "List", advertisementArea: "ListAdsArea")
+        return ScreenTrackingData(structurePath: ["Home", "List"], advertisementArea: "ListAdsArea")
     }
 
     // MARK: Life cycle

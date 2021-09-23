@@ -21,7 +21,7 @@ class NonContentViewController: UIViewController, PagerViewController, Traceable
     // MARK: TraceableScreen
 
     var screenTrackingData: ScreenTrackingData {
-        return ScreenTrackingData(structurePath: "NonContent", advertisementArea: "NonContentAdsArea")
+        return ScreenTrackingData(structurePath: ["Home", "NonContent"], advertisementArea: "NonContentAdsArea")
     }
 
     // MARK: Life cycle

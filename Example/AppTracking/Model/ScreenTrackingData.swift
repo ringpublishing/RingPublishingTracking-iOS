@@ -10,6 +10,6 @@ import Foundation
 
 struct ScreenTrackingData {
 
-    let structurePath: String
+    let structurePath: [String]
     let advertisementArea: String
 }
