@@ -13,11 +13,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let appTracking = AppTracking()
+        let appTracking = AppTracking.shared
         appTracking.loggerOutput = { message in
             print("SDK message: \(message)")
         }
 
-        _ = appTracking.samplePublicMethod()
     }
 }
