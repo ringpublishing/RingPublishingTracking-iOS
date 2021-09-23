@@ -11,6 +11,7 @@
 		208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61B26F9B3C0006A406C /* StaticStorage.swift */; };
 		208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61D26F9BADA006A406C /* DictionaryTests.swift */; };
 		208CD62026F9DEDF006A406C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61F26F9DEDF006A406C /* UserManager.swift */; };
+		208CD62826FC74D2006A406C /* AtomicArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD62726FC74D2006A406C /* AtomicArray.swift */; };
 		20C2394B26F22238005A734A /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394826F22238005A734A /* EndpointTests.swift */; };
 		20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394926F22238005A734A /* NetworkSessionMock.swift */; };
 		20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2394A26F22238005A734A /* APIServiceTests.swift */; };
@@ -78,6 +79,7 @@
 		208CD61B26F9B3C0006A406C /* StaticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticStorage.swift; sourceTree = "<group>"; };
 		208CD61D26F9BADA006A406C /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
 		208CD61F26F9DEDF006A406C /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		208CD62726FC74D2006A406C /* AtomicArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicArray.swift; sourceTree = "<group>"; };
 		20C2394826F22238005A734A /* EndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		20C2394926F22238005A734A /* NetworkSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionMock.swift; sourceTree = "<group>"; };
 		20C2394A26F22238005A734A /* APIServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				7D3E54EC26F88579000F5E38 /* StoredValueInUserDefaults.swift */,
+				208CD62726FC74D2006A406C /* AtomicArray.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
 				7D3E551126F88579000F5E38 /* Bodable.swift in Sources */,
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
+				208CD62826FC74D2006A406C /* AtomicArray.swift in Sources */,
 				7D3E551226F88579000F5E38 /* NetworkService.swift in Sources */,
 				7D3E551926F88579000F5E38 /* AppTracking.swift in Sources */,
 				7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */,

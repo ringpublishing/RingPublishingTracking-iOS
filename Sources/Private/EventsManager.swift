@@ -14,7 +14,7 @@ final class EventsManager {
     private let storage: TrackingStorage
     private let userManager: UserManager
 
-    private var events: [Event] = []
+    private var events = AtomicArray<Event>()
     private var lastSentDate = Date(timeIntervalSince1970: TimeInterval(0))
 
     init(storage: TrackingStorage = UserDefaultsStorage(), userManager: UserManager = UserManager()) {
@@ -91,7 +91,7 @@ extension EventsManager {
         var availableEventsSize = Constants.requestBodySizeLimit - idsSize - userSize - 64 // Extra bytes for json structure
 
         var reportedEvents = [ReportedEvent]()
-        for event in events {
+        for event in events.allElements {
             let reportedEvent = ReportedEvent(clientId: event.analyticsSystemName, eventType: event.eventName, data: event.eventParameters)
 
             let eventSize = reportedEvent.sizeInBytes + 4 // Extra bytes for json structure

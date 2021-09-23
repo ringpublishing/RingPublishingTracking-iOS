@@ -129,6 +129,28 @@ class EventsManagerTests: XCTestCase {
 
         XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
     }
+
+    func testAddEvents_eventsAddedConcurrently_allEventsHasBeenAddedToQueue() {
+        // Given
+        let manager = EventsManager(storage: StaticStorage())
+        let count = 100
+
+        let expectation = self.expectation(description: "all events added")
+        expectation.expectedFulfillmentCount = count
+
+        // When
+        DispatchQueue.concurrentPerform(iterations: count) {_ in
+            manager.addEvents([Event.smallEvent()])
+            expectation.fulfill()
+        }
+
+        let request = manager.buildEventRequest()
+        let events = request.events
+
+        // Then
+        waitForExpectations(timeout: 3, handler: nil)
+        XCTAssertEqual(events.count, count, "Event request should contain proper number of events")
+    }
 }
 
 private extension Event {
