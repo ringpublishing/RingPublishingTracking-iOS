@@ -11,12 +11,13 @@ let package = Package(
     products: [
         .library(
             name: "AppTracking",
-            targets: ["AppTracking"]),
+            targets: ["AppTracking"]
+        ),
     ],
     targets: [
         .target(
-            name: "AppTracking",
-            dependencies: [])
+            name: "AppTracking"
+        )
     ],
     swiftLanguageVersions: [
         .v5
