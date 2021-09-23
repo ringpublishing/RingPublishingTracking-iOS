@@ -36,23 +36,9 @@ struct APIService: Service {
 
     /// Makes a network request with the given endpoint providing a response in the completion closure.
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void) {
-        guard let path = endpoint.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
-            completion(.failure(.invalidUrl))
-            return
-        }
+        Logger.log(endpoint.endpointDescription)
 
-        let urlString = apiUrl.appendingPathComponent(path).absoluteString
-        guard var urlComponents = URLComponents(string: urlString) else {
-            completion(.failure(.invalidUrl))
-            return
-        }
-
-        urlComponents.queryItems = [
-            URLQueryItem(name: "_key", value: apiKey)
-        ]
-
-        guard let url = urlComponents.url else {
-            completion(.failure(.invalidUrl))
+        guard let url = try? buildUrl(for: endpoint) else {
             return
         }
 
@@ -63,29 +49,28 @@ struct APIService: Service {
         do {
             try request.withBody(for: endpoint)
         } catch {
+            Logger.log("Cannot encode request body", level: .error)
             completion(.failure(.incorrectRequestBody))
             return
         }
 
         session.dataTask(with: request) { data, response, error in
             if let error = error {
+                Logger.log("Received response with error: \(error.localizedDescription)", level: .error)
                 completion(.failure(.requestError(error: error)))
                 return
             }
 
             guard let data = data else {
+                Logger.log("Received response does not contain any data", level: .error)
                 completion(.failure(.noData))
                 return
             }
 
             if let response = response as? HTTPURLResponse, response.statusCode == 403 {
+                Logger.log("Given request is forbidden (unauthorized)", level: .error)
                 completion(.failure(.unauthorized))
             }
-
-            #if DEBUG
-            let dataString = String(data: data, encoding: .utf8) ?? "Unknown data"
-            Logger.log("RESPONSE:\n\(dataString)", level: .debug)
-            #endif
 
             guard let decoded = try? endpoint.decode(data: data) else {
                 completion(.failure(.failedToDecode))
@@ -95,6 +80,30 @@ struct APIService: Service {
             completion(.success(decoded))
         }
     }
+
+    private func buildUrl<T: Endpoint>(for endpoint: T) throws -> URL {
+        guard let path = endpoint.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+            Logger.log("Cannot send request. Path is invalid: \(endpoint.path)", level: .error)
+            throw ServiceError.invalidUrl
+        }
+
+        let urlString = apiUrl.appendingPathComponent(path).absoluteString
+        guard var urlComponents = URLComponents(string: urlString) else {
+            Logger.log("Cannot send request. URL is invalid: \(urlString)", level: .error)
+            throw ServiceError.invalidUrl
+        }
+
+        urlComponents.queryItems = [
+            URLQueryItem(name: "_key", value: apiKey)
+        ]
+
+        guard let url = urlComponents.url else {
+            Logger.log("Cannot send request. URL components are invalid: \(urlComponents)", level: .error)
+            throw ServiceError.invalidUrl
+        }
+
+        return url
+    }
 }
 
 extension URLRequest {
@@ -103,13 +112,6 @@ extension URLRequest {
         switch endpoint.method {
         case .post:
             do {
-                #if DEBUG
-                if let data = try? endpoint.encodedBody() {
-                    let dataString = String(data: data, encoding: .utf8) ?? "Unknown data"
-                    Logger.log("REQUEST BODY:\n\(dataString)", level: .debug)
-                }
-                #endif
-
                 httpBody = try endpoint.encodedBody()
             } catch {
                 throw ServiceError.incorrectRequestBody

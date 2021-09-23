@@ -54,3 +54,15 @@ extension Endpoint {
         nil
     }
 }
+
+extension Endpoint {
+
+    var endpointDescription: String {
+        """
+        Endpoint description:
+            Path: \(path)
+            Method: \(method.rawValue)
+            Headers: \(headers)
+        """
+    }
+}
