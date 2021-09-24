@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AppTracking
+import RingPublishingTracking
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Prepare module configuration
 
-        let configuration = AppTrackingConfiguration(tenantId: tenantId,
+        let configuration = RingPublishingTrackingConfiguration(tenantId: tenantId,
                                                      apiKey: apiKey,
                                                      apiUrl: nil,
                                                      applicationRootPath: applicationRootPath,
@@ -47,20 +47,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Set debug mode before initialzing module
 
-        AppTracking.shared.setDebugMode(enabled: debugModeEnabled)
+        RingPublishingTracking.shared.setDebugMode(enabled: debugModeEnabled)
 
         // Initialize AppTracking module
 
-        AppTracking.shared.initialize(configuration: configuration, delegate: self)
+        RingPublishingTracking.shared.initialize(configuration: configuration, delegate: self)
 
         return true
     }
 }
 
 // MARK: AppTrackingDelegate
-extension AppDelegate: AppTrackingDelegate {
+extension AppDelegate: RingPublishingTrackingDelegate {
 
-    func appTracking(_ appTracking: AppTracking, didAssingTrackingIdentifier identifier: String) {
+    func appTracking(_ appTracking: RingPublishingTracking, didAssingTrackingIdentifier identifier: String) {
         print("DEMO - AppTracking: received tracking identifier: \(identifier)")
     }
 }

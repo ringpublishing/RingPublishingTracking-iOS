@@ -4,7 +4,7 @@ platform :ios, '11.0'
 use_frameworks!
 
 def appTrackingSDK
-    pod 'AppTracking', :path => '../'
+    pod 'RingPublishingTracking', :path => '../'
 end
 
 target 'AppTracking-Example' do

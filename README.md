@@ -1,8 +1,8 @@
 ![RingPublishing](images/ringpublishing_logo.jpeg)
 
-# AppTracking
+# RingPublishingTracking
 
-// TODO: description
+Module for tracking events within an application.
 
 ## Documentation
 
@@ -34,7 +34,7 @@ Additions to your Podfile:
 ```ruby
 source 'https://github.com/ringpublishing/RingPublishing-CocoaPods-Specs.git'
 
-pod 'AppTracking'
+pod 'RingPublishingTracking'
 ```
 
 ### Using [Swift Package Manager](https://swift.org/package-manager/)
@@ -59,16 +59,16 @@ let Package = Package(
 
 ## Usage
 
-Start by importing `AppTracking`:
+Start by importing `RingPublishingTracking`:
 
 ```swift
-import AppTracking
+import RingPublishingTracking
 ```
 
 then you have access to shared module instance:
 
 ```swift
-AppTracking.shared
+RingPublishingTracking.shared
 ```
 
 For detailed example see demo project in `Example` directory or check our documentation.

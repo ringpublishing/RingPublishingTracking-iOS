@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import AppTracking
+import RingPublishingTracking
 
 class ActionsViewController: UIViewController, PagerViewController, TraceableScreen {
 
@@ -40,7 +40,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
         // Report page view event
 
-        AppTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
     }
 
     // MARK: Segue
@@ -59,7 +59,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     @IBAction func onLoginActionTouch(_ sender: Any) {
         // When user log in we should update tracking module with his account information
 
-        AppTracking.shared.updateUserData(ssoSystemName: "AppTrackingSSO", userId: "12345")
+        RingPublishingTracking.shared.updateUserData(ssoSystemName: "AppTrackingSSO", userId: "12345")
 
         // Each non content button click we can report using 'reportClick' method
 
@@ -69,7 +69,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     @IBAction func onLogoutActionTouch(_ sender: Any) {
         // When user log out from the application we should update tracking module
 
-        AppTracking.shared.updateUserData(ssoSystemName: "AppTrackingSSO", userId: nil)
+        RingPublishingTracking.shared.updateUserData(ssoSystemName: "AppTrackingSSO", userId: nil)
 
         // Each non content button click we can report using 'reportClick' method
 
@@ -83,7 +83,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // This could be either plain string or encoded JSON prepared by your app
 
         let userActionPayload = "in_app_purchase_product=product1;value=20"
-        AppTracking.shared.reportUserAction(actionName: "UserPurchase",
+        RingPublishingTracking.shared.reportUserAction(actionName: "UserPurchase",
                                             actionSubtypeName: "In-app purchase",
                                             parameters: userActionPayload)
 
@@ -100,7 +100,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
             "in_app_purchase_product": "product1",
             "value": 20
         ]
-        AppTracking.shared.reportUserAction(actionName: "UserPurchase",
+        RingPublishingTracking.shared.reportUserAction(actionName: "UserPurchase",
                                             actionSubtypeName: "In-app purchase",
                                             parameters: userActionPayload)
 
@@ -139,7 +139,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         let customEvent = Event(analyticsSystemName: "GENERIC",
                                 eventName: "DemoCustomEvent",
                                 eventParameters: ["myParam": "myValue"])
-        AppTracking.shared.reportEvent(customEvent)
+        RingPublishingTracking.shared.reportEvent(customEvent)
     }
 
     // MARK: Actions (Debug mode)
@@ -148,13 +148,13 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // If you don't want to send events to API during development (or for some other reason) but you still want
         // to see events being processed by the SDK, you can enable debug mode
 
-        AppTracking.shared.setDebugMode(enabled: true)
+        RingPublishingTracking.shared.setDebugMode(enabled: true)
     }
 
     @IBAction func onDisableDebugModeActionTouch(_ sender: Any) {
         // You can always disable debug mode
 
-        AppTracking.shared.setDebugMode(enabled: false)
+        RingPublishingTracking.shared.setDebugMode(enabled: false)
     }
 
     // MARK: Actions (Opt-out mode)
@@ -163,13 +163,13 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // If you don't want to send events to API and also don't want to see events being processed by the SDK,
         // you can enable opt-out mode. In this mode, SDK functionality is disabled (events processing, logger, API calls)
 
-        AppTracking.shared.setOptOutMode(enabled: true)
+        RingPublishingTracking.shared.setOptOutMode(enabled: true)
     }
 
     @IBAction func onDisableOptOutModeActionTouch(_ sender: Any) {
         // You can always disable opt-out mode
 
-        AppTracking.shared.setOptOutMode(enabled: false)
+        RingPublishingTracking.shared.setOptOutMode(enabled: false)
     }
 
     // MARK: Actions (Aureus offers impression)
@@ -179,7 +179,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // when those items are displayed to the user
 
         let offerIds = ["123", "456", "789"]
-        AppTracking.shared.reportAureusOffersImpressions(offerIds: offerIds)
+        RingPublishingTracking.shared.reportAureusOffersImpressions(offerIds: offerIds)
     }
 }
 
@@ -190,6 +190,6 @@ private extension ActionsViewController {
         // If our click action does not have a name, we can omit it
         let actionName = (sender as? UIButton)?.titleLabel?.text
 
-        AppTracking.shared.reportClick(selectedElementName: actionName)
+        RingPublishingTracking.shared.reportClick(selectedElementName: actionName)
     }
 }

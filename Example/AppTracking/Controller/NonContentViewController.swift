@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import AppTracking
+import RingPublishingTracking
 
 class NonContentViewController: UIViewController, PagerViewController, TraceableScreen {
 
@@ -35,6 +35,6 @@ class NonContentViewController: UIViewController, PagerViewController, Traceable
 
         // Report page view event
 
-        AppTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import AppTracking
+import RingPublishingTracking
 
 class DetailViewController: UIViewController, TraceableScreen {
 
@@ -54,7 +54,7 @@ class DetailViewController: UIViewController, TraceableScreen {
         // If our controller with content will not longer be presented we have to stop keep alive tracking
 
         if isClosing {
-            AppTracking.shared.stopContentKeepAliveTracking()
+            RingPublishingTracking.shared.stopContentKeepAliveTracking()
             return
         }
 
@@ -62,7 +62,7 @@ class DetailViewController: UIViewController, TraceableScreen {
         // when view which covered our content will be dismissed
         // To resume tracking we can call either again 'reportContentPageView' method or 'resumeContentKeepAliveTracking'
 
-        AppTracking.shared.pauseContentKeepAliveTracking()
+        RingPublishingTracking.shared.pauseContentKeepAliveTracking()
     }
 
     // MARK: Actions
@@ -115,13 +115,13 @@ extension DetailViewController: UIAdaptivePresentationControllerDelegate {
                                 transitionCoordinator: UIViewControllerTransitionCoordinator?) {
         // Pause keep alive tracking when modal controller is presented
 
-        AppTracking.shared.pauseContentKeepAliveTracking()
+        RingPublishingTracking.shared.pauseContentKeepAliveTracking()
     }
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         // Resume keep alive tracking when modal controller is dismissed
 
-        AppTracking.shared.resumeContentKeepAliveTracking()
+        RingPublishingTracking.shared.resumeContentKeepAliveTracking()
     }
 }
 
@@ -155,7 +155,7 @@ private extension DetailViewController {
                                               sourceSystemName: article.sourceSystemName,
                                               contentWasPaidFor: article.contentWasPaidFor)
 
-        AppTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+        RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
                                                  pageViewSource: contentViewSource,
                                                  currentStructurePath: screenTrackingData.structurePath,
                                                  partiallyReloaded: partiallyReloaded,
@@ -164,9 +164,9 @@ private extension DetailViewController {
 }
 
 // MARK: AppTrackingKeepAliveDataSource
-extension DetailViewController: AppTrackingKeepAliveDataSource {
+extension DetailViewController: RingPublishingTrackingKeepAliveDataSource {
 
-    func appTracking(_ appTracking: AppTracking,
+    func appTracking(_ appTracking: RingPublishingTracking,
                      didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
         // Return information about content at given point in time
         // We have to return how big content is and how far the user has scrolled

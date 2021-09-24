@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import AppTracking
+import RingPublishingTracking
 
 class ListViewController: UIViewController, PagerViewController, TraceableScreen {
 
@@ -41,7 +41,7 @@ class ListViewController: UIViewController, PagerViewController, TraceableScreen
 
         // Report page view event
 
-        AppTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: screenTrackingData.structurePath, partiallyReloaded: false)
     }
 
     // MARK: Segue
@@ -86,7 +86,7 @@ extension ListViewController: UITableViewDelegate {
         // Report content click event
 
         let selectedArticle = sampleArticleData[indexPath.row]
-        AppTracking.shared.reportContentClick(selectedElementName: selectedArticle.title,
+        RingPublishingTracking.shared.reportContentClick(selectedElementName: selectedArticle.title,
                                               publicationUrl: selectedArticle.publicationUrl)
     }
 }

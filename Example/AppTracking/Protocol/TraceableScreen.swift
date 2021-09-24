@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AppTracking
+import RingPublishingTracking
 
 protocol TraceableScreen {
 
@@ -22,6 +22,6 @@ extension TraceableScreen {
         // When application changes currently displayed view, we should update it's current advertisement area
         // so each event send from this moment will have it correctly assigned
 
-        AppTracking.shared.updateApplicationAdvertisementArea(currentAdvertisementArea: screenTrackingData.advertisementArea)
+        RingPublishingTracking.shared.updateApplicationAdvertisementArea(currentAdvertisementArea: screenTrackingData.advertisementArea)
     }
 }

@@ -187,7 +187,8 @@
 				208CD61926F9B276006A406C /* EventsManagerTests.swift */,
 				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
 			);
-			path = AppTrackingTests;
+			name = AppTrackingTests;
+			path = RingPublishingTrackingTests;
 			sourceTree = "<group>";
 		};
 		20C2394E26F22241005A734A /* Mocks */ = {
@@ -315,7 +316,8 @@
 				7D7D5B9926FCA5AE00B79FDD /* Public */,
 				7D7D5BA526FCA5AE00B79FDD /* Private */,
 			);
-			path = AppTracking;
+			name = AppTracking;
+			path = RingPublishingTracking;
 			sourceTree = "<group>";
 		};
 		7D7D5B9926FCA5AE00B79FDD /* Public */ = {
