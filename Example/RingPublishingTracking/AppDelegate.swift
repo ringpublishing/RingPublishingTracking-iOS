@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  AppTracking
+//  RingPublishingTracking
 //
 //  Created by Adam Szeremeta on 06/09/2021.
 //  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
@@ -21,8 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Example
 
-        // Initialize AppTracking module before your app wants to send any events.
-        // The earlier you will do it - the earlier you will receive assigned 'trackingIdentifier' from SDK by 'AppTrackingDelegate'
+        // Initialize RingPublishingTracking module before your app wants to send any events.
+        // The earlier you will do it - the earlier you will receive assigned 'trackingIdentifier'
+        // from SDK by 'RingPublishingTrackingDelegate'
 
         // We are enabling debug mode by default in demo app
 
@@ -32,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let tenantId = "<YOUR_TENANT_ID>"
         let apiKey = "<YOUR_API_KEY>"
-        let applicationRootPath = "AppTrackingDemo"
+        let applicationRootPath = "RingPublishingTrackingDemo"
         let applicationDefaultStructurePath = ["Default"]
         let applicationDefaultAdvertisementArea = "DemoAdvertisementArea"
 
@@ -49,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         RingPublishingTracking.shared.setDebugMode(enabled: debugModeEnabled)
 
-        // Initialize AppTracking module
+        // Initialize RingPublishingTracking module
 
         RingPublishingTracking.shared.initialize(configuration: configuration, delegate: self)
 
@@ -57,10 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-// MARK: AppTrackingDelegate
+// MARK: RingPublishingTrackingDelegate
 extension AppDelegate: RingPublishingTrackingDelegate {
 
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking, didAssingTrackingIdentifier identifier: String) {
-        print("DEMO - AppTracking: received tracking identifier: \(identifier)")
+        print("DEMO - RingPublishingTracking: received tracking identifier: \(identifier)")
     }
 }

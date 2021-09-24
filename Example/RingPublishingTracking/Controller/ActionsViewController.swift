@@ -1,6 +1,6 @@
 //
 //  ActionsViewController.swift
-//  AppTracking-Example
+//  RingPublishingTracking-Example
 //
 //  Created by Adam Szeremeta on 17/09/2021.
 //  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
@@ -59,7 +59,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     @IBAction func onLoginActionTouch(_ sender: Any) {
         // When user log in we should update tracking module with his account information
 
-        RingPublishingTracking.shared.updateUserData(ssoSystemName: "AppTrackingSSO", userId: "12345")
+        RingPublishingTracking.shared.updateUserData(ssoSystemName: "RingPublishingTrackingSSO", userId: "12345")
 
         // Each non content button click we can report using 'reportClick' method
 
@@ -69,7 +69,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     @IBAction func onLogoutActionTouch(_ sender: Any) {
         // When user log out from the application we should update tracking module
 
-        RingPublishingTracking.shared.updateUserData(ssoSystemName: "AppTrackingSSO", userId: nil)
+        RingPublishingTracking.shared.updateUserData(ssoSystemName: "RingPublishingTrackingSSO", userId: nil)
 
         // Each non content button click we can report using 'reportClick' method
 
@@ -94,7 +94,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
     @IBAction func onReportUserActionAsDictionaryTouch(_ sender: Any) {
         // Each user action which you want to track can be reported with Dictionary parameters
-        // This will be encoded to JSON by AppTracking module
+        // This will be encoded to JSON by RingPublishingTracking module
 
         let userActionPayload: [String: AnyHashable] = [
             "in_app_purchase_product": "product1",

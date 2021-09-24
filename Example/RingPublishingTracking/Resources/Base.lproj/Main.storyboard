@@ -12,7 +12,7 @@
         <!--Demo-->
         <scene sceneID="Ou0-Lz-V4x">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Idk-ZO-Td5" customClass="HomeViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Idk-ZO-Td5" customClass="HomeViewController" customModule="RingPublishingTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Demo" id="MJe-mJ-u0v"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AxA-V9-EVG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -22,7 +22,7 @@
         <!--Actions View Controller-->
         <scene sceneID="eIa-4A-gD0">
             <objects>
-                <viewController storyboardIdentifier="ActionsViewController" id="BDG-lq-n5Z" customClass="ActionsViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ActionsViewController" id="BDG-lq-n5Z" customClass="ActionsViewController" customModule="RingPublishingTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jBZ-js-FHy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,7 +203,7 @@
         <!--Non Content View Controller-->
         <scene sceneID="RFY-XM-PJV">
             <objects>
-                <viewController storyboardIdentifier="NonContentViewController" id="sCd-Rg-UJq" customClass="NonContentViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NonContentViewController" id="sCd-Rg-UJq" customClass="NonContentViewController" customModule="RingPublishingTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oVc-YY-fqn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +231,7 @@
         <!--List View Controller-->
         <scene sceneID="Yc5-5k-XdX">
             <objects>
-                <viewController storyboardIdentifier="ListViewController" id="dKT-N0-4Ci" customClass="ListViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListViewController" id="dKT-N0-4Ci" customClass="ListViewController" customModule="RingPublishingTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Fv-Sv-P6F">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -283,7 +283,7 @@
         <!--Detail View Controller-->
         <scene sceneID="Nu8-Et-rtu">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="t9l-qS-kSS" customClass="DetailViewController" customModule="AppTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="t9l-qS-kSS" customClass="DetailViewController" customModule="RingPublishingTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JZT-F4-9QQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

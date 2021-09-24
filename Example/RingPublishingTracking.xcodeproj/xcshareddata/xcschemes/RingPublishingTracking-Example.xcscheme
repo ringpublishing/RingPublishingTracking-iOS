@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7D1C1B4226E657430051A267"
-               BuildableName = "AppTracking-Example.app"
-               BlueprintName = "AppTracking-Example"
-               ReferencedContainer = "container:AppTracking.xcodeproj">
+               BuildableName = "RingPublishingTracking-Example.app"
+               BlueprintName = "RingPublishingTracking-Example"
+               ReferencedContainer = "container:RingPublishingTracking.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7D1C1B5826E657460051A267"
-               BuildableName = "AppTrackingTests.xctest"
-               BlueprintName = "AppTrackingTests"
-               ReferencedContainer = "container:AppTracking.xcodeproj">
+               BuildableName = "RingPublishingTrackingTests.xctest"
+               BlueprintName = "RingPublishingTrackingTests"
+               ReferencedContainer = "container:RingPublishingTracking.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7D1C1B4226E657430051A267"
-            BuildableName = "AppTracking-Example.app"
-            BlueprintName = "AppTracking-Example"
-            ReferencedContainer = "container:AppTracking.xcodeproj">
+            BuildableName = "RingPublishingTracking-Example.app"
+            BlueprintName = "RingPublishingTracking-Example"
+            ReferencedContainer = "container:RingPublishingTracking.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,9 +73,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7D1C1B4226E657430051A267"
-            BuildableName = "AppTracking-Example.app"
-            BlueprintName = "AppTracking-Example"
-            ReferencedContainer = "container:AppTracking.xcodeproj">
+            BuildableName = "RingPublishingTracking-Example.app"
+            BlueprintName = "RingPublishingTracking-Example"
+            ReferencedContainer = "container:RingPublishingTracking.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

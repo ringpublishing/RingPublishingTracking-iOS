@@ -19,5 +19,5 @@ public protocol RingPublishingTrackingKeepAliveDataSource: AnyObject {
     ///
     /// - Returns: KeepAliveContentStatus
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
-                     didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus
+                                didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus
 }
