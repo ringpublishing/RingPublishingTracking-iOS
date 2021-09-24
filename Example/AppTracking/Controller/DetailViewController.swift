@@ -166,7 +166,7 @@ private extension DetailViewController {
 // MARK: AppTrackingKeepAliveDataSource
 extension DetailViewController: RingPublishingTrackingKeepAliveDataSource {
 
-    func appTracking(_ appTracking: RingPublishingTracking,
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
                      didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
         // Return information about content at given point in time
         // We have to return how big content is and how far the user has scrolled
