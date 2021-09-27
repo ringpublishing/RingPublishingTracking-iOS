@@ -28,7 +28,7 @@ Reference guide:
 
 ### Using [CocoaPods](https://cocoapods.org)
 
-To install it through CocoaPods simply add the following lines to your Podfile using our private Cocoapods Specs repository. Please make sure you have access to this repository granted by us.
+To install it through CocoaPods simply add the following lines to your Podfile using our Cocoapods Specs repository. Please make sure you have access to this repository granted by us.
 
 Additions to your Podfile:
 ```ruby
@@ -39,7 +39,7 @@ pod 'RingPublishingTracking'
 
 ### Using [Swift Package Manager](https://swift.org/package-manager/)
 
-To isntall it into a project, add it as a dependency within your project settings using Xcode:
+To install it into a project, add it as a dependency within your project settings using Xcode:
 
 ```swift
 Package URL: "https://github.com/todo"

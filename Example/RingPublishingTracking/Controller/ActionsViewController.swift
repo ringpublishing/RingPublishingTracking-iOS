@@ -84,8 +84,8 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
         let userActionPayload = "in_app_purchase_product=product1;value=20"
         RingPublishingTracking.shared.reportUserAction(actionName: "UserPurchase",
-                                            actionSubtypeName: "In-app purchase",
-                                            parameters: userActionPayload)
+                                                       actionSubtypeName: "In-app purchase",
+                                                       parameters: userActionPayload)
 
         // Each non content button click we can report using 'reportClick' method
 
@@ -101,8 +101,8 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
             "value": 20
         ]
         RingPublishingTracking.shared.reportUserAction(actionName: "UserPurchase",
-                                            actionSubtypeName: "In-app purchase",
-                                            parameters: userActionPayload)
+                                                       actionSubtypeName: "In-app purchase",
+                                                       parameters: userActionPayload)
 
         // Each non content button click we can report using 'reportClick' method
 

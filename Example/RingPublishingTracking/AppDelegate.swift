@@ -40,11 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Prepare module configuration
 
         let configuration = RingPublishingTrackingConfiguration(tenantId: tenantId,
-                                                     apiKey: apiKey,
-                                                     apiUrl: nil,
-                                                     applicationRootPath: applicationRootPath,
-                                                     applicationDefaultStructurePath: applicationDefaultStructurePath,
-                                                     applicationDefaultAdvertisementArea: applicationDefaultAdvertisementArea)
+                                                                apiKey: apiKey,
+                                                                apiUrl: nil,
+                                                                applicationRootPath: applicationRootPath,
+                                                                applicationDefaultStructurePath: applicationDefaultStructurePath,
+                                                                applicationDefaultAdvertisementArea: applicationDefaultAdvertisementArea)
 
         // Set debug mode before initialzing module
 

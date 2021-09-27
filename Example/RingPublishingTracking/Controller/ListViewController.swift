@@ -87,6 +87,6 @@ extension ListViewController: UITableViewDelegate {
 
         let selectedArticle = sampleArticleData[indexPath.row]
         RingPublishingTracking.shared.reportContentClick(selectedElementName: selectedArticle.title,
-                                              publicationUrl: selectedArticle.publicationUrl)
+                                                         publicationUrl: selectedArticle.publicationUrl)
     }
 }

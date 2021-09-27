@@ -156,10 +156,10 @@ private extension DetailViewController {
                                               contentWasPaidFor: article.contentWasPaidFor)
 
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
-                                                 pageViewSource: contentViewSource,
-                                                 currentStructurePath: screenTrackingData.structurePath,
-                                                 partiallyReloaded: partiallyReloaded,
-                                                 contentKeepAliveDataSource: self)
+                                                            pageViewSource: contentViewSource,
+                                                            currentStructurePath: screenTrackingData.structurePath,
+                                                            partiallyReloaded: partiallyReloaded,
+                                                            contentKeepAliveDataSource: self)
     }
 }
 
