@@ -28,7 +28,7 @@ Reference guide:
 
 ### Using [CocoaPods](https://cocoapods.org)
 
-To install it through CocoaPods simply add the following lines to your Podfile using our Cocoapods Specs repository. Please make sure you have access to this repository granted by us.
+To install it through CocoaPods simply add the following lines to your Podfile using our private Cocoapods Specs repository.
 
 Additions to your Podfile:
 ```ruby
