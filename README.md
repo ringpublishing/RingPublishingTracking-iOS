@@ -49,7 +49,7 @@ To install it into a project, add it as a dependency within your project setting
 Package URL: "https://github.com/ringpublishing/RingPublishingTracking-iOS"
 ```
 
-or if yo uare using manifest file, add it as a dependency there:
+or if you are using manifest file, add it as a dependency there:
 
 ```swift
 let Package = Package(
