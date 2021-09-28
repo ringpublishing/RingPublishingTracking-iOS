@@ -8,15 +8,15 @@ Module for tracking events within an application.
 
 The documentation can be found at:
 
-[todo link](todo link)
+[https://developer.ringpublishing.com/howto/tracking-mobile/index.html](https://developer.ringpublishing.com/howto/tracking-mobile/index.html)
 
 Integration tutorial:
 
-[todo link](todo link)
+[https://developer.ringpublishing.com/howto/tracking-mobile/integrate-ios-sdk.html](https://developer.ringpublishing.com/howto/tracking-mobile/integrate-ios-sdk.html)
 
 Reference guide:
 
-[todo link](todo link)
+[https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html](https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html)
 
 ## Requirements
 
@@ -42,7 +42,7 @@ pod 'RingPublishingTracking'
 To install it into a project, add it as a dependency within your project settings using Xcode:
 
 ```swift
-Package URL: "https://github.com/todo"
+Package URL: "https://github.com/ringpublishing/RingPublishingTracking-iOS"
 ```
 
 or if yo uare using manifest file, add it as a dependency there:
