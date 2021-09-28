@@ -3,15 +3,15 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '11.0'
 use_frameworks!
 
-def appTrackingSDK
-    pod 'AppTracking', :path => '../'
+def ringPublishingTrackingSDK
+    pod 'RingPublishingTracking', :path => '../'
 end
 
-target 'AppTracking-Example' do
-  appTrackingSDK
+target 'RingPublishingTracking-Example' do
+  ringPublishingTrackingSDK
   pod 'SwiftLint'
 end
 
-target 'AppTrackingTests' do
+target 'RingPublishingTrackingTests' do
   
 end

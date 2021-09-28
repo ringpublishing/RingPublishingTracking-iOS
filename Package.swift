@@ -4,19 +4,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "AppTracking",
+    name: "RingPublishingTracking",
     platforms: [
         .iOS(.v11)
     ],
     products: [
         .library(
-            name: "AppTracking",
-            targets: ["AppTracking"]
+            name: "RingPublishingTracking",
+            targets: ["RingPublishingTracking"]
         ),
     ],
     targets: [
         .target(
-            name: "AppTracking"
+            name: "RingPublishingTracking"
         )
     ],
     swiftLanguageVersions: [
