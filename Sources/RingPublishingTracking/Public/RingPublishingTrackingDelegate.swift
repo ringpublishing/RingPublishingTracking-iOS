@@ -14,7 +14,7 @@ public protocol RingPublishingTrackingDelegate: AnyObject {
     /// Delegate method informing when RingPublishingTracking module did set tracking identifier assigned to this device
     ///
     /// - Parameters:
-    ///   - RingPublishingTracking: RingPublishingTracking
+    ///   - ringPublishingTracking: RingPublishingTracking
     ///   - identifier: Assigned tracking identifier
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking, didAssignTrackingIdentifier identifier: String)
 }
