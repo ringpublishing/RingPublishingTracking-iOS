@@ -30,3 +30,6 @@ build
 Pods/*
 Example/Pods
 ./Example/Pods
+
+## SPM
+.swiftpm
