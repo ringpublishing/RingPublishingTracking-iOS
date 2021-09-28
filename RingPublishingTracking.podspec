@@ -2,12 +2,12 @@ Pod::Spec.new do |s|
     s.name         = "RingPublishingTracking"
     s.version      = "0.1.0"
 
-    s.summary      = "TBD"
+    s.summary      = "SDK used to report events from mobile application"
     s.license      = { :type => 'Copyright. Ringier Axel Springer Polska', :file => 'LICENSE' }
-    s.authors      = { "Adam Szeremeta" => "adam.szeremeta@ringieraxelspringer.pl" }
+    s.authors      = { "Adam Szeremeta" => "adam.szeremeta@ringieraxelspringer.pl", "Artur Rymarz" => "Artur.Rymarz@ringieraxelspringer.pl" }
 
-    s.homepage     = "https://github.com/ringpublishing/RingPublishingGDPR-iOS"
-    s.source       = { :git => "https://github.com/ringpublishing/RingPublishingGDPR-iOS.git", :tag => s.version }
+    s.homepage     = "https://github.com/ringpublishing/RingPublishingTracking-iOS"
+    s.source       = { :git => "https://github.com/ringpublishing/RingPublishingTracking-iOS", :tag => s.version }
 
     s.platform = :ios, '11.0'
     s.ios.deployment_target = '11.0'
