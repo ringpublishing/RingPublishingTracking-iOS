@@ -18,6 +18,10 @@ Reference guide:
 
 [https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html](https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html)
 
+## Demo
+
+In order to run demo app, execute `pod install` in `Example` directory.
+
 ## Requirements
 
 - iOS 11.0 or later
