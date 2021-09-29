@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol EventsQueueManagerDelegate: AnyObject {
-    func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager)
-}
-
 /// Manager for managing events that should be added to the queue and then send
 final class EventsQueueManager {
 
