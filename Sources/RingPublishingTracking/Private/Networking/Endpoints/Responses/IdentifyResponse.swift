@@ -20,3 +20,10 @@ struct IdentifyResponse: Decodable {
     /// Minimum time in milliseconds between consequitve HTTP requests
     let postInterval: Int
 }
+
+extension IdentifyResponse {
+
+    var eaUUID: IdsWithLifetime? {
+        ids["eaUUID"]
+    }
+}

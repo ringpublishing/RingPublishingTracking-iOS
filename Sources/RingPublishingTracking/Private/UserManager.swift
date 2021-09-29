@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class UserManager {
+protocol Userable {
+    func buildUser() -> User
+}
+
+final class UserManager: Userable {
 
     func buildUser() -> User {
         // TODO: missing implementation

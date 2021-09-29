@@ -17,7 +17,12 @@ public class RingPublishingTracking {
     public static let shared = RingPublishingTracking()
 
     /// Tracking identifier assigned by the module for this device
-    public private(set) var trackingIdentifier: String?
+    public private(set) var trackingIdentifier: String? {
+        didSet {
+            guard let trackingIdentifier = trackingIdentifier else { return }
+            delegate?.ringPublishingTracking(self, didAssignTrackingIdentifier: trackingIdentifier)
+        }
+    }
 
     /// Closure which can be used to gather module logs inside host application
     ///
@@ -36,8 +41,8 @@ public class RingPublishingTracking {
 
     // MARK: Private properties
 
-    // TODO: refactor to use here class responsible for building and decorating events
-    private let eventsManager = EventsManager()
+    /// Events service for handling all operations on events
+    private let eventsService = EventsService()
 
     /// Module delegate
     private weak var delegate: RingPublishingTrackingDelegate?
@@ -58,7 +63,7 @@ public class RingPublishingTracking {
 
         self.delegate = delegate
 
-        // TODO: Implementation missing
+        eventsService.setup(apiUrl: configuration.apiUrl, apiKey: configuration.apiKey, delegate: self)
     }
 
     // MARK: Debug mode / opt-out mode
@@ -70,7 +75,7 @@ public class RingPublishingTracking {
     public func setDebugMode(enabled: Bool) {
         Logger.log("Setting debug mode enabled: '\(enabled)'")
 
-        // TODO: Implementation missing
+        eventsService.setDebugMode(enabled: enabled)
     }
 
     /// Enable / disable opt-out mode
@@ -81,7 +86,7 @@ public class RingPublishingTracking {
     public func setOptOutMode(enabled: Bool) {
         Logger.log("Setting opt-out mode enabled: '\(enabled)'")
 
-        // TODO: Implementation missing
+        eventsService.setOptOutMode(enabled: enabled)
     }
 
     // MARK: Generic event
@@ -99,7 +104,12 @@ public class RingPublishingTracking {
     public func reportEvents(_ events: [Event]) {
         Logger.log("Reporting generic events, events count: '\(events.count)'")
 
-        // TODO: Implementation missing
-        eventsManager.addEvents(events)
+        eventsService.addEvents(events)
+    }
+}
+
+extension RingPublishingTracking: EventsServiceDelegate {
+    func eventsService(_ eventsService: EventsService, retrievedtrackingIdentifier identifier: String) {
+        trackingIdentifier = identifier
     }
 }
