@@ -8,15 +8,15 @@ Module for tracking events within an application.
 
 The documentation can be found at:
 
-[https://developer.ringpublishing.com/howto/tracking-mobile/index.html](https://developer.ringpublishing.com/howto/tracking-mobile/index.html)
+[https://developer.ringpublishing.com/docs/TrackingEngine/index.html](https://developer.ringpublishing.com/docs/TrackingEngine/index.html)
 
 Integration tutorial:
 
-[https://developer.ringpublishing.com/howto/tracking-mobile/integrate-ios-sdk.html](https://developer.ringpublishing.com/howto/tracking-mobile/integrate-ios-sdk.html)
+[https://developer.ringpublishing.com/docs/TrackingEngine/getting-started/mobile/integrate-ios-app.html](https://developer.ringpublishing.com/docs/TrackingEngine/getting-started/mobile/integrate-ios-app.html)
 
 Reference guide:
 
-[https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html](https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html)
+[https://developer.ringpublishing.com/docs/TrackingEngine/reference/mobile/tracking-ios-sdk.html](https://developer.ringpublishing.com/docs/TrackingEngine/reference/mobile/tracking-ios-sdk.html)
 
 ## Demo
 
