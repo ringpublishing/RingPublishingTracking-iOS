@@ -33,3 +33,6 @@ Example/Pods
 
 ## SPM
 .swiftpm
+
+fastlane/*
+!fastlane/.env
