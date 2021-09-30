@@ -1,0 +1,17 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '11.0'
+use_frameworks!
+
+def ringPublishingTrackingSDK
+    pod 'RingPublishingTracking', :path => '../'
+end
+
+target 'RingPublishingTracking-Example' do
+  ringPublishingTrackingSDK
+  pod 'SwiftLint'
+end
+
+target 'RingPublishingTrackingTests' do
+  
+end

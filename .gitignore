@@ -31,7 +31,5 @@ Pods/*
 Example/Pods
 ./Example/Pods
 
-## Fastlane
-fastlane
-fastlane/*
-./fastlane
+## SPM
+.swiftpm
