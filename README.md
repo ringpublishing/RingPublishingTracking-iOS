@@ -8,15 +8,15 @@ Module for tracking events within an application.
 
 The documentation can be found at:
 
-[https://developer.ringpublishing.com/howto/tracking-mobile/index.html](https://developer.ringpublishing.com/howto/tracking-mobile/index.html)
+[https://developer.ringpublishing.com/docs/TrackingEngine/index.html](https://developer.ringpublishing.com/docs/TrackingEngine/index.html)
 
 Integration tutorial:
 
-[https://developer.ringpublishing.com/howto/tracking-mobile/integrate-ios-sdk.html](https://developer.ringpublishing.com/howto/tracking-mobile/integrate-ios-sdk.html)
+[https://developer.ringpublishing.com/docs/TrackingEngine/getting-started/mobile/integrate-ios-app.html](https://developer.ringpublishing.com/docs/TrackingEngine/getting-started/mobile/integrate-ios-app.html)
 
 Reference guide:
 
-[https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html](https://developer.ringpublishing.com/howto/tracking-mobile/tracking-ios-sdk.html)
+[https://developer.ringpublishing.com/docs/TrackingEngine/reference/mobile/tracking-ios-sdk.html](https://developer.ringpublishing.com/docs/TrackingEngine/reference/mobile/tracking-ios-sdk.html)
 
 ## Demo
 
@@ -49,7 +49,7 @@ To install it into a project, add it as a dependency within your project setting
 Package URL: "https://github.com/ringpublishing/RingPublishingTracking-iOS"
 ```
 
-or if yo uare using manifest file, add it as a dependency there:
+or if you are using manifest file, add it as a dependency there:
 
 ```swift
 let Package = Package(
