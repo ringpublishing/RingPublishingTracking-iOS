@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		204EAEC1270AEA0B009E2F0D /* UserDataDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC0270AEA0A009E2F0D /* UserDataDecorator.swift */; };
-		204EAEC5270C3B59009E2F0D /* TenantIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */; };
 		204EAEC7270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC6270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift */; };
+		204EAEC8270D9885009E2F0D /* AdAreaDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322D27070DC700EA53FD /* AdAreaDecorator.swift */; };
+		204EAEC9270D9885009E2F0D /* StructureInfoDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322927070D4000EA53FD /* StructureInfoDecorator.swift */; };
+		204EAECA270D9885009E2F0D /* UserDataDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC0270AEA0A009E2F0D /* UserDataDecorator.swift */; };
+		204EAECB270D9885009E2F0D /* SizeDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322727070C2C00EA53FD /* SizeDecorator.swift */; };
+		204EAECC270D9885009E2F0D /* UniqueIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832232707083700EA53FD /* UniqueIdentifierDecorator.swift */; };
+		204EAECD270D9885009E2F0D /* ConsentStringDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322B27070D9A00EA53FD /* ConsentStringDecorator.swift */; };
+		204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */; };
+		204EAECF270D989D009E2F0D /* Decorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883220270707CD00EA53FD /* Decorator.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -19,13 +25,7 @@
 		2088321A270485E900EA53FD /* OperationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883219270485E900EA53FD /* OperationMode.swift */; };
 		2088321C27049D2600EA53FD /* EventsQueueManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088321B27049D2600EA53FD /* EventsQueueManagerDelegate.swift */; };
 		2088321E2705AB2200EA53FD /* EventsServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088321D2705AB2200EA53FD /* EventsServiceDelegate.swift */; };
-		20883221270707CD00EA53FD /* Decorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883220270707CD00EA53FD /* Decorator.swift */; };
-		208832242707083700EA53FD /* UniqueIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832232707083700EA53FD /* UniqueIdentifierDecorator.swift */; };
 		20883226270708A500EA53FD /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883225270708A500EA53FD /* EventType.swift */; };
-		2088322827070C2C00EA53FD /* SizeDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322727070C2C00EA53FD /* SizeDecorator.swift */; };
-		2088322A27070D4000EA53FD /* StructureInfoDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322927070D4000EA53FD /* StructureInfoDecorator.swift */; };
-		2088322C27070D9A00EA53FD /* ConsentStringDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322B27070D9A00EA53FD /* ConsentStringDecorator.swift */; };
-		2088322E27070DC700EA53FD /* AdAreaDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322D27070DC700EA53FD /* AdAreaDecorator.swift */; };
 		208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */; };
 		208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61B26F9B3C0006A406C /* StaticStorage.swift */; };
 		208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61D26F9BADA006A406C /* DictionaryTests.swift */; };
@@ -745,23 +745,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D7D5B8B26FCA3DF00B79FDD /* SampleArticle.swift in Sources */,
-				2088322E27070DC700EA53FD /* AdAreaDecorator.swift in Sources */,
 				7D7D5B8C26FCA3DF00B79FDD /* ScreenTrackingData.swift in Sources */,
 				7D7D5B9226FCA3DF00B79FDD /* NonContentViewController.swift in Sources */,
-				20883221270707CD00EA53FD /* Decorator.swift in Sources */,
 				7D7D5B9526FCA3DF00B79FDD /* PagerViewController.swift in Sources */,
-				2088322A27070D4000EA53FD /* StructureInfoDecorator.swift in Sources */,
-				204EAEC1270AEA0B009E2F0D /* UserDataDecorator.swift in Sources */,
-				2088322827070C2C00EA53FD /* SizeDecorator.swift in Sources */,
 				7D7D5B9126FCA3DF00B79FDD /* DetailViewController.swift in Sources */,
-				204EAEC5270C3B59009E2F0D /* TenantIdentifierDecorator.swift in Sources */,
-				2088322C27070D9A00EA53FD /* ConsentStringDecorator.swift in Sources */,
 				7D7D5B9026FCA3DF00B79FDD /* ListViewController.swift in Sources */,
 				7D7D5B9326FCA3DF00B79FDD /* HomeViewController.swift in Sources */,
 				7D7D5B9626FCA3DF00B79FDD /* TraceableScreen.swift in Sources */,
 				7D7D5B9426FCA3DF00B79FDD /* ActionsViewController.swift in Sources */,
 				7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */,
-				208832242707083700EA53FD /* UniqueIdentifierDecorator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,6 +764,7 @@
 				7D7D5BD226FCA5AE00B79FDD /* RingPublishingTracking.swift in Sources */,
 				208832052702728300EA53FD /* VendorManager.swift in Sources */,
 				7D7D5BD926FCA5AF00B79FDD /* Constants.swift in Sources */,
+				204EAECD270D9885009E2F0D /* ConsentStringDecorator.swift in Sources */,
 				7D7D5BE326FCA5AF00B79FDD /* APIService.swift in Sources */,
 				208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */,
 				7D7D5BD826FCA5AF00B79FDD /* RingPublishingTracking+ContentPerformanceMonitor.swift in Sources */,
@@ -782,6 +775,8 @@
 				7D7D5BE026FCA5AF00B79FDD /* IdentifyRequest.swift in Sources */,
 				7D7D5BE626FCA5AF00B79FDD /* ServiceError.swift in Sources */,
 				7D7D5BF426FCA5AF00B79FDD /* UserDefaultsStorage.swift in Sources */,
+				204EAECF270D989D009E2F0D /* Decorator.swift in Sources */,
+				204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */,
 				7D7D5BD726FCA5AF00B79FDD /* RingPublishingTrackingConfiguration.swift in Sources */,
 				7D7D5BD026FCA5AE00B79FDD /* RingPublishingTracking+Aureus.swift in Sources */,
 				7D7D5BEA26FCA5AF00B79FDD /* IdsWithLifetime.swift in Sources */,
@@ -792,6 +787,7 @@
 				7D7D5BED26FCA5AF00B79FDD /* Service.swift in Sources */,
 				2088321A270485E900EA53FD /* OperationMode.swift in Sources */,
 				7D7D5BE926FCA5AF00B79FDD /* User.swift in Sources */,
+				204EAECC270D9885009E2F0D /* UniqueIdentifierDecorator.swift in Sources */,
 				7D7D5BDF26FCA5AF00B79FDD /* SendEventEndpoint.swift in Sources */,
 				7D7D5BEE26FCA5AF00B79FDD /* Bodable.swift in Sources */,
 				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
@@ -805,6 +801,7 @@
 				7D7D5BEC26FCA5AF00B79FDD /* UserAgent.swift in Sources */,
 				7D7D5BEF26FCA5AF00B79FDD /* NetworkService.swift in Sources */,
 				7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */,
+				204EAECA270D9885009E2F0D /* UserDataDecorator.swift in Sources */,
 				7D7D5BF626FCA5AF00B79FDD /* EventsQueueManager.swift in Sources */,
 				7D7D5BE226FCA5AF00B79FDD /* IdentifyEndpoint.swift in Sources */,
 				208832182704852600EA53FD /* Operationable.swift in Sources */,
@@ -813,6 +810,7 @@
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				7D7D5BEB26FCA5AF00B79FDD /* DecoratedEvent.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
+				204EAEC9270D9885009E2F0D /* StructureInfoDecorator.swift in Sources */,
 				7D7D5BF226FCA5AF00B79FDD /* AtomicArray.swift in Sources */,
 				2088321E2705AB2200EA53FD /* EventsServiceDelegate.swift in Sources */,
 				208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */,
@@ -826,7 +824,9 @@
 				7D7D5BE826FCA5AF00B79FDD /* EaUUID.swift in Sources */,
 				20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */,
 				7D7D5BF126FCA5AF00B79FDD /* StoredValueInUserDefaults.swift in Sources */,
+				204EAEC8270D9885009E2F0D /* AdAreaDecorator.swift in Sources */,
 				2088321C27049D2600EA53FD /* EventsQueueManagerDelegate.swift in Sources */,
+				204EAECB270D9885009E2F0D /* SizeDecorator.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

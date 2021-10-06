@@ -74,13 +74,12 @@ final class EventsService {
         } else {
             decorators[eventType] = [decorator]
         }
-
     }
 
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
     func addEvents(_ events: [Event], type: EventType) {
-        let decorators = self.decorators[type] ?? []
+        let decorators = resolvedDecorators(for: type)
 
         let decoratedEvents: [DecoratedEvent] = events.map { event in
             var decoratedEvent = DecoratedEvent(clientId: event.analyticsSystemName,
@@ -92,6 +91,18 @@ final class EventsService {
         }
 
         eventsQueueManager.addEvents(decoratedEvents, type: type)
+    }
+
+    private func resolvedDecorators(for type: EventType) -> [Decorator] {
+        switch type {
+        case .generic:
+            return decorators[type] ?? []
+        default:
+            let genericDecorators = decorators[.generic] ?? []
+            let specificDecorators = decorators[type] ?? []
+
+            return genericDecorators + specificDecorators
+        }
     }
 
     /// Calls the /me endpoint from the API

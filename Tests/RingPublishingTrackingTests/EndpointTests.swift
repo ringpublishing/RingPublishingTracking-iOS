@@ -27,7 +27,7 @@ class EndpointTests: XCTestCase {
         let identifyRequest = IdentifyRequest(ids: [
             "id1": "value1",
             "id2": "value2"
-        ], user: User())
+        ], user: User(advertisementId: nil, deviceId: nil))
         let endpoint = IdentifyEnpoint(body: identifyRequest)
 
         // When
@@ -71,8 +71,8 @@ class EndpointTests: XCTestCase {
         // Given
         let eventRequest = EventRequest(ids: [
             "id": "value"
-        ], user: User(), events: [
-            ReportedEvent(clientId: "clientId", eventType: "eventType", data: ["key": "some value"])
+        ], user: User(advertisementId: nil, deviceId: nil), events: [
+            DecoratedEvent(clientId: "clientId", eventType: "eventType", data: ["key": "some value"])
         ])
         let endpoint = SendEventEnpoint(body: eventRequest)
 

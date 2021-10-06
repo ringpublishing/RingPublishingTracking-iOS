@@ -24,12 +24,12 @@ class EventsQueueManagerTests: XCTestCase {
 
         // When
         manager.addEvents([
-            Event.smallEvent(),
-            Event.smallEvent(),
-            Event.smallEvent(),
-            Event.smallEvent(),
-            Event.smallEvent()
-        ])
+            Event.smallEvent().toDecoratedEvent(),
+            Event.smallEvent().toDecoratedEvent(),
+            Event.smallEvent().toDecoratedEvent(),
+            Event.smallEvent().toDecoratedEvent(),
+            Event.smallEvent().toDecoratedEvent()
+        ], type: .generic)
 
         let events = manager.events.allElements
 
@@ -42,7 +42,7 @@ class EventsQueueManagerTests: XCTestCase {
         let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
 
         // When
-        manager.addEvents([Event.tooBigEvent()])
+        manager.addEvents([Event.tooBigEvent().toDecoratedEvent()], type: .generic)
 
         let events = manager.events.allElements
 
@@ -60,7 +60,7 @@ class EventsQueueManagerTests: XCTestCase {
 
         // When
         DispatchQueue.concurrentPerform(iterations: count) {_ in
-            manager.addEvents([Event.smallEvent()])
+            manager.addEvents([Event.smallEvent().toDecoratedEvent()], type: .generic)
             expectation.fulfill()
         }
 
@@ -73,7 +73,7 @@ class EventsQueueManagerTests: XCTestCase {
 
     func testCanSendEvents_storageWithPostInveralSetup_sendingEventsIsAllowed() {
         // Given
-        let manager = EventsQueueManager(storage: StaticStorage(eaUuid: nil, trackingIds: nil, postInterval: 2000),
+        let manager = EventsQueueManager(storage: StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: 2000),
                                          operationMode: OperationMode())
 
         // Then
@@ -100,8 +100,8 @@ class EventsQueueManagerTests: XCTestCase {
 }
 
 private extension Event {
-    func toReportedEvent() -> ReportedEvent {
-        ReportedEvent(clientId: analyticsSystemName, eventType: eventName, data: eventParameters)
+    func toDecoratedEvent() -> DecoratedEvent {
+        DecoratedEvent(clientId: analyticsSystemName, eventType: eventName, data: eventParameters)
     }
 
     static func smallEvent() -> Self { // 190 bytes
