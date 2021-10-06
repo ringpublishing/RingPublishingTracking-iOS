@@ -75,8 +75,6 @@ extension EventsQueueManager {
     /// Adds single event to the queue when the size is appropriate
     /// - Parameter event: `Event` that should be added to the queue
     private func addEvent(_ event: DecoratedEvent, type: EventType) {
-        // TODO: decorate it
-//        var reportedEvent = DecoratedEvent(clientId: event.analyticsSystemName, eventType: event.eventName, data: event.eventParameters)
         let eventSize = event.sizeInBytes
 
         guard eventSize <= Constants.eventSizeLimit else {
