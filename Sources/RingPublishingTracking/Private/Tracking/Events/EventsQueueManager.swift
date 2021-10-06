@@ -41,14 +41,14 @@ extension EventsQueueManager {
 
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
-    func addEvents(_ events: [DecoratedEvent], type: EventType) {
+    func addEvents(_ events: [DecoratedEvent]) {
         guard !operationMode.optOutEnabled else {
             Logger.log("Opt-Out mode is enabled. Ignoring \(events.count) new events.")
             return
         }
 
         for event in events {
-            addEvent(event, type: type)
+            addEvent(event)
         }
 
         sendEventsIfPossible()
@@ -74,7 +74,7 @@ extension EventsQueueManager {
 
     /// Adds single event to the queue when the size is appropriate
     /// - Parameter event: `Event` that should be added to the queue
-    private func addEvent(_ event: DecoratedEvent, type: EventType) {
+    private func addEvent(_ event: DecoratedEvent) {
         let eventSize = event.sizeInBytes
 
         guard eventSize <= Constants.eventSizeLimit else {

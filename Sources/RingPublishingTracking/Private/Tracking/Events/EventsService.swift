@@ -30,7 +30,7 @@ final class EventsService {
     private var apiService: APIService?
 
     /// Registered decorators
-    private var decorators: [EventType: [Decorator]]
+    private var decorators: [Decorator]
 
     private let uniqueIdentifierDecorator = UniqueIdentifierDecorator()
     private let structureInfoDecorator = StructureInfoDecorator()
@@ -44,7 +44,7 @@ final class EventsService {
     init(storage: TrackingStorage = UserDefaultsStorage()) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
-        self.decorators = [:]
+        self.decorators = []
     }
 
     /// Setups API Service
@@ -67,20 +67,13 @@ final class EventsService {
     /// Registers decorator for decorating data parameters
     /// - Parameters:
     ///   - decorator: `Decorator`
-    ///   - eventType: `EventType`
-    func registerDecorator(_ decorator: Decorator, for eventType: EventType) {
-        if decorators.keys.contains(eventType) {
-            decorators[eventType]?.append(decorator)
-        } else {
-            decorators[eventType] = [decorator]
-        }
+    func registerDecorator(_ decorator: Decorator) {
+        decorators.append(decorator)
     }
 
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
-    func addEvents(_ events: [Event], type: EventType) {
-        let decorators = resolvedDecorators(for: type)
-
+    func addEvents(_ events: [Event]) {
         let decoratedEvents: [DecoratedEvent] = events.map { event in
             var decoratedEvent = DecoratedEvent(clientId: event.analyticsSystemName,
                                                 eventType: event.eventName,
@@ -90,19 +83,7 @@ final class EventsService {
             return decoratedEvent
         }
 
-        eventsQueueManager.addEvents(decoratedEvents, type: type)
-    }
-
-    private func resolvedDecorators(for type: EventType) -> [Decorator] {
-        switch type {
-        case .generic:
-            return decorators[type] ?? []
-        default:
-            let genericDecorators = decorators[.generic] ?? []
-            let specificDecorators = decorators[type] ?? []
-
-            return genericDecorators + specificDecorators
-        }
+        eventsQueueManager.addEvents(decoratedEvents)
     }
 
     /// Calls the /me endpoint from the API
@@ -138,6 +119,10 @@ final class EventsService {
 
     func updateApplicationAdvertisementArea(_ currentAdvertisementArea: String) {
         adAreaDecorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: currentAdvertisementArea)
+    }
+
+    func updateUserData(ssoSystemName: String, userId: String?) {
+        userDataDecorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: userId), name: ssoSystemName))))
     }
 }
 
@@ -269,13 +254,13 @@ extension EventsService {
     /// Prepares event decorators
     private func prepareDecorators() {
         // Generic
-        registerDecorator(SizeDecorator(), for: .generic)
-        registerDecorator(ConsentStringDecorator(), for: .generic)
-        registerDecorator(uniqueIdentifierDecorator, for: .generic)
-        registerDecorator(structureInfoDecorator, for: .generic)
-        registerDecorator(adAreaDecorator, for: .generic)
-        registerDecorator(userDataDecorator, for: .generic)
-        registerDecorator(tenantIdentifierDecorator, for: .generic)
+        registerDecorator(SizeDecorator())
+        registerDecorator(ConsentStringDecorator())
+        registerDecorator(uniqueIdentifierDecorator)
+        registerDecorator(structureInfoDecorator)
+        registerDecorator(adAreaDecorator)
+        registerDecorator(userDataDecorator)
+        registerDecorator(tenantIdentifierDecorator)
 
     }
 }

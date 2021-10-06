@@ -29,7 +29,7 @@ class EventsQueueManagerTests: XCTestCase {
             Event.smallEvent().toDecoratedEvent(),
             Event.smallEvent().toDecoratedEvent(),
             Event.smallEvent().toDecoratedEvent()
-        ], type: .generic)
+        ])
 
         let events = manager.events.allElements
 
@@ -42,7 +42,7 @@ class EventsQueueManagerTests: XCTestCase {
         let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
 
         // When
-        manager.addEvents([Event.tooBigEvent().toDecoratedEvent()], type: .generic)
+        manager.addEvents([Event.tooBigEvent().toDecoratedEvent()])
 
         let events = manager.events.allElements
 
@@ -60,7 +60,7 @@ class EventsQueueManagerTests: XCTestCase {
 
         // When
         DispatchQueue.concurrentPerform(iterations: count) {_ in
-            manager.addEvents([Event.smallEvent().toDecoratedEvent()], type: .generic)
+            manager.addEvents([Event.smallEvent().toDecoratedEvent()])
             expectation.fulfill()
         }
 

@@ -9,7 +9,7 @@
 import Foundation
 
 struct UserInfo: Encodable {
-    
+
     let sso: SSO
 }
 
@@ -21,7 +21,7 @@ struct SSO: Encodable {
 
 struct Logged: Encodable {
 
-    let id: String // swiftlint:disable:this identifier_name
+    let id: String? // swiftlint:disable:this identifier_name
 }
 
 struct UserData: Encodable {

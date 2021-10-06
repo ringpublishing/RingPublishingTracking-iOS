@@ -25,7 +25,6 @@
 		2088321A270485E900EA53FD /* OperationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883219270485E900EA53FD /* OperationMode.swift */; };
 		2088321C27049D2600EA53FD /* EventsQueueManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088321B27049D2600EA53FD /* EventsQueueManagerDelegate.swift */; };
 		2088321E2705AB2200EA53FD /* EventsServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088321D2705AB2200EA53FD /* EventsServiceDelegate.swift */; };
-		20883226270708A500EA53FD /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883225270708A500EA53FD /* EventType.swift */; };
 		208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */; };
 		208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61B26F9B3C0006A406C /* StaticStorage.swift */; };
 		208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61D26F9BADA006A406C /* DictionaryTests.swift */; };
@@ -117,7 +116,6 @@
 		2088321D2705AB2200EA53FD /* EventsServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsServiceDelegate.swift; sourceTree = "<group>"; };
 		20883220270707CD00EA53FD /* Decorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decorator.swift; sourceTree = "<group>"; };
 		208832232707083700EA53FD /* UniqueIdentifierDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueIdentifierDecorator.swift; sourceTree = "<group>"; };
-		20883225270708A500EA53FD /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
 		2088322727070C2C00EA53FD /* SizeDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeDecorator.swift; sourceTree = "<group>"; };
 		2088322927070D4000EA53FD /* StructureInfoDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureInfoDecorator.swift; sourceTree = "<group>"; };
 		2088322B27070D9A00EA53FD /* ConsentStringDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentStringDecorator.swift; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 				2088320D2702FD9000EA53FD /* EventsService.swift */,
 				2088321B27049D2600EA53FD /* EventsQueueManagerDelegate.swift */,
 				2088321D2705AB2200EA53FD /* EventsServiceDelegate.swift */,
-				20883225270708A500EA53FD /* EventType.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -782,7 +779,6 @@
 				7D7D5BEA26FCA5AF00B79FDD /* IdsWithLifetime.swift in Sources */,
 				7D7D5BD126FCA5AE00B79FDD /* RingPublishingTrackingDelegate.swift in Sources */,
 				7D7D5BDC26FCA5AF00B79FDD /* Optional+Logable.swift in Sources */,
-				20883226270708A500EA53FD /* EventType.swift in Sources */,
 				7D7D5BF526FCA5AF00B79FDD /* Dictionary+JSON.swift in Sources */,
 				7D7D5BED26FCA5AF00B79FDD /* Service.swift in Sources */,
 				2088321A270485E900EA53FD /* OperationMode.swift in Sources */,

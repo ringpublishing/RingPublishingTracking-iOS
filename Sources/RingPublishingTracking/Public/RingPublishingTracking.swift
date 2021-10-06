@@ -106,6 +106,6 @@ public class RingPublishingTracking {
     public func reportEvents(_ events: [Event]) {
         Logger.log("Reporting generic events, events count: '\(events.count)'")
 
-        eventsService.addEvents(events, type: .generic)
+        eventsService.addEvents(events)
     }
 }
