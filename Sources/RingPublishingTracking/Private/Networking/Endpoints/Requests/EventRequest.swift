@@ -9,16 +9,19 @@
 import Foundation
 
 /// Request body for send event endpoint
-struct EventRequest: Bodable {
+struct EventRequest {
 
     /// Stored tracking identifiers
-    let ids: [String: String]
+    var ids: [String: String]
 
     /// Optional additional data used to track user
-    let user: User?
+    var user: User?
 
     /// Not empty list of reported events to send
-    let events: [ReportedEvent]
+    var events: [DecoratedEvent]
+}
+
+extension EventRequest: Bodable {
 
     var dictionary: [String: Any] {
         var dictionary: [String: Any] = [

@@ -33,5 +33,6 @@ public extension RingPublishingTracking {
         Logger.log("Updating application advertisement area to: '\(currentAdvertisementArea)'")
 
         // TODO: Implementation missing
+        eventsService.updateApplicationAdvertisementArea(currentAdvertisementArea)
     }
 }

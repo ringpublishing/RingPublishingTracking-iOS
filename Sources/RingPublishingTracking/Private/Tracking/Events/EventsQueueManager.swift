@@ -15,7 +15,7 @@ final class EventsQueueManager {
     weak var delegate: EventsQueueManagerDelegate?
 
     /// Concurrent events array
-    private var events = AtomicArray<Event>()
+    private(set) var events = AtomicArray<DecoratedEvent>()
 
     /// Last time the events has been sent to the server
     private var lastSentDate = Date(timeIntervalSince1970: TimeInterval(0))
@@ -41,47 +41,17 @@ extension EventsQueueManager {
 
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
-    func addEvents(_ events: [Event]) {
+    func addEvents(_ events: [DecoratedEvent], type: EventType) {
         guard !operationMode.optOutEnabled else {
             Logger.log("Opt-Out mode is enabled. Ignoring \(events.count) new events.")
             return
         }
 
         for event in events {
-            addEvent(event)
+            addEvent(event, type: type)
         }
 
         sendEventsIfPossible()
-    }
-
-    /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
-    /// - Returns: `EventRequest`
-    func buildEventRequest(with ids: [String: String], user: User?) -> EventRequest {
-        let idsSize: UInt = ids.jsonSizeInBytes
-        let userSize = user?.sizeInBytes ?? 0
-
-        var availableEventsSize = Constants.requestBodySizeLimit - idsSize - userSize - 64 // Extra bytes for json structure
-
-        var reportedEvents = [ReportedEvent]()
-        for event in events.allElements {
-            let reportedEvent = ReportedEvent(clientId: event.analyticsSystemName, eventType: event.eventName, data: event.eventParameters)
-
-            let eventSize = reportedEvent.sizeInBytes + 4 // Extra bytes for json structure
-
-            if availableEventsSize > eventSize {
-                reportedEvents.append(reportedEvent)
-
-                availableEventsSize -= eventSize
-            } else {
-                break
-            }
-        }
-
-        events.removeFirst(reportedEvents.count)
-
-        return EventRequest(ids: ids,
-                            user: user,
-                            events: reportedEvents)
     }
 
     /// Checks if enough time has passed since the last time events were sent
@@ -104,9 +74,10 @@ extension EventsQueueManager {
 
     /// Adds single event to the queue when the size is appropriate
     /// - Parameter event: `Event` that should be added to the queue
-    private func addEvent(_ event: Event) {
-        let reportedEvent = ReportedEvent(clientId: event.analyticsSystemName, eventType: event.eventName, data: event.eventParameters)
-        let eventSize = reportedEvent.sizeInBytes
+    private func addEvent(_ event: DecoratedEvent, type: EventType) {
+        // TODO: decorate it
+//        var reportedEvent = DecoratedEvent(clientId: event.analyticsSystemName, eventType: event.eventName, data: event.eventParameters)
+        let eventSize = event.sizeInBytes
 
         guard eventSize <= Constants.eventSizeLimit else {
             Logger.log("Event's size exceeded size limit", level: .error)

@@ -8,12 +8,7 @@
 
 import Foundation
 
-protocol EventsServiceDelegate: AnyObject {
-
-    func eventsService(_ eventsService: EventsService, retrievedtrackingIdentifier identifier: String)
-}
-
-// Class used for all event operations
+/// Class used for all event operations
 final class EventsService {
 
     /// Storage
@@ -34,12 +29,21 @@ final class EventsService {
     /// Service responsible for sending requests to the backend
     private var apiService: APIService?
 
+    /// Registered decorators
+    private var decorators: [EventType: [Decorator]]
+
+    private let uniqueIdentifierDecorator = UniqueIdentifierDecorator()
+//    private let structureInfoDecorator: StructureInfoDecorator
+    private let adAreaDecorator = AdAreaDecorator()
+    private let userDataDecorator = UserDataDecorator()
+
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
     init(storage: TrackingStorage = UserDefaultsStorage()) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
+        self.decorators = [:]
     }
 
     /// Setups API Service
@@ -52,14 +56,41 @@ final class EventsService {
 
         self.delegate = delegate
 
+        // Prepare decorators
+        prepareDecorators()
+
         // Call identify once the API is configured to retrieve trackingIdentifier as soon as possible
         identifyMeIfNeeded()
     }
 
+    /// Registers decorator for decorating data parameters
+    /// - Parameters:
+    ///   - decorator: `Decorator`
+    ///   - eventType: `EventType`
+    func registerDecorator(_ decorator: Decorator, for eventType: EventType) {
+        if decorators.keys.contains(eventType) {
+            decorators[eventType]?.append(decorator)
+        } else {
+            decorators[eventType] = [decorator]
+        }
+
+    }
+
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
-    func addEvents(_ events: [Event]) {
-        eventsQueueManager.addEvents(events)
+    func addEvents(_ events: [Event], type: EventType) {
+        let decorators = self.decorators[type] ?? []
+
+        let decoratedEvents: [DecoratedEvent] = events.map { event in
+            var decoratedEvent = DecoratedEvent(clientId: event.analyticsSystemName,
+                                                eventType: event.eventName,
+                                                data: event.eventParameters)
+            decoratedEvent.decorate(using: decorators)
+
+            return decoratedEvent
+        }
+
+        eventsQueueManager.addEvents(decoratedEvents, type: type)
     }
 
     /// Calls the /me endpoint from the API
@@ -69,7 +100,9 @@ final class EventsService {
             return
         }
 
-        let body = IdentifyRequest(ids: [:], user: nil) // TODO: decoration missing
+        let user = userManager.buildUser()
+        let ids = storedIds()
+        let body = IdentifyRequest(ids: ids, user: user)
         let endpoint = IdentifyEnpoint(body: body)
 
         apiService.call(endpoint) { [weak self] result in
@@ -90,13 +123,17 @@ final class EventsService {
     func setOptOutMode(enabled: Bool) {
         operationMode.optOutEnabled = enabled
     }
+
+    func updateApplicationAdvertisementArea(_ currentAdvertisementArea: String) {
+
+    }
 }
 
 extension EventsService {
 
     /// Checks if stored eaUUID is not expired
     var isEaUuidValid: Bool {
-        guard let eaUuid = storage.eaUuid else {
+        guard let eaUuid = storage.eaUUID else {
             return false
         }
 
@@ -111,8 +148,8 @@ extension EventsService {
     func storedIds() -> [String: String] {
         var ids = [String: String]()
 
-        if isEaUuidValid, let identifier = storage.eaUuid {
-            ids["eaUUID"] = identifier.value
+        if isEaUuidValid, let identifier = storage.eaUUID {
+            ids[Constants.trackingIdentifierKey] = identifier.value
         }
 
         if let trackingIds = storage.trackingIds {
@@ -137,12 +174,13 @@ extension EventsService {
 
     /// Retrieves Vendor Identifier (IDFA)
     private func retrieveVendorIdentifier() {
-        vendorManager.retrieveVendorIdentifier { result in
+        vendorManager.retrieveVendorIdentifier { [weak self] result in
             switch result {
             case .success(let identifier):
-                break // TODO: pass to UserManager to build User structure when building a request
+                self?.userManager.updateIDFA(idfa: identifier)
             case .failure(let error):
-                break // TODO: missing error handling
+                self?.userManager.updateIDFA(idfa: nil)
+                // TODO: error handling - retry?
             }
         }
     }
@@ -154,12 +192,12 @@ extension EventsService {
             let value = eaUUID.value,
             let lifetime = eaUUID.lifetime
         else {
-            storage.eaUuid = nil
+            storage.eaUUID = nil
             return
         }
 
         let creationDate = Date()
-        storage.eaUuid = EaUuid(value: value, lifetime: lifetime, creationDate: creationDate)
+        storage.eaUUID = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
 
         delegate?.eventsService(self, retrievedtrackingIdentifier: value)
     }
@@ -171,7 +209,7 @@ extension EventsService {
 
     // Calls the root endpoint from the API
     private func sendEvents(for eventsQueueManager: EventsQueueManager) {
-        let body = eventsQueueManager.buildEventRequest(with: [:], user: nil) // TODO: decoration missing
+        let body = buildEventRequest()
         let endpoint = SendEventEnpoint(body: body)
 
         apiService?.call(endpoint, completion: { [weak self] result in
@@ -182,6 +220,48 @@ extension EventsService {
                 break // TODO: missing error handling
             }
         })
+    }
+
+    /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
+    /// - Returns: `EventRequest`
+    private func buildEventRequest() -> EventRequest {
+        let events = eventsQueueManager.events.allElements
+
+        let user = userManager.buildUser()
+        let ids = storedIds()
+        let idsSize: UInt = ids.jsonSizeInBytes
+        let userSize = user.sizeInBytes
+
+        var availableEventsSize = Constants.requestBodySizeLimit - idsSize - userSize - 64 // Extra bytes for json structure
+
+        var eventsToSend = [DecoratedEvent]()
+        for event in events {
+            let eventSize = event.sizeInBytes + 4 // Extra bytes for json structure
+
+            if availableEventsSize > eventSize {
+                eventsToSend.append(event)
+
+                availableEventsSize -= eventSize
+            } else {
+                break
+            }
+        }
+
+        eventsQueueManager.events.removeFirst(eventsToSend.count)
+
+        return EventRequest(ids: ids,
+                            user: user,
+                            events: eventsToSend)
+    }
+
+    /// Prepares event decorators
+    private func prepareDecorators() {
+        // Generic
+        registerDecorator(SizeDecorator(), for: .generic)
+        registerDecorator(ConsentStringDecorator(), for: .generic)
+        registerDecorator(uniqueIdentifierDecorator, for: .generic)
+        registerDecorator(adAreaDecorator, for: .generic)
+        registerDecorator(userDataDecorator, for: .generic)
     }
 }
 

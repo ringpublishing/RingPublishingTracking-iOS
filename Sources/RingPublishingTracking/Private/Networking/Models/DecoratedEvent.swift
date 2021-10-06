@@ -1,5 +1,5 @@
 //
-//  ReportedEvent.swift
+//  DecoratedEvent.swift
 //  ReportedEvent
 //
 //  Created by Artur Rymarz on 14/09/2021.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct ReportedEvent {
+struct DecoratedEvent {
 
     let clientId: String
     let eventType: String
-    let data: [String: AnyHashable]
+    var data: [String: AnyHashable]
 }
 
-extension ReportedEvent {
+extension DecoratedEvent {
     var dictionary: [String: Any] {
         [
             "ac": clientId,
@@ -26,5 +26,15 @@ extension ReportedEvent {
 
     var sizeInBytes: UInt {
         dictionary.jsonSizeInBytes
+    }
+}
+
+extension DecoratedEvent {
+    mutating func decorate(using decorators: [Decorator]) {
+        for decorator in decorators {
+            decorator.parameters().forEach {
+                data[$0.key] = $0.value
+            }
+        }
     }
 }

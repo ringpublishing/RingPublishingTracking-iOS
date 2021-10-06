@@ -71,4 +71,28 @@ class EventsServiceTests: XCTestCase {
         // Then
         XCTAssertEqual(service.storedIds().count, 4, "Stored ids number should be correct")
     }
+
+    //    func testAddEvents_eventsOverRequestBodySizeLimitAddedToQueue_builtRequestBodySizeIsBelowSizeLimit() {
+    //        // Given
+    //        let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
+    //
+    //        let bodySizeLimit = Constants.requestBodySizeLimit
+    //        let singleEventSize = Event.smallEvent().toReportedEvent().sizeInBytes
+    //
+    //        // When
+    //        let eventsAmount = Int(floor(Double(bodySizeLimit) / Double(singleEventSize))) + 1
+    //
+    //        for _ in 0..<eventsAmount {
+    //            manager.addEvents([Event.smallEvent()])
+    //        }
+    //
+    //        let request = manager.buildEventRequest(with: [:], user: nil)
+    //
+    //        // Then
+    //        XCTAssertLessThan(request.dictionary.jsonSizeInBytes,
+    //                          bodySizeLimit,
+    //                          "Event request body size should be below \(bodySizeLimit)")
+    //
+    //        XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
+    //    }
 }

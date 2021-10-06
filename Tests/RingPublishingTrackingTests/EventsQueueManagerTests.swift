@@ -31,8 +31,7 @@ class EventsQueueManagerTests: XCTestCase {
             Event.smallEvent()
         ])
 
-        let request = manager.buildEventRequest(with: [:], user: nil)
-        let events = request.events
+        let events = manager.events.allElements
 
         // Then
         XCTAssertEqual(events.count, 5, "Event request should contain proper number of events")
@@ -45,35 +44,10 @@ class EventsQueueManagerTests: XCTestCase {
         // When
         manager.addEvents([Event.tooBigEvent()])
 
-        let request = manager.buildEventRequest(with: [:], user: nil)
-        let events = request.events
+        let events = manager.events.allElements
 
         // Then
         XCTAssertEqual(events.count, 0, "Event request should contain proper number of events")
-    }
-
-    func testAddEvents_eventsOverRequestBodySizeLimitAddedToQueue_builtRequestBodySizeIsBelowSizeLimit() {
-        // Given
-        let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
-
-        let bodySizeLimit = Constants.requestBodySizeLimit
-        let singleEventSize = Event.smallEvent().toReportedEvent().sizeInBytes
-
-        // When
-        let eventsAmount = Int(floor(Double(bodySizeLimit) / Double(singleEventSize))) + 1
-
-        for _ in 0..<eventsAmount {
-            manager.addEvents([Event.smallEvent()])
-        }
-
-        let request = manager.buildEventRequest(with: [:], user: nil)
-
-        // Then
-        XCTAssertLessThan(request.dictionary.jsonSizeInBytes,
-                          bodySizeLimit,
-                          "Event request body size should be below \(bodySizeLimit)")
-
-        XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
     }
 
     func testAddEvents_eventsAddedConcurrently_allEventsHaveBeenAddedToQueue() {
@@ -90,8 +64,7 @@ class EventsQueueManagerTests: XCTestCase {
             expectation.fulfill()
         }
 
-        let request = manager.buildEventRequest(with: [:], user: nil)
-        let events = request.events
+        let events = manager.events.allElements
 
         // Then
         waitForExpectations(timeout: 3, handler: nil)

@@ -24,6 +24,6 @@ struct IdentifyResponse: Decodable {
 extension IdentifyResponse {
 
     var eaUUID: IdsWithLifetime? {
-        ids["eaUUID"]
+        ids[Constants.trackingIdentifierKey]
     }
 }

@@ -17,7 +17,7 @@ public class RingPublishingTracking {
     public static let shared = RingPublishingTracking()
 
     /// Tracking identifier assigned by the module for this device
-    public private(set) var trackingIdentifier: String? {
+    public internal(set) var trackingIdentifier: String? {
         didSet {
             guard let trackingIdentifier = trackingIdentifier else { return }
             delegate?.ringPublishingTracking(self, didAssignTrackingIdentifier: trackingIdentifier)
@@ -39,10 +39,12 @@ public class RingPublishingTracking {
         }
     }
 
-    // MARK: Private properties
+    // MARK: Internal properties
 
     /// Events service for handling all operations on events
-    private let eventsService = EventsService()
+    let eventsService = EventsService()
+
+    // MARK: Private properties
 
     /// Module delegate
     private weak var delegate: RingPublishingTrackingDelegate?
@@ -104,12 +106,6 @@ public class RingPublishingTracking {
     public func reportEvents(_ events: [Event]) {
         Logger.log("Reporting generic events, events count: '\(events.count)'")
 
-        eventsService.addEvents(events)
-    }
-}
-
-extension RingPublishingTracking: EventsServiceDelegate {
-    func eventsService(_ eventsService: EventsService, retrievedtrackingIdentifier identifier: String) {
-        trackingIdentifier = identifier
+        eventsService.addEvents(events, type: .generic)
     }
 }

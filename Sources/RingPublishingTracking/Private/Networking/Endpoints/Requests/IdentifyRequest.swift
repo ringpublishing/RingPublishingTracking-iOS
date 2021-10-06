@@ -9,15 +9,30 @@
 import Foundation
 
 /// Request body for identify endpoint
-struct IdentifyRequest: Encodable, Bodable {
+struct IdentifyRequest: Encodable {
 
     /// Stored tracking identifiers
-    let ids: [String: String]
+    var ids: [String: String]
 
     /// Optional additional data used to track user
-    let user: User?
+    var user: User?
+}
+
+extension IdentifyRequest: Bodable {
 
     func toBodyData() throws -> Data {
         try JSONEncoder().encode(self)
     }
 }
+
+//extension IdentifyRequest: Decorable {
+//    mutating func decorate(using decorators: [Decorator]) {
+//        for decorator in decorators {
+//            decorator.ids.forEach {
+//                ids[$0.key] = $0.value
+//            }
+//
+//            user = decorator.user
+//        }
+//    }
+//}

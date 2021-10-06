@@ -12,10 +12,10 @@ import Foundation
 struct User: Encodable {
 
     /// IDFA
-    let advertisementId: String? = nil
+    let advertisementId: String?
 
     /// Device ID used when `advertisementId` is not available
-    let deviceId: String? = nil
+    let deviceId: String?
 
     enum CodingKeys: String, CodingKey {
 
