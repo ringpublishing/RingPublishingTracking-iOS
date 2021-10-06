@@ -24,15 +24,3 @@ extension IdentifyRequest: Bodable {
         try JSONEncoder().encode(self)
     }
 }
-
-//extension IdentifyRequest: Decorable {
-//    mutating func decorate(using decorators: [Decorator]) {
-//        for decorator in decorators {
-//            decorator.ids.forEach {
-//                ids[$0.key] = $0.value
-//            }
-//
-//            user = decorator.user
-//        }
-//    }
-//}
