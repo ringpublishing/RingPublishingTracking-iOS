@@ -24,11 +24,11 @@ class EventsQueueManagerTests: XCTestCase {
 
         // When
         manager.addEvents([
-            Event.smallEvent().toDecoratedEvent(),
-            Event.smallEvent().toDecoratedEvent(),
-            Event.smallEvent().toDecoratedEvent(),
-            Event.smallEvent().toDecoratedEvent(),
-            Event.smallEvent().toDecoratedEvent()
+            Event.smallEvent(),
+            Event.smallEvent(),
+            Event.smallEvent(),
+            Event.smallEvent(),
+            Event.smallEvent()
         ])
 
         let events = manager.events.allElements
@@ -42,7 +42,7 @@ class EventsQueueManagerTests: XCTestCase {
         let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
 
         // When
-        manager.addEvents([Event.tooBigEvent().toDecoratedEvent()])
+        manager.addEvents([Event.tooBigEvent()])
 
         let events = manager.events.allElements
 
@@ -60,7 +60,7 @@ class EventsQueueManagerTests: XCTestCase {
 
         // When
         DispatchQueue.concurrentPerform(iterations: count) {_ in
-            manager.addEvents([Event.smallEvent().toDecoratedEvent()])
+            manager.addEvents([Event.smallEvent()])
             expectation.fulfill()
         }
 
@@ -100,9 +100,6 @@ class EventsQueueManagerTests: XCTestCase {
 }
 
 private extension Event {
-    func toDecoratedEvent() -> DecoratedEvent {
-        DecoratedEvent(clientId: analyticsSystemName, eventType: eventName, data: eventParameters)
-    }
 
     static func smallEvent() -> Self { // 190 bytes
         Event(eventParameters: [

@@ -74,13 +74,8 @@ final class EventsService {
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
     func addEvents(_ events: [Event]) {
-        let decoratedEvents: [DecoratedEvent] = events.map { event in
-            var decoratedEvent = DecoratedEvent(clientId: event.analyticsSystemName,
-                                                eventType: event.eventName,
-                                                data: event.eventParameters)
-            decoratedEvent.decorate(using: decorators)
-
-            return decoratedEvent
+        let decoratedEvents: [Event] = events.map { event in
+            event.decorated(using: decorators)
         }
 
         eventsQueueManager.addEvents(decoratedEvents)
@@ -231,7 +226,7 @@ extension EventsService {
 
         var availableEventsSize = Constants.requestBodySizeLimit - idsSize - userSize - 64 // Extra bytes for json structure
 
-        var eventsToSend = [DecoratedEvent]()
+        var eventsToSend = [Event]()
         for event in events {
             let eventSize = event.sizeInBytes + 4 // Extra bytes for json structure
 

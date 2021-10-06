@@ -18,7 +18,7 @@ struct EventRequest {
     var user: User?
 
     /// Not empty list of reported events to send
-    var events: [DecoratedEvent]
+    var events: [Event]
 }
 
 extension EventRequest: Bodable {

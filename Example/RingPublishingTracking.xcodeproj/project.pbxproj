@@ -16,6 +16,7 @@
 		204EAECD270D9885009E2F0D /* ConsentStringDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322B27070D9A00EA53FD /* ConsentStringDecorator.swift */; };
 		204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */; };
 		204EAECF270D989D009E2F0D /* Decorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883220270707CD00EA53FD /* Decorator.swift */; };
+		204EAED1270DB69B009E2F0D /* Event+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED0270DB69B009E2F0D /* Event+API.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -74,7 +75,6 @@
 		7D7D5BE826FCA5AF00B79FDD /* EaUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5BBC26FCA5AE00B79FDD /* EaUUID.swift */; };
 		7D7D5BE926FCA5AF00B79FDD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5BBD26FCA5AE00B79FDD /* User.swift */; };
 		7D7D5BEA26FCA5AF00B79FDD /* IdsWithLifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5BBE26FCA5AE00B79FDD /* IdsWithLifetime.swift */; };
-		7D7D5BEB26FCA5AF00B79FDD /* DecoratedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5BBF26FCA5AE00B79FDD /* DecoratedEvent.swift */; };
 		7D7D5BEC26FCA5AF00B79FDD /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5BC026FCA5AE00B79FDD /* UserAgent.swift */; };
 		7D7D5BED26FCA5AF00B79FDD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5BC226FCA5AE00B79FDD /* Service.swift */; };
 		7D7D5BEE26FCA5AF00B79FDD /* Bodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5BC326FCA5AE00B79FDD /* Bodable.swift */; };
@@ -105,6 +105,7 @@
 		204EAEC0270AEA0A009E2F0D /* UserDataDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataDecorator.swift; sourceTree = "<group>"; };
 		204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenantIdentifierDecorator.swift; sourceTree = "<group>"; };
 		204EAEC6270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RingPublishingTracking+EventsServiceDelegate.swift"; sourceTree = "<group>"; };
+		204EAED0270DB69B009E2F0D /* Event+API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Event+API.swift"; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -174,7 +175,6 @@
 		7D7D5BBC26FCA5AE00B79FDD /* EaUUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EaUUID.swift; sourceTree = "<group>"; };
 		7D7D5BBD26FCA5AE00B79FDD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7D7D5BBE26FCA5AE00B79FDD /* IdsWithLifetime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdsWithLifetime.swift; sourceTree = "<group>"; };
-		7D7D5BBF26FCA5AE00B79FDD /* DecoratedEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecoratedEvent.swift; sourceTree = "<group>"; };
 		7D7D5BC026FCA5AE00B79FDD /* UserAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgent.swift; sourceTree = "<group>"; };
 		7D7D5BC226FCA5AE00B79FDD /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		7D7D5BC326FCA5AE00B79FDD /* Bodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bodable.swift; sourceTree = "<group>"; };
@@ -516,11 +516,11 @@
 		7D7D5BBA26FCA5AE00B79FDD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				204EAED0270DB69B009E2F0D /* Event+API.swift */,
 				7D7D5BBB26FCA5AE00B79FDD /* Profile.swift */,
 				7D7D5BBC26FCA5AE00B79FDD /* EaUUID.swift */,
 				7D7D5BBD26FCA5AE00B79FDD /* User.swift */,
 				7D7D5BBE26FCA5AE00B79FDD /* IdsWithLifetime.swift */,
-				7D7D5BBF26FCA5AE00B79FDD /* DecoratedEvent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -804,7 +804,6 @@
 				7D7D5BF026FCA5AF00B79FDD /* Endpoint.swift in Sources */,
 				7D7D5BE526FCA5AF00B79FDD /* HTTPMethod.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
-				7D7D5BEB26FCA5AF00B79FDD /* DecoratedEvent.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
 				204EAEC9270D9885009E2F0D /* StructureInfoDecorator.swift in Sources */,
 				7D7D5BF226FCA5AF00B79FDD /* AtomicArray.swift in Sources */,
@@ -812,6 +811,7 @@
 				208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */,
 				7D7D5BD626FCA5AF00B79FDD /* RingPublishingTracking+CurrentState.swift in Sources */,
 				208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */,
+				204EAED1270DB69B009E2F0D /* Event+API.swift in Sources */,
 				7D7D5BE426FCA5AF00B79FDD /* BodableError.swift in Sources */,
 				7D7D5BDD26FCA5AF00B79FDD /* EventResponse.swift in Sources */,
 				7D7D5BDE26FCA5AF00B79FDD /* IdentifyResponse.swift in Sources */,

@@ -15,7 +15,7 @@ final class EventsQueueManager {
     weak var delegate: EventsQueueManagerDelegate?
 
     /// Concurrent events array
-    private(set) var events = AtomicArray<DecoratedEvent>()
+    private(set) var events = AtomicArray<Event>()
 
     /// Last time the events has been sent to the server
     private var lastSentDate = Date(timeIntervalSince1970: TimeInterval(0))
@@ -41,7 +41,7 @@ extension EventsQueueManager {
 
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
-    func addEvents(_ events: [DecoratedEvent]) {
+    func addEvents(_ events: [Event]) {
         guard !operationMode.optOutEnabled else {
             Logger.log("Opt-Out mode is enabled. Ignoring \(events.count) new events.")
             return
@@ -74,7 +74,7 @@ extension EventsQueueManager {
 
     /// Adds single event to the queue when the size is appropriate
     /// - Parameter event: `Event` that should be added to the queue
-    private func addEvent(_ event: DecoratedEvent) {
+    private func addEvent(_ event: Event) {
         let eventSize = event.sizeInBytes
 
         guard eventSize <= Constants.eventSizeLimit else {

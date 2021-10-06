@@ -72,7 +72,7 @@ class EndpointTests: XCTestCase {
         let eventRequest = EventRequest(ids: [
             "id": "value"
         ], user: User(advertisementId: nil, deviceId: nil), events: [
-            DecoratedEvent(clientId: "clientId", eventType: "eventType", data: ["key": "some value"])
+            Event(analyticsSystemName: "clientId", eventName: "eventType", eventParameters: ["key": "some value"])
         ])
         let endpoint = SendEventEnpoint(body: eventRequest)
 
