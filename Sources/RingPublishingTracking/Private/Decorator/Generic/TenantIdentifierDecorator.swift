@@ -8,17 +8,24 @@
 
 import Foundation
 
-struct TenantIdentifierDecorator: Decorator {
-    
-    private let tenantId: String
+final class TenantIdentifierDecorator: Decorator {
 
-    init(tenantId: String) {
-        self.tenantId = tenantId
-    }
+    private var tenantId: String?
 
     func parameters() -> [String: String] {
-        [
+        guard let tenantId = tenantId else {
+            return [:]
+        }
+
+        return [
             "TID": tenantId
         ]
+    }
+}
+
+extension TenantIdentifierDecorator {
+
+    func updateTenantId(tenantId: String) {
+        self.tenantId = tenantId
     }
 }

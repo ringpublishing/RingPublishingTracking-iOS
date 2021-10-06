@@ -33,9 +33,10 @@ final class EventsService {
     private var decorators: [EventType: [Decorator]]
 
     private let uniqueIdentifierDecorator = UniqueIdentifierDecorator()
-//    private let structureInfoDecorator: StructureInfoDecorator
+    private let structureInfoDecorator = StructureInfoDecorator()
     private let adAreaDecorator = AdAreaDecorator()
     private let userDataDecorator = UserDataDecorator()
+    private let tenantIdentifierDecorator = TenantIdentifierDecorator()
 
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
@@ -260,8 +261,11 @@ extension EventsService {
         registerDecorator(SizeDecorator(), for: .generic)
         registerDecorator(ConsentStringDecorator(), for: .generic)
         registerDecorator(uniqueIdentifierDecorator, for: .generic)
+        registerDecorator(structureInfoDecorator, for: .generic)
         registerDecorator(adAreaDecorator, for: .generic)
         registerDecorator(userDataDecorator, for: .generic)
+        registerDecorator(tenantIdentifierDecorator, for: .generic)
+
     }
 }
 

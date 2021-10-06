@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 final class SizeDecorator: Decorator {
-    
+
     private let screenDepth = 24
 
     func parameters() -> [String: String] {
