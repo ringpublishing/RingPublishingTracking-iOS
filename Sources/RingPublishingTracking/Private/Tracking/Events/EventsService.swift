@@ -137,7 +137,7 @@ final class EventsService {
     }
 
     func updateApplicationAdvertisementArea(_ currentAdvertisementArea: String) {
-
+        adAreaDecorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: currentAdvertisementArea)
     }
 }
 
