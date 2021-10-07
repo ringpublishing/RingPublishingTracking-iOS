@@ -12,7 +12,7 @@ import UIKit
 struct SizeProvider: SizeProviding {
 
     var screenSize: CGSize {
-        UIScreen.main.nativeBounds.size
+        UIScreen.main.bounds.size
     }
 
     var applicationSize: CGSize {
