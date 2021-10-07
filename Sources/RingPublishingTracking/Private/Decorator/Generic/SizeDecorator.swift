@@ -28,8 +28,12 @@ final class SizeDecorator: Decorator {
         }
 
         return [
-            "CS": "\(Int(screenSize.height))x\(Int(screenSize.width))x\(screenDepth)",
-            "CV": "\(Int(applicationSize.height))x\(Int(applicationSize.width))x\(screenDepth)"
+            "CS": formatSize(for: screenSize),
+            "CV": formatSize(for: applicationSize)
         ]
+    }
+
+    private func formatSize(for size: CGSize) -> String {
+        "\(Int(size.height))x\(Int(size.width))x\(screenDepth)"
     }
 }

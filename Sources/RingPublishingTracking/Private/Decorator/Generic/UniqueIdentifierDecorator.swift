@@ -17,19 +17,17 @@ final class UniqueIdentifierDecorator: Decorator {
         return formatter
     }()
 
-    private(set) var isPartialReload: Bool = false
+    private var primaryIdentifier: String = UniqueIdentifierDecorator.generatePageId()
+    private var secondaryIdentifier: String?
 
     func parameters() -> [String: String] {
-        let ipValue = generatePageId()
-        let ivValue = isPartialReload ? generatePageId() : ipValue
-
-        return [
-            "IP": ipValue,
-            "IV": ivValue
+        [
+            "IP": primaryIdentifier,
+            "IV": secondaryIdentifier ?? primaryIdentifier
         ]
     }
 
-    private func generatePageId() -> String {
+    private static func generatePageId() -> String {
         let randomPart = Int(Double.random(in: 0...1) * 10000000)
         let now = Date()
 
@@ -42,7 +40,12 @@ final class UniqueIdentifierDecorator: Decorator {
 
 extension UniqueIdentifierDecorator {
 
-    func updateIsPartialReload(_ isPartialReload: Bool) {
-        self.isPartialReload = isPartialReload
+    func updateIdentifiers() {
+        primaryIdentifier = Self.generatePageId()
+        secondaryIdentifier = Self.generatePageId()
+    }
+
+    func updateSecondaryItentifier() {
+        secondaryIdentifier = Self.generatePageId()
     }
 }

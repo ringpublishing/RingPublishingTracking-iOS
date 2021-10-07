@@ -66,6 +66,10 @@ public class RingPublishingTracking {
         self.delegate = delegate
 
         eventsService.setup(apiUrl: configuration.apiUrl, apiKey: configuration.apiKey, delegate: self)
+        eventsService.updateApplicationAdvertisementArea(configuration.applicationDefaultAdvertisementArea)
+        eventsService.updateTenantId(tenantId: configuration.tenantId)
+        eventsService.updateApplicationRootPath(applicationRootPath: configuration.applicationRootPath)
+        eventsService.updateStructureType(structureType: .structurePath(configuration.applicationDefaultStructurePath))
     }
 
     // MARK: Debug mode / opt-out mode

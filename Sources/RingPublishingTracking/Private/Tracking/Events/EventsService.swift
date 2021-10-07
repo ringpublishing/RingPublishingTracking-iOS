@@ -112,12 +112,34 @@ final class EventsService {
         operationMode.optOutEnabled = enabled
     }
 
+    // MARK: - Decorators helpers
+
     func updateApplicationAdvertisementArea(_ currentAdvertisementArea: String) {
         adAreaDecorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: currentAdvertisementArea)
     }
 
     func updateUserData(ssoSystemName: String, userId: String?) {
         userDataDecorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: userId), name: ssoSystemName))))
+    }
+
+    func updateUniqueIdentifier(partiallyReloaded: Bool) {
+        if partiallyReloaded {
+            uniqueIdentifierDecorator.updateSecondaryItentifier()
+        } else {
+            uniqueIdentifierDecorator.updateIdentifiers()
+        }
+    }
+
+    func updateTenantId(tenantId: String) {
+        tenantIdentifierDecorator.updateTenantId(tenantId: tenantId)
+    }
+
+    func updateStructureType(structureType: StructureType) {
+        structureInfoDecorator.updateStructureType(structureType: structureType)
+    }
+
+    func updateApplicationRootPath(applicationRootPath: String) {
+        structureInfoDecorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
     }
 }
 

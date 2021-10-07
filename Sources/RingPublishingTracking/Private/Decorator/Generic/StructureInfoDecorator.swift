@@ -10,7 +10,7 @@ import Foundation
 
 enum StructureType {
 
-    case publicationUrl(String, [String])
+    case publicationUrl(URL, [String])
     case structurePath([String])
 
     func parametersResolved(with applicationRootPath: String) -> (dv: String, du: String) {
@@ -19,14 +19,18 @@ enum StructureType {
 
         switch self {
         case .publicationUrl(let url, let array):
-            dvField = ([applicationRootPath] + array).joined(separator: "/")
-            duField = url
+            dvField = formatFieldDV(for: applicationRootPath, array: array)
+            duField = url.absoluteString
         case .structurePath(let array):
-            dvField = ([applicationRootPath] + array).joined(separator: "/")
+            dvField = formatFieldDV(for: applicationRootPath, array: array)
             duField = "https://\(applicationRootPath).app.ios\(array.joined(separator: "/"))".lowercased()
         }
 
         return (dvField, duField)
+    }
+
+    private func formatFieldDV(for applicationRootPath: String, array: [String]) -> String {
+        ([applicationRootPath + ".app.ios"] + array).joined(separator: "/")
     }
 }
 
