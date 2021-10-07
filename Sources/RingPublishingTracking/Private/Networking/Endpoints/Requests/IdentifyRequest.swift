@@ -12,10 +12,10 @@ import Foundation
 struct IdentifyRequest: Encodable {
 
     /// Stored tracking identifiers
-    var ids: [String: String]
+    let ids: [String: String]
 
     /// Optional additional data used to track user
-    var user: User?
+    let user: User?
 }
 
 extension IdentifyRequest: Bodable {

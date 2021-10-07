@@ -12,13 +12,13 @@ import Foundation
 struct EventRequest {
 
     /// Stored tracking identifiers
-    var ids: [String: String]
+    let ids: [String: String]
 
     /// Optional additional data used to track user
-    var user: User?
+    let user: User?
 
     /// Not empty list of reported events to send
-    var events: [Event]
+    let events: [Event]
 }
 
 extension EventRequest: Bodable {
