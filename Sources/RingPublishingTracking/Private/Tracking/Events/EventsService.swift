@@ -192,9 +192,8 @@ extension EventsService {
             switch result {
             case .success(let identifier):
                 self?.userManager.updateIDFA(idfa: identifier)
-            case .failure(let error):
+            case .failure:
                 self?.userManager.updateIDFA(idfa: nil)
-                // TODO: error handling - retry?
             }
         }
     }
