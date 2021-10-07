@@ -27,7 +27,7 @@ class DecoratorTests: XCTestCase {
         XCTAssertEqual(params1["IP"], params1["IV"], "IP and IV parameters should be equal")
 
         // When
-        decorator.updateSecondaryItentifier()
+        decorator.updateSecondaryIdentifier()
 
         // Then
         let params2 = decorator.parameters()
@@ -38,7 +38,7 @@ class DecoratorTests: XCTestCase {
 
         // Then
         let params3 = decorator.parameters()
-        XCTAssertNotEqual(params3["IP"], params3["IV"], "IP and IV parameters should be different")
+        XCTAssertEqual(params3["IP"], params3["IV"], "IP and IV parameters should be equal")
         XCTAssertNotEqual(params1["IP"], params3["IP"], "Initial IP and new IP parameters should be different")
         XCTAssertNotEqual(params1["IV"], params3["IV"], "Initial IV and new IV parameters should be different")
     }

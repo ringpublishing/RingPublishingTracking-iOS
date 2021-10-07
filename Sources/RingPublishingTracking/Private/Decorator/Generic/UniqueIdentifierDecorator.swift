@@ -17,21 +17,21 @@ final class UniqueIdentifierDecorator: Decorator {
         return formatter
     }()
 
-    private var primaryIdentifier: String = UniqueIdentifierDecorator.generatePageId()
-    private var secondaryIdentifier: String?
+    private var primaryIdentifier: String
+    private var secondaryIdentifier: String
+
+    init() {
+        let initialIdentifier = UniqueIdentifierDecorator.generatePageId()
+
+        primaryIdentifier = initialIdentifier
+        secondaryIdentifier = initialIdentifier
+    }
 
     func parameters() -> [String: String] {
-        var params = [
-            "IP": primaryIdentifier
+        [
+            "IP": primaryIdentifier,
+            "IV": secondaryIdentifier
         ]
-
-        if let secondaryIdentifier = secondaryIdentifier {
-            params["IV"] = secondaryIdentifier
-        } else {
-            params["IV"] = primaryIdentifier
-        }
-
-        return params
     }
 
     private static func generatePageId() -> String {
@@ -49,10 +49,10 @@ extension UniqueIdentifierDecorator {
 
     func updateIdentifiers() {
         primaryIdentifier = Self.generatePageId()
-        secondaryIdentifier = Self.generatePageId()
+        secondaryIdentifier = primaryIdentifier
     }
 
-    func updateSecondaryItentifier() {
+    func updateSecondaryIdentifier() {
         secondaryIdentifier = Self.generatePageId()
     }
 }

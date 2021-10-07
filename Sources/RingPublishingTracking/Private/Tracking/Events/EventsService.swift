@@ -124,7 +124,7 @@ final class EventsService {
 
     func updateUniqueIdentifier(partiallyReloaded: Bool) {
         if partiallyReloaded {
-            uniqueIdentifierDecorator.updateSecondaryItentifier()
+            uniqueIdentifierDecorator.updateSecondaryIdentifier()
         } else {
             uniqueIdentifierDecorator.updateIdentifiers()
         }
@@ -278,7 +278,6 @@ extension EventsService {
         registerDecorator(adAreaDecorator)
         registerDecorator(userDataDecorator)
         registerDecorator(tenantIdentifierDecorator)
-
     }
 }
 
