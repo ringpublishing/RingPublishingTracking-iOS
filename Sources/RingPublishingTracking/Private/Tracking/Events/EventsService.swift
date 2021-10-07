@@ -238,7 +238,7 @@ extension EventsService {
 
     /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
     /// - Returns: `EventRequest`
-    private func buildEventRequest() -> EventRequest {
+    func buildEventRequest() -> EventRequest {
         let events = eventsQueueManager.events.allElements
 
         let user = userManager.buildUser()

@@ -99,7 +99,7 @@ class EventsQueueManagerTests: XCTestCase {
     }
 }
 
-private extension Event {
+extension Event {
 
     static func smallEvent() -> Self { // 190 bytes
         Event(eventParameters: [

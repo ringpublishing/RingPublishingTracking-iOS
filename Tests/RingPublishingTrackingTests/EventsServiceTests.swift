@@ -72,27 +72,32 @@ class EventsServiceTests: XCTestCase {
         XCTAssertEqual(service.storedIds().count, 4, "Stored ids number should be correct")
     }
 
-    //    func testAddEvents_eventsOverRequestBodySizeLimitAddedToQueue_builtRequestBodySizeIsBelowSizeLimit() {
-    //        // Given
-    //        let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
-    //
-    //        let bodySizeLimit = Constants.requestBodySizeLimit
-    //        let singleEventSize = Event.smallEvent().toReportedEvent().sizeInBytes
-    //
-    //        // When
-    //        let eventsAmount = Int(floor(Double(bodySizeLimit) / Double(singleEventSize))) + 1
-    //
-    //        for _ in 0..<eventsAmount {
-    //            manager.addEvents([Event.smallEvent()])
-    //        }
-    //
-    //        let request = manager.buildEventRequest(with: [:], user: nil)
-    //
-    //        // Then
-    //        XCTAssertLessThan(request.dictionary.jsonSizeInBytes,
-    //                          bodySizeLimit,
-    //                          "Event request body size should be below \(bodySizeLimit)")
-    //
-    //        XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
-    //    }
+    func testAddEvents_eventsOverRequestBodySizeLimitAddedToQueue_builtRequestBodySizeIsBelowSizeLimit() {
+        // Given
+        let storage = StaticStorage(eaUUID: nil, trackingIds: [
+            "key1": .init(value: "id1", lifetime: nil),
+            "key2": .init(value: "id2", lifetime: nil),
+            "key3": .init(value: "id3", lifetime: nil)
+        ], postInterval: nil)
+        let service = EventsService(storage: storage)
+
+        let bodySizeLimit = Constants.requestBodySizeLimit
+        let singleEventSize = Event.smallEvent().sizeInBytes
+
+        // When
+        let eventsAmount = Int(floor(Double(bodySizeLimit) / Double(singleEventSize))) + 1
+
+        for _ in 0..<eventsAmount {
+            service.addEvents([Event.smallEvent()])
+        }
+
+        let request = service.buildEventRequest()
+
+        // Then
+        XCTAssertLessThan(request.dictionary.jsonSizeInBytes,
+                          bodySizeLimit,
+                          "Event request body size should be below \(bodySizeLimit)")
+
+        XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
+    }
 }
