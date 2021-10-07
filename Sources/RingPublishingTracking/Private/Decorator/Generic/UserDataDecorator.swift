@@ -8,27 +8,6 @@
 
 import Foundation
 
-struct UserInfo: Encodable {
-
-    let sso: SSO
-}
-
-struct SSO: Encodable {
-
-    let logged: Logged
-    let name: String
-}
-
-struct Logged: Encodable {
-
-    let id: String? // swiftlint:disable:this identifier_name
-}
-
-struct UserData: Encodable {
-
-    let user: UserInfo
-}
-
 final class UserDataDecorator: Decorator {
 
     private var data: UserData?

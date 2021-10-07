@@ -8,15 +8,6 @@
 
 import XCTest
 
-struct SizeProviderStub: SizeProviding {
-    let screenSize: CGSize = .init(width: 375, height: 812)
-    let applicationSize: CGSize = .init(width: 390, height: 844)
-}
-
-struct ConsentProviderStub: ConsentProviding {
-    let adpc: String? = "test"
-}
-
 class DecoratorTests: XCTestCase {
 
     // MARK: Setup

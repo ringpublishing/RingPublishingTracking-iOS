@@ -9,6 +9,7 @@
 import Foundation
 
 final class AdAreaDecorator: Decorator {
+
     private var applicationAdvertisementArea: String?
 
     func parameters() -> [String: String] {

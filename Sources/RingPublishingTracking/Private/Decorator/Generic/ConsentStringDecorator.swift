@@ -8,18 +8,6 @@
 
 import Foundation
 
-protocol ConsentProviding {
-
-    var adpc: String? { get }
-}
-
-struct ConsentProvider: ConsentProviding {
-
-    var adpc: String? {
-        UserDefaults.standard.string(forKey: "IABTCF_TCString")
-    }
-}
-
 final class ConsentStringDecorator: Decorator {
 
     let consentProvider: ConsentProviding

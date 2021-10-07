@@ -18,6 +18,13 @@
 		204EAECF270D989D009E2F0D /* Decorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883220270707CD00EA53FD /* Decorator.swift */; };
 		204EAED1270DB69B009E2F0D /* Event+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED0270DB69B009E2F0D /* Event+API.swift */; };
 		204EAED3270EF5EB009E2F0D /* DecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */; };
+		204EAEE5270F108B009E2F0D /* ConsentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEDA270F0F9F009E2F0D /* ConsentProvider.swift */; };
+		204EAEE6270F108B009E2F0D /* SizeProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEDC270F0FAE009E2F0D /* SizeProviding.swift */; };
+		204EAEE7270F108B009E2F0D /* ConsentProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED8270F0F62009E2F0D /* ConsentProviding.swift */; };
+		204EAEE8270F108B009E2F0D /* SizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEDE270F0FBC009E2F0D /* SizeProvider.swift */; };
+		204EAEE9270F1093009E2F0D /* SizeProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEE1270F0FF0009E2F0D /* SizeProviderStub.swift */; };
+		204EAEEA270F1093009E2F0D /* ConsentProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */; };
+		204EAEEB270F10B2009E2F0D /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED5270F0F43009E2F0D /* UserData.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -108,6 +115,13 @@
 		204EAEC6270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RingPublishingTracking+EventsServiceDelegate.swift"; sourceTree = "<group>"; };
 		204EAED0270DB69B009E2F0D /* Event+API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Event+API.swift"; sourceTree = "<group>"; };
 		204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorTests.swift; sourceTree = "<group>"; };
+		204EAED5270F0F43009E2F0D /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		204EAED8270F0F62009E2F0D /* ConsentProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentProviding.swift; sourceTree = "<group>"; };
+		204EAEDA270F0F9F009E2F0D /* ConsentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentProvider.swift; sourceTree = "<group>"; };
+		204EAEDC270F0FAE009E2F0D /* SizeProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeProviding.swift; sourceTree = "<group>"; };
+		204EAEDE270F0FBC009E2F0D /* SizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeProvider.swift; sourceTree = "<group>"; };
+		204EAEE1270F0FF0009E2F0D /* SizeProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeProviderStub.swift; sourceTree = "<group>"; };
+		204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentProviderStub.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -214,6 +228,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		204EAED4270F0F38009E2F0D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				204EAED5270F0F43009E2F0D /* UserData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		204EAED7270F0F52009E2F0D /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				204EAED8270F0F62009E2F0D /* ConsentProviding.swift */,
+				204EAEDA270F0F9F009E2F0D /* ConsentProvider.swift */,
+				204EAEDC270F0FAE009E2F0D /* SizeProviding.swift */,
+				204EAEDE270F0FBC009E2F0D /* SizeProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		204EAEE0270F0FE8009E2F0D /* Stub */ = {
+			isa = PBXGroup;
+			children = (
+				204EAEE1270F0FF0009E2F0D /* SizeProviderStub.swift */,
+				204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */,
+			);
+			path = Stub;
+			sourceTree = "<group>";
+		};
 		208831FD270271B900EA53FD /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +297,8 @@
 		208832222707082600EA53FD /* Generic */ = {
 			isa = PBXGroup;
 			children = (
+				204EAED7270F0F52009E2F0D /* Providers */,
+				204EAED4270F0F38009E2F0D /* Models */,
 				208832232707083700EA53FD /* UniqueIdentifierDecorator.swift */,
 				2088322727070C2C00EA53FD /* SizeDecorator.swift */,
 				2088322927070D4000EA53FD /* StructureInfoDecorator.swift */,
@@ -270,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				208832082702923C00EA53FD /* Utils */,
+				204EAEE0270F0FE8009E2F0D /* Stub */,
 				20C2394E26F22241005A734A /* Mocks */,
 				20C2394826F22238005A734A /* EndpointTests.swift */,
 				20C2394A26F22238005A734A /* APIServiceTests.swift */,
@@ -782,6 +827,7 @@
 				7D7D5BEA26FCA5AF00B79FDD /* IdsWithLifetime.swift in Sources */,
 				7D7D5BD126FCA5AE00B79FDD /* RingPublishingTrackingDelegate.swift in Sources */,
 				7D7D5BDC26FCA5AF00B79FDD /* Optional+Logable.swift in Sources */,
+				204EAEE9270F1093009E2F0D /* SizeProviderStub.swift in Sources */,
 				7D7D5BF526FCA5AF00B79FDD /* Dictionary+JSON.swift in Sources */,
 				7D7D5BED26FCA5AF00B79FDD /* Service.swift in Sources */,
 				2088321A270485E900EA53FD /* OperationMode.swift in Sources */,
@@ -791,6 +837,7 @@
 				7D7D5BEE26FCA5AF00B79FDD /* Bodable.swift in Sources */,
 				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
+				204EAEE8270F108B009E2F0D /* SizeProvider.swift in Sources */,
 				7D7D5BD326FCA5AF00B79FDD /* ContentPageViewSource.swift in Sources */,
 				204EAED3270EF5EB009E2F0D /* DecoratorTests.swift in Sources */,
 				204EAEC7270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift in Sources */,
@@ -803,6 +850,7 @@
 				7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */,
 				204EAECA270D9885009E2F0D /* UserDataDecorator.swift in Sources */,
 				7D7D5BF626FCA5AF00B79FDD /* EventsQueueManager.swift in Sources */,
+				204EAEEB270F10B2009E2F0D /* UserData.swift in Sources */,
 				7D7D5BE226FCA5AF00B79FDD /* IdentifyEndpoint.swift in Sources */,
 				208832182704852600EA53FD /* Operationable.swift in Sources */,
 				7D7D5BF026FCA5AF00B79FDD /* Endpoint.swift in Sources */,
@@ -811,13 +859,17 @@
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
 				204EAEC9270D9885009E2F0D /* StructureInfoDecorator.swift in Sources */,
 				7D7D5BF226FCA5AF00B79FDD /* AtomicArray.swift in Sources */,
+				204EAEEA270F1093009E2F0D /* ConsentProviderStub.swift in Sources */,
 				2088321E2705AB2200EA53FD /* EventsServiceDelegate.swift in Sources */,
+				204EAEE7270F108B009E2F0D /* ConsentProviding.swift in Sources */,
 				208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */,
+				204EAEE6270F108B009E2F0D /* SizeProviding.swift in Sources */,
 				7D7D5BD626FCA5AF00B79FDD /* RingPublishingTracking+CurrentState.swift in Sources */,
 				208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */,
 				204EAED1270DB69B009E2F0D /* Event+API.swift in Sources */,
 				7D7D5BE426FCA5AF00B79FDD /* BodableError.swift in Sources */,
 				7D7D5BDD26FCA5AF00B79FDD /* EventResponse.swift in Sources */,
+				204EAEE5270F108B009E2F0D /* ConsentProvider.swift in Sources */,
 				7D7D5BDE26FCA5AF00B79FDD /* IdentifyResponse.swift in Sources */,
 				7D7D5BD426FCA5AF00B79FDD /* Event.swift in Sources */,
 				7D7D5BDA26FCA5AF00B79FDD /* UserManager.swift in Sources */,
