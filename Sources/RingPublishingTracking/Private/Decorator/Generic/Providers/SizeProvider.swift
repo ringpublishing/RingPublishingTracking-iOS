@@ -17,11 +17,13 @@ struct SizeProvider: SizeProviding {
 
     var applicationSize: CGSize {
         if #available(iOS 13.0, *) {
-            return UIApplication.shared.connectedScenes
+            let window = UIApplication.shared.connectedScenes
                 .filter { $0.activationState == .foregroundActive }
                 .compactMap { $0 as? UIWindowScene }
                 .first?.windows
-                .first(where: \.isKeyWindow)?.frame.size ?? .zero
+                .first(where: \.isKeyWindow) ?? UIApplication.shared.keyWindow
+
+            return window?.frame.size ?? .zero
         } else {
             return UIApplication.shared.keyWindow?.frame.size ?? .zero
         }
