@@ -17,6 +17,7 @@
 		204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */; };
 		204EAECF270D989D009E2F0D /* Decorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883220270707CD00EA53FD /* Decorator.swift */; };
 		204EAED1270DB69B009E2F0D /* Event+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED0270DB69B009E2F0D /* Event+API.swift */; };
+		204EAED3270EF5EB009E2F0D /* DecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -106,6 +107,7 @@
 		204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenantIdentifierDecorator.swift; sourceTree = "<group>"; };
 		204EAEC6270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RingPublishingTracking+EventsServiceDelegate.swift"; sourceTree = "<group>"; };
 		204EAED0270DB69B009E2F0D /* Event+API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Event+API.swift"; sourceTree = "<group>"; };
+		204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorTests.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				2088321227046EB100EA53FD /* EventsServiceTests.swift */,
 				208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */,
 				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
+				204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */,
 			);
 			path = RingPublishingTrackingTests;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
 				7D7D5BD326FCA5AF00B79FDD /* ContentPageViewSource.swift in Sources */,
+				204EAED3270EF5EB009E2F0D /* DecoratorTests.swift in Sources */,
 				204EAEC7270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift in Sources */,
 				7D7D5BCF26FCA5AE00B79FDD /* RingPublishingTrackingKeepAliveDataSource.swift in Sources */,
 				7D7D5BD526FCA5AF00B79FDD /* ContentMetadata.swift in Sources */,

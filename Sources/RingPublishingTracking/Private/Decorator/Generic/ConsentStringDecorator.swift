@@ -8,10 +8,28 @@
 
 import Foundation
 
+protocol ConsentProviding {
+
+    var adpc: String? { get }
+}
+
+struct ConsentProvider: ConsentProviding {
+
+    var adpc: String? {
+        UserDefaults.standard.string(forKey: "IABTCF_TCString")
+    }
+}
+
 final class ConsentStringDecorator: Decorator {
 
+    let consentProvider: ConsentProviding
+
+    init(consentProvider: ConsentProviding = ConsentProvider()) {
+        self.consentProvider = consentProvider
+    }
+
     func parameters() -> [String: String] {
-        if let publisherConsent = UserDefaults.standard.string(forKey: "IABTCF_TCString") {
+        if let publisherConsent = consentProvider.adpc {
             return [
                 "_adpc": publisherConsent
             ]

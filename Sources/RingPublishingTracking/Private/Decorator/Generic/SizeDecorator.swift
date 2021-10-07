@@ -9,27 +9,44 @@
 import Foundation
 import UIKit
 
-final class SizeDecorator: Decorator {
+protocol SizeProviding {
 
-    private let screenDepth = 24
+    var screenSize: CGSize { get }
+    var applicationSize: CGSize { get }
+}
 
-    func parameters() -> [String: String] {
-        let screenSize = UIScreen.main.nativeBounds.size
+struct SizeProvider: SizeProviding {
 
-        let applicationSize: CGSize
+    var screenSize: CGSize {
+        UIScreen.main.nativeBounds.size
+    }
+
+    var applicationSize: CGSize {
         if #available(iOS 13.0, *) {
-            applicationSize = UIApplication.shared.connectedScenes
+            return UIApplication.shared.connectedScenes
                 .filter { $0.activationState == .foregroundActive }
                 .compactMap { $0 as? UIWindowScene }
                 .first?.windows
                 .first(where: \.isKeyWindow)?.frame.size ?? .zero
         } else {
-            applicationSize = UIApplication.shared.keyWindow?.frame.size ?? .zero
+            return UIApplication.shared.keyWindow?.frame.size ?? .zero
         }
+    }
+}
 
-        return [
-            "CS": formatSize(for: screenSize),
-            "CV": formatSize(for: applicationSize)
+final class SizeDecorator: Decorator {
+
+    private let screenDepth = 24
+    private let sizeProvider: SizeProviding
+
+    init(sizeProvider: SizeProviding = SizeProvider()) {
+        self.sizeProvider = sizeProvider
+    }
+
+    func parameters() -> [String: String] {
+        [
+            "CS": formatSize(for: sizeProvider.screenSize),
+            "CV": formatSize(for: sizeProvider.applicationSize)
         ]
     }
 

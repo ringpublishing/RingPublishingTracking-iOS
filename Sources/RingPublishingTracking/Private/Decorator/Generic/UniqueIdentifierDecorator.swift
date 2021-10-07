@@ -21,10 +21,17 @@ final class UniqueIdentifierDecorator: Decorator {
     private var secondaryIdentifier: String?
 
     func parameters() -> [String: String] {
-        [
-            "IP": primaryIdentifier,
-            "IV": secondaryIdentifier ?? primaryIdentifier
+        var params = [
+            "IP": primaryIdentifier
         ]
+
+        if let secondaryIdentifier = secondaryIdentifier {
+            params["IV"] = secondaryIdentifier
+        } else {
+            params["IV"] = primaryIdentifier
+        }
+
+        return params
     }
 
     private static func generatePageId() -> String {
