@@ -25,6 +25,8 @@
 		204EAEE9270F1093009E2F0D /* SizeProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEE1270F0FF0009E2F0D /* SizeProviderStub.swift */; };
 		204EAEEA270F1093009E2F0D /* ConsentProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */; };
 		204EAEEB270F10B2009E2F0D /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED5270F0F43009E2F0D /* UserData.swift */; };
+		204EAEED270F12B7009E2F0D /* VendorManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */; };
+		204EAEEF270F1313009E2F0D /* VendorIdentifierProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -122,6 +124,8 @@
 		204EAEDE270F0FBC009E2F0D /* SizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeProvider.swift; sourceTree = "<group>"; };
 		204EAEE1270F0FF0009E2F0D /* SizeProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeProviderStub.swift; sourceTree = "<group>"; };
 		204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentProviderStub.swift; sourceTree = "<group>"; };
+		204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManagerTests.swift; sourceTree = "<group>"; };
+		204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifierProviderMock.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 				208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */,
 				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
 				204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */,
+				204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */,
 			);
 			path = RingPublishingTrackingTests;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 			children = (
 				20C2394926F22238005A734A /* NetworkSessionMock.swift */,
 				208CD61B26F9B3C0006A406C /* StaticStorage.swift */,
+				204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -818,6 +824,7 @@
 				2088320E2702FD9000EA53FD /* EventsService.swift in Sources */,
 				7D7D5BF326FCA5AF00B79FDD /* TrackingStorage.swift in Sources */,
 				7D7D5BE026FCA5AF00B79FDD /* IdentifyRequest.swift in Sources */,
+				204EAEED270F12B7009E2F0D /* VendorManagerTests.swift in Sources */,
 				7D7D5BE626FCA5AF00B79FDD /* ServiceError.swift in Sources */,
 				7D7D5BF426FCA5AF00B79FDD /* UserDefaultsStorage.swift in Sources */,
 				204EAECF270D989D009E2F0D /* Decorator.swift in Sources */,
@@ -880,6 +887,7 @@
 				2088321C27049D2600EA53FD /* EventsQueueManagerDelegate.swift in Sources */,
 				204EAECB270D9885009E2F0D /* SizeDecorator.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
+				204EAEEF270F1313009E2F0D /* VendorIdentifierProviderMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
