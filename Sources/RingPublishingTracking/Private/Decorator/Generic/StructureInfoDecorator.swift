@@ -23,14 +23,14 @@ enum StructureType {
             duField = url.absoluteString
         case .structurePath(let array):
             dvField = formatFieldDV(for: applicationRootPath, array: array)
-            duField = "https://\(applicationRootPath).app.ios/\(array.joined(separator: "/"))".lowercased()
+            duField = "https://\(applicationRootPath).\(Constants.applicationPrefix)/\(array.joined(separator: "/"))".lowercased()
         }
 
         return (dvField, duField)
     }
 
     private func formatFieldDV(for applicationRootPath: String, array: [String]) -> String {
-        ([applicationRootPath + ".app.ios"] + array).joined(separator: "/").lowercased()
+        ([applicationRootPath + ".\(Constants.applicationPrefix)"] + array).joined(separator: "/").lowercased()
     }
 }
 
