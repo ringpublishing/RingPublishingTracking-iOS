@@ -26,6 +26,9 @@ struct Constants {
     /// Size limit of  body for single events request
     static let requestBodySizeLimit = UInt(1024 * 1024)
 
+    /// Key for the tracking identifier in API
+    static let trackingIdentifierKey = "eaUUID"
+
     // MARK: Config
 
     static let applicationDefaultStructurePath = ["undefined"]
@@ -35,4 +38,5 @@ struct Constants {
 
     static let eventDefaultAnalyticsSystemName = "_GENERIC"
     static let eventDefaultName = "Event"
+    static let applicationPrefix = "app.ios"
 }

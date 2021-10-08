@@ -23,7 +23,7 @@ public extension RingPublishingTracking {
         let obscuredId: String? = userId == nil ? nil : String(repeating: "*", count: userId?.count ?? 0)
         Logger.log("Updating application user data, SSO: '\(ssoSystemName)' and userId: '\(obscuredId.logable)'")
 
-        // TODO: Implementation missing
+        eventsService.updateUserData(ssoSystemName: ssoSystemName, userId: userId)
     }
 
     /// Update ad space name of the application, for example "ads/list/sport"
@@ -32,6 +32,6 @@ public extension RingPublishingTracking {
     func updateApplicationAdvertisementArea(currentAdvertisementArea: String) {
         Logger.log("Updating application advertisement area to: '\(currentAdvertisementArea)'")
 
-        // TODO: Implementation missing
+        eventsService.updateApplicationAdvertisementArea(currentAdvertisementArea)
     }
 }

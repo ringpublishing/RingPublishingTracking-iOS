@@ -83,6 +83,8 @@ public extension RingPublishingTracking {
         Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
 
         // TODO: Implementation missing
+        eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService.updateStructureType(structureType: .structurePath(currentStructurePath))
     }
 
     // MARK: Content page view event & keep alive
@@ -112,6 +114,8 @@ public extension RingPublishingTracking {
         Logger.log(log )
 
         // TODO: Implementation missing
+        eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath))
     }
 
     /// Pauses tracking for currently displayed content

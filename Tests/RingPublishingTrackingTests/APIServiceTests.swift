@@ -42,7 +42,9 @@ class APIServiceTests: XCTestCase {
         let sessionMock = NetworkSessionMock()
         sessionMock.data = Data()
 
-        let service = APIService(apiUrl: URL(string: "https://test.com"), apiKey: "test_key", session: sessionMock)
+        let url = URL(string: "https://test.com")! // swiftlint:disable:this force_unwrapping
+
+        let service = APIService(apiUrl: url, apiKey: "test_key", session: sessionMock)
         let endpoint = TestEndpoint()
 
         let expectation = self.expectation(description: "request made")

@@ -8,10 +8,33 @@
 
 import Foundation
 
-final class UserManager {
+protocol Userable {
+    func buildUser() -> User
+    func updateIDFA(idfa: UUID?)
+    func updateDeviceId(deviceId: String?)
+}
+
+final class UserManager: Userable {
+    private(set) var idfa: UUID?
+    private(set) var deviceId: String?
 
     func buildUser() -> User {
-        // TODO: missing implementation
-        User()
+        if let idfa = idfa {
+            return User(advertisementId: idfa.uuidString, deviceId: nil)
+        }
+
+        if let deviceId = deviceId {
+            return User(advertisementId: nil, deviceId: deviceId)
+        }
+
+        return User(advertisementId: nil, deviceId: nil)
+    }
+
+    func updateIDFA(idfa: UUID?) {
+        self.idfa = idfa
+    }
+
+    func updateDeviceId(deviceId: String?) {
+        self.deviceId = deviceId
     }
 }
