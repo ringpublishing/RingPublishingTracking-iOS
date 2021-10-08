@@ -156,11 +156,11 @@ extension EventsService {
 
     /// Checks if stored eaUUID is not expired
     var isEaUuidValid: Bool {
-        guard let data = storage.eaUUID, let eaUUID = try? JSONDecoder().decode(EaUUID.self, from: data) else {
+        guard let eaUuid = storage.eaUUID else {
             return false
         }
 
-        let expirationDate = eaUUID.creationDate.addingTimeInterval(TimeInterval(eaUUID.lifetime))
+        let expirationDate = eaUuid.creationDate.addingTimeInterval(TimeInterval(eaUuid.lifetime))
         let now = Date()
 
         return expirationDate > now
@@ -171,10 +171,8 @@ extension EventsService {
     func storedIds() -> [String: String] {
         var ids = [String: String]()
 
-        if isEaUuidValid,
-           let data = storage.eaUUID,
-           let eaUUID = try? JSONDecoder().decode(EaUUID.self, from: data) {
-            ids[Constants.trackingIdentifierKey] = eaUUID.value
+        if isEaUuidValid, let identifier = storage.eaUUID {
+            ids[Constants.trackingIdentifierKey] = identifier.value
         }
 
         if let trackingIds = storage.trackingIds {
@@ -221,7 +219,7 @@ extension EventsService {
         }
 
         let creationDate = Date()
-        storage.eaUUID = try? JSONEncoder().encode(EaUUID(value: value, lifetime: lifetime, creationDate: creationDate))
+        storage.eaUUID = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
 
         delegate?.eventsService(self, retrievedtrackingIdentifier: value)
     }

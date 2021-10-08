@@ -25,9 +25,8 @@ class EventsServiceTests: XCTestCase {
         // Creation Date = 12 hours ago
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-        let eaUuidData = try? JSONEncoder().encode(eaUuid)
 
-        let storage = StaticStorage(eaUUID: eaUuidData, trackingIds: nil, postInterval: nil)
+        let storage = StaticStorage(eaUUID: eaUuid, trackingIds: nil, postInterval: nil)
         let service = EventsService(storage: storage)
 
         // Then
@@ -41,9 +40,8 @@ class EventsServiceTests: XCTestCase {
         // Creation Date = 48 hours ago
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 48))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-        let eaUuidData = try? JSONEncoder().encode(eaUuid)
 
-        let storage = StaticStorage(eaUUID: eaUuidData, trackingIds: nil, postInterval: nil)
+        let storage = StaticStorage(eaUUID: eaUuid, trackingIds: nil, postInterval: nil)
         let service = EventsService(storage: storage)
 
         // Then
@@ -63,9 +61,7 @@ class EventsServiceTests: XCTestCase {
         // Given
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-        let eaUuidData = try? JSONEncoder().encode(eaUuid)
-
-        let storage = StaticStorage(eaUUID: eaUuidData, trackingIds: [
+        let storage = StaticStorage(eaUUID: eaUuid, trackingIds: [
             "key1": .init(value: "id1", lifetime: nil),
             "key2": .init(value: "id2", lifetime: nil),
             "key3": .init(value: "id3", lifetime: nil)
