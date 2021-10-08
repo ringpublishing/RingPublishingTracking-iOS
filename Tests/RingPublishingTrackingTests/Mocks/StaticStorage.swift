@@ -10,7 +10,7 @@ import Foundation
 
 struct StaticStorage: TrackingStorage {
 
-    var eaUUID: EaUUID?
+    var eaUUID: Data?
     var trackingIds: [String: IdsWithLifetime]?
     var postInterval: Int?
 }

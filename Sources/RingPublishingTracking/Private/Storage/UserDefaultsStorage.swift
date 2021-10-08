@@ -11,7 +11,7 @@ import Foundation
 final class UserDefaultsStorage: TrackingStorage {
 
     @StoredValueInUserDefaults(key: "eaUUID", storage: UserDefaults.standard)
-    var eaUUID: EaUUID?
+    var eaUUID: Data?
 
     @StoredValueInUserDefaults(key: "trackingIds", storage: UserDefaults.standard)
     var trackingIds: [String: IdsWithLifetime]?
