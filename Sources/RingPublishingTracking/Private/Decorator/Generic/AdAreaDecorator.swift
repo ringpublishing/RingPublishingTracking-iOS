@@ -12,7 +12,7 @@ final class AdAreaDecorator: Decorator {
 
     private var applicationAdvertisementArea: String?
 
-    func parameters() -> [String: String] {
+    func parameters() -> [String: AnyHashable] {
         if let area = applicationAdvertisementArea {
             return [
                 "DA": area

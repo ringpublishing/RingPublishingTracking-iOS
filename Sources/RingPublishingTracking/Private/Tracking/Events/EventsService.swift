@@ -78,7 +78,16 @@ final class EventsService {
             event.decorated(using: decorators)
         }
 
-        eventsQueueManager.addEvents(decoratedEvents)
+        let filteredEvents = decoratedEvents.filter { event in
+            if !event.isValidJSONObject {
+                Logger.log("Event contains invalid parameters that are not JSONSerialization compatible. All objects should be String, Number, Array, Dictionary, or NSNull") // swiftlint:disable:this line_length
+                return false
+            }
+
+            return true
+        }
+
+        eventsQueueManager.addEvents(filteredEvents)
     }
 
     /// Calls the /me endpoint from the API

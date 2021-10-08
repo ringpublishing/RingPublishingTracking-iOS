@@ -16,7 +16,7 @@ final class ConsentStringDecorator: Decorator {
         self.consentProvider = consentProvider
     }
 
-    func parameters() -> [String: String] {
+    func parameters() -> [String: AnyHashable] {
         if let publisherConsent = consentProvider.adpc {
             return [
                 "_adpc": publisherConsent

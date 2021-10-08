@@ -18,7 +18,7 @@ final class SizeDecorator: Decorator {
         self.sizeProvider = sizeProvider
     }
 
-    func parameters() -> [String: String] {
+    func parameters() -> [String: AnyHashable] {
         [
             "CS": formatSize(for: sizeProvider.screenSize),
             "CV": formatSize(for: sizeProvider.applicationSize)

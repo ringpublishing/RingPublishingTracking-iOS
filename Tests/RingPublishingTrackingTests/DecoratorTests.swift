@@ -148,4 +148,30 @@ class DecoratorTests: XCTestCase {
 
         XCTAssertEqual(params["TID"], tenantId, "TID should be correct")
     }
+
+    // MARK: - ClickDecorator Tests
+
+    func testParameters_clickDecoratorWithAllElementsCreated_returnedParametersAreCorrect() {
+        // Given
+        let elementName = "TestName"
+        let sampleUrl = "https://test.com"
+        let decorator = ClickDecorator(selectedElementName: elementName, publicationUrl: URL(string: sampleUrl))
+
+        // Then
+        let params = decorator.parameters()
+
+        XCTAssertEqual(params["VE"], elementName, "VE should be correct")
+        XCTAssertEqual(params["VU"], sampleUrl, "VE should be correct")
+    }
+
+    func testParameters_clickDecoratorForIconCreated_returnedParametersAreCorrect() {
+        // Given
+        let decorator = ClickDecorator(selectedElementName: nil, publicationUrl: nil)
+
+        // Then
+        let params = decorator.parameters()
+
+        XCTAssertNil(params["VE"], "VE should be empty")
+        XCTAssertNil(params["VU"], "VE should be empty")
+    }
 }

@@ -27,6 +27,9 @@
 		204EAEEB270F10B2009E2F0D /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED5270F0F43009E2F0D /* UserData.swift */; };
 		204EAEED270F12B7009E2F0D /* VendorManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */; };
 		204EAEEF270F1313009E2F0D /* VendorIdentifierProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */; };
+		204EAEF127102B91009E2F0D /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF027102B91009E2F0D /* EventType.swift */; };
+		204EAEF327102E60009E2F0D /* AnalyticsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */; };
+		204EAEF727103370009E2F0D /* ClickDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF5271032B9009E2F0D /* ClickDecorator.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -126,6 +129,9 @@
 		204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentProviderStub.swift; sourceTree = "<group>"; };
 		204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManagerTests.swift; sourceTree = "<group>"; };
 		204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifierProviderMock.swift; sourceTree = "<group>"; };
+		204EAEF027102B91009E2F0D /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
+		204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsSystem.swift; sourceTree = "<group>"; };
+		204EAEF5271032B9009E2F0D /* ClickDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickDecorator.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -260,12 +266,22 @@
 			path = Stub;
 			sourceTree = "<group>";
 		};
+		204EAEF42710329E009E2F0D /* Click Event */ = {
+			isa = PBXGroup;
+			children = (
+				204EAEF5271032B9009E2F0D /* ClickDecorator.swift */,
+			);
+			path = "Click Event";
+			sourceTree = "<group>";
+		};
 		208831FD270271B900EA53FD /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
 				2088320C2702FD4300EA53FD /* Events */,
 				208832042702728300EA53FD /* VendorManager.swift */,
 				20883206270272C000EA53FD /* VendorIdentifiable.swift */,
+				204EAEF027102B91009E2F0D /* EventType.swift */,
+				204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -294,6 +310,7 @@
 			children = (
 				20883220270707CD00EA53FD /* Decorator.swift */,
 				208832222707082600EA53FD /* Generic */,
+				204EAEF42710329E009E2F0D /* Click Event */,
 			);
 			path = Decorator;
 			sourceTree = "<group>";
@@ -826,6 +843,7 @@
 				7D7D5BE026FCA5AF00B79FDD /* IdentifyRequest.swift in Sources */,
 				204EAEED270F12B7009E2F0D /* VendorManagerTests.swift in Sources */,
 				7D7D5BE626FCA5AF00B79FDD /* ServiceError.swift in Sources */,
+				204EAEF127102B91009E2F0D /* EventType.swift in Sources */,
 				7D7D5BF426FCA5AF00B79FDD /* UserDefaultsStorage.swift in Sources */,
 				204EAECF270D989D009E2F0D /* Decorator.swift in Sources */,
 				204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */,
@@ -846,6 +864,7 @@
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
 				204EAEE8270F108B009E2F0D /* SizeProvider.swift in Sources */,
 				7D7D5BD326FCA5AF00B79FDD /* ContentPageViewSource.swift in Sources */,
+				204EAEF727103370009E2F0D /* ClickDecorator.swift in Sources */,
 				204EAED3270EF5EB009E2F0D /* DecoratorTests.swift in Sources */,
 				204EAEC7270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift in Sources */,
 				7D7D5BCF26FCA5AE00B79FDD /* RingPublishingTrackingKeepAliveDataSource.swift in Sources */,
@@ -862,6 +881,7 @@
 				208832182704852600EA53FD /* Operationable.swift in Sources */,
 				7D7D5BF026FCA5AF00B79FDD /* Endpoint.swift in Sources */,
 				7D7D5BE526FCA5AF00B79FDD /* HTTPMethod.swift in Sources */,
+				204EAEF327102E60009E2F0D /* AnalyticsSystem.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
 				204EAEC9270D9885009E2F0D /* StructureInfoDecorator.swift in Sources */,

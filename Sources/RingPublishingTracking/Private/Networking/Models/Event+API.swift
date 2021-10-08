@@ -21,6 +21,10 @@ extension Event {
     var sizeInBytes: UInt {
         dictionary.jsonSizeInBytes
     }
+
+    var isValidJSONObject: Bool {
+        JSONSerialization.isValidJSONObject(eventParameters)
+    }
 }
 
 /// Extension for decorating events
