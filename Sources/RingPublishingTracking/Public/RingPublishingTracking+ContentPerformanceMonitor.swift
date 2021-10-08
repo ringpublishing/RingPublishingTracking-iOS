@@ -22,11 +22,7 @@ public extension RingPublishingTracking {
     func reportClick(selectedElementName: String?) {
         Logger.log("Reporting click event for element named: '\(selectedElementName.logable)'")
 
-        let decorator = ClickDecorator(selectedElementName: selectedElementName, publicationUrl: nil)
-
-        let event = Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
-                          eventName: EventType.click.rawValue,
-                          eventParameters: decorator.parameters())
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName, publicationUrl: nil)
         reportEvents([event])
     }
 
@@ -41,11 +37,7 @@ public extension RingPublishingTracking {
         let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting content click event for element named: \(logData)")
 
-        let decorator = ClickDecorator(selectedElementName: selectedElementName, publicationUrl: publicationUrl)
-
-        let event = Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
-                          eventName: EventType.click.rawValue,
-                          eventParameters: decorator.parameters())
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName, publicationUrl: publicationUrl)
         reportEvents([event])
     }
 
