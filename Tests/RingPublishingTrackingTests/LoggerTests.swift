@@ -36,4 +36,16 @@ class LoggerTests: XCTestCase {
         // Then
         wait(for: [expectation], timeout: 10.0)
     }
+
+    func testLogable_noValueProvided_valueIsUnwrapperCorrectly() {
+        let value: String? = nil
+
+        XCTAssertEqual("\(value.logable)", "nil", "empty value should be logged as nil")
+    }
+
+    func testLogable_valueProvided_valueIsUnwrapperCorrectly() {
+        let value: String? = "test"
+
+        XCTAssertEqual("\(value.logable)", "test", "value should be logged correctly")
+    }
 }

@@ -20,7 +20,7 @@ class EventsFactoryTests: XCTestCase {
 
     // MARK: Tests
 
-    // MARK: - ClickDecorator Tests
+    // MARK: - ClickEvent Tests
 
     func testCreateClickEvent_allParametersProvided_returnedEventIsDecorated() {
         // Given
@@ -46,5 +46,37 @@ class EventsFactoryTests: XCTestCase {
 
         XCTAssertNil(params["VE"], "VE should be empty")
         XCTAssertNil(params["VU"], "VE should be empty")
+    }
+
+    // MARK: - UserActionEvent Tests
+
+    func testCreateUserActionEvent_dictionaryParameterProvided_returnedEventIsDecorated() {
+        // Given
+        let parameters: [String: AnyHashable] = [
+            "test": "value"
+        ]
+        let factory = EventsFactory()
+
+        // Then
+        let event = factory.createUserActionEvent(actionName: "name", actionSubtypeName: "subname", parameter: .parameters(parameters))
+        let params = event.eventParameters
+
+        XCTAssertEqual(params["VE"], "name", "VE should be correct")
+        XCTAssertEqual(params["VC"], "subname", "VC should be correct")
+        XCTAssertEqual(params["VM"], "{\"test\":\"value\"}", "VM should be correct")
+    }
+
+    func testCreateUserActionEvent_plainParameterProvided_returnedEventIsDecorated() {
+        // Given
+        let plainParameter = "test"
+        let factory = EventsFactory()
+
+        // Then
+        let event = factory.createUserActionEvent(actionName: "name", actionSubtypeName: "subname", parameter: .plain(plainParameter))
+        let params = event.eventParameters
+
+        XCTAssertEqual(params["VE"], "name", "VE should be correct")
+        XCTAssertEqual(params["VC"], "subname", "VC should be correct")
+        XCTAssertEqual(params["VM"], plainParameter, "VM should be correct")
     }
 }

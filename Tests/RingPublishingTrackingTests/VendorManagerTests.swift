@@ -20,7 +20,7 @@ class VendorManagerTests: XCTestCase {
 
     // MARK: Tests
 
-    func testRetrieveVendorIdentifier_mockedSourcePRovided_identifierRetrieved() {
+    func testRetrieveVendorIdentifier_mockedSourceProvided_identifierRetrieved() {
         // Given
         let mock = VendorIdentifierProviderMock()
         let manager = VendorManager(source: mock)
