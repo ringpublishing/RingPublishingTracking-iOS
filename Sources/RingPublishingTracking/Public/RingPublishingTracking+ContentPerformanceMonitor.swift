@@ -53,7 +53,10 @@ public extension RingPublishingTracking {
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: [String: AnyHashable]) {
         Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createUserActionEvent(actionName: actionName,
+                                                        actionSubtypeName: actionSubtypeName,
+                                                        parameter: .parameters(parameters))
+        reportEvents([event])
     }
 
     /// Reports user action event
@@ -67,6 +70,10 @@ public extension RingPublishingTracking {
         Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
 
         // TODO: Implementation missing
+        let event = eventsFactory.createUserActionEvent(actionName: actionName,
+                                                        actionSubtypeName: actionSubtypeName,
+                                                        parameter: .plain(parameters))
+        reportEvents([event])
     }
 
     // MARK: Page view event
