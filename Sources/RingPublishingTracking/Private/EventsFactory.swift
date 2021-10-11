@@ -61,4 +61,16 @@ final class EventsFactory {
                      eventName: EventType.userAction.rawValue,
                      eventParameters: parameters)
     }
+
+    func createPageViewEvent(publicationIdentifier: String?) -> Event {
+        var parameters: [String: AnyHashable] = [:]
+
+        if let publicationIdentifier = publicationIdentifier {
+            parameters["PU"] = publicationIdentifier
+        }
+
+        return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
+                     eventName: EventType.pageView.rawValue,
+                     eventParameters: parameters)
+    }
 }

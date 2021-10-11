@@ -69,7 +69,6 @@ public extension RingPublishingTracking {
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: String) {
         Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
 
-        // TODO: Implementation missing
         let event = eventsFactory.createUserActionEvent(actionName: actionName,
                                                         actionSubtypeName: actionSubtypeName,
                                                         parameter: .plain(parameters))
@@ -91,9 +90,11 @@ public extension RingPublishingTracking {
     func reportPageView(currentStructurePath: [String], partiallyReloaded: Bool) {
         Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
 
-        // TODO: Implementation missing
         eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService.updateStructureType(structureType: .structurePath(currentStructurePath))
+
+        let event = eventsFactory.createPageViewEvent(publicationIdentifier: nil)
+        reportEvents([event])
     }
 
     // MARK: Content page view event & keep alive
@@ -120,11 +121,13 @@ public extension RingPublishingTracking {
         Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
         structure path: '\(currentStructurePath)'
         """
-        Logger.log(log )
+        Logger.log(log)
 
-        // TODO: Implementation missing
         eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath))
+
+        let event = eventsFactory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId)
+        reportEvents([event])
     }
 
     /// Pauses tracking for currently displayed content
