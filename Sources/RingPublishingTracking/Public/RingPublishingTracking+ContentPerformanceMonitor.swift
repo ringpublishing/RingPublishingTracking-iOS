@@ -93,7 +93,7 @@ public extension RingPublishingTracking {
         eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService.updateStructureType(structureType: .structurePath(currentStructurePath))
 
-        let event = eventsFactory.createPageViewEvent(publicationIdentifier: nil)
+        let event = eventsFactory.createPageViewEvent(publicationIdentifier: nil, contentMetadata: nil)
         reportEvents([event])
     }
 
@@ -126,7 +126,8 @@ public extension RingPublishingTracking {
         eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath))
 
-        let event = eventsFactory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId)
+        let event = eventsFactory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
+                                                      contentMetadata: contentMetadata)
         reportEvents([event])
     }
 

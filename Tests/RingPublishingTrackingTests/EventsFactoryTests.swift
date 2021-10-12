@@ -79,4 +79,55 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(params["VC"], "subname", "VC should be correct")
         XCTAssertEqual(params["VM"], plainParameter, "VM should be correct")
     }
+
+    // MARK: - PageViewEvent Tests
+
+    func testCreatePageViewEvent_noParametersProvided_returnedEventIsDecorated() {
+        // Given
+        let factory = EventsFactory()
+
+        // When
+        let event = factory.createPageViewEvent(publicationIdentifier: nil, contentMetadata: nil)
+        let params = event.eventParameters
+
+        // Then
+        XCTAssertNil(params["PU"], "PU parameter should be empty")
+        XCTAssertNil(params["DX"], "DX parameter should be empty")
+    }
+
+    func testCreatePageViewEvent_contentMetaDataWithPaidContentProvided_returnedEventIsDecorated() {
+        // Given
+        let factory = EventsFactory()
+        let contentMetadata = ContentMetadata(publicationId: "12345",
+                                              publicationUrl: URL(fileURLWithPath: "path"),
+                                              sourceSystemName: "system_name",
+                                              contentWasPaidFor: true)
+
+        // When
+        let event = factory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
+                                                contentMetadata: contentMetadata)
+        let params = event.eventParameters
+
+        // Then
+        XCTAssertEqual(params["PU"], contentMetadata.publicationId, "PU parameter should be equal publication identifier")
+        XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,t", "DX parameter should be in correct format")
+    }
+
+    func testCreatePageViewEvent_contentMetaDataWithUnpaidContentProvided_returnedEventIsDecorated() {
+        // Given
+        let factory = EventsFactory()
+        let contentMetadata = ContentMetadata(publicationId: "12345",
+                                              publicationUrl: URL(fileURLWithPath: "path"),
+                                              sourceSystemName: "system_name",
+                                              contentWasPaidFor: false)
+
+        // When
+        let event = factory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
+                                                contentMetadata: contentMetadata)
+        let params = event.eventParameters
+
+        // Then
+        XCTAssertEqual(params["PU"], contentMetadata.publicationId, "PU parameter should be equal publication identifier")
+        XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,f", "DX parameter should be in correct format")
+    }
 }
