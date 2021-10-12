@@ -25,4 +25,34 @@ final class EventsFactory {
                      eventName: EventType.click.rawValue,
                      eventParameters: parameters)
     }
+
+    func createUserActionEvent(actionName: String, actionSubtypeName: String, parameter: UserActionParameter) -> Event {
+        var parameters: [String: AnyHashable] = [
+            "VE": actionName,
+            "VC": actionSubtypeName
+        ]
+
+        let payload: String?
+
+        switch parameter {
+        case .parameters(let dictionary):
+            if let data = try? dictionary.dataUsingJSONSerialization(),
+               let string = String(data: data, encoding: .utf8) {
+                payload = string
+            } else {
+                payload = nil
+                Logger.log("Could not parse given parameters to JSON")
+            }
+        case .plain(let string):
+            payload = string
+        }
+
+        if let payload = payload {
+            parameters["VM"] = payload
+        }
+
+        return Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
+                     eventName: EventType.userAction.rawValue,
+                     eventParameters: parameters)
+    }
 }

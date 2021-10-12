@@ -110,7 +110,8 @@ class EventsServiceTests: XCTestCase {
         let incorrectEvent = Event(eventParameters: [
             "test": URL(string: "https://test.com") // incorrect event, URL is not allowed in JSONSerialization
         ])
-        let correctEvent = Event(eventParameters: ["test": "value"])
+
+        let correctEvent = Event(eventName: "name", eventParameters: ["test": "value"])
 
         service.addEvents([incorrectEvent, correctEvent])
 

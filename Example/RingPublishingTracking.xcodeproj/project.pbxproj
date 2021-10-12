@@ -31,6 +31,8 @@
 		204EAEF327102E60009E2F0D /* AnalyticsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */; };
 		204EAEF92710F539009E2F0D /* EventsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF82710F539009E2F0D /* EventsFactory.swift */; };
 		204EAEFB2710F57B009E2F0D /* EventsFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */; };
+		204EAEFD27143837009E2F0D /* UserManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEFC27143837009E2F0D /* UserManagerTests.swift */; };
+		204EAEFF2715908C009E2F0D /* UserActionParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEFE2715908C009E2F0D /* UserActionParameter.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -134,6 +136,8 @@
 		204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsSystem.swift; sourceTree = "<group>"; };
 		204EAEF82710F539009E2F0D /* EventsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFactory.swift; sourceTree = "<group>"; };
 		204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFactoryTests.swift; sourceTree = "<group>"; };
+		204EAEFC27143837009E2F0D /* UserManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerTests.swift; sourceTree = "<group>"; };
+		204EAEFE2715908C009E2F0D /* UserActionParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionParameter.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 				20883206270272C000EA53FD /* VendorIdentifiable.swift */,
 				204EAEF027102B91009E2F0D /* EventType.swift */,
 				204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */,
+				204EAEFE2715908C009E2F0D /* UserActionParameter.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 				204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */,
 				204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */,
 				204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */,
+				204EAEFC27143837009E2F0D /* UserManagerTests.swift */,
 			);
 			path = RingPublishingTrackingTests;
 			sourceTree = "<group>";
@@ -840,6 +846,7 @@
 				7D7D5BE626FCA5AF00B79FDD /* ServiceError.swift in Sources */,
 				204EAEF127102B91009E2F0D /* EventType.swift in Sources */,
 				7D7D5BF426FCA5AF00B79FDD /* UserDefaultsStorage.swift in Sources */,
+				204EAEFF2715908C009E2F0D /* UserActionParameter.swift in Sources */,
 				204EAECF270D989D009E2F0D /* Decorator.swift in Sources */,
 				204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */,
 				7D7D5BD726FCA5AF00B79FDD /* RingPublishingTrackingConfiguration.swift in Sources */,
@@ -860,6 +867,7 @@
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
 				204EAEE8270F108B009E2F0D /* SizeProvider.swift in Sources */,
 				7D7D5BD326FCA5AF00B79FDD /* ContentPageViewSource.swift in Sources */,
+				204EAEFD27143837009E2F0D /* UserManagerTests.swift in Sources */,
 				204EAED3270EF5EB009E2F0D /* DecoratorTests.swift in Sources */,
 				204EAEC7270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift in Sources */,
 				7D7D5BCF26FCA5AE00B79FDD /* RingPublishingTrackingKeepAliveDataSource.swift in Sources */,

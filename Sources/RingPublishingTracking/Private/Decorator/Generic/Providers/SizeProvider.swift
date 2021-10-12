@@ -21,7 +21,7 @@ struct SizeProvider: SizeProviding {
                 .filter { $0.activationState == .foregroundActive }
                 .compactMap { $0 as? UIWindowScene }
                 .first?.windows
-                .first(where: \.isKeyWindow) ?? UIApplication.shared.keyWindow
+                .first(where: \.isKeyWindow) ?? UIApplication.shared.windows.first { $0.isKeyWindow }
 
             return window?.frame.size ?? .zero
         } else {
