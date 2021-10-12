@@ -10,5 +10,5 @@ import Foundation
 
 protocol Decorator {
 
-    func parameters() -> [String: AnyHashable]
+    var parameters: [String: AnyHashable] { get }
 }

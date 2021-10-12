@@ -40,7 +40,7 @@ final class StructureInfoDecorator: Decorator {
     private(set) var structureType: StructureType?
     private(set) var previousStructureType: StructureType?
 
-    func parameters() -> [String: AnyHashable] {
+    var parameters: [String: AnyHashable] {
         guard
             let structureType = structureType,
             let applicationRootPath = applicationRootPath

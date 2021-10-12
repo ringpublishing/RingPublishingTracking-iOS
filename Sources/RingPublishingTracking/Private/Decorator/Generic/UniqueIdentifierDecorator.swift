@@ -27,7 +27,7 @@ final class UniqueIdentifierDecorator: Decorator {
         secondaryIdentifier = initialIdentifier
     }
 
-    func parameters() -> [String: AnyHashable] {
+    var parameters: [String: AnyHashable] {
         [
             "IP": primaryIdentifier,
             "IV": secondaryIdentifier

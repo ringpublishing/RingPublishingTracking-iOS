@@ -23,21 +23,21 @@ class DecoratorTests: XCTestCase {
         let decorator = UniqueIdentifierDecorator()
 
         // Then
-        let params1 = decorator.parameters()
+        let params1 = decorator.parameters
         XCTAssertEqual(params1["IP"], params1["IV"], "IP and IV parameters should be equal")
 
         // When
         decorator.updateSecondaryIdentifier()
 
         // Then
-        let params2 = decorator.parameters()
+        let params2 = decorator.parameters
         XCTAssertNotEqual(params2["IP"], params2["IV"], "IP and IV parameters should be different")
 
         // When
         decorator.updateIdentifiers()
 
         // Then
-        let params3 = decorator.parameters()
+        let params3 = decorator.parameters
         XCTAssertEqual(params3["IP"], params3["IV"], "IP and IV parameters should be equal")
         XCTAssertNotEqual(params1["IP"], params3["IP"], "Initial IP and new IP parameters should be different")
         XCTAssertNotEqual(params1["IV"], params3["IV"], "Initial IV and new IV parameters should be different")
@@ -51,7 +51,7 @@ class DecoratorTests: XCTestCase {
         let decorator = SizeDecorator(sizeProvider: provider)
 
         // Then
-        let params = decorator.parameters()
+        let params = decorator.parameters
         let csField = params["CS"]
         let cvField = params["CV"]
 
@@ -78,7 +78,7 @@ class DecoratorTests: XCTestCase {
         decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath))
 
         // Then
-        let params1 = decorator.parameters()
+        let params1 = decorator.parameters
 
         XCTAssertEqual(params1["DV"], "onet.app.ios/home", "DV should be correct")
         XCTAssertEqual(params1["DU"], "https://onet.app.ios/home", "DU should be correct")
@@ -88,7 +88,7 @@ class DecoratorTests: XCTestCase {
         decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]))
 
         // Then
-        let params2 = decorator.parameters()
+        let params2 = decorator.parameters
 
         XCTAssertEqual(params2["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
         XCTAssertEqual(params2["DU"], sampleArticleURL.absoluteString, "DU should be correct")
@@ -103,7 +103,7 @@ class DecoratorTests: XCTestCase {
         let decorator = ConsentStringDecorator(consentProvider: provider)
 
         // Then
-        let params = decorator.parameters()
+        let params = decorator.parameters
 
         XCTAssertEqual(params["_adpc"], provider.adpc, "_adpc should be correct")
     }
@@ -117,7 +117,7 @@ class DecoratorTests: XCTestCase {
 
         // Then
         decorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: applicationDefaultAdvertisementArea)
-        let params = decorator.parameters()
+        let params = decorator.parameters
 
         XCTAssertEqual(params["DA"], applicationDefaultAdvertisementArea, "DA should be correct")
     }
@@ -130,7 +130,7 @@ class DecoratorTests: XCTestCase {
 
         // Then
         decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: "12345"), name: "Test"))))
-        let params = decorator.parameters()
+        let params = decorator.parameters
 
         XCTAssertNotNil(params["RDLU"], "RDLU should not be empty")
     }
@@ -144,7 +144,7 @@ class DecoratorTests: XCTestCase {
 
         // Then
         decorator.updateTenantId(tenantId: tenantId)
-        let params = decorator.parameters()
+        let params = decorator.parameters
 
         XCTAssertEqual(params["TID"], tenantId, "TID should be correct")
     }
