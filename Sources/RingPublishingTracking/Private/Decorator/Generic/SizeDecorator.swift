@@ -26,6 +26,6 @@ final class SizeDecorator: Decorator {
     }
 
     private func formatSize(for size: CGSize) -> String {
-        "\(Int(size.height))x\(Int(size.width))x\(screenDepth)"
+        "\(Int(size.width))x\(Int(size.height))x\(screenDepth)"
     }
 }
