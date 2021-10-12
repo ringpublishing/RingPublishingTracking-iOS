@@ -77,6 +77,7 @@ struct APIService: Service {
                 return
             }
 
+            Logger.log("Received response: \(decoded)")
             completion(.success(decoded))
         }
     }

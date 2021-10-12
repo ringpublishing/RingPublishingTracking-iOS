@@ -92,6 +92,11 @@ final class EventsService {
 
     /// Calls the /me endpoint from the API
     func identifyMe() {
+        guard operationMode.canSendNetworkRequests else {
+            Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
+            return
+        }
+
         guard let apiService = apiService else {
             Logger.log("RingPublishingTracking is not configured. Configure it using initialize method.", level: .error)
             return
@@ -156,11 +161,11 @@ extension EventsService {
 
     /// Checks if stored eaUUID is not expired
     var isEaUuidValid: Bool {
-        guard let eaUuid = storage.eaUUID else {
+        guard let eaUUID = storage.eaUUID else {
             return false
         }
 
-        let expirationDate = eaUuid.creationDate.addingTimeInterval(TimeInterval(eaUuid.lifetime))
+        let expirationDate = eaUUID.creationDate.addingTimeInterval(TimeInterval(eaUUID.lifetime))
         let now = Date()
 
         return expirationDate > now
@@ -189,14 +194,19 @@ extension EventsService {
     /// Sends Identify Request if user identifier is missing or expired
     private func identifyMeIfNeeded() {
         guard !isEaUuidValid else {
+            guard let eaUUID = storage.eaUUID else { return }
+
+            delegate?.eventsService(self, retrievedTrackingIdentifier: eaUUID.value)
             return
         }
 
-        identifyMe()
+        retrieveVendorIdentifier { [weak self] in
+            self?.identifyMe()
+        }
     }
 
     /// Retrieves Vendor Identifier (IDFA)
-    private func retrieveVendorIdentifier() {
+    private func retrieveVendorIdentifier(completion: @escaping () -> Void) {
         vendorManager.retrieveVendorIdentifier { [weak self] result in
             switch result {
             case .success(let identifier):
@@ -204,6 +214,8 @@ extension EventsService {
             case .failure:
                 self?.userManager.updateIDFA(idfa: nil)
             }
+
+            completion()
         }
     }
 
@@ -221,7 +233,7 @@ extension EventsService {
         let creationDate = Date()
         storage.eaUUID = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
 
-        delegate?.eventsService(self, retrievedtrackingIdentifier: value)
+        delegate?.eventsService(self, retrievedTrackingIdentifier: value)
     }
 
     /// Stores Post Interval
@@ -294,6 +306,7 @@ extension EventsService {
 extension EventsService: EventsQueueManagerDelegate {
 
     func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {
+        Logger.log("Events queue is ready to send events.")
         sendEvents(for: eventsQueueManager)
     }
 }

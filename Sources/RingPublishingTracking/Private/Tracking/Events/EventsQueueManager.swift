@@ -87,11 +87,17 @@ extension EventsQueueManager {
 
     /// Sends events to backend if possible
     private func sendEventsIfPossible() {
+        guard operationMode.canSendNetworkRequests else {
+            Logger.log("Opt-out/Debug mode is enabled. Ignoring network request.")
+            return
+        }
+
         guard canSendEvents() else {
             scheduleTimer()
             return
         }
 
+        updateLastSendDate()
         delegate?.eventsQueueBecameReadyToSendEvents(self)
     }
 
@@ -102,12 +108,12 @@ extension EventsQueueManager {
             return
         }
 
-        Logger.log("SDK is not ready to send events yet. Scheduling a timer with interval \(postInterval).")
-
         guard timer == nil else {
             Logger.log("Timer is already scheduled.")
             return
         }
+
+        Logger.log("SDK is not ready to send events yet. Scheduling a timer with interval \(postInterval)ms.")
 
         timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(postInterval / 1000), repeats: false) { [weak self] _ in
             self?.invalidateTimer()

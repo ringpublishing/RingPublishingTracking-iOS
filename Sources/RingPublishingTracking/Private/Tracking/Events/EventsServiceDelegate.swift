@@ -11,5 +11,5 @@ import Foundation
 /// Events Service delegate
 protocol EventsServiceDelegate: AnyObject {
 
-    func eventsService(_ eventsService: EventsService, retrievedtrackingIdentifier identifier: String)
+    func eventsService(_ eventsService: EventsService, retrievedTrackingIdentifier identifier: String)
 }
