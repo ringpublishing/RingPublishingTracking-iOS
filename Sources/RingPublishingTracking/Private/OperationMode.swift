@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct OperationMode: Operationable {
+final class OperationMode: Operationable {
 
     var debugEnabled: Bool = false
     var optOutEnabled: Bool = false
