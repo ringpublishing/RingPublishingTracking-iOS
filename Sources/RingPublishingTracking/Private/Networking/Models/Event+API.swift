@@ -34,7 +34,7 @@ extension Event {
         var parameters = eventParameters
 
         for decorator in decorators {
-            decorator.parameters().forEach {
+            decorator.parameters.forEach {
                 parameters[$0.key] = $0.value
             }
         }

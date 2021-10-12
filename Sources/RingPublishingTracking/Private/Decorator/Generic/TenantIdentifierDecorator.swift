@@ -12,7 +12,7 @@ final class TenantIdentifierDecorator: Decorator {
 
     private var tenantId: String?
 
-    func parameters() -> [String: AnyHashable] {
+    var parameters: [String: AnyHashable] {
         guard let tenantId = tenantId else {
             return [:]
         }

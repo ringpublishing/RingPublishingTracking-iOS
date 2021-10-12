@@ -12,7 +12,7 @@ final class UserDataDecorator: Decorator {
 
     private var data: UserData?
 
-    func parameters() -> [String: AnyHashable] {
+    var parameters: [String: AnyHashable] {
         guard
             let data = data,
             let jsonData = try? JSONEncoder().encode(data),
