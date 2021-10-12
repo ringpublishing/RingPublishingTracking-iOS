@@ -69,7 +69,6 @@ public extension RingPublishingTracking {
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: String) {
         Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
 
-        // TODO: Implementation missing
         let event = eventsFactory.createUserActionEvent(actionName: actionName,
                                                         actionSubtypeName: actionSubtypeName,
                                                         parameter: .plain(parameters))

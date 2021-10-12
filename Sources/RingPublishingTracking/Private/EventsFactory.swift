@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum UserActionParameter {
-    case parameters([String: AnyHashable])
-    case plain(String)
-}
-
 final class EventsFactory {
 
     func createClickEvent(selectedElementName: String?, publicationUrl: URL?) -> Event {
@@ -41,9 +36,8 @@ final class EventsFactory {
 
         switch parameter {
         case .parameters(let dictionary):
-            if
-                let data = try? dictionary.dataUsingJSONSerialization(),
-                let string = String(data: data, encoding: .utf8) {
+            if let data = try? dictionary.dataUsingJSONSerialization(),
+               let string = String(data: data, encoding: .utf8) {
                 payload = string
             } else {
                 payload = nil
