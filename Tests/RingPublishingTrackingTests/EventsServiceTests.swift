@@ -100,4 +100,23 @@ class EventsServiceTests: XCTestCase {
 
         XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
     }
+
+    func testAddEvents_eventsWithInvalidAddedToQueue_invalidEventsAreNotAdded() {
+        // Given
+        let storage = StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: nil)
+        let service = EventsService(storage: storage)
+
+        // When
+        let incorrectEvent = Event(eventParameters: [
+            "test": URL(string: "https://test.com") // incorrect event, URL is not allowed in JSONSerialization
+        ])
+        let correctEvent = Event(eventParameters: ["test": "value"])
+
+        service.addEvents([incorrectEvent, correctEvent])
+
+        let request = service.buildEventRequest()
+
+        // Then
+        XCTAssertEqual(request.events.count, 1, "Incorrect event should not be added")
+    }
 }

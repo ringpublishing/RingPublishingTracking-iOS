@@ -27,6 +27,10 @@
 		204EAEEB270F10B2009E2F0D /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED5270F0F43009E2F0D /* UserData.swift */; };
 		204EAEED270F12B7009E2F0D /* VendorManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */; };
 		204EAEEF270F1313009E2F0D /* VendorIdentifierProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */; };
+		204EAEF127102B91009E2F0D /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF027102B91009E2F0D /* EventType.swift */; };
+		204EAEF327102E60009E2F0D /* AnalyticsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */; };
+		204EAEF92710F539009E2F0D /* EventsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEF82710F539009E2F0D /* EventsFactory.swift */; };
+		204EAEFB2710F57B009E2F0D /* EventsFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -126,6 +130,10 @@
 		204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentProviderStub.swift; sourceTree = "<group>"; };
 		204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManagerTests.swift; sourceTree = "<group>"; };
 		204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifierProviderMock.swift; sourceTree = "<group>"; };
+		204EAEF027102B91009E2F0D /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
+		204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsSystem.swift; sourceTree = "<group>"; };
+		204EAEF82710F539009E2F0D /* EventsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFactory.swift; sourceTree = "<group>"; };
+		204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFactoryTests.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -266,6 +274,8 @@
 				2088320C2702FD4300EA53FD /* Events */,
 				208832042702728300EA53FD /* VendorManager.swift */,
 				20883206270272C000EA53FD /* VendorIdentifiable.swift */,
+				204EAEF027102B91009E2F0D /* EventType.swift */,
+				204EAEF227102E60009E2F0D /* AnalyticsSystem.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -329,6 +339,7 @@
 				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
 				204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */,
 				204EAEEC270F12B7009E2F0D /* VendorManagerTests.swift */,
+				204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */,
 			);
 			path = RingPublishingTrackingTests;
 			sourceTree = "<group>";
@@ -502,6 +513,7 @@
 				208832172704852600EA53FD /* Operationable.swift */,
 				20883219270485E900EA53FD /* OperationMode.swift */,
 				204EAEC6270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift */,
+				204EAEF82710F539009E2F0D /* EventsFactory.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -826,10 +838,12 @@
 				7D7D5BE026FCA5AF00B79FDD /* IdentifyRequest.swift in Sources */,
 				204EAEED270F12B7009E2F0D /* VendorManagerTests.swift in Sources */,
 				7D7D5BE626FCA5AF00B79FDD /* ServiceError.swift in Sources */,
+				204EAEF127102B91009E2F0D /* EventType.swift in Sources */,
 				7D7D5BF426FCA5AF00B79FDD /* UserDefaultsStorage.swift in Sources */,
 				204EAECF270D989D009E2F0D /* Decorator.swift in Sources */,
 				204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */,
 				7D7D5BD726FCA5AF00B79FDD /* RingPublishingTrackingConfiguration.swift in Sources */,
+				204EAEFB2710F57B009E2F0D /* EventsFactoryTests.swift in Sources */,
 				7D7D5BD026FCA5AE00B79FDD /* RingPublishingTracking+Aureus.swift in Sources */,
 				7D7D5BEA26FCA5AF00B79FDD /* IdsWithLifetime.swift in Sources */,
 				7D7D5BD126FCA5AE00B79FDD /* RingPublishingTrackingDelegate.swift in Sources */,
@@ -853,6 +867,7 @@
 				2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */,
 				7D7D5BE726FCA5AF00B79FDD /* Profile.swift in Sources */,
 				7D7D5BEC26FCA5AF00B79FDD /* UserAgent.swift in Sources */,
+				204EAEF92710F539009E2F0D /* EventsFactory.swift in Sources */,
 				7D7D5BEF26FCA5AF00B79FDD /* NetworkService.swift in Sources */,
 				7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */,
 				204EAECA270D9885009E2F0D /* UserDataDecorator.swift in Sources */,
@@ -862,6 +877,7 @@
 				208832182704852600EA53FD /* Operationable.swift in Sources */,
 				7D7D5BF026FCA5AF00B79FDD /* Endpoint.swift in Sources */,
 				7D7D5BE526FCA5AF00B79FDD /* HTTPMethod.swift in Sources */,
+				204EAEF327102E60009E2F0D /* AnalyticsSystem.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
 				204EAEC9270D9885009E2F0D /* StructureInfoDecorator.swift in Sources */,

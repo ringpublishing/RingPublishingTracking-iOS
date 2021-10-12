@@ -22,7 +22,8 @@ public extension RingPublishingTracking {
     func reportClick(selectedElementName: String?) {
         Logger.log("Reporting click event for element named: '\(selectedElementName.logable)'")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName, publicationUrl: nil)
+        reportEvents([event])
     }
 
     // MARK: Content click event
@@ -36,7 +37,8 @@ public extension RingPublishingTracking {
         let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting content click event for element named: \(logData)")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName, publicationUrl: publicationUrl)
+        reportEvents([event])
     }
 
     // MARK: User action event

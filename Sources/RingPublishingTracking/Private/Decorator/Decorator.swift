@@ -9,5 +9,6 @@
 import Foundation
 
 protocol Decorator {
-    func parameters() -> [String: String]
+
+    func parameters() -> [String: AnyHashable]
 }

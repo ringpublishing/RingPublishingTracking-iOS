@@ -44,6 +44,9 @@ public class RingPublishingTracking {
     /// Events service for handling all operations on events
     let eventsService = EventsService()
 
+    /// Events factory for creating specific events
+    let eventsFactory = EventsFactory()
+
     // MARK: Private properties
 
     /// Module delegate

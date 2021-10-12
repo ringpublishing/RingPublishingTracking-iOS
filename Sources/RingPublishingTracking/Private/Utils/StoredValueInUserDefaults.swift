@@ -9,7 +9,7 @@
 import Foundation
 
 @propertyWrapper
-struct StoredValueInUserDefaults<T> {
+struct StoredValueInUserDefaults<T: Codable> {
 
     private let key: String
     private let storage: Storage
@@ -23,7 +23,11 @@ struct StoredValueInUserDefaults<T> {
                 return Date(timeIntervalSince1970: saveInterval) as? T
 
             default:
-                return storage.object(forKey: key) as? T
+                guard let data = storage.object(forKey: key) as? Data else {
+                    return nil
+                }
+
+                return try? JSONDecoder().decode(T.self, from: data)
             }
         }
         set {
@@ -33,7 +37,13 @@ struct StoredValueInUserDefaults<T> {
                 storage.set(newDate, forKey: key)
 
             default:
-                storage.set(newValue, forKey: key)
+                guard let newValue = newValue else {
+                    storage.set(nil, forKey: key)
+                    return
+                }
+
+                let data = try? JSONEncoder().encode(newValue)
+                storage.set(data, forKey: key)
             }
         }
     }

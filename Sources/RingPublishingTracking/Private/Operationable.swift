@@ -13,3 +13,9 @@ protocol Operationable {
     var debugEnabled: Bool { get }
     var optOutEnabled: Bool { get }
 }
+
+extension Operationable {
+    var canSendNetworkRequests: Bool {
+        !debugEnabled && !optOutEnabled
+    }
+}
