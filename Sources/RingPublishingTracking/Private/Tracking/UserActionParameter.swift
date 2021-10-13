@@ -12,5 +12,5 @@ import Foundation
 enum UserActionParameter {
 
     case parameters([String: AnyHashable])
-    case plain(String)
+    case plain(String?)
 }

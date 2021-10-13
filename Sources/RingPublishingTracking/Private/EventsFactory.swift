@@ -76,4 +76,20 @@ final class EventsFactory {
                      eventName: EventType.pageView.rawValue,
                      eventParameters: parameters)
     }
+
+    func createAureusOffersImpressionEvent(offerIds: [String]) -> Event {
+        let offerIdsString = offerIds.joined(separator: "\",\"")
+        let allowedCharacters = CharacterSet.urlQueryAllowed
+
+        let encodedListString: String?
+        if offerIds.isEmpty {
+            encodedListString = nil
+        } else {
+            encodedListString = "[\"\(offerIdsString)\"]".addingPercentEncoding(withAllowedCharacters: allowedCharacters)
+        }
+
+        return createUserActionEvent(actionName: "aureusOfferImpressions",
+                                     actionSubtypeName: "offerIds",
+                                     parameter: .plain(encodedListString))
+    }
 }
