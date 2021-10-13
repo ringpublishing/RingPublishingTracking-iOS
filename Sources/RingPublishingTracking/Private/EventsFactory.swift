@@ -79,13 +79,12 @@ final class EventsFactory {
 
     func createAureusOffersImpressionEvent(offerIds: [String]) -> Event {
         let offerIdsString = offerIds.joined(separator: "\",\"")
-        let allowedCharacters = CharacterSet.urlQueryAllowed
 
         let encodedListString: String?
         if offerIds.isEmpty {
             encodedListString = nil
         } else {
-            encodedListString = "[\"\(offerIdsString)\"]".addingPercentEncoding(withAllowedCharacters: allowedCharacters)
+            encodedListString = "[\"\(offerIdsString)\"]".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         }
 
         return createUserActionEvent(actionName: "aureusOfferImpressions",
