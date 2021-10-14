@@ -72,7 +72,8 @@ public class RingPublishingTracking {
         eventsService.updateApplicationAdvertisementArea(configuration.applicationDefaultAdvertisementArea)
         eventsService.updateTenantId(tenantId: configuration.tenantId)
         eventsService.updateApplicationRootPath(applicationRootPath: configuration.applicationRootPath)
-        eventsService.updateStructureType(structureType: .structurePath(configuration.applicationDefaultStructurePath), contentPageViewSource: nil)
+        eventsService.updateStructureType(structureType: .structurePath(configuration.applicationDefaultStructurePath),
+                                          contentPageViewSource: nil)
     }
 
     // MARK: Debug mode / opt-out mode
