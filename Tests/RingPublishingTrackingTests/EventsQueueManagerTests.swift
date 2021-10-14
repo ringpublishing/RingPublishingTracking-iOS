@@ -97,6 +97,27 @@ class EventsQueueManagerTests: XCTestCase {
         // Then
         XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
     }
+
+    func testCanSendEvents_storageWithPostInveralBelow1SecondSetup_sendingEventsIsAllowed() {
+        // Given
+        let manager = EventsQueueManager(storage: StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: 500),
+                                         operationMode: OperationMode())
+
+        // Then
+        XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
+
+        // When
+        manager.updateLastSendDate()
+
+        // Then
+        XCTAssertFalse(manager.canSendEvents(), "Should not be allowed to send events")
+
+        // When
+        wait(for: 1)
+
+        // Then
+        XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
+    }
 }
 
 extension Event {
