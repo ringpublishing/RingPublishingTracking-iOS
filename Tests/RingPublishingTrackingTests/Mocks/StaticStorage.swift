@@ -13,4 +13,5 @@ struct StaticStorage: TrackingStorage {
     var eaUUID: EaUUID?
     var trackingIds: [String: IdsWithLifetime]?
     var postInterval: Int?
+    var randomUniqueDeviceId: String?
 }

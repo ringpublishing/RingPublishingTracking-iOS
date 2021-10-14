@@ -60,8 +60,15 @@ final class EventsService {
         // Prepare decorators
         prepareDecorators()
 
-        // Call identify once the API is configured to retrieve trackingIdentifier as soon as possible
-        identifyMeIfNeeded()
+        // Prepare random unique device identifier
+        if storage.randomUniqueDeviceId == nil {
+            storage.randomUniqueDeviceId = UUID().uuidString
+        }
+
+        retrieveVendorIdentifier { [weak self] in
+            // Call identify once the API is configured to retrieve trackingIdentifier as soon as possible
+            self?.identifyMeIfNeeded()
+        }
     }
 
     /// Registers decorator for decorating data parameters
@@ -148,8 +155,8 @@ final class EventsService {
         tenantIdentifierDecorator.updateTenantId(tenantId: tenantId)
     }
 
-    func updateStructureType(structureType: StructureType) {
-        structureInfoDecorator.updateStructureType(structureType: structureType)
+    func updateStructureType(structureType: StructureType, contentPageViewSource: ContentPageViewSource?) {
+        structureInfoDecorator.updateStructureType(structureType: structureType, contentPageViewSource: contentPageViewSource)
     }
 
     func updateApplicationRootPath(applicationRootPath: String) {
@@ -200,9 +207,7 @@ extension EventsService {
             return
         }
 
-        retrieveVendorIdentifier { [weak self] in
-            self?.identifyMe()
-        }
+        identifyMe()
     }
 
     /// Retrieves Vendor Identifier (IDFA)
@@ -213,6 +218,7 @@ extension EventsService {
                 self?.userManager.updateIDFA(idfa: identifier)
             case .failure:
                 self?.userManager.updateIDFA(idfa: nil)
+                self?.userManager.updateDeviceId(deviceId: self?.storage.randomUniqueDeviceId)
             }
 
             completion()

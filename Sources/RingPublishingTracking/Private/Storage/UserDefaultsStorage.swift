@@ -18,4 +18,7 @@ final class UserDefaultsStorage: TrackingStorage {
 
     @StoredValueInUserDefaults(key: "postInterval", storage: UserDefaults.standard)
     var postInterval: Int?
+
+    @StoredValueInUserDefaults(key: "randomUniqueDeviceId", storage: UserDefaults.standard)
+    var randomUniqueDeviceId: String?
 }

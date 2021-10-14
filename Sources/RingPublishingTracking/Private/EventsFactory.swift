@@ -64,12 +64,7 @@ final class EventsFactory {
         }
 
         if let contentMetadata = contentMetadata {
-            let sourceSystem = contentMetadata.sourceSystemName
-            let pubId = contentMetadata.publicationId
-            let part = contentMetadata.contentPartIndex
-            let paid = contentMetadata.contentWasPaidFor ? "t" : "f"
-
-            parameters["DX"] = "PV_4,\(sourceSystem),\(pubId),\(part),\(paid)"
+            parameters["DX"] = contentMetadata.dxParameter
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,

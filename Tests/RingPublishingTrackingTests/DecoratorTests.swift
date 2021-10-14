@@ -53,14 +53,14 @@ class DecoratorTests: XCTestCase {
         // Then
         let params = decorator.parameters
         let csField = params["CS"]
-        let cvField = params["CV"]
+        let cwField = params["CW"]
 
         XCTAssertEqual(csField,
-                       "\(Int(provider.screenSize.width))x\(Int(provider.screenSize.height))x24",
+                       "\(Int(provider.screenSize.width))x\(Int(provider.screenSize.height))",
                        "CS should be equal to given size")
-        XCTAssertEqual(cvField,
-                       "\(Int(provider.applicationSize.width))x\(Int(provider.applicationSize.height))x24",
-                       "CV should be equal to given size")
+        XCTAssertEqual(cwField,
+                       "\(Int(provider.applicationSize.width))x\(Int(provider.applicationSize.height))",
+                       "CW should be equal to given size")
     }
 
     // MARK: - StructureInfoDecorator Tests
@@ -75,24 +75,67 @@ class DecoratorTests: XCTestCase {
 
         // When
         decorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
-        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath))
+        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath), contentPageViewSource: nil)
 
         // Then
         let params1 = decorator.parameters
 
-        XCTAssertEqual(params1["DV"], "onet.app.ios/home", "DV should be correct")
+        XCTAssertEqual(params1["DV"], "onet_app_ios/home", "DV should be correct")
         XCTAssertEqual(params1["DU"], "https://onet.app.ios/home", "DU should be correct")
         XCTAssertNil(params1["DR"], "DR should be nil")
 
         // When
-        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]))
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
+                                      contentPageViewSource: .default)
 
         // Then
         let params2 = decorator.parameters
 
-        XCTAssertEqual(params2["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params2["DV"], "onet_app_ios/home/sport/article_123", "DV should be correct")
         XCTAssertEqual(params2["DU"], sampleArticleURL.absoluteString, "DU should be correct")
         XCTAssertEqual(params2["DR"], params1["DU"], "DR should be nil")
+    }
+
+    func testParameters_structureInfoDecoratorCreatedForContentPageView_returnedParametersAreCorrect() {
+        // Given
+        let applicationRootPath = "Onet"
+        let applicationDefaultStructurePath  = ["Home"]
+        let sampleArticleURL = URL(string: "https://test.com/article?id=123")! // swiftlint:disable:this force_unwrapping
+
+        let decorator = StructureInfoDecorator()
+
+        // When
+        decorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
+        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath), contentPageViewSource: nil)
+
+        // Then
+        let params1 = decorator.parameters
+
+        XCTAssertEqual(params1["DV"], "onet_app_ios/home", "DV should be correct")
+        XCTAssertEqual(params1["DU"], "https://onet.app.ios/home", "DU should be correct")
+        XCTAssertNil(params1["DR"], "DR should be nil")
+
+        // When
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
+                                      contentPageViewSource: .socialMedia)
+
+        // Then
+        let params2 = decorator.parameters
+
+        XCTAssertEqual(params2["DV"], "onet_app_ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params2["DU"], sampleArticleURL.absoluteString + "?utm_medium=social", "DU should be correct")
+        XCTAssertEqual(params2["DR"], params1["DU"], "DR should be equal to previous DU")
+
+        // When
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
+                                      contentPageViewSource: .pushNotifcation)
+
+        // Then
+        let params3 = decorator.parameters
+
+        XCTAssertEqual(params3["DV"], "onet_app_ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params3["DU"], sampleArticleURL.absoluteString + "?utm_medium=push", "DU should be correct")
+        XCTAssertEqual(params3["DR"], params2["DU"], "DR should be equal to previous DU")
     }
 
     // MARK: - ConsentStringDecorator Tests
@@ -133,6 +176,19 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         XCTAssertNotNil(params["RDLU"], "RDLU should not be empty")
+    }
+
+    func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
+        // Given
+        let decorator = UserDataDecorator()
+
+        // Then
+        decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: "12345"), name: "Test"))))
+        decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: nil), name: "Test"))))
+
+        let params = decorator.parameters
+
+        XCTAssertNil(params["RDLU"], "RDLU should be empty")
     }
 
     // MARK: - TenantIdentifierDecorator Tests
