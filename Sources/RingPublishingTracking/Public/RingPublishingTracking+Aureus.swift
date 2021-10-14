@@ -19,6 +19,7 @@ public extension RingPublishingTracking {
     func reportAureusOffersImpressions(offerIds: [String]) {
         Logger.log("Reporting 'Aureus' offers impression event for offers: '\(offerIds)'")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createAureusOffersImpressionEvent(offerIds: offerIds)
+        reportEvents([event])
     }
 }
