@@ -170,9 +170,10 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreated_returnedParametersAreCorrect() {
         // Given
         let decorator = UserDataDecorator()
+        let data = UserData(user: .init(sso: .init(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")))
 
         // Then
-        decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: "12345"), name: "Test"))))
+        decorator.updateUserData(data: data)
         let params = decorator.parameters
 
         XCTAssertNotNil(params["RDLU"], "RDLU should not be empty")
@@ -181,10 +182,12 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
         // Given
         let decorator = UserDataDecorator()
+        let data = UserData(user: .init(sso: .init(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")))
+        let emptyData = UserData(user: .init(sso: .init(logged: .init(id: nil, md5: nil), name: "Test")))
 
         // Then
-        decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: "12345"), name: "Test"))))
-        decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: nil), name: "Test"))))
+        decorator.updateUserData(data: data)
+        decorator.updateUserData(data: emptyData)
 
         let params = decorator.parameters
 
