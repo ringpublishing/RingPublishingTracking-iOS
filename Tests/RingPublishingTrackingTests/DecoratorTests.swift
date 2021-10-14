@@ -80,7 +80,7 @@ class DecoratorTests: XCTestCase {
         // Then
         let params1 = decorator.parameters
 
-        XCTAssertEqual(params1["DV"], "onet.app.ios/home", "DV should be correct")
+        XCTAssertEqual(params1["DV"], "onet_app_ios/home", "DV should be correct")
         XCTAssertEqual(params1["DU"], "https://onet.app.ios/home", "DU should be correct")
         XCTAssertNil(params1["DR"], "DR should be nil")
 
@@ -91,7 +91,7 @@ class DecoratorTests: XCTestCase {
         // Then
         let params2 = decorator.parameters
 
-        XCTAssertEqual(params2["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params2["DV"], "onet_app_ios/home/sport/article_123", "DV should be correct")
         XCTAssertEqual(params2["DU"], sampleArticleURL.absoluteString, "DU should be correct")
         XCTAssertEqual(params2["DR"], params1["DU"], "DR should be nil")
     }
@@ -111,7 +111,7 @@ class DecoratorTests: XCTestCase {
         // Then
         let params1 = decorator.parameters
 
-        XCTAssertEqual(params1["DV"], "onet.app.ios/home", "DV should be correct")
+        XCTAssertEqual(params1["DV"], "onet_app_ios/home", "DV should be correct")
         XCTAssertEqual(params1["DU"], "https://onet.app.ios/home", "DU should be correct")
         XCTAssertNil(params1["DR"], "DR should be nil")
 
@@ -122,7 +122,7 @@ class DecoratorTests: XCTestCase {
         // Then
         let params2 = decorator.parameters
 
-        XCTAssertEqual(params2["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params2["DV"], "onet_app_ios/home/sport/article_123", "DV should be correct")
         XCTAssertEqual(params2["DU"], sampleArticleURL.absoluteString + "?utm_medium=social", "DU should be correct")
         XCTAssertEqual(params2["DR"], params1["DU"], "DR should be equal to previous DU")
 
@@ -133,7 +133,7 @@ class DecoratorTests: XCTestCase {
         // Then
         let params3 = decorator.parameters
 
-        XCTAssertEqual(params3["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params3["DV"], "onet_app_ios/home/sport/article_123", "DV should be correct")
         XCTAssertEqual(params3["DU"], sampleArticleURL.absoluteString + "?utm_medium=push", "DU should be correct")
         XCTAssertEqual(params3["DR"], params2["DU"], "DR should be equal to previous DU")
     }

@@ -31,6 +31,7 @@ enum StructureType {
 
     private func formatFieldDV(for applicationRootPath: String, array: [String]) -> String {
         ([applicationRootPath + ".\(Constants.applicationPrefix)"] + array).joined(separator: "/").lowercased()
+            .replacingOccurrences(of: ".", with: "_")
     }
 }
 
