@@ -33,6 +33,8 @@
 		204EAEFB2710F57B009E2F0D /* EventsFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */; };
 		204EAEFD27143837009E2F0D /* UserManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEFC27143837009E2F0D /* UserManagerTests.swift */; };
 		204EAEFF2715908C009E2F0D /* UserActionParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEFE2715908C009E2F0D /* UserActionParameter.swift */; };
+		204EAF032716D34A009E2F0D /* KeepAliveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF012716D2A5009E2F0D /* KeepAliveManager.swift */; };
+		204EAF052716D513009E2F0D /* KeepAliveIntervalsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */; };
 		204EAF07271836BE009E2F0D /* ContentMetadata+DX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
@@ -139,6 +141,8 @@
 		204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFactoryTests.swift; sourceTree = "<group>"; };
 		204EAEFC27143837009E2F0D /* UserManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerTests.swift; sourceTree = "<group>"; };
 		204EAEFE2715908C009E2F0D /* UserActionParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionParameter.swift; sourceTree = "<group>"; };
+		204EAF012716D2A5009E2F0D /* KeepAliveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveManager.swift; sourceTree = "<group>"; };
+		204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveIntervalsProvider.swift; sourceTree = "<group>"; };
 		204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+DX.swift"; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
@@ -274,9 +278,19 @@
 			path = Stub;
 			sourceTree = "<group>";
 		};
+		204EAF002716D29A009E2F0D /* KeepAlive */ = {
+			isa = PBXGroup;
+			children = (
+				204EAF012716D2A5009E2F0D /* KeepAliveManager.swift */,
+				204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */,
+			);
+			path = KeepAlive;
+			sourceTree = "<group>";
+		};
 		208831FD270271B900EA53FD /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
+				204EAF002716D29A009E2F0D /* KeepAlive */,
 				2088320C2702FD4300EA53FD /* Events */,
 				208832042702728300EA53FD /* VendorManager.swift */,
 				20883206270272C000EA53FD /* VendorIdentifiable.swift */,
@@ -843,6 +857,7 @@
 				7D7D5BE126FCA5AF00B79FDD /* EventRequest.swift in Sources */,
 				7D7D5BDB26FCA5AF00B79FDD /* Logger.swift in Sources */,
 				2088320E2702FD9000EA53FD /* EventsService.swift in Sources */,
+				204EAF032716D34A009E2F0D /* KeepAliveManager.swift in Sources */,
 				7D7D5BF326FCA5AF00B79FDD /* TrackingStorage.swift in Sources */,
 				7D7D5BE026FCA5AF00B79FDD /* IdentifyRequest.swift in Sources */,
 				204EAEED270F12B7009E2F0D /* VendorManagerTests.swift in Sources */,
@@ -869,6 +884,7 @@
 				7D7D5BEE26FCA5AF00B79FDD /* Bodable.swift in Sources */,
 				20C2394C26F22238005A734A /* NetworkSessionMock.swift in Sources */,
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
+				204EAF052716D513009E2F0D /* KeepAliveIntervalsProvider.swift in Sources */,
 				204EAEE8270F108B009E2F0D /* SizeProvider.swift in Sources */,
 				7D7D5BD326FCA5AF00B79FDD /* ContentPageViewSource.swift in Sources */,
 				204EAEFD27143837009E2F0D /* UserManagerTests.swift in Sources */,

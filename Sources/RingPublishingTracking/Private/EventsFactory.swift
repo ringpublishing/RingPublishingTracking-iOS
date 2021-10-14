@@ -86,4 +86,8 @@ final class EventsFactory {
                                      actionSubtypeName: "offerIds",
                                      parameter: .plain(encodedListString))
     }
+
+    func createKeepAliveEvent() {
+
+    }
 }

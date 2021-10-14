@@ -47,6 +47,9 @@ public class RingPublishingTracking {
     /// Events factory for creating specific events
     let eventsFactory = EventsFactory()
 
+    /// Keep alive event manager
+    let keepAliveManager = KeepAliveManager()
+
     // MARK: Private properties
 
     /// Module delegate
