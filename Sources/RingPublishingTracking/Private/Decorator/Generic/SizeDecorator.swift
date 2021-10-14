@@ -11,7 +11,6 @@ import CoreGraphics
 
 final class SizeDecorator: Decorator {
 
-    private let screenDepth = 24
     private let sizeProvider: SizeProviding
 
     init(sizeProvider: SizeProviding = SizeProvider()) {
@@ -21,11 +20,11 @@ final class SizeDecorator: Decorator {
     var parameters: [String: AnyHashable] {
         [
             "CS": formatSize(for: sizeProvider.screenSize),
-            "CV": formatSize(for: sizeProvider.applicationSize)
+            "CW": formatSize(for: sizeProvider.applicationSize)
         ]
     }
 
     private func formatSize(for size: CGSize) -> String {
-        "\(Int(size.width))x\(Int(size.height))x\(screenDepth)"
+        "\(Int(size.width))x\(Int(size.height))"
     }
 }
