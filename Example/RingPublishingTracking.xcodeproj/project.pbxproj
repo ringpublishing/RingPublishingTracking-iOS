@@ -139,6 +139,7 @@
 		204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFactoryTests.swift; sourceTree = "<group>"; };
 		204EAEFC27143837009E2F0D /* UserManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerTests.swift; sourceTree = "<group>"; };
 		204EAEFE2715908C009E2F0D /* UserActionParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionParameter.swift; sourceTree = "<group>"; };
+		204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+DX.swift"; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
