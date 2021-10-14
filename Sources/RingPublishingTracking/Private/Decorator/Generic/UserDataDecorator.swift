@@ -15,6 +15,7 @@ final class UserDataDecorator: Decorator {
     var parameters: [String: AnyHashable] {
         guard
             let data = data,
+            data.user.sso.logged.id != nil,
             let jsonData = try? JSONEncoder().encode(data),
             let jsonString = String(data: jsonData, encoding: .utf8)
         else {

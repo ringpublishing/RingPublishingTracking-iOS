@@ -135,6 +135,19 @@ class DecoratorTests: XCTestCase {
         XCTAssertNotNil(params["RDLU"], "RDLU should not be empty")
     }
 
+    func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
+        // Given
+        let decorator = UserDataDecorator()
+
+        // Then
+        decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: "12345"), name: "Test"))))
+        decorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: nil), name: "Test"))))
+
+        let params = decorator.parameters
+
+        XCTAssertNil(params["RDLU"], "RDLU should be empty")
+    }
+
     // MARK: - TenantIdentifierDecorator Tests
 
     func testParameters_tenantIdentifierDecoratorCreated_returnedParametersAreCorrect() {
