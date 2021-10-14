@@ -61,7 +61,8 @@ extension EventsQueueManager {
             return false
         }
 
-        return Date() > lastSentDate.addingTimeInterval(TimeInterval(interval / 1000))
+        let intervalInSeconds = TimeInterval(Double(interval) / Double(1000))
+        return Date() > lastSentDate.addingTimeInterval(intervalInSeconds)
     }
 
     /// Sets the last sent date for events to the current date and time
@@ -103,7 +104,7 @@ extension EventsQueueManager {
 
     /// Scheduled new timer if there is noone running currently
     private func scheduleTimer() {
-        guard let postInterval = storage.postInterval else {
+        guard let interval = storage.postInterval else {
             Logger.log("Cannot schedule timer as there is no postInterval available yet")
             return
         }
@@ -113,9 +114,10 @@ extension EventsQueueManager {
             return
         }
 
-        Logger.log("SDK is not ready to send events yet. Scheduling a timer with interval \(postInterval)ms.")
+        let intervalInSeconds = TimeInterval(Double(interval) / Double(1000))
+        Logger.log("SDK is not ready to send events yet. Scheduling a timer with interval \(intervalInSeconds)s.")
 
-        timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(postInterval / 1000), repeats: false) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: intervalInSeconds, repeats: false) { [weak self] _ in
             self?.invalidateTimer()
             self?.sendEventsIfPossible()
         }

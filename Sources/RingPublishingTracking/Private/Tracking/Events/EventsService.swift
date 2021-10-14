@@ -306,7 +306,7 @@ extension EventsService {
 extension EventsService: EventsQueueManagerDelegate {
 
     func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {
-        Logger.log("Events queue is ready to send events.")
+        Logger.log("Events queue is ready to send events. Events in queue: \(eventsQueueManager.events.allElements.count)")
         sendEvents(for: eventsQueueManager)
     }
 }
