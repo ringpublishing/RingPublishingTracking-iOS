@@ -75,7 +75,7 @@ class DecoratorTests: XCTestCase {
 
         // When
         decorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
-        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath))
+        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath), contentPageViewSource: nil)
 
         // Then
         let params1 = decorator.parameters
@@ -85,7 +85,8 @@ class DecoratorTests: XCTestCase {
         XCTAssertNil(params1["DR"], "DR should be nil")
 
         // When
-        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]))
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
+                                      contentPageViewSource: .default)
 
         // Then
         let params2 = decorator.parameters
@@ -93,6 +94,48 @@ class DecoratorTests: XCTestCase {
         XCTAssertEqual(params2["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
         XCTAssertEqual(params2["DU"], sampleArticleURL.absoluteString, "DU should be correct")
         XCTAssertEqual(params2["DR"], params1["DU"], "DR should be nil")
+    }
+
+    func testParameters_structureInfoDecoratorCreatedForContentPageView_returnedParametersAreCorrect() {
+        // Given
+        let applicationRootPath = "Onet"
+        let applicationDefaultStructurePath  = ["Home"]
+        let sampleArticleURL = URL(string: "https://test.com/article?id=123")! // swiftlint:disable:this force_unwrapping
+
+        let decorator = StructureInfoDecorator()
+
+        // When
+        decorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
+        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath), contentPageViewSource: nil)
+
+        // Then
+        let params1 = decorator.parameters
+
+        XCTAssertEqual(params1["DV"], "onet.app.ios/home", "DV should be correct")
+        XCTAssertEqual(params1["DU"], "https://onet.app.ios/home", "DU should be correct")
+        XCTAssertNil(params1["DR"], "DR should be nil")
+
+        // When
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
+                                      contentPageViewSource: .socialMedia)
+
+        // Then
+        let params2 = decorator.parameters
+
+        XCTAssertEqual(params2["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params2["DU"], sampleArticleURL.absoluteString + "?utm_medium=social", "DU should be correct")
+        XCTAssertEqual(params2["DR"], params1["DU"], "DR should be equal to previous DU")
+
+        // When
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
+                                      contentPageViewSource: .pushNotifcation)
+
+        // Then
+        let params3 = decorator.parameters
+
+        XCTAssertEqual(params3["DV"], "onet.app.ios/home/sport/article_123", "DV should be correct")
+        XCTAssertEqual(params3["DU"], sampleArticleURL.absoluteString + "?utm_medium=push", "DU should be correct")
+        XCTAssertEqual(params3["DR"], params2["DU"], "DR should be equal to previous DU")
     }
 
     // MARK: - ConsentStringDecorator Tests

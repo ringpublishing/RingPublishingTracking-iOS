@@ -38,7 +38,8 @@ final class StructureInfoDecorator: Decorator {
 
     private(set) var applicationRootPath: String?
     private(set) var structureType: StructureType?
-    private(set) var previousStructureType: StructureType?
+    private(set) var contentPageViewSource: ContentPageViewSource?
+    private(set) var previousInfo: (structureType: StructureType?, contentPageViewSource: ContentPageViewSource?)
 
     var parameters: [String: AnyHashable] {
         guard
@@ -51,11 +52,12 @@ final class StructureInfoDecorator: Decorator {
         let resolved = structureType.parametersResolved(with: applicationRootPath)
         var params = [
             "DV": resolved.dv,
-            "DU": resolved.du
+            "DU": resolved.du + contentPageViewSource.utmMedium
         ]
 
-        if let previousStructureType = previousStructureType {
-            params["DR"] = previousStructureType.parametersResolved(with: applicationRootPath).du
+        if let previousStructureType = previousInfo.structureType {
+            let source = previousInfo.contentPageViewSource
+            params["DR"] = previousStructureType.parametersResolved(with: applicationRootPath).du + source.utmMedium
         }
 
         return params
@@ -64,12 +66,29 @@ final class StructureInfoDecorator: Decorator {
 
 extension StructureInfoDecorator {
 
-    func updateStructureType(structureType: StructureType) {
-        self.previousStructureType = self.structureType
+    func updateStructureType(structureType: StructureType, contentPageViewSource: ContentPageViewSource?) {
+        self.previousInfo = (self.structureType, self.contentPageViewSource)
         self.structureType = structureType
+        self.contentPageViewSource = contentPageViewSource
     }
 
     func updateApplicationRootPath(applicationRootPath: String) {
         self.applicationRootPath = applicationRootPath
+    }
+}
+
+extension Optional where Wrapped == ContentPageViewSource {
+    var utmMedium: String {
+        let medium: String
+        switch self {
+        case .pushNotifcation:
+            medium = "push"
+        case .socialMedia:
+            medium = "social"
+        case .default, .none:
+            return ""
+        }
+
+        return "?utm_medium=\(medium)"
     }
 }
