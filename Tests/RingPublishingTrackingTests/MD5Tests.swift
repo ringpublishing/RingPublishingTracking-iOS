@@ -17,7 +17,7 @@ class MD5Tests: XCTestCase {
     }
 
     // MARK: Tests
-    func testMd5_emailPRovided_createdMD5HashIsCorrect() {
+    func testMd5_exampleEmailProvided_createdMD5HashIsCorrect() {
         // Given
         let email = "example.mail@onet.pl"
 
@@ -25,6 +25,6 @@ class MD5Tests: XCTestCase {
         let md5 = email.md5()
 
         // Then
-        XCTAssertEqual(md5, "5281143ec814ea2c66a4b1914a0135b7", "MD5 should be corrext")
+        XCTAssertEqual(md5, "5281143ec814ea2c66a4b1914a0135b7", "Created MD5 hash should be correct")
     }
 }
