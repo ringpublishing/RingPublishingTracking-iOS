@@ -87,7 +87,37 @@ final class EventsFactory {
                                      parameter: .plain(encodedListString))
     }
 
-    func createKeepAliveEvent() {
+    func createKeepAliveEvent(metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) -> Event {
+        var parameters: [String: AnyHashable] = [:]
 
+        let measurements = metaData.keepAliveContentStatus
+
+        parameters["DX"] = contentMetadata.dxParameter
+        parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
+        parameters["KHF"] = metaData.hasFocus
+        parameters["KMT"] = metaData.keepAliveMesureType.map { $0.rawValue }
+        parameters["KTA"] = 1
+        parameters["KTP"] = metaData.timings
+        parameters["KTS"] = measurements.map { Int($0.scrollOffset) }
+
+        return Event(analyticsSystemName: AnalyticsSystem.timescore.rawValue,
+                     eventName: EventType.keepAlive.rawValue,
+                     eventParameters: parameters)
     }
+}
+
+// TODO: MOVE
+struct KeepAliveMetadata {
+    let keepAliveContentStatus: [KeepAliveContentStatus]
+    let timings: [Int]
+    let hasFocus: [Int]
+    let keepAliveMesureType: [KeepAliveMesureType]
+}
+
+enum KeepAliveMesureType: String {
+    case activityTimer = "T"
+    case sendTimer = "S"
+    case documentActive = "A"
+    case documentInactive = "I"
+    case error = "E"
 }

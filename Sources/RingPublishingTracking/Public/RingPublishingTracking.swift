@@ -71,6 +71,8 @@ public class RingPublishingTracking {
 
         self.delegate = delegate
 
+        keepAliveManager.delegate = self
+
         eventsService.setup(apiUrl: configuration.apiUrl, apiKey: configuration.apiKey, delegate: self)
         eventsService.updateApplicationAdvertisementArea(configuration.applicationDefaultAdvertisementArea)
         eventsService.updateTenantId(tenantId: configuration.tenantId)

@@ -36,6 +36,7 @@
 		204EAF032716D34A009E2F0D /* KeepAliveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF012716D2A5009E2F0D /* KeepAliveManager.swift */; };
 		204EAF052716D513009E2F0D /* KeepAliveIntervalsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */; };
 		204EAF07271836BE009E2F0D /* ContentMetadata+DX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */; };
+		204EAF0E27190407009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF0C271903FB009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -144,6 +145,7 @@
 		204EAF012716D2A5009E2F0D /* KeepAliveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveManager.swift; sourceTree = "<group>"; };
 		204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveIntervalsProvider.swift; sourceTree = "<group>"; };
 		204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+DX.swift"; sourceTree = "<group>"; };
+		204EAF0C271903FB009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RingPublishingTracking+KeepAliveManagerDelegate.swift"; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -534,8 +536,9 @@
 				7D7D5BCC26FCA5AE00B79FDD /* Extensions */,
 				208832172704852600EA53FD /* Operationable.swift */,
 				20883219270485E900EA53FD /* OperationMode.swift */,
-				204EAEC6270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift */,
 				204EAEF82710F539009E2F0D /* EventsFactory.swift */,
+				204EAEC6270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift */,
+				204EAF0C271903FB009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				204EAEFD27143837009E2F0D /* UserManagerTests.swift in Sources */,
 				204EAED3270EF5EB009E2F0D /* DecoratorTests.swift in Sources */,
 				204EAEC7270C9733009E2F0D /* RingPublishingTracking+EventsServiceDelegate.swift in Sources */,
+				204EAF0E27190407009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift in Sources */,
 				7D7D5BCF26FCA5AE00B79FDD /* RingPublishingTrackingKeepAliveDataSource.swift in Sources */,
 				7D7D5BD526FCA5AF00B79FDD /* ContentMetadata.swift in Sources */,
 				2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */,

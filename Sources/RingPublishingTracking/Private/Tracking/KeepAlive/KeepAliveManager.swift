@@ -11,11 +11,14 @@ import Foundation
 // TODO: MOVE
 protocol KeepAliveManagerDelegate: AnyObject {
 
-    func keepAliveEventShouldBeSent(_ keepAliveManager: KeepAliveManager)
+    func keepAliveEventShouldBeSent(_ keepAliveManager: KeepAliveManager, metaData: KeepAliveMetadata, contentMetadata: ContentMetadata)
 }
 
 final class KeepAliveManager {
+
     weak var delegate: KeepAliveManagerDelegate?
+
+    private weak var contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource?
 
     private let intervalsProvider = KeepAliveIntervalsProvider()
 
@@ -28,6 +31,10 @@ final class KeepAliveManager {
     }
 
     func stop() {
-        
+
+    }
+
+    func setupContentKeepAliveDataSource(contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource) {
+        self.contentKeepAliveDataSource = contentKeepAliveDataSource
     }
 }

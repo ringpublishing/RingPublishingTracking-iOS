@@ -123,6 +123,8 @@ public extension RingPublishingTracking {
         """
         Logger.log(log)
 
+        keepAliveManager.setupContentKeepAliveDataSource(contentKeepAliveDataSource: contentKeepAliveDataSource)
+
         eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
