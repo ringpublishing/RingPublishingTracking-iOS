@@ -56,7 +56,7 @@ class DecoratorTests: XCTestCase {
         let cwField = params["CW"]
 
         XCTAssertEqual(csField,
-                       "\(Int(provider.screenSize.width))x\(Int(provider.screenSize.height))",
+                       "\(Int(provider.screenSize.width))x\(Int(provider.screenSize.height))x24",
                        "CS should be equal to given size")
         XCTAssertEqual(cwField,
                        "\(Int(provider.applicationSize.width))x\(Int(provider.applicationSize.height))",
