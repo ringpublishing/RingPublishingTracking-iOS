@@ -19,11 +19,12 @@ public extension RingPublishingTracking {
     /// - Parameters:
     ///   - ssoSystemName: Name of SSO system used to login
     ///   - userId: User identifier
-    func updateUserData(ssoSystemName: String, userId: String?) {
+    ///   - userEmail: User email address
+    func updateUserData(ssoSystemName: String, userId: String?, userEmail: String?) {
         let obscuredId: String? = userId == nil ? nil : String(repeating: "*", count: userId?.count ?? 0)
         Logger.log("Updating application user data, SSO: '\(ssoSystemName)' and userId: '\(obscuredId.logable)'")
 
-        eventsService.updateUserData(ssoSystemName: ssoSystemName, userId: userId)
+        eventsService.updateUserData(ssoSystemName: ssoSystemName, userId: userId, email: userEmail)
     }
 
     /// Update ad space name of the application, for example "ads/list/sport"

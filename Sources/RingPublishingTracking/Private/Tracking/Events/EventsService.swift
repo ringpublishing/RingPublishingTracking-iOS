@@ -139,8 +139,11 @@ final class EventsService {
         adAreaDecorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: currentAdvertisementArea)
     }
 
-    func updateUserData(ssoSystemName: String, userId: String?) {
-        userDataDecorator.updateUserData(data: .init(user: .init(sso: .init(logged: .init(id: userId), name: ssoSystemName))))
+    func updateUserData(ssoSystemName: String, userId: String?, email: String?) {
+        let preparedEmail = email?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let data = UserData(user: .init(sso: .init(logged: .init(id: userId, md5: preparedEmail?.md5()), name: ssoSystemName)))
+
+        userDataDecorator.updateUserData(data: data)
     }
 
     func updateUniqueIdentifier(partiallyReloaded: Bool) {
