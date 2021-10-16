@@ -134,6 +134,7 @@ public extension RingPublishingTracking {
         reportEvents([event])
 
         // Start keepAlive
+        Logger.log("Starting content keep alive tracking")
         keepAliveManager.resume()
     }
 

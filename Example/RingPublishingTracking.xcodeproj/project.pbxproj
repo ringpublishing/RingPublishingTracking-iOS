@@ -37,6 +37,9 @@
 		204EAF052716D513009E2F0D /* KeepAliveIntervalsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */; };
 		204EAF07271836BE009E2F0D /* ContentMetadata+DX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */; };
 		204EAF0E27190407009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF0C271903FB009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift */; };
+		204EAF10271976C8009E2F0D /* KeepAliveManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF0F271976C8009E2F0D /* KeepAliveManagerDelegate.swift */; };
+		204EAF1227197D0E009E2F0D /* KeepAliveMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1127197D0E009E2F0D /* KeepAliveMetadata.swift */; };
+		204EAF1427197D24009E2F0D /* KeepAliveMesureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1327197D24009E2F0D /* KeepAliveMesureType.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
@@ -146,6 +149,9 @@
 		204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveIntervalsProvider.swift; sourceTree = "<group>"; };
 		204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+DX.swift"; sourceTree = "<group>"; };
 		204EAF0C271903FB009E2F0D /* RingPublishingTracking+KeepAliveManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RingPublishingTracking+KeepAliveManagerDelegate.swift"; sourceTree = "<group>"; };
+		204EAF0F271976C8009E2F0D /* KeepAliveManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveManagerDelegate.swift; sourceTree = "<group>"; };
+		204EAF1127197D0E009E2F0D /* KeepAliveMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveMetadata.swift; sourceTree = "<group>"; };
+		204EAF1327197D24009E2F0D /* KeepAliveMesureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveMesureType.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
@@ -283,8 +289,11 @@
 		204EAF002716D29A009E2F0D /* KeepAlive */ = {
 			isa = PBXGroup;
 			children = (
+				204EAF0F271976C8009E2F0D /* KeepAliveManagerDelegate.swift */,
 				204EAF012716D2A5009E2F0D /* KeepAliveManager.swift */,
 				204EAF042716D513009E2F0D /* KeepAliveIntervalsProvider.swift */,
+				204EAF1127197D0E009E2F0D /* KeepAliveMetadata.swift */,
+				204EAF1327197D24009E2F0D /* KeepAliveMesureType.swift */,
 			);
 			path = KeepAlive;
 			sourceTree = "<group>";
@@ -867,6 +876,7 @@
 				204EAF07271836BE009E2F0D /* ContentMetadata+DX.swift in Sources */,
 				7D7D5BE626FCA5AF00B79FDD /* ServiceError.swift in Sources */,
 				204EAEF127102B91009E2F0D /* EventType.swift in Sources */,
+				204EAF1227197D0E009E2F0D /* KeepAliveMetadata.swift in Sources */,
 				7D7D5BF426FCA5AF00B79FDD /* UserDefaultsStorage.swift in Sources */,
 				204EAEFF2715908C009E2F0D /* UserActionParameter.swift in Sources */,
 				204EAECF270D989D009E2F0D /* Decorator.swift in Sources */,
@@ -898,6 +908,7 @@
 				7D7D5BD526FCA5AF00B79FDD /* ContentMetadata.swift in Sources */,
 				2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */,
 				7D7D5BE726FCA5AF00B79FDD /* Profile.swift in Sources */,
+				204EAF1427197D24009E2F0D /* KeepAliveMesureType.swift in Sources */,
 				7D7D5BEC26FCA5AF00B79FDD /* UserAgent.swift in Sources */,
 				204EAEF92710F539009E2F0D /* EventsFactory.swift in Sources */,
 				7D7D5BEF26FCA5AF00B79FDD /* NetworkService.swift in Sources */,
@@ -919,6 +930,7 @@
 				204EAEE7270F108B009E2F0D /* ConsentProviding.swift in Sources */,
 				208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */,
 				204EAEE6270F108B009E2F0D /* SizeProviding.swift in Sources */,
+				204EAF10271976C8009E2F0D /* KeepAliveManagerDelegate.swift in Sources */,
 				7D7D5BD626FCA5AF00B79FDD /* RingPublishingTracking+CurrentState.swift in Sources */,
 				208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */,
 				204EAED1270DB69B009E2F0D /* Event+API.swift in Sources */,

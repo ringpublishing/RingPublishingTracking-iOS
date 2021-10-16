@@ -105,19 +105,3 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 }
-
-// TODO: MOVE
-struct KeepAliveMetadata {
-    let keepAliveContentStatus: [KeepAliveContentStatus]
-    let timings: [Int]
-    let hasFocus: [Int]
-    let keepAliveMesureType: [KeepAliveMesureType]
-}
-
-enum KeepAliveMesureType: String {
-    case activityTimer = "T"
-    case sendTimer = "S"
-    case documentActive = "A"
-    case documentInactive = "I"
-    case error = "E"
-}

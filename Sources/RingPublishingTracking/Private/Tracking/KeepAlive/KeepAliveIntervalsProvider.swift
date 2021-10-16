@@ -10,20 +10,18 @@ import Foundation
 
 final class KeepAliveIntervalsProvider {
 
-    func nextIntervalForContentMetaActivityTracking(for elapsedTime: TimeInterval?) -> TimeInterval? {
-        guard let startInterval = elapsedTime else { return nil }
-
+    func nextIntervalForContentMetaActivityTracking(for elapsedTime: TimeInterval) -> TimeInterval {
         // How many seconds after tracking was started
-        switch startInterval {
+        switch elapsedTime {
         case 0..<15:
             let steps: [TimeInterval] = [1, 2, 3, 4, 5, 6, 8, 10, 12, 14]
 
             // Return first interval bigger then current time elapsed
-            guard let interval = steps.first(where: { $0 > startInterval }) else {
+            guard let interval = steps.first(where: { $0 > elapsedTime }) else {
                 fallthrough
             }
 
-            return interval - startInterval
+            return interval - elapsedTime
 
         case 15..<50:
             // Next interval after 3s
@@ -35,20 +33,18 @@ final class KeepAliveIntervalsProvider {
         }
     }
 
-    func nextIntervalForContentMetaActivitySending(for elapsedTime: TimeInterval?) -> TimeInterval? {
-        guard let startInterval = elapsedTime else { return nil }
-
+    func nextIntervalForContentMetaActivitySending(for elapsedTime: TimeInterval) -> TimeInterval {
         // How many seconds after tracking was started
-        switch startInterval {
+        switch elapsedTime {
         case 0..<200:
             let pseudoFibonacci: [TimeInterval] = [5, 10, 20, 30, 60, 100, 140, 184]
 
             // Return first interval bigger then current time elapsed
-            guard let interval = pseudoFibonacci.first(where: { $0 > startInterval }) else {
+            guard let interval = pseudoFibonacci.first(where: { $0 > elapsedTime }) else {
                 fallthrough
             }
 
-            return interval - startInterval
+            return interval - elapsedTime
 
         case 200..<900:
             // Next interval after 60s

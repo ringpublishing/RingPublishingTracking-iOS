@@ -12,6 +12,8 @@ import Foundation
 extension RingPublishingTracking: KeepAliveManagerDelegate {
 
     func keepAliveEventShouldBeSent(_ keepAliveManager: KeepAliveManager, metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) {
+        Logger.log("Sending keep alive event")
+
         let event = eventsFactory.createKeepAliveEvent(metaData: metaData, contentMetadata: contentMetadata)
         reportEvents([event])
     }
