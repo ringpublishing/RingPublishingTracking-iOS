@@ -9,7 +9,7 @@
 import Foundation
 
 protocol KeepAliveManagerDelegate: AnyObject {
-    
+
     func keepAliveManager(_ keepAliveManager: KeepAliveManager,
                           contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
                           didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus
