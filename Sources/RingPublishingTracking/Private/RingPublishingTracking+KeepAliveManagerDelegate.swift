@@ -11,6 +11,12 @@ import Foundation
 /// Keep Alive Manager Delegate
 extension RingPublishingTracking: KeepAliveManagerDelegate {
 
+    func keepAliveManager(_ keepAliveManager: KeepAliveManager,
+                          contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
+                          didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
+        contentKeepAliveDataSource.ringPublishingTracking(self, didAskForKeepAliveContentStatus: content)
+    }
+
     func keepAliveEventShouldBeSent(_ keepAliveManager: KeepAliveManager, metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) {
         Logger.log("Sending keep alive event")
 

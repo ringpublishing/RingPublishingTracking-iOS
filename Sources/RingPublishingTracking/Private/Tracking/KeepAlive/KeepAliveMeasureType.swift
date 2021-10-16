@@ -1,5 +1,5 @@
 //
-//  KeepAliveMesureType.swift
+//  KeepAliveMeasureType.swift
 //  RingPublishingTrackingTests
 //
 //  Created by Artur Rymarz on 15/10/2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum KeepAliveMesureType: String {
+enum KeepAliveMeasureType: String {
 
     case activityTimer = "T"
     case sendTimer = "S"

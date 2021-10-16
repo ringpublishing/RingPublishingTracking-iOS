@@ -135,7 +135,7 @@ public extension RingPublishingTracking {
 
         // Start keepAlive
         Logger.log("Starting content keep alive tracking")
-        keepAliveManager.resume()
+        keepAliveManager.start(for: contentMetadata)
     }
 
     /// Pauses tracking for currently displayed content

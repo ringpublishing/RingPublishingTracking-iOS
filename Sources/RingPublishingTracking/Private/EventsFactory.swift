@@ -95,7 +95,7 @@ final class EventsFactory {
         parameters["DX"] = contentMetadata.dxParameter
         parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
         parameters["KHF"] = metaData.hasFocus
-        parameters["KMT"] = metaData.keepAliveMesureType.map { $0.rawValue }
+        parameters["KMT"] = metaData.keepAliveMeasureType.map { $0.rawValue }
         parameters["KTA"] = 1
         parameters["KTP"] = metaData.timings
         parameters["KTS"] = measurements.map { Int($0.scrollOffset) }

@@ -13,5 +13,5 @@ struct KeepAliveMetadata {
     let keepAliveContentStatus: [KeepAliveContentStatus]
     let timings: [Int]
     let hasFocus: [Int]
-    let keepAliveMesureType: [KeepAliveMesureType]
+    let keepAliveMeasureType: [KeepAliveMeasureType]
 }

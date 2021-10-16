@@ -24,7 +24,7 @@ final class KeepAliveManager {
     private var keepAliveContentStatus: [KeepAliveContentStatus] = []
     private var timings: [Int] = []
     private var hasFocus: [Int] = []
-    private var keepAliveMesureType: [KeepAliveMesureType] = []
+    private var keepAliveMeasureType: [KeepAliveMeasureType] = []
 
     private var contentMetadata: ContentMetadata?
 
@@ -73,6 +73,9 @@ final class KeepAliveManager {
         self.contentMetadata = contentMetadata
 
         trackingStartDate = Date()
+
+        scheduleMeasurementTimer()
+        scheduleSendingTimer()
     }
 
     func pause() {
@@ -98,7 +101,7 @@ final class KeepAliveManager {
         keepAliveContentStatus.removeAll()
         timings.removeAll()
         hasFocus.removeAll()
-        keepAliveMesureType.removeAll()
+        keepAliveMeasureType.removeAll()
 
         contentMetadata = nil
     }
@@ -139,66 +142,112 @@ extension KeepAliveManager {
 
     @objc
     private func applicationDidBecomeActive() {
-//        Logger.appLogger?.log("FocusManager: Application did become active")
-//
-//        focusManager?.applicationDidBecomeActive()
-//        keepAliveManager?.applicationDidBecomeActive()
+        Logger.log("Keep alive manager: Application did become active")
+
         backgroundTimeEnd.append(Date())
+
+        takeMeasurements(measureType: .documentActive)
     }
 
     @objc
     private func applicationWillResignActive() {
-//        Logger.appLogger?.log("FocusManager: Application will resign active")
-//
-//        focusManager?.applicationWillResignActive()
-//        keepAliveManager?.applicationWillResignActive()
+        Logger.log("Keep alive manager: Application will resign active")
+
         backgroundTimeStart.append(Date())
+
+        takeMeasurements(measureType: .documentInactive)
     }
 }
 
 extension KeepAliveManager {
 
     private func scheduleMeasurementTimer() {
-        guard let timeFromStart = timeFromStart  else {
-//            stopTrackingContentFocus()
+        guard let timeFromStart = timeFromStart else {
+            stop()
             return
         }
 
         let interval = intervalsProvider.nextIntervalForContentMetaActivityTracking(for: timeFromStart)
+
+        Logger.log("Keep alive manager: scheduling measurement timer \(interval)s")
+
         measurementTimer = DispatchSource.scheduledBackgroundTimer(timeInterval: interval, action: { [weak self] in
-            self?.takeMeasurements()
+            self?.takeMeasurements(measureType: .activityTimer)
         })
     }
 
     private func scheduleSendingTimer() {
-        guard let timeFromStart = timeFromStart  else {
-//            stopTrackingContentFocus()
+        guard let timeFromStart = timeFromStart else {
+            stop()
             return
         }
 
         let interval = intervalsProvider.nextIntervalForContentMetaActivitySending(for: timeFromStart)
 
+        Logger.log("Keep alive manager: scheduling sending timer \(interval)s")
+
         sendingTimer = DispatchSource.scheduledBackgroundTimer(timeInterval: interval, action: { [weak self] in
+            self?.takeMeasurements(measureType: .sendTimer)
             self?.sendMeasurements()
         })
     }
 
-    private func takeMeasurements() {
+    private func takeMeasurements(measureType: KeepAliveMeasureType) {
+        Logger.log("Keep alive manager: taking measurements")
 
-    }
-
-    private func sendMeasurements() {
-        guard let contentMetadata = contentMetadata else {
-            Logger.log("ContentMetadata should be set when starting the Keep Alive Event", level: .fault)
+        guard let timeFromStart = timeFromStart else {
+            stop()
             return
         }
 
+        guard let delegate = delegate else {
+            Logger.log("Keep alive manager: delegate needs to be set", level: .fault)
+            stop()
+            return
+        }
+
+        guard let contentMetadata = contentMetadata else {
+            Logger.log("ContentMetadata should be set when starting the keep alive event", level: .fault)
+            return
+        }
+
+        guard let contentKeepAliveDataSource = contentKeepAliveDataSource else {
+            Logger.log("ContentKeepAliveDataSource should be set when starting the keep alive event", level: .fault)
+            return
+        }
+
+        // Take measurements
+        let status = delegate.keepAliveManager(self,
+                                               contentKeepAliveDataSource: contentKeepAliveDataSource,
+                                               didAskForKeepAliveContentStatus: contentMetadata)
+
+        timings.append(Int(timeFromStart))
+        hasFocus.append(1)
+        keepAliveContentStatus.append(status)
+        keepAliveMeasureType.append(measureType)
+
+        // Schedule next timer
+        scheduleMeasurementTimer()
+    }
+
+    private func sendMeasurements() {
+        Logger.log("Keep alive manager: sending measurements")
+
+        guard let contentMetadata = contentMetadata else {
+            Logger.log("ContentMetadata should be set when starting the keep alive event", level: .fault)
+            return
+        }
+
+        // Prepare metadata for keep alive event
         let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: keepAliveContentStatus,
                                                   timings: timings,
                                                   hasFocus: hasFocus,
-                                                  keepAliveMesureType: keepAliveMesureType)
+                                                  keepAliveMeasureType: keepAliveMeasureType)
 
         delegate?.keepAliveEventShouldBeSent(self, metaData: keepAliveMetadata, contentMetadata: contentMetadata)
+
+        // Schedule next timer
+        scheduleSendingTimer()
     }
 }
 
