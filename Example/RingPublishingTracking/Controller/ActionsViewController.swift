@@ -59,7 +59,9 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     @IBAction func onLoginActionTouch(_ sender: Any) {
         // When user log in we should update tracking module with his account information
 
-        RingPublishingTracking.shared.updateUserData(ssoSystemName: "RingPublishingTrackingSSO", userId: "12345")
+        RingPublishingTracking.shared.updateUserData(ssoSystemName: "RingPublishingTrackingSSO",
+                                                     userId: "12345",
+                                                     userEmail: "demo@example.com")
 
         // Each non content button click we can report using 'reportClick' method
 
@@ -69,7 +71,9 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
     @IBAction func onLogoutActionTouch(_ sender: Any) {
         // When user log out from the application we should update tracking module
 
-        RingPublishingTracking.shared.updateUserData(ssoSystemName: "RingPublishingTrackingSSO", userId: nil)
+        RingPublishingTracking.shared.updateUserData(ssoSystemName: "RingPublishingTrackingSSO",
+                                                     userId: nil,
+                                                     userEmail: nil)
 
         // Each non content button click we can report using 'reportClick' method
 
