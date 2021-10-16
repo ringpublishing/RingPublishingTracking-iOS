@@ -16,5 +16,6 @@ public protocol RingPublishingTrackingDelegate: AnyObject {
     /// - Parameters:
     ///   - ringPublishingTracking: RingPublishingTracking
     ///   - identifier: Assigned tracking identifier
-    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking, didAssignTrackingIdentifier identifier: String)
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didAssignTrackingIdentifier identifier: TrackingIdentifier)
 }
