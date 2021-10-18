@@ -123,8 +123,6 @@ public extension RingPublishingTracking {
         """
         Logger.log(log)
 
-        keepAliveManager.setupContentKeepAliveDataSource(contentKeepAliveDataSource: contentKeepAliveDataSource)
-
         eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
@@ -135,7 +133,7 @@ public extension RingPublishingTracking {
 
         // Start keepAlive
         Logger.log("Starting content keep alive tracking")
-        keepAliveManager.start(for: contentMetadata)
+        keepAliveManager.start(for: contentMetadata, contentKeepAliveDataSource: contentKeepAliveDataSource)
     }
 
     /// Pauses tracking for currently displayed content
