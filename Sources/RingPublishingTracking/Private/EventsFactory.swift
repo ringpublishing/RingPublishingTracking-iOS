@@ -10,7 +10,10 @@ import Foundation
 
 final class EventsFactory {
 
-    func createClickEvent(selectedElementName: String?, publicationUrl: URL?) -> Event {
+    func createClickEvent(selectedElementName: String?,
+                          publicationUrl: URL?,
+                          publicationIdentifier: String?,
+                          aureusOfferId: String?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
         if let selectedElementName = selectedElementName {
@@ -19,6 +22,14 @@ final class EventsFactory {
 
         if let publicationUrl = publicationUrl {
             parameters["VU"] = publicationUrl.absoluteString
+        }
+
+        if let publicationIdentifier = publicationIdentifier {
+            parameters["PU"] = publicationIdentifier
+        }
+
+        if let aureusOfferId = aureusOfferId {
+            parameters["EI"] = aureusOfferId
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,

@@ -22,4 +22,22 @@ public extension RingPublishingTracking {
         let event = eventsFactory.createAureusOffersImpressionEvent(offerIds: offerIds)
         reportEvents([event])
     }
+
+    /// Reports 'Aureus' click event which leads to content page
+    ///
+    /// - Parameters:
+    ///   - selectedElementName: String
+    ///   - publicationUrl: URL
+    ///   - publicationId: String
+    ///   - aureusOfferId: String
+    func reportContentClick(selectedElementName: String, publicationUrl: URL, publicationId: String?, aureusOfferId: String?) {
+        let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
+        Logger.log("Reporting 'Aureus' content click event for element named: \(logData)")
+
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
+                                                   publicationUrl: publicationUrl,
+                                                   publicationIdentifier: publicationId,
+                                                   aureusOfferId: aureusOfferId)
+        reportEvents([event])
+    }
 }

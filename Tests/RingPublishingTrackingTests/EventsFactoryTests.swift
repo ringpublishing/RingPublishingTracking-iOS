@@ -26,14 +26,21 @@ class EventsFactoryTests: XCTestCase {
         // Given
         let elementName = "TestName"
         let sampleUrl = "https://test.com"
+        let sampleId = "https://test.com"
+        let offerId = "abcd"
         let factory = EventsFactory()
 
         // Then
-        let event = factory.createClickEvent(selectedElementName: elementName, publicationUrl: URL(string: sampleUrl))
+        let event = factory.createClickEvent(selectedElementName: elementName,
+                                             publicationUrl: URL(string: sampleUrl),
+                                             publicationIdentifier: sampleId,
+                                             aureusOfferId: offerId)
         let params = event.eventParameters
 
         XCTAssertEqual(params["VE"], elementName, "VE should be correct")
-        XCTAssertEqual(params["VU"], sampleUrl, "VE should be correct")
+        XCTAssertEqual(params["VU"], sampleUrl, "VU should be correct")
+        XCTAssertEqual(params["PU"], sampleId, "PU should be correct")
+        XCTAssertEqual(params["EI"], offerId, "EI should be correct")
     }
 
     func testCreateClickEvent_noParametersProvided_returnedEventIsDecorated() {
@@ -41,11 +48,16 @@ class EventsFactoryTests: XCTestCase {
         let factory = EventsFactory()
 
         // Then
-        let event = factory.createClickEvent(selectedElementName: nil, publicationUrl: nil)
+        let event = factory.createClickEvent(selectedElementName: nil,
+                                             publicationUrl: nil,
+                                             publicationIdentifier: nil,
+                                             aureusOfferId: nil)
         let params = event.eventParameters
 
         XCTAssertNil(params["VE"], "VE should be empty")
-        XCTAssertNil(params["VU"], "VE should be empty")
+        XCTAssertNil(params["VU"], "VU should be empty")
+        XCTAssertNil(params["PU"], "PU should be empty")
+        XCTAssertNil(params["EI"], "EI should be empty")
     }
 
     // MARK: - UserActionEvent Tests
