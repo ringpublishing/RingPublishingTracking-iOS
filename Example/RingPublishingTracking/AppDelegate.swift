@@ -61,7 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: RingPublishingTrackingDelegate
 extension AppDelegate: RingPublishingTrackingDelegate {
 
-    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking, didAssignTrackingIdentifier identifier: String) {
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didAssignTrackingIdentifier identifier: TrackingIdentifier) {
         print("DEMO - RingPublishingTracking: received tracking identifier: \(identifier)")
     }
 }

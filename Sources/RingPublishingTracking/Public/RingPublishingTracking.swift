@@ -17,7 +17,7 @@ public class RingPublishingTracking {
     public static let shared = RingPublishingTracking()
 
     /// Tracking identifier assigned by the module for this device
-    public internal(set) var trackingIdentifier: String? {
+    public internal(set) var trackingIdentifier: TrackingIdentifier? {
         didSet {
             guard let trackingIdentifier = trackingIdentifier else { return }
             delegate?.ringPublishingTracking(self, didAssignTrackingIdentifier: trackingIdentifier)
