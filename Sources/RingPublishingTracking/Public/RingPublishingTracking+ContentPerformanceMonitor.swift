@@ -24,8 +24,7 @@ public extension RingPublishingTracking {
 
         let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
                                                    publicationUrl: nil,
-                                                   publicationIdentifier: nil,
-                                                   aureusOfferId: nil)
+                                                   publicationIdentifier: nil)
         reportEvents([event])
     }
 
@@ -43,8 +42,7 @@ public extension RingPublishingTracking {
 
         let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
                                                    publicationUrl: publicationUrl,
-                                                   publicationIdentifier: publicationId,
-                                                   aureusOfferId: nil)
+                                                   publicationIdentifier: publicationId)
         reportEvents([event])
     }
 

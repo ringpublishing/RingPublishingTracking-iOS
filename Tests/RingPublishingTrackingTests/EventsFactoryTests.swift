@@ -27,31 +27,27 @@ class EventsFactoryTests: XCTestCase {
         let elementName = "TestName"
         let sampleUrl = "https://test.com"
         let sampleId = "https://test.com"
-        let offerId = "abcd"
         let factory = EventsFactory()
 
         // Then
         let event = factory.createClickEvent(selectedElementName: elementName,
                                              publicationUrl: URL(string: sampleUrl),
-                                             publicationIdentifier: sampleId,
-                                             aureusOfferId: offerId)
+                                             publicationIdentifier: sampleId)
         let params = event.eventParameters
 
         XCTAssertEqual(params["VE"], elementName, "VE should be correct")
         XCTAssertEqual(params["VU"], sampleUrl, "VU should be correct")
         XCTAssertEqual(params["PU"], sampleId, "PU should be correct")
-        XCTAssertEqual(params["EI"], offerId, "EI should be correct")
     }
 
-    func testCreateClickEvent_noParametersProvided_returnedEventIsDecorated() {
+    func testCreateClickEvent_noParametersProvided_returnedEventIsNotDecorated() {
         // Given
         let factory = EventsFactory()
 
         // Then
         let event = factory.createClickEvent(selectedElementName: nil,
                                              publicationUrl: nil,
-                                             publicationIdentifier: nil,
-                                             aureusOfferId: nil)
+                                             publicationIdentifier: nil)
         let params = event.eventParameters
 
         XCTAssertNil(params["VE"], "VE should be empty")
@@ -141,35 +137,5 @@ class EventsFactoryTests: XCTestCase {
         // Then
         XCTAssertEqual(params["PU"], contentMetadata.publicationId, "PU parameter should be equal publication identifier")
         XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,f", "DX parameter should be in correct format")
-    }
-
-    // MARK: - AureusOffersImpressionEvent Tests
-
-    func testCreateAureusOffersImpressionEvent_offerIdsProvided_returnedEventIsDecorated() {
-        // Given
-        let factory = EventsFactory()
-
-        // When
-        let event = factory.createAureusOffersImpressionEvent(offerIds: ["a1", "b2", "c3", "d4"])
-        let params = event.eventParameters
-
-        // Then
-        XCTAssertEqual(params["VE"], "aureusOfferImpressions", "VE parameter should be correct")
-        XCTAssertEqual(params["VC"], "offerIds", "VC parameter should be correct")
-        XCTAssertEqual(params["VM"], "%5B%22a1%22,%22b2%22,%22c3%22,%22d4%22%5D", "VM parameter should be in correct format")
-    }
-
-    func testCreateAureusOffersImpressionEvent_noOfferIds_returnedEventIsDecorated() {
-        // Given
-        let factory = EventsFactory()
-
-        // When
-        let event = factory.createAureusOffersImpressionEvent(offerIds: [])
-        let params = event.eventParameters
-
-        // Then
-        XCTAssertEqual(params["VE"], "aureusOfferImpressions", "VE parameter should be correct")
-        XCTAssertEqual(params["VC"], "offerIds", "VC parameter should be correct")
-        XCTAssertNil(params["VM"], "VM parameter should be nil")
     }
 }
