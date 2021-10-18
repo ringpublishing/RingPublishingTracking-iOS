@@ -30,7 +30,7 @@ public extension RingPublishingTracking {
     ///   - publicationUrl: URL
     ///   - publicationId: String
     ///   - aureusOfferId: String
-    func reportContentClick(selectedElementName: String, publicationUrl: URL, publicationId: String?, aureusOfferId: String?) {
+    func reportContentClick(selectedElementName: String, publicationUrl: URL, publicationId: String, aureusOfferId: String) {
         let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting 'Aureus' content click event for element named: \(logData)")
 
