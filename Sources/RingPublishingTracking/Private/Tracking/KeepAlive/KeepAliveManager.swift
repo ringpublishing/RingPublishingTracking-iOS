@@ -74,6 +74,16 @@ final class KeepAliveManager {
         contentMetadata != nil
     }
 
+    // MARK: - Lifecycle
+
+    init() {
+        addObservers()
+    }
+
+    deinit {
+        removeObservers()
+    }
+
     // MARK: -
 
     func start(for contentMetadata: ContentMetadata, contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource) {
@@ -83,12 +93,11 @@ final class KeepAliveManager {
         clearTimes()
         clearCollectedData()
 
-        addObservers()
-
         self.contentKeepAliveDataSource = contentKeepAliveDataSource
         self.contentMetadata = contentMetadata
 
         trackingStartDate = Date()
+        isPaused = false
 
         scheduleMeasurementTimer()
         scheduleSendingTimer()
@@ -122,8 +131,10 @@ final class KeepAliveManager {
         clearTimes()
         clearCollectedData()
 
+        isPaused = false
         trackingStartDate = nil
         contentMetadata = nil
+        contentKeepAliveDataSource = nil
 
         removeObservers()
     }
@@ -149,8 +160,6 @@ final class KeepAliveManager {
 
         pauseTimeStart.removeAll()
         pauseTimeEnd.removeAll()
-
-        contentKeepAliveDataSource = nil
     }
 }
 
