@@ -67,7 +67,7 @@ final class EventsService {
 
         retrieveVendorIdentifier { [weak self] in
             // Call identify once the API is configured to retrieve trackingIdentifier as soon as possible
-            self?.identifyMeIfNeeded()
+            self?.identifyMe()
         }
     }
 
@@ -201,18 +201,6 @@ extension EventsService {
         return ids
     }
 
-    /// Sends Identify Request if user identifier is missing or expired
-    private func identifyMeIfNeeded() {
-        guard !isEaUuidValid else {
-            guard let eaUUID = storage.eaUUID else { return }
-
-            delegate?.eventsService(self, retrievedTrackingIdentifier: eaUUID.value)
-            return
-        }
-
-        identifyMe()
-    }
-
     /// Retrieves Vendor Identifier (IDFA)
     private func retrieveVendorIdentifier(completion: @escaping () -> Void) {
         vendorManager.retrieveVendorIdentifier { [weak self] result in
@@ -242,7 +230,9 @@ extension EventsService {
         let creationDate = Date()
         storage.eaUUID = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
 
-        delegate?.eventsService(self, retrievedTrackingIdentifier: value)
+        let expirationDate = creationDate.addingTimeInterval(TimeInterval(lifetime))
+
+        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
     }
 
     /// Stores Post Interval
