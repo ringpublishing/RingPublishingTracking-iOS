@@ -36,6 +36,7 @@
 		204EAF07271836BE009E2F0D /* ContentMetadata+DX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */; };
 		204EAF092718DA30009E2F0D /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF082718DA30009E2F0D /* String+MD5.swift */; };
 		204EAF0B2718DA95009E2F0D /* MD5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF0A2718DA95009E2F0D /* MD5Tests.swift */; };
+		204EAF1C271DB4C3009E2F0D /* AureusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1B271DB4C3009E2F0D /* AureusTests.swift */; };
 		204EAF18271B8781009E2F0D /* TrackingIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF17271B8781009E2F0D /* TrackingIdentifier.swift */; };
 		208832052702728300EA53FD /* VendorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832042702728300EA53FD /* VendorManager.swift */; };
 		20883207270272C000EA53FD /* VendorIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883206270272C000EA53FD /* VendorIdentifiable.swift */; };
@@ -145,6 +146,7 @@
 		204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+DX.swift"; sourceTree = "<group>"; };
 		204EAF082718DA30009E2F0D /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		204EAF0A2718DA95009E2F0D /* MD5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Tests.swift; sourceTree = "<group>"; };
+		204EAF1B271DB4C3009E2F0D /* AureusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AureusTests.swift; sourceTree = "<group>"; };
 		204EAF17271B8781009E2F0D /* TrackingIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingIdentifier.swift; sourceTree = "<group>"; };
 		208832042702728300EA53FD /* VendorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorManager.swift; sourceTree = "<group>"; };
 		20883206270272C000EA53FD /* VendorIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorIdentifiable.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				204EAEFA2710F57B009E2F0D /* EventsFactoryTests.swift */,
 				204EAEFC27143837009E2F0D /* UserManagerTests.swift */,
 				204EAF0A2718DA95009E2F0D /* MD5Tests.swift */,
+				204EAF1B271DB4C3009E2F0D /* AureusTests.swift */,
 			);
 			path = RingPublishingTrackingTests;
 			sourceTree = "<group>";
@@ -898,6 +901,7 @@
 				204EAEEB270F10B2009E2F0D /* UserData.swift in Sources */,
 				7D7D5BE226FCA5AF00B79FDD /* IdentifyEndpoint.swift in Sources */,
 				208832182704852600EA53FD /* Operationable.swift in Sources */,
+				204EAF1C271DB4C3009E2F0D /* AureusTests.swift in Sources */,
 				7D7D5BF026FCA5AF00B79FDD /* Endpoint.swift in Sources */,
 				7D7D5BE526FCA5AF00B79FDD /* HTTPMethod.swift in Sources */,
 				204EAEF327102E60009E2F0D /* AnalyticsSystem.swift in Sources */,

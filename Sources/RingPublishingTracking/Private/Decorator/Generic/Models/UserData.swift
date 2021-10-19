@@ -21,7 +21,7 @@ struct SSO: Encodable {
 
 struct Logged: Encodable {
 
-    let id: String? // swiftlint:disable:this identifier_name
+    let id: String?
     let md5: String?
 }
 
