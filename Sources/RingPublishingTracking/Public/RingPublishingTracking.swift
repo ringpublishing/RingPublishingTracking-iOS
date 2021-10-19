@@ -47,6 +47,9 @@ public class RingPublishingTracking {
     /// Events factory for creating specific events
     let eventsFactory = EventsFactory()
 
+    /// Keep alive event manager
+    let keepAliveManager = KeepAliveManager()
+
     // MARK: Private properties
 
     /// Module delegate
@@ -67,6 +70,8 @@ public class RingPublishingTracking {
         Logger.log("Initializing module with configuration: '\(configuration)'")
 
         self.delegate = delegate
+
+        keepAliveManager.delegate = self
 
         eventsService.setup(apiUrl: configuration.apiUrl, apiKey: configuration.apiKey, delegate: self)
         eventsService.updateApplicationAdvertisementArea(configuration.applicationDefaultAdvertisementArea)

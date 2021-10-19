@@ -77,4 +77,22 @@ final class EventsFactory {
                      eventName: EventType.pageView.rawValue,
                      eventParameters: parameters)
     }
+
+    func createKeepAliveEvent(metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) -> Event {
+        var parameters: [String: AnyHashable] = [:]
+
+        let measurements = metaData.keepAliveContentStatus
+
+        parameters["DX"] = contentMetadata.dxParameter
+        parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
+        parameters["KHF"] = metaData.hasFocus
+        parameters["KMT"] = metaData.keepAliveMeasureType.map { $0.rawValue }
+        parameters["KTA"] = 1
+        parameters["KTP"] = metaData.timings
+        parameters["KTS"] = measurements.map { Int($0.scrollOffset) }
+
+        return Event(analyticsSystemName: AnalyticsSystem.timescore.rawValue,
+                     eventName: EventType.keepAlive.rawValue,
+                     eventParameters: parameters)
+    }
 }

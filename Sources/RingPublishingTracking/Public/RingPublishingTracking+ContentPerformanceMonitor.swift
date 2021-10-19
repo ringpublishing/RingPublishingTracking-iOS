@@ -135,26 +135,30 @@ public extension RingPublishingTracking {
         let event = eventsFactory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
                                                       contentMetadata: contentMetadata)
         reportEvents([event])
+
+        // Start keepAlive
+        Logger.log("Starting content keep alive tracking")
+        keepAliveManager.start(for: contentMetadata, contentKeepAliveDataSource: contentKeepAliveDataSource)
     }
 
     /// Pauses tracking for currently displayed content
     func pauseContentKeepAliveTracking() {
         Logger.log("Pausing content keep alive tracking")
 
-        // TODO: Implementation missing
+        keepAliveManager.pause()
     }
 
     /// Resumes tracking for currently displayed content
     func resumeContentKeepAliveTracking() {
         Logger.log("Resuming content keep alive tracking")
 
-        // TODO: Implementation missing
+        keepAliveManager.resume()
     }
 
     /// Stops tracking for currently displayed content
     func stopContentKeepAliveTracking() {
         Logger.log("Stopping content keep alive tracking")
 
-        // TODO: Implementation missing
+        keepAliveManager.stop()
     }
 }
