@@ -135,8 +135,6 @@ final class KeepAliveManager {
         trackingStartDate = nil
         contentMetadata = nil
         contentKeepAliveDataSource = nil
-
-        removeObservers()
     }
 
     private func clearCollectedData() {
