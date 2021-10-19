@@ -10,7 +10,9 @@ import Foundation
 
 final class EventsFactory {
 
-    func createClickEvent(selectedElementName: String?, publicationUrl: URL?) -> Event {
+    func createClickEvent(selectedElementName: String?,
+                          publicationUrl: URL?,
+                          publicationIdentifier: String?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
         if let selectedElementName = selectedElementName {
@@ -19,6 +21,10 @@ final class EventsFactory {
 
         if let publicationUrl = publicationUrl {
             parameters["VU"] = publicationUrl.absoluteString
+        }
+
+        if let publicationIdentifier = publicationIdentifier {
+            parameters["PU"] = publicationIdentifier
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
@@ -70,21 +76,6 @@ final class EventsFactory {
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
                      eventName: EventType.pageView.rawValue,
                      eventParameters: parameters)
-    }
-
-    func createAureusOffersImpressionEvent(offerIds: [String]) -> Event {
-        let offerIdsString = offerIds.joined(separator: "\",\"")
-
-        let encodedListString: String?
-        if offerIds.isEmpty {
-            encodedListString = nil
-        } else {
-            encodedListString = "[\"\(offerIdsString)\"]".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        }
-
-        return createUserActionEvent(actionName: "aureusOfferImpressions",
-                                     actionSubtypeName: "offerIds",
-                                     parameter: .plain(encodedListString))
     }
 
     func createKeepAliveEvent(metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) -> Event {
