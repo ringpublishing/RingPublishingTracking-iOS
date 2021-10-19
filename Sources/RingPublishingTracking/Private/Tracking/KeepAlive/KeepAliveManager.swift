@@ -243,8 +243,6 @@ extension KeepAliveManager {
     }
 
     private func takeMeasurements(measureType: KeepAliveMeasureType) {
-        Logger.log("Keep alive manager: Taking measurements")
-
         guard
             let timeFromStart = timeFromStart,
             let contentKeepAliveDataSource = contentKeepAliveDataSource,
@@ -255,6 +253,8 @@ extension KeepAliveManager {
             stop()
             return
         }
+
+        Logger.log("Keep alive manager: Taking measurements for type \(measureType.rawValue), time: \(timeFromStart)s")
 
         guard let delegate = delegate else {
             Logger.log("Keep alive manager is missing a delegate. Make sure it's been set.", level: .fault)
