@@ -9,8 +9,6 @@
 import Foundation
 
 class KeepAliveManagerDelegateMock: KeepAliveManagerDelegate {
-    private let eventsFactory = EventsFactory()
-
     private(set) var keepAliveMetaData: [KeepAliveMetadata] = []
 
     var measurementTypes: [KeepAliveMeasureType] {
