@@ -12,7 +12,7 @@ final class EventsFactory {
 
     func createClickEvent(selectedElementName: String?,
                           publicationUrl: URL?,
-                          publicationIdentifier: String??) -> Event {
+                          publicationIdentifier: String?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
         if let selectedElementName = selectedElementName {

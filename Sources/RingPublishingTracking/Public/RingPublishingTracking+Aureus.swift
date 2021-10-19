@@ -46,8 +46,8 @@ public extension RingPublishingTracking {
         Logger.log("Reporting 'Aureus' content click event for element named: \(logData)")
 
         let clickEvent = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
-                                                   publicationUrl: publicationUrl,
-                                                   publicationIdentifier: publicationId)
+                                                        publicationUrl: publicationUrl,
+                                                        publicationIdentifier: publicationId)
 
         var parameters = clickEvent.eventParameters
         parameters["EI"] = aureusOfferId
