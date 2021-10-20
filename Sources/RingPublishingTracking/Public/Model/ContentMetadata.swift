@@ -49,3 +49,6 @@ public struct ContentMetadata {
         self.contentWasPaidFor = contentWasPaidFor
     }
 }
+
+/// Extension to make ContentMetadata comporable
+extension ContentMetadata: Equatable {}
