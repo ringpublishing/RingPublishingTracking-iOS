@@ -8,11 +8,6 @@
 
 import Foundation
 
-struct UserInfo: Encodable {
-
-    let sso: SSO
-}
-
 struct SSO: Encodable {
 
     let logged: Logged
@@ -27,5 +22,5 @@ struct Logged: Encodable {
 
 struct UserData: Encodable {
 
-    let user: UserInfo
+    let sso: SSO
 }
