@@ -134,7 +134,7 @@ class EventsServiceTests: XCTestCase {
         let service = EventsService(storage: storage)
 
         // Then
-        XCTAssertFalse(service.shouldRetryIdentifyRequest, "Incorrect event should not be added")
+        XCTAssertFalse(service.shouldRetryIdentifyRequest, "Identify request should not be retried")
     }
 
     func testShouldRetryIdentifyRequest_eaUUIDIsMissing_shouldNotRetry() {
@@ -148,7 +148,7 @@ class EventsServiceTests: XCTestCase {
         let service = EventsService(storage: storage)
 
         // Then
-        XCTAssertTrue(service.shouldRetryIdentifyRequest, "Incorrect event should not be added")
+        XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
     }
 
     func testShouldRetryIdentifyRequest_postIntervalIsMissing_shouldNotRetry() {
@@ -164,6 +164,6 @@ class EventsServiceTests: XCTestCase {
         let service = EventsService(storage: storage)
 
         // Then
-        XCTAssertTrue(service.shouldRetryIdentifyRequest, "Incorrect event should not be added")
+        XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
     }
 }
