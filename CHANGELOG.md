@@ -1,3 +1,15 @@
+1.0.0 Release notes (2021-10-20)
+=============================================================
+
+Fully functional 'RingPublishingTracking' module release.
+
+### Features
+
+* Added 'email' parameter to the `updateUserData` method
+* 'trackingIdentifier' property on `RingPublishingTracking` object is now a struct and contains `identifier` and `expirationDate` properties
+* 'publicationId' parameter was added to `reportContentClick` method
+* Added `reportContentClick` method variant with `aureusOfferId` parameter which should be used when interacting with Aureus recommendations
+
 0.1.0 Release notes (2021-09-28)
 =============================================================
 
