@@ -12,4 +12,5 @@ import Foundation
 protocol EventsQueueManagerDelegate: AnyObject {
 
     func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager)
+    func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager)
 }

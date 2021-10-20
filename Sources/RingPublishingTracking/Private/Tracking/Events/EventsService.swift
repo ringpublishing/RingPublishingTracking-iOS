@@ -29,6 +29,8 @@ final class EventsService {
     /// Service responsible for sending requests to the backend
     private var apiService: APIService?
 
+    private var isIdentifyMeRequestInProgress: Bool = false
+
     /// Registered decorators
     private var decorators: [Decorator]
 
@@ -98,14 +100,16 @@ final class EventsService {
     }
 
     /// Calls the /me endpoint from the API
-    func identifyMe() {
+    func identifyMe(completion: ((_ success: Bool) -> Void)? = nil) {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
+            completion?(false)
             return
         }
 
         guard let apiService = apiService else {
             Logger.log("RingPublishingTracking is not configured. Configure it using initialize method.", level: .error)
+            completion?(false)
             return
         }
 
@@ -114,14 +118,19 @@ final class EventsService {
         let body = IdentifyRequest(ids: ids, user: user)
         let endpoint = IdentifyEnpoint(body: body)
 
+        isIdentifyMeRequestInProgress = true
         apiService.call(endpoint) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.storeEaUUID(response.eaUUID)
                 self?.storePostInterval(response.postInterval)
+                completion?(true)
             case .failure(let error):
-                break // TODO: missing error handling
+                Logger.log("Failed to identify with error: \(error.localizedDescription)")
+                completion?(false)
             }
+
+            self?.isIdentifyMeRequestInProgress = false
         }
     }
 
@@ -179,6 +188,14 @@ extension EventsService {
         let now = Date()
 
         return expirationDate > now
+    }
+
+    var hasPostIntervalStored: Bool {
+        storage.postInterval != nil
+    }
+
+    var shouldRetryIdentifyRequest: Bool {
+        (!isEaUuidValid || !hasPostIntervalStored) && !isIdentifyMeRequestInProgress
     }
 
     /// Builds dictionary of stored tracking identifiers
@@ -255,6 +272,14 @@ extension EventsService {
         })
     }
 
+    private func retryIdentifyRequest(completion: @escaping (_ success: Bool) -> Void) {
+        Logger.log("Retrying identify request as required data is missing.")
+
+        identifyMe { success in
+            completion(success)
+        }
+    }
+
     /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
     /// - Returns: `EventRequest`
     func buildEventRequest() -> EventRequest {
@@ -307,5 +332,17 @@ extension EventsService: EventsQueueManagerDelegate {
     func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {
         Logger.log("Events queue is ready to send events. Events in queue: \(eventsQueueManager.events.allElements.count)")
         sendEvents(for: eventsQueueManager)
+    }
+
+    func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager) {
+        guard shouldRetryIdentifyRequest else {
+            return
+        }
+
+        retryIdentifyRequest { [weak self] success in
+            guard success else { return }
+
+            self?.eventsQueueManager.sendEventsIfPossible()
+        }
     }
 }
