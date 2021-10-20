@@ -1,6 +1,6 @@
 //
 //  EventsQueueManager.swift
-//  RingPublishingTrackingTests
+//  RingPublishingTracking
 //
 //  Created by Artur Rymarz on 15/09/2021.
 //  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
@@ -87,7 +87,7 @@ extension EventsQueueManager {
     }
 
     /// Sends events to backend if possible
-    private func sendEventsIfPossible() {
+    func sendEventsIfPossible() {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring network request.")
             return
@@ -106,6 +106,7 @@ extension EventsQueueManager {
     private func scheduleTimer() {
         guard let interval = storage.postInterval else {
             Logger.log("Cannot schedule timer as there is no postInterval available yet")
+            delegate?.eventsQueueFailedToScheduleTimer(self)
             return
         }
 

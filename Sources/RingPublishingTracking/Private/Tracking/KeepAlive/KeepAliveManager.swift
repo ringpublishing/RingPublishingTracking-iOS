@@ -86,7 +86,15 @@ final class KeepAliveManager {
 
     // MARK: -
 
-    func start(for contentMetadata: ContentMetadata, contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource) {
+    func start(for contentMetadata: ContentMetadata,
+               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
+               partiallyReloaded: Bool) {
+        if partiallyReloaded, self.contentMetadata == contentMetadata {
+            self.contentKeepAliveDataSource = contentKeepAliveDataSource
+            resume()
+            return
+        }
+
         sendMeasurements()
 
         stopTimers()

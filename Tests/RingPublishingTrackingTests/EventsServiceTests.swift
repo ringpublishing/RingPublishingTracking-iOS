@@ -120,4 +120,50 @@ class EventsServiceTests: XCTestCase {
         // Then
         XCTAssertEqual(request.events.count, 1, "Incorrect event should not be added")
     }
+
+    func testShouldRetryIdentifyRequest_allRequredDataStored_shouldNotRetry() {
+        // Given
+        let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
+        let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
+        let storage = StaticStorage(eaUUID: eaUuid, trackingIds: [
+            "key1": .init(value: "id1", lifetime: nil),
+            "key2": .init(value: "id2", lifetime: nil),
+            "key3": .init(value: "id3", lifetime: nil)
+        ], postInterval: 500)
+
+        let service = EventsService(storage: storage)
+
+        // Then
+        XCTAssertFalse(service.shouldRetryIdentifyRequest, "Identify request should not be retried")
+    }
+
+    func testShouldRetryIdentifyRequest_eaUUIDIsMissing_shouldNotRetry() {
+        // Given
+        let storage = StaticStorage(eaUUID: nil, trackingIds: [
+            "key1": .init(value: "id1", lifetime: nil),
+            "key2": .init(value: "id2", lifetime: nil),
+            "key3": .init(value: "id3", lifetime: nil)
+        ], postInterval: 500)
+
+        let service = EventsService(storage: storage)
+
+        // Then
+        XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
+    }
+
+    func testShouldRetryIdentifyRequest_postIntervalIsMissing_shouldNotRetry() {
+        // Given
+        let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
+        let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
+        let storage = StaticStorage(eaUUID: eaUuid, trackingIds: [
+            "key1": .init(value: "id1", lifetime: nil),
+            "key2": .init(value: "id2", lifetime: nil),
+            "key3": .init(value: "id3", lifetime: nil)
+        ], postInterval: nil)
+
+        let service = EventsService(storage: storage)
+
+        // Then
+        XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
+    }
 }
