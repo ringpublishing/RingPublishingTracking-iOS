@@ -29,7 +29,7 @@ final class EventsService {
     /// Service responsible for sending requests to the backend
     private var apiService: APIService?
 
-    private var didIdentifyMeRequestFinished: Bool = true
+    private var isIdentifyMeRequestInProgress: Bool = false
 
     /// Registered decorators
     private var decorators: [Decorator]
@@ -118,7 +118,7 @@ final class EventsService {
         let body = IdentifyRequest(ids: ids, user: user)
         let endpoint = IdentifyEnpoint(body: body)
 
-        didIdentifyMeRequestFinished = false
+        isIdentifyMeRequestInProgress = true
         apiService.call(endpoint) { [weak self] result in
             switch result {
             case .success(let response):
@@ -130,7 +130,7 @@ final class EventsService {
                 completion?(false)
             }
 
-            self?.didIdentifyMeRequestFinished = true
+            self?.isIdentifyMeRequestInProgress = false
         }
     }
 
@@ -195,7 +195,7 @@ extension EventsService {
     }
 
     var shouldRetryIdentifyRequest: Bool {
-        (!isEaUuidValid || !hasPostIntervalStored) && didIdentifyMeRequestFinished
+        (!isEaUuidValid || !hasPostIntervalStored) && !isIdentifyMeRequestInProgress
     }
 
     /// Builds dictionary of stored tracking identifiers
