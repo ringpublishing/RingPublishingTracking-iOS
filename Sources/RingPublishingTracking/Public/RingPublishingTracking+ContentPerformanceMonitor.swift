@@ -22,7 +22,10 @@ public extension RingPublishingTracking {
     func reportClick(selectedElementName: String?) {
         Logger.log("Reporting click event for element named: '\(selectedElementName.logable)'")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
+                                                   publicationUrl: nil,
+                                                   publicationIdentifier: nil)
+        reportEvents([event])
     }
 
     // MARK: Content click event
@@ -32,11 +35,15 @@ public extension RingPublishingTracking {
     /// - Parameters:
     ///   - selectedElementName: String
     ///   - publicationUrl: URL
-    func reportContentClick(selectedElementName: String, publicationUrl: URL) {
+    ///   - publicationId: String
+    func reportContentClick(selectedElementName: String, publicationUrl: URL, publicationId: String) {
         let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting content click event for element named: \(logData)")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
+                                                   publicationUrl: publicationUrl,
+                                                   publicationIdentifier: publicationId)
+        reportEvents([event])
     }
 
     // MARK: User action event
@@ -51,7 +58,10 @@ public extension RingPublishingTracking {
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: [String: AnyHashable]) {
         Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createUserActionEvent(actionName: actionName,
+                                                        actionSubtypeName: actionSubtypeName,
+                                                        parameter: .parameters(parameters))
+        reportEvents([event])
     }
 
     /// Reports user action event
@@ -64,7 +74,10 @@ public extension RingPublishingTracking {
     func reportUserAction(actionName: String, actionSubtypeName: String, parameters: String) {
         Logger.log("Reporting user action named: '\(actionName)', subtypeName: '\(actionSubtypeName)'")
 
-        // TODO: Implementation missing
+        let event = eventsFactory.createUserActionEvent(actionName: actionName,
+                                                        actionSubtypeName: actionSubtypeName,
+                                                        parameter: .plain(parameters))
+        reportEvents([event])
     }
 
     // MARK: Page view event
@@ -82,7 +95,11 @@ public extension RingPublishingTracking {
     func reportPageView(currentStructurePath: [String], partiallyReloaded: Bool) {
         Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
 
-        // TODO: Implementation missing
+        eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService.updateStructureType(structureType: .structurePath(currentStructurePath), contentPageViewSource: nil)
+
+        let event = eventsFactory.createPageViewEvent(publicationIdentifier: nil, contentMetadata: nil)
+        reportEvents([event])
     }
 
     // MARK: Content page view event & keep alive
@@ -109,29 +126,41 @@ public extension RingPublishingTracking {
         Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
         structure path: '\(currentStructurePath)'
         """
-        Logger.log(log )
+        Logger.log(log)
 
-        // TODO: Implementation missing
+        eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
+                                          contentPageViewSource: pageViewSource)
+
+        let event = eventsFactory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
+                                                      contentMetadata: contentMetadata)
+        reportEvents([event])
+
+        // Start keepAlive
+        Logger.log("Starting content keep alive tracking")
+        keepAliveManager.start(for: contentMetadata,
+                                  contentKeepAliveDataSource: contentKeepAliveDataSource,
+                                  partiallyReloaded: partiallyReloaded)
     }
 
     /// Pauses tracking for currently displayed content
     func pauseContentKeepAliveTracking() {
         Logger.log("Pausing content keep alive tracking")
 
-        // TODO: Implementation missing
+        keepAliveManager.pause()
     }
 
     /// Resumes tracking for currently displayed content
     func resumeContentKeepAliveTracking() {
         Logger.log("Resuming content keep alive tracking")
 
-        // TODO: Implementation missing
+        keepAliveManager.resume()
     }
 
     /// Stops tracking for currently displayed content
     func stopContentKeepAliveTracking() {
         Logger.log("Stopping content keep alive tracking")
 
-        // TODO: Implementation missing
+        keepAliveManager.stop()
     }
 }

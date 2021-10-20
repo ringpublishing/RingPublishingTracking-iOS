@@ -19,7 +19,7 @@ struct IdentifyEnpoint: Endpoint {
             return nil
         }
 
-        return try JSONEncoder().encode(body)
+        return try body.toBodyData()
     }
 
     func decode(data: Data) throws -> IdentifyResponse? {

@@ -1,5 +1,5 @@
 //
-//  EventsManagerTests.swift
+//  EventsQueueManagerTests.swift
 //  RingPublishingTrackingTests
 //
 //  Created by Artur Rymarz on 21/09/2021.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class EventsManagerTests: XCTestCase {
+class EventsQueueManagerTests: XCTestCase {
 
     // MARK: Setup
 
@@ -18,63 +18,9 @@ class EventsManagerTests: XCTestCase {
 
     // MARK: Tests
 
-    func testIsEaUuidValid_eaUuidDateIsSetInNearPast_theIdentifierIsValid() {
-        // Given
-
-        // Lifetime = 24h
-        // Creation Date = 12 hours ago
-        let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
-        let eaUuid = EaUuid(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-
-        let storage = StaticStorage(eaUuid: eaUuid, trackingIds: nil, postInterval: nil)
-        let manager = EventsManager(storage: storage)
-
-        // Then
-        XCTAssertTrue(manager.isEaUuidValid, "The identifier should be valid")
-    }
-
-    func testIsEaUuidValid_eaUuidDateIsSetInFarPast_theIdentifierIsExpired() {
-        // Given
-
-        // Lifetime = 24h
-        // Creation Date = 48 hours ago
-        let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 48))
-        let eaUuid = EaUuid(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-
-        let storage = StaticStorage(eaUuid: eaUuid, trackingIds: nil, postInterval: nil)
-        let manager = EventsManager(storage: storage)
-
-        // Then
-        XCTAssertFalse(manager.isEaUuidValid, "The identifier should be expired")
-    }
-
-    func testIsEaUuidValid_eaUuidDateIsNotSet_theIdentifierIsInvalid() {
-        // Given
-        let storage = StaticStorage(eaUuid: nil, trackingIds: nil, postInterval: nil)
-        let manager = EventsManager(storage: storage)
-
-        // Then
-        XCTAssertFalse(manager.isEaUuidValid, "The identifier should be invalid")
-    }
-
-    func testStoredIds_sampleTrackingIdentifiersAddedToStorage_storedIdsAreProperlyLoaded() {
-        // Given
-        let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
-        let eaUuid = EaUuid(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-        let storage = StaticStorage(eaUuid: eaUuid, trackingIds: [
-            "key1": .init(value: "id1", lifetime: nil),
-            "key2": .init(value: "id2", lifetime: nil),
-            "key3": .init(value: "id3", lifetime: nil)
-        ], postInterval: nil)
-        let manager = EventsManager(storage: storage)
-
-        // Then
-        XCTAssertEqual(manager.storedIds().count, 4, "Stored ids number should be correct")
-    }
-
     func testAddEvents_FiveEventsAddedToQueue_builtRequestContainsFiveEvents() {
         // Given
-        let manager = EventsManager(storage: StaticStorage())
+        let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
 
         // When
         manager.addEvents([
@@ -85,8 +31,7 @@ class EventsManagerTests: XCTestCase {
             Event.smallEvent()
         ])
 
-        let request = manager.buildEventRequest()
-        let events = request.events
+        let events = manager.events.allElements
 
         // Then
         XCTAssertEqual(events.count, 5, "Event request should contain proper number of events")
@@ -94,45 +39,20 @@ class EventsManagerTests: XCTestCase {
 
     func testAddEvents_oneTooBigEventAddedToQueue_builtRequestContainsNoEvents() {
         // Given
-        let manager = EventsManager(storage: StaticStorage())
+        let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
 
         // When
         manager.addEvents([Event.tooBigEvent()])
 
-        let request = manager.buildEventRequest()
-        let events = request.events
+        let events = manager.events.allElements
 
         // Then
         XCTAssertEqual(events.count, 0, "Event request should contain proper number of events")
     }
 
-    func testAddEvents_eventsOverRequestBodySizeLimitAddedToQueue_builtRequestBodySizeIsBelowSizeLimit() {
-        // Given
-        let manager = EventsManager(storage: StaticStorage())
-
-        let bodySizeLimit = Constants.requestBodySizeLimit
-        let singleEventSize = Event.smallEvent().toReportedEvent().sizeInBytes
-
-        // When
-        let eventsAmount = Int(floor(Double(bodySizeLimit) / Double(singleEventSize))) + 1
-
-        for _ in 0..<eventsAmount {
-            manager.addEvents([Event.smallEvent()])
-        }
-
-        let request = manager.buildEventRequest()
-
-        // Then
-        XCTAssertLessThan(request.dictionary.jsonSizeInBytes,
-                          bodySizeLimit,
-                          "Event request body size should be below \(bodySizeLimit)")
-
-        XCTAssertLessThan(request.events.count, eventsAmount, "Events above body size limit should not be added")
-    }
-
     func testAddEvents_eventsAddedConcurrently_allEventsHaveBeenAddedToQueue() {
         // Given
-        let manager = EventsManager(storage: StaticStorage())
+        let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
         let count = 100
 
         let expectation = self.expectation(description: "all events added")
@@ -144,19 +64,63 @@ class EventsManagerTests: XCTestCase {
             expectation.fulfill()
         }
 
-        let request = manager.buildEventRequest()
-        let events = request.events
+        let events = manager.events.allElements
 
         // Then
         waitForExpectations(timeout: 3, handler: nil)
         XCTAssertEqual(events.count, count, "Event request should contain proper number of events")
     }
+
+    func testCanSendEvents_storageWithPostInveralSetup_sendingEventsIsAllowed() {
+        // Given
+        let manager = EventsQueueManager(storage: StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: 2000),
+                                         operationMode: OperationMode())
+
+        // Then
+        XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
+
+        // When
+        manager.updateLastSendDate()
+
+        // Then
+        XCTAssertFalse(manager.canSendEvents(), "Should not be allowed to send events")
+
+        // When
+        wait(for: 1)
+
+        // Then
+        XCTAssertFalse(manager.canSendEvents(), "Should not be allowed to send events")
+
+        // When
+        wait(for: 1)
+
+        // Then
+        XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
+    }
+
+    func testCanSendEvents_storageWithPostInveralBelow1SecondSetup_sendingEventsIsAllowed() {
+        // Given
+        let manager = EventsQueueManager(storage: StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: 500),
+                                         operationMode: OperationMode())
+
+        // Then
+        XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
+
+        // When
+        manager.updateLastSendDate()
+
+        // Then
+        XCTAssertFalse(manager.canSendEvents(), "Should not be allowed to send events")
+
+        // When
+        wait(for: 1)
+
+        // Then
+        XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
+    }
 }
 
-private extension Event {
-    func toReportedEvent() -> ReportedEvent {
-        ReportedEvent(clientId: analyticsSystemName, eventType: eventName, data: eventParameters)
-    }
+extension Event {
 
     static func smallEvent() -> Self { // 190 bytes
         Event(eventParameters: [

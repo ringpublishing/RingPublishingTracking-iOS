@@ -1,6 +1,6 @@
 //
-//  EaUuid.swift
-//  EaUuid
+//  EaUUID.swift
+//  EaUUID
 //
 //  Created by Artur Rymarz on 13/09/2021.
 //  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// User identifier
-struct EaUuid: Codable {
+struct EaUUID: Codable {
 
     /// The identifier
     let value: String
