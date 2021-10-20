@@ -50,5 +50,5 @@ public struct ContentMetadata {
     }
 }
 
-/// Extension to make ContentMetadata comporable
+/// Extension to make ContentMetadata comparable
 extension ContentMetadata: Equatable {}
