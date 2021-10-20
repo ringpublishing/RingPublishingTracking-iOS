@@ -53,8 +53,9 @@ final class EventsService {
     /// - Parameters:
     ///   - apiUrl: API url. If not provided the default URL will be used
     ///   - apiKey: API key
-    func setup(apiUrl: URL?, apiKey: String, delegate: EventsServiceDelegate?) {
-        apiService = APIService(apiUrl: apiUrl ?? Constants.apiUrl, apiKey: apiKey)
+    ///   - session: Session object used to create requests. Defaults to `URLSession.shared`
+    func setup(apiUrl: URL?, apiKey: String, delegate: EventsServiceDelegate?, session: NetworkSession = URLSession.shared) {
+        apiService = APIService(apiUrl: apiUrl ?? Constants.apiUrl, apiKey: apiKey, session: session)
         eventsQueueManager.delegate = self
 
         self.delegate = delegate
