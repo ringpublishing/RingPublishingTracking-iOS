@@ -61,15 +61,15 @@ struct APIService: Service {
                 return
             }
 
+            if let serviceError = response?.serviceError {
+                completion(.failure(serviceError))
+                return
+            }
+
             guard let data = data else {
                 Logger.log("Received response does not contain any data", level: .error)
                 completion(.failure(.noData))
                 return
-            }
-
-            if let response = response as? HTTPURLResponse, response.statusCode == 403 {
-                Logger.log("Given request is forbidden (unauthorized)", level: .error)
-                completion(.failure(.unauthorized))
             }
 
             guard let decoded = try? endpoint.decode(data: data) else {
@@ -108,6 +108,7 @@ struct APIService: Service {
 }
 
 extension URLRequest {
+
     /// Fills `URLRequest` body with data from the endpoint
     mutating func withBody<T: Endpoint>(for endpoint: T) throws {
         switch endpoint.method {
@@ -120,5 +121,29 @@ extension URLRequest {
         default:
             break
         }
+    }
+}
+
+extension URLResponse {
+
+    /// Map status code to `ServiceError`
+    var serviceError: ServiceError? {
+        if let response = self as? HTTPURLResponse {
+            switch response.statusCode {
+            case 403:
+                Logger.log("Given request is forbidden (unauthorized)", level: .error)
+                return .unauthorized
+            case 400...499:
+                Logger.log("Incorrect request. It should be resolved on client side.", level: .error)
+                return .clientError
+            case 500...599:
+                Logger.log("There was an issue handling the request, It should be resolved on server side.", level: .error)
+                return .serverError
+            default:
+                break
+            }
+        }
+
+        return nil
     }
 }
