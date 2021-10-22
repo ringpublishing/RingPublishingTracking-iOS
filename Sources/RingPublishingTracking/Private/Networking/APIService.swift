@@ -25,8 +25,8 @@ struct APIService: Service {
     /// - Parameters:
     ///   - apiUrl: API url
     ///   - apiKey: API key
-    ///   - session: Session object used to create requests. Defaults to `URLSession.shared`
-    init(apiUrl: URL, apiKey: String, session: NetworkSession = URLSession.shared) {
+    ///   - session: Session object used to create requests
+    init(apiUrl: URL, apiKey: String, session: NetworkSession) {
         self.apiUrl = apiUrl
         self.apiKey = apiKey
         self.session = session
