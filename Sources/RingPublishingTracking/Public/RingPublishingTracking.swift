@@ -42,7 +42,7 @@ public class RingPublishingTracking {
     // MARK: Internal properties
 
     /// Events service for handling all operations on events
-    let eventsService = EventsService()
+    let eventsService: EventsService
 
     /// Events factory for creating specific events
     let eventsFactory = EventsFactory()
@@ -58,7 +58,7 @@ public class RingPublishingTracking {
     // MARK: Initializer
 
     private init() {
-        // Nothing to do here at the moment
+        eventsService = EventsService(eventsFactory: eventsFactory)
     }
 
     /// Configure RingPublishingTracking module
