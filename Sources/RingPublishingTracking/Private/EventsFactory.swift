@@ -95,4 +95,18 @@ final class EventsFactory {
                      eventName: EventType.keepAlive.rawValue,
                      eventParameters: parameters)
     }
+
+    func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {
+        let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
+        let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes), reason: exceeding size limit)"
+
+        let message = "Application \(applicationName) tried to send event \(eventInfo)."
+
+        return Event(analyticsSystemName: AnalyticsSystem.kropkaMonitoring.rawValue,
+                     eventName: event.eventName,
+                     eventParameters: [
+                        "VE": "AppError",
+                        "VM": message
+                     ])
+    }
 }

@@ -351,15 +351,9 @@ extension EventsService: EventsQueueManagerDelegate {
     }
 
     func eventsQueueFailedToAddInvalidEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {
-        let applicationRootPath = structureInfoDecorator.applicationRootPath
-        let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
-        let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes))"
+        let errorEvent = eventsFactory.createErrorEvent(for: event,
+                                                           applicationRootPath: structureInfoDecorator.applicationRootPath)
 
-        let message = "Application \(applicationName) tried to send event \(eventInfo) exceeding size limit."
-        let event = eventsFactory.createUserActionEvent(actionName: AnalyticsSystem.kropkaMonitoring.rawValue,
-                                                        actionSubtypeName: "AppError",
-                                                        parameter: .plain(message))
-
-        eventsQueueManager.addEvents([event])
+        eventsQueueManager.addEvents([errorEvent])
     }
 }

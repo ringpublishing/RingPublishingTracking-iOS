@@ -138,4 +138,22 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(params["PU"], contentMetadata.publicationId, "PU parameter should be equal publication identifier")
         XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,f", "DX parameter should be in correct format")
     }
+
+    // MARK: - ErrorEvent Tests
+
+    func testCreateErrorEvent_incorrectErventProvided_returnedEventIsDecorated() {
+        // Given
+        let factory = EventsFactory()
+        let incorrectEvent = factory.createClickEvent(selectedElementName: "test", publicationUrl: nil, publicationIdentifier: nil)
+
+        // When
+        let event = factory.createErrorEvent(for: incorrectEvent, applicationRootPath: "Tests")
+        let params = event.eventParameters
+
+        // Then
+        XCTAssertEqual(event.eventName, incorrectEvent.eventName, "eventName should be equal to incorrect eventName")
+        XCTAssertEqual(event.analyticsSystemName, AnalyticsSystem.kropkaMonitoring.rawValue, "analyticsSystemName should be proper")
+        XCTAssertEqual(params["VE"], "AppError", "VE arameter should match")
+        XCTAssertNotNil(params["VM"], "VM parameter should contain message")
+    }
 }
