@@ -11,6 +11,9 @@ import Foundation
 /// Class used for all event operations
 final class EventsService {
 
+    /// Events queue manager for adding and removing events to/from queue
+    let eventsQueueManager: EventsQueueManager
+
     /// Storage
     private var storage: TrackingStorage
 
@@ -19,9 +22,6 @@ final class EventsService {
 
     /// User manager
     private let userManager = UserManager()
-
-    /// Events queue manager for adding and removing events to/from queue
-    private let eventsQueueManager: EventsQueueManager
 
     /// Manager for retrieving adverisement identifier
     private let vendorManager = VendorManager()
@@ -57,8 +57,9 @@ final class EventsService {
     /// - Parameters:
     ///   - apiUrl: API url. If not provided the default URL will be used
     ///   - apiKey: API key
-    func setup(apiUrl: URL?, apiKey: String, delegate: EventsServiceDelegate?) {
-        apiService = APIService(apiUrl: apiUrl ?? Constants.apiUrl, apiKey: apiKey)
+    ///   - session: Session object used to create requests. Defaults to `URLSession.shared`
+    func setup(apiUrl: URL?, apiKey: String, delegate: EventsServiceDelegate?, session: NetworkSession = URLSession.shared) {
+        apiService = APIService(apiUrl: apiUrl ?? Constants.apiUrl, apiKey: apiKey, session: session)
         eventsQueueManager.delegate = self
 
         self.delegate = delegate
@@ -269,9 +270,16 @@ extension EventsService {
         apiService?.call(endpoint, completion: { [weak self] result in
             switch result {
             case .success(let response):
+                self?.eventsQueueManager.events.removeFirst(body.events.count)
                 self?.storePostInterval(response.postInterval)
             case .failure(let error):
-                break // TODO: missing error handling
+                switch error {
+                case .clientError:
+                    Logger.log("The request to send events was incorrect. Skipping those events.", level: .info)
+                    self?.eventsQueueManager.events.removeFirst(body.events.count)
+                default:
+                    break
+                }
             }
         })
     }
@@ -308,8 +316,6 @@ extension EventsService {
                 break
             }
         }
-
-        eventsQueueManager.events.removeFirst(eventsToSend.count)
 
         return EventRequest(ids: ids,
                             user: user,

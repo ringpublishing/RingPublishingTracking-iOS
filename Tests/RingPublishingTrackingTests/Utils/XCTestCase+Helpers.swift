@@ -11,14 +11,6 @@ import XCTest
 extension XCTestCase {
 
     func wait(for seconds: TimeInterval) {
-        let waitExpectation = expectation(description: "Waiting")
-
-        let when = DispatchTime.now() + seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            waitExpectation.fulfill()
-        }
-
-        // We use a buffer here to avoid flakiness with Timer on CI
-        waitForExpectations(timeout: seconds + 0.5)
+        _ = XCTWaiter.wait(for: [expectation(description: "Wait for \(seconds) seconds")], timeout: seconds)
     }
 }

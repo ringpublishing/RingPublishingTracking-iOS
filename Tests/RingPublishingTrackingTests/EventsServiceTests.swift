@@ -137,7 +137,7 @@ class EventsServiceTests: XCTestCase {
         XCTAssertFalse(service.shouldRetryIdentifyRequest, "Identify request should not be retried")
     }
 
-    func testShouldRetryIdentifyRequest_eaUUIDIsMissing_shouldNotRetry() {
+    func testShouldRetryIdentifyRequest_eaUUIDIsMissing_shouldRetry() {
         // Given
         let storage = StaticStorage(eaUUID: nil, trackingIds: [
             "key1": .init(value: "id1", lifetime: nil),
@@ -151,7 +151,7 @@ class EventsServiceTests: XCTestCase {
         XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
     }
 
-    func testShouldRetryIdentifyRequest_postIntervalIsMissing_shouldNotRetry() {
+    func testShouldRetryIdentifyRequest_postIntervalIsMissing_shouldRetry() {
         // Given
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
