@@ -141,7 +141,7 @@ class EventsFactoryTests: XCTestCase {
 
     // MARK: - ErrorEvent Tests
 
-    func testCreateErrorEvent_incorrectErventProvided_returnedEventIsDecorated() {
+    func testCreateErrorEvent_incorrectEventProvided_returnedEventIsDecorated() {
         // Given
         let factory = EventsFactory()
         let incorrectEvent = factory.createClickEvent(selectedElementName: "test", publicationUrl: nil, publicationIdentifier: nil)

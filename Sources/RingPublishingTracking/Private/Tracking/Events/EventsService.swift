@@ -350,9 +350,9 @@ extension EventsService: EventsQueueManagerDelegate {
         }
     }
 
-    func eventsQueueFailedToAddInvalidEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {
+    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {
         let errorEvent = eventsFactory.createErrorEvent(for: event,
-                                                           applicationRootPath: structureInfoDecorator.applicationRootPath)
+                                                        applicationRootPath: structureInfoDecorator.applicationRootPath)
 
         eventsQueueManager.addEvents([errorEvent])
     }

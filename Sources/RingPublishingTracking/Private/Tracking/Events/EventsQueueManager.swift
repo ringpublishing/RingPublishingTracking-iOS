@@ -80,7 +80,7 @@ extension EventsQueueManager {
 
         guard eventSize <= Constants.eventSizeLimit else {
             Logger.log("Event's size exceeded size limit. Adding error event instead.", level: .error)
-            delegate?.eventsQueueFailedToAddInvalidEvent(self, event: event)
+            delegate?.eventsQueueFailedToAddEvent(self, event: event)
             return
         }
 
