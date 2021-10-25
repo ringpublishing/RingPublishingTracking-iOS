@@ -103,7 +103,7 @@ final class EventsFactory {
         let message = "Application \(applicationName) tried to send event \(eventInfo)."
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaMonitoring.rawValue,
-                     eventName: event.eventName,
+                     eventName: EventType.error.rawValue,
                      eventParameters: [
                         "VE": "AppError",
                         "VM": message

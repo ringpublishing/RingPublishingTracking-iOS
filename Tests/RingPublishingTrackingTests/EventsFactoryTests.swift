@@ -151,7 +151,7 @@ class EventsFactoryTests: XCTestCase {
         let params = event.eventParameters
 
         // Then
-        XCTAssertEqual(event.eventName, incorrectEvent.eventName, "eventName should be equal to incorrect eventName")
+        XCTAssertEqual(event.eventName, EventType.error.rawValue, "eventName should be correct")
         XCTAssertEqual(event.analyticsSystemName, AnalyticsSystem.kropkaMonitoring.rawValue, "analyticsSystemName should be proper")
         XCTAssertEqual(params["VE"], "AppError", "VE arameter should match")
         XCTAssertNotNil(params["VM"], "VM parameter should contain message")

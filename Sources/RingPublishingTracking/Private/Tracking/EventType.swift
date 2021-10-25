@@ -14,4 +14,5 @@ enum EventType: String {
     case userAction = "UserAction"
     case pageView = "PageView"
     case keepAlive = "KeepAlive"
+    case error = "ErrEvent"
 }
