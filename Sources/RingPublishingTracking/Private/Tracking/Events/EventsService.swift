@@ -26,6 +26,9 @@ final class EventsService {
     /// Manager for retrieving adverisement identifier
     private let vendorManager = VendorManager()
 
+    /// Events factory
+    private let eventsFactory: EventsFactory
+
     /// Service responsible for sending requests to the backend
     private var apiService: APIService?
 
@@ -43,9 +46,10 @@ final class EventsService {
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
-    init(storage: TrackingStorage = UserDefaultsStorage()) {
+    init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
+        self.eventsFactory = eventsFactory
         self.decorators = []
     }
 
@@ -350,5 +354,12 @@ extension EventsService: EventsQueueManagerDelegate {
 
             self?.eventsQueueManager.sendEventsIfPossible()
         }
+    }
+
+    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {
+        let errorEvent = eventsFactory.createErrorEvent(for: event,
+                                                        applicationRootPath: structureInfoDecorator.applicationRootPath)
+
+        eventsQueueManager.addEvents([errorEvent])
     }
 }
