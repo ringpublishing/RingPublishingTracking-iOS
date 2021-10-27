@@ -84,4 +84,40 @@ class KeepAliveTests: XCTestCase {
         XCTAssertEqual(inativeMeasurements.count, 1, "1 document inactive measures should be taken")
         XCTAssertEqual(activeMeasurements.count, 1, "1 document active measures should be taken")
     }
+
+    func testCollectingMeasurements_sampleContentDataProvidedWith10SePausedTime_properMeasurementsTaken() {
+        // Given
+        let dataSourceStub = KeepAliveDataSourceStub()
+        let managerDelegateMock = KeepAliveManagerDelegateMock()
+
+        keepAliveManager.delegate = managerDelegateMock
+
+        let url = URL(string: "https://example.com/article?id=1234")! // swiftlint:disable:this force_unwrapping
+        let contentData = ContentMetadata(publicationId: "12345",
+                                          publicationUrl: url,
+                                          sourceSystemName: "name",
+                                          contentPartIndex: 1,
+                                          contentWasPaidFor: true)
+
+        // When
+        keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
+        wait(for: 4) // 3 activity
+        keepAliveManager.pause()
+        wait(for: 10) // 0 activity + send
+        keepAliveManager.resume()
+        wait(for: 6) // 1 send + 3 activity
+        keepAliveManager.stop()
+
+        // Then
+        let activityTimerMeasurements = managerDelegateMock.measurementTypes.filter { $0 == .activityTimer }
+        let sendTimerMeasurements = managerDelegateMock.measurementTypes.filter { $0 == .sendTimer }
+        let inativeMeasurements = managerDelegateMock.measurementTypes.filter { $0 == .documentInactive }
+        let activeMeasurements = managerDelegateMock.measurementTypes.filter { $0 == .documentActive }
+
+        XCTAssertEqual(managerDelegateMock.measurementsCount, 7, "7 measures should be taken")
+        XCTAssertEqual(activityTimerMeasurements.count, 6, "6 activity timer measures should be taken")
+        XCTAssertEqual(sendTimerMeasurements.count, 1, "1 send timer measures should be taken")
+        XCTAssertEqual(inativeMeasurements.count, 0, "0 document inactive measures should be taken")
+        XCTAssertEqual(activeMeasurements.count, 0, "0 document active measures should be taken")
+    }
 }
