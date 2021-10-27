@@ -6,8 +6,6 @@
 //  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
 //
 
-import Foundation
-
 import XCTest
 
 class ConsentProviderTests: XCTestCase {
