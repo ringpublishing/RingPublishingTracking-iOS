@@ -9,7 +9,8 @@
 import XCTest
 
 class RingPublishingTrackingDelegateMock: RingPublishingTrackingDelegate {
-    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking, didAssignTrackingIdentifier identifier: TrackingIdentifier) {}
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didAssignTrackingIdentifier identifier: TrackingIdentifier) {}
 }
 
 class RingPublishingTrackingTests: XCTestCase {
