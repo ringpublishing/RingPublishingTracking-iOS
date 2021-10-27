@@ -40,7 +40,7 @@ class EventsQueueManagerTests: XCTestCase {
     func testAddEvents_oneTooBigEventAddedToQueue_builtRequestContainsErrorEvent() {
         // Given
         let storage = StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
         let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
         manager.delegate = service
 

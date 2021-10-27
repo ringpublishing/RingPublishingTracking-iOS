@@ -69,4 +69,35 @@ class RingPublishingTrackingTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 1, handler: nil)
     }
+
+    func testDebugMode_optOutModeEnabledOrDisabled_moduleShouldDoNothing() {
+        // Given
+        let expectation1 = self.expectation(description: "log reported")
+        expectation1.assertForOverFulfill = false
+
+        // When
+        RingPublishingTracking.shared.loggerOutput = { _ in
+            expectation1.fulfill()
+        }
+
+        RingPublishingTracking.shared.updateApplicationAdvertisementArea(currentAdvertisementArea: "Test")
+
+        // Then
+        waitForExpectations(timeout: 1, handler: nil)
+
+        // Given
+        RingPublishingTracking.shared.setOptOutMode(enabled: true)
+        let expectation2 = self.expectation(description: "log reported")
+        expectation2.isInverted = true
+
+        // When
+        RingPublishingTracking.shared.loggerOutput = { _ in
+            expectation2.fulfill()
+        }
+
+        RingPublishingTracking.shared.updateApplicationAdvertisementArea(currentAdvertisementArea: "Test")
+
+        // Then
+        waitForExpectations(timeout: 1, handler: nil)
+    }
 }
