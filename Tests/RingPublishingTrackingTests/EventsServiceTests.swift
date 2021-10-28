@@ -27,7 +27,7 @@ class EventsServiceTests: XCTestCase {
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
 
         let storage = StaticStorage(eaUUID: eaUuid, trackingIds: nil, postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // Then
         XCTAssertTrue(service.isEaUuidValid, "The identifier should be valid")
@@ -42,7 +42,7 @@ class EventsServiceTests: XCTestCase {
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
 
         let storage = StaticStorage(eaUUID: eaUuid, trackingIds: nil, postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // Then
         XCTAssertFalse(service.isEaUuidValid, "The identifier should be expired")
@@ -51,7 +51,7 @@ class EventsServiceTests: XCTestCase {
     func testIsEaUuidValid_eaUuidDateIsNotSet_theIdentifierIsInvalid() {
         // Given
         let storage = StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // Then
         XCTAssertFalse(service.isEaUuidValid, "The identifier should be invalid")
@@ -66,7 +66,7 @@ class EventsServiceTests: XCTestCase {
             "key2": .init(value: "id2", lifetime: nil),
             "key3": .init(value: "id3", lifetime: nil)
         ], postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // Then
         XCTAssertEqual(service.storedIds().count, 4, "Stored ids number should be correct")
@@ -79,7 +79,7 @@ class EventsServiceTests: XCTestCase {
             "key2": .init(value: "id2", lifetime: nil),
             "key3": .init(value: "id3", lifetime: nil)
         ], postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         let bodySizeLimit = Constants.requestBodySizeLimit
         let singleEventSize = Event.smallEvent().sizeInBytes
@@ -104,7 +104,7 @@ class EventsServiceTests: XCTestCase {
     func testAddEvents_eventsWithInvalidAddedToQueue_invalidEventsAreNotAdded() {
         // Given
         let storage = StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // When
         let incorrectEvent = Event(eventParameters: [
@@ -131,7 +131,7 @@ class EventsServiceTests: XCTestCase {
             "key3": .init(value: "id3", lifetime: nil)
         ], postInterval: 500)
 
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // Then
         XCTAssertFalse(service.shouldRetryIdentifyRequest, "Identify request should not be retried")
@@ -145,7 +145,7 @@ class EventsServiceTests: XCTestCase {
             "key3": .init(value: "id3", lifetime: nil)
         ], postInterval: 500)
 
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // Then
         XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
@@ -161,7 +161,7 @@ class EventsServiceTests: XCTestCase {
             "key3": .init(value: "id3", lifetime: nil)
         ], postInterval: nil)
 
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: .init())
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
         // Then
         XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
