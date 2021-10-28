@@ -18,7 +18,7 @@ final class EventsService {
     private var storage: TrackingStorage
 
     /// Operation mode
-    private let operationMode: OperationMode
+    private let operationMode: Operationable
 
     /// User manager
     private let userManager = UserManager()
@@ -46,7 +46,7 @@ final class EventsService {
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
-    init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory, operationMode: OperationMode) {
+    init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory, operationMode: Operationable) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
         self.eventsFactory = eventsFactory
