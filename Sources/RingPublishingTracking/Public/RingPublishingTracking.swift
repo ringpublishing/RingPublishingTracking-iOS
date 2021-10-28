@@ -61,7 +61,6 @@ public class RingPublishingTracking {
     // MARK: Initializer
 
     private init() {
-        Logger.shared.operationMode = operationMode
         eventsService = EventsService(eventsFactory: eventsFactory, operationMode: operationMode)
     }
 

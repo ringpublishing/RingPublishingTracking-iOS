@@ -21,9 +21,6 @@ class Logger {
     /// Closure which can be used to gather module logs inside host application
     var loggerOutput: ((_ message: String) -> Void)?
 
-    /// Operation mode
-    var operationMode: Operationable?
-
     // MARK: Init
 
     private init() {
@@ -41,10 +38,6 @@ class Logger {
                    file: String = #file,
                    functionName: String = #function,
                    lineNumber: Int = #line) {
-        if let optOutEnabled = Self.shared.operationMode?.optOutEnabled, optOutEnabled {
-            return
-        }
-
         let fileName = (file as NSString).lastPathComponent
         let messageWithMetadata = "[\(fileName):\(lineNumber) \(functionName)] \(message)"
 

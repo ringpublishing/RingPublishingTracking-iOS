@@ -85,7 +85,7 @@ class KeepAliveTests: XCTestCase {
         XCTAssertEqual(activeMeasurements.count, 1, "1 document active measures should be taken")
     }
 
-    func testCollectingMeasurements_sampleContentDataProvidedWith10SePausedTime_properMeasurementsTaken() {
+    func testCollectingMeasurements_sampleContentDataProvidedWith10SecondsPausedTime_properMeasurementsTaken() {
         // Given
         let dataSourceStub = KeepAliveDataSourceStub()
         let managerDelegateMock = KeepAliveManagerDelegateMock()

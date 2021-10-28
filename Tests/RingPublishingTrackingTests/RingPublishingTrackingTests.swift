@@ -8,11 +8,6 @@
 
 import XCTest
 
-class RingPublishingTrackingDelegateMock: RingPublishingTrackingDelegate {
-    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
-                                didAssignTrackingIdentifier identifier: TrackingIdentifier) {}
-}
-
 class RingPublishingTrackingTests: XCTestCase {
     let tenantId = "12345"
     let apiKey = "abcdef"
@@ -88,7 +83,7 @@ class RingPublishingTrackingTests: XCTestCase {
         // Given
         RingPublishingTracking.shared.setOptOutMode(enabled: true)
         let expectation2 = self.expectation(description: "log reported")
-        expectation2.isInverted = true
+        expectation2.assertForOverFulfill = false
 
         // When
         RingPublishingTracking.shared.loggerOutput = { _ in
