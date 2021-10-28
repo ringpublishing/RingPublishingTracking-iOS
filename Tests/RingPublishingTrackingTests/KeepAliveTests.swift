@@ -36,7 +36,7 @@ class KeepAliveTests: XCTestCase {
 
         // When
         keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
-        wait(for: 20) // 11 activity + 2 send
+        wait(for: 19) // 11 activity + 2 send
         keepAliveManager.stop()
 
         // Then
@@ -69,7 +69,7 @@ class KeepAliveTests: XCTestCase {
         NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil) // 1 inactive
         wait(for: 10) // 0 activity + send
         NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil) // 1 active
-        wait(for: 6) // 1 send + 3 activity
+        wait(for: 5) // 1 send + 3 activity
         keepAliveManager.stop()
 
         // Then
@@ -105,7 +105,7 @@ class KeepAliveTests: XCTestCase {
         keepAliveManager.pause()
         wait(for: 10) // 0 activity + send
         keepAliveManager.resume()
-        wait(for: 6) // 1 send + 3 activity
+        wait(for: 5) // 1 send + 3 activity
         keepAliveManager.stop()
 
         // Then
