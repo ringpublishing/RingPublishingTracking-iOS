@@ -52,13 +52,16 @@ public class RingPublishingTracking {
 
     // MARK: Private properties
 
+    /// Keep alive event manager
+    private let operationMode = OperationMode()
+
     /// Module delegate
     private weak var delegate: RingPublishingTrackingDelegate?
 
     // MARK: Initializer
 
     private init() {
-        eventsService = EventsService(eventsFactory: eventsFactory)
+        eventsService = EventsService(eventsFactory: eventsFactory, operationMode: operationMode)
     }
 
     /// Configure RingPublishingTracking module
@@ -90,7 +93,7 @@ public class RingPublishingTracking {
     public func setDebugMode(enabled: Bool) {
         Logger.log("Setting debug mode enabled: '\(enabled)'")
 
-        eventsService.setDebugMode(enabled: enabled)
+        operationMode.debugEnabled = enabled
     }
 
     /// Enable / disable opt-out mode
@@ -101,7 +104,7 @@ public class RingPublishingTracking {
     public func setOptOutMode(enabled: Bool) {
         Logger.log("Setting opt-out mode enabled: '\(enabled)'")
 
-        eventsService.setOptOutMode(enabled: enabled)
+        operationMode.optOutEnabled = enabled
     }
 
     // MARK: Generic event

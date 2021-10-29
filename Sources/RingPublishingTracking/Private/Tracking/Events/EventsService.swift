@@ -18,7 +18,7 @@ final class EventsService {
     private var storage: TrackingStorage
 
     /// Operation mode
-    private var operationMode = OperationMode()
+    private let operationMode: Operationable
 
     /// User manager
     private let userManager = UserManager()
@@ -46,11 +46,12 @@ final class EventsService {
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
-    init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory) {
+    init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory, operationMode: Operationable) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
         self.eventsFactory = eventsFactory
         self.decorators = []
+        self.operationMode = operationMode
     }
 
     /// Setups API Service
@@ -137,14 +138,6 @@ final class EventsService {
 
             self?.isIdentifyMeRequestInProgress = false
         }
-    }
-
-    func setDebugMode(enabled: Bool) {
-        operationMode.debugEnabled = enabled
-    }
-
-    func setOptOutMode(enabled: Bool) {
-        operationMode.optOutEnabled = enabled
     }
 
     // MARK: - Decorators helpers
