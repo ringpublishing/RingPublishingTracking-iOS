@@ -94,6 +94,10 @@ extension EventsQueueManager {
             return
         }
 
+        guard !events.allElements.isEmpty else {
+            return
+        }
+
         guard canSendEvents() else {
             scheduleTimer()
             return
