@@ -13,4 +13,5 @@ protocol EventsQueueManagerDelegate: AnyObject {
 
     func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager)
     func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager)
+    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event)
 }

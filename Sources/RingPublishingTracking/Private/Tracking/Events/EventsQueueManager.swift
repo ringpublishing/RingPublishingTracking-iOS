@@ -79,7 +79,8 @@ extension EventsQueueManager {
         let eventSize = event.sizeInBytes
 
         guard eventSize <= Constants.eventSizeLimit else {
-            Logger.log("Event's size exceeded size limit", level: .error)
+            Logger.log("Event's size exceeded size limit. Adding error event instead.", level: .error)
+            delegate?.eventsQueueFailedToAddEvent(self, event: event)
             return
         }
 
@@ -90,6 +91,10 @@ extension EventsQueueManager {
     func sendEventsIfPossible() {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring network request.")
+            return
+        }
+
+        guard !events.allElements.isEmpty else {
             return
         }
 

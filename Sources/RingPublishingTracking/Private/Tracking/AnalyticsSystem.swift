@@ -12,5 +12,6 @@ enum AnalyticsSystem: String {
 
     case kropkaEvents = "kropka-events"
     case kropkaStats = "kropka-stats"
+    case kropkaMonitoring = "kropka-monitoring"
     case timescore = "timescore"
 }

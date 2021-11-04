@@ -16,5 +16,7 @@ enum ServiceError: Error {
     case incorrectRequestBody
     case unauthorized
     case failedToDecode
+    case clientError
+    case serverError
     case requestError(error: Error)
 }

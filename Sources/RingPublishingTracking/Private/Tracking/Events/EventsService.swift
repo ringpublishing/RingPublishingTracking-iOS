@@ -11,20 +11,23 @@ import Foundation
 /// Class used for all event operations
 final class EventsService {
 
+    /// Events queue manager for adding and removing events to/from queue
+    let eventsQueueManager: EventsQueueManager
+
     /// Storage
     private var storage: TrackingStorage
 
     /// Operation mode
-    private var operationMode = OperationMode()
+    private let operationMode: Operationable
 
     /// User manager
     private let userManager = UserManager()
 
-    /// Events queue manager for adding and removing events to/from queue
-    private let eventsQueueManager: EventsQueueManager
-
     /// Manager for retrieving adverisement identifier
     private let vendorManager = VendorManager()
+
+    /// Events factory
+    private let eventsFactory: EventsFactory
 
     /// Service responsible for sending requests to the backend
     private var apiService: APIService?
@@ -43,18 +46,21 @@ final class EventsService {
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
-    init(storage: TrackingStorage = UserDefaultsStorage()) {
+    init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory, operationMode: Operationable) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
+        self.eventsFactory = eventsFactory
         self.decorators = []
+        self.operationMode = operationMode
     }
 
     /// Setups API Service
     /// - Parameters:
     ///   - apiUrl: API url. If not provided the default URL will be used
     ///   - apiKey: API key
-    func setup(apiUrl: URL?, apiKey: String, delegate: EventsServiceDelegate?) {
-        apiService = APIService(apiUrl: apiUrl ?? Constants.apiUrl, apiKey: apiKey)
+    ///   - session: Session object used to create requests. Defaults to `URLSession.shared`
+    func setup(apiUrl: URL?, apiKey: String, delegate: EventsServiceDelegate?, session: NetworkSession = URLSession.shared) {
+        apiService = APIService(apiUrl: apiUrl ?? Constants.apiUrl, apiKey: apiKey, session: session)
         eventsQueueManager.delegate = self
 
         self.delegate = delegate
@@ -132,14 +138,6 @@ final class EventsService {
 
             self?.isIdentifyMeRequestInProgress = false
         }
-    }
-
-    func setDebugMode(enabled: Bool) {
-        operationMode.debugEnabled = enabled
-    }
-
-    func setOptOutMode(enabled: Bool) {
-        operationMode.optOutEnabled = enabled
     }
 
     // MARK: - Decorators helpers
@@ -265,9 +263,16 @@ extension EventsService {
         apiService?.call(endpoint, completion: { [weak self] result in
             switch result {
             case .success(let response):
+                self?.eventsQueueManager.events.removeFirst(body.events.count)
                 self?.storePostInterval(response.postInterval)
             case .failure(let error):
-                break // TODO: missing error handling
+                switch error {
+                case .clientError:
+                    Logger.log("The request to send events was incorrect. Skipping those events.", level: .info)
+                    self?.eventsQueueManager.events.removeFirst(body.events.count)
+                default:
+                    break
+                }
             }
         })
     }
@@ -304,8 +309,6 @@ extension EventsService {
                 break
             }
         }
-
-        eventsQueueManager.events.removeFirst(eventsToSend.count)
 
         return EventRequest(ids: ids,
                             user: user,
@@ -344,5 +347,12 @@ extension EventsService: EventsQueueManagerDelegate {
 
             self?.eventsQueueManager.sendEventsIfPossible()
         }
+    }
+
+    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {
+        let errorEvent = eventsFactory.createErrorEvent(for: event,
+                                                        applicationRootPath: structureInfoDecorator.applicationRootPath)
+
+        eventsQueueManager.addEvents([errorEvent])
     }
 }

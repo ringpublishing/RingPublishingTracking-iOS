@@ -37,9 +37,12 @@ class EventsQueueManagerTests: XCTestCase {
         XCTAssertEqual(events.count, 5, "Event request should contain proper number of events")
     }
 
-    func testAddEvents_oneTooBigEventAddedToQueue_builtRequestContainsNoEvents() {
+    func testAddEvents_oneTooBigEventAddedToQueue_builtRequestContainsErrorEvent() {
         // Given
+        let storage = StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: nil)
+        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
         let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
+        manager.delegate = service
 
         // When
         manager.addEvents([Event.tooBigEvent()])
@@ -47,7 +50,8 @@ class EventsQueueManagerTests: XCTestCase {
         let events = manager.events.allElements
 
         // Then
-        XCTAssertEqual(events.count, 0, "Event request should contain proper number of events")
+        XCTAssertEqual(events.count, 1, "Event request should contain proper number of events")
+        XCTAssertEqual(events.first?.eventName, EventType.error.rawValue, "Event request should contain error event")
     }
 
     func testAddEvents_eventsAddedConcurrently_allEventsHaveBeenAddedToQueue() {
