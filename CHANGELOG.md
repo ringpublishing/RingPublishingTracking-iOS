@@ -1,3 +1,13 @@
+1.0.1 Release notes (2021-11-04)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Features
+
+* Added 'ErrorEvent' which is being sent in case the original event was incorrect
+* Removing reported events from the queue in case of client's side issue while sending events
+
 1.0.0 Release notes (2021-10-20)
 =============================================================
 
