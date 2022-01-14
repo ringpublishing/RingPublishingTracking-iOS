@@ -11,5 +11,12 @@ import Foundation
 class RingPublishingTrackingDelegateMock: RingPublishingTrackingDelegate {
 
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
-                                didAssignTrackingIdentifier identifier: TrackingIdentifier) {}
+                                didAssignTrackingIdentifier identifier: TrackingIdentifier) {
+
+    }
+
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didFailToRetrieveTrackingIdentifier error: TrackingIdentifierError) {
+
+    }
 }
