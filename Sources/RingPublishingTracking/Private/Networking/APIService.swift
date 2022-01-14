@@ -38,9 +38,7 @@ struct APIService: Service {
     func call<T: Endpoint>(_ endpoint: T, completion: @escaping (Result<T.Response, ServiceError>) -> Void) {
         Logger.log(endpoint.endpointDescription)
 
-        guard let url = try? buildUrl(for: endpoint) else {
-            return
-        }
+        guard let url = try? buildUrl(for: endpoint) else { return }
 
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
@@ -66,13 +64,7 @@ struct APIService: Service {
                 return
             }
 
-            guard let data = data else {
-                Logger.log("Received response does not contain any data", level: .error)
-                completion(.failure(.noData))
-                return
-            }
-
-            guard let decoded = try? endpoint.decode(data: data) else {
+            guard let data = data, let decoded = try? endpoint.decode(data: data) else {
                 completion(.failure(.failedToDecode))
                 return
             }

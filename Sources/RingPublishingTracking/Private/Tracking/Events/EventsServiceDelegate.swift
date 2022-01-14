@@ -12,4 +12,5 @@ import Foundation
 protocol EventsServiceDelegate: AnyObject {
 
     func eventsService(_ eventsService: EventsService, retrievedTrackingIdentifier identifier: String, expirationDate: Date)
+    func eventsService(_ eventsService: EventsService, didFailWhileRetrievingTrackingIdentifier error: ServiceError)
 }

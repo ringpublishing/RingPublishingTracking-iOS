@@ -11,7 +11,7 @@ import Foundation
 /// Error used for issues with making network requests
 enum ServiceError: Error {
 
-    case noData
+    case debugModeEnabled
     case invalidUrl
     case incorrectRequestBody
     case unauthorized

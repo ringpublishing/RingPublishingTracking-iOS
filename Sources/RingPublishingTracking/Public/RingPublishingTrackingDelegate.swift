@@ -18,4 +18,14 @@ public protocol RingPublishingTrackingDelegate: AnyObject {
     ///   - identifier: Assigned tracking identifier
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
                                 didAssignTrackingIdentifier identifier: TrackingIdentifier)
+
+    /// Delegate method informing that RingPublishingTracking module failed to assign tracking identifier.
+    /// This method will be called every time there was an attempt to fetch tracking identifier but it failed
+    /// (during module initialization or when another attempt to fetch tracking identifier was performed)
+    ///
+    /// - Parameters:
+    ///   - ringPublishingTracking: RingPublishingTracking
+    ///   - error: TrackingIdentifierError
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didFailToRetrieveTrackingIdentifier error: TrackingIdentifierError)
 }

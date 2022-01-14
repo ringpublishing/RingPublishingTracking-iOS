@@ -56,7 +56,7 @@ public class RingPublishingTracking {
     private let operationMode = OperationMode()
 
     /// Module delegate
-    private weak var delegate: RingPublishingTrackingDelegate?
+    weak var delegate: RingPublishingTrackingDelegate?
 
     // MARK: Initializer
 
