@@ -11,7 +11,7 @@ import Foundation
 /// TrackingIdentifierError
 public enum TrackingIdentifierError: Error {
 
-    /// Unexpected error occured
+    /// Unexpected error occurred
     case genericError
 
     /// There was networking problem during tracking identifier request
