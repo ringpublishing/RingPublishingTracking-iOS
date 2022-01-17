@@ -113,13 +113,15 @@ final class EventsService {
     func identifyMe(completion: @escaping ((_ error: ServiceError?) -> Void)) {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
-            completion(.debugModeEnabled)
+
+            // TODO: [ASZ] Maybe we should think how to handle callback here?
+            completion(nil)
             return
         }
 
         guard let apiService = apiService else {
             Logger.log("RingPublishingTracking is not configured. Configure it using initialize method.", level: .error)
-            completion(.clientError)
+            completion(.genericError)
             return
         }
 
@@ -131,17 +133,14 @@ final class EventsService {
         isIdentifyMeRequestInProgress = true
 
         apiService.call(endpoint) { [weak self] result in
-            guard let self = self else {
-                completion(.clientError)
-                return
-            }
+            guard let self = self else { return }
 
             switch result {
             case .success(let response):
                 self.storePostInterval(response.postInterval)
                 let eaUUIDStored = self.storeEaUUID(response.eaUUID)
 
-                let error: ServiceError? = eaUUIDStored ? nil : .failedToDecode
+                let error: ServiceError? = eaUUIDStored ? nil : .missingDecodedTrackingIdentifier
                 completion(error)
 
             case .failure(let error):
@@ -251,6 +250,8 @@ extension EventsService {
     private func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> Bool {
         guard let eaUUID = eaUUID, let value = eaUUID.value, let lifetime = eaUUID.lifetime else {
             storage.eaUUID = nil
+            storage.postInterval = nil
+            Logger.log("Tracking identifier could not be stored. Missing in decoded response.", level: .error)
             return false
         }
 
@@ -280,7 +281,7 @@ extension EventsService {
                 self?.storePostInterval(response.postInterval)
             case .failure(let error):
                 switch error {
-                case .clientError:
+                case .responseError:
                     Logger.log("The request to send events was incorrect. Skipping those events.", level: .info)
                     self?.eventsQueueManager.events.removeFirst(body.events.count)
                 default:

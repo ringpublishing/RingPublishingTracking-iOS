@@ -11,27 +11,12 @@ import Foundation
 /// TrackingIdentifierError
 public enum TrackingIdentifierError: Error {
 
-    /// Debug / opt-out mode is enabled and tracking identifier will not be retrieved
-    case debugModeEnabled
-
-    /// Url constructed to fetch tracking identifier was invalid
-    case invalidUrl
-
-    /// Tracking identifier request body could not be parsed
-    case incorrectRequestBody
+    /// Unexpected error occured
+    case genericError
 
     /// There was networking problem during tracking identifier request
     case requestError(error: Error)
 
-    /// Tracking identifier request requires authorization heaaders but there were none provided
-    case unauthorizedRequest
-
-    /// Tracking identifier request was send but it was recognized as incorrect by the backend
-    case clientError
-
-    /// Backedn had problem to process tracking identifier request
-    case serverError
-
-    /// Tracking identifier request was returned from the backend but response could not be parsed
-    case failedToDecode
+    /// Backend had problem to process tracking identifier request and returned unexpected response
+    case responseError(error: Error)
 }

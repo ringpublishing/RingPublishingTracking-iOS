@@ -47,43 +47,53 @@ struct APIService: Service {
         do {
             try request.withBody(for: endpoint)
         } catch {
-            Logger.log("Cannot encode request body", level: .error)
-            completion(.failure(.incorrectRequestBody))
+            Logger.log("Cannot encode request body: \(request.description)", level: .error)
+            completion(.failure(.genericError))
             return
         }
 
-        session.dataTask(with: request) { data, response, error in
-            if let error = error {
+        session.dataTask(with: request) { data, response, responseError in
+            if let error = responseError {
                 Logger.log("Received response with error: \(error.localizedDescription)", level: .error)
                 completion(.failure(.requestError(error: error)))
                 return
             }
 
             if let serviceError = response?.serviceError {
+                Logger.log("Received unexpected response status code: \(serviceError)", level: .error)
                 completion(.failure(serviceError))
                 return
             }
 
-            guard let data = data, let decoded = try? endpoint.decode(data: data) else {
-                completion(.failure(.failedToDecode))
+            guard let data = data else {
+                Logger.log("Request data was not present.", level: .error)
+                completion(.failure(.genericError))
                 return
             }
 
-            Logger.log("Received response: \(decoded)")
-            completion(.success(decoded))
+            do {
+                let decoded = try endpoint.decode(data: data)
+
+                Logger.log("Received response: \(decoded)")
+                completion(.success(decoded))
+
+            } catch {
+                Logger.log("Could not decode received data", level: .error)
+                completion(.failure(.decodingError(error: error)))
+            }
         }
     }
 
     private func buildUrl<T: Endpoint>(for endpoint: T) throws -> URL {
         guard let path = endpoint.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
             Logger.log("Cannot send request. Path is invalid: \(endpoint.path)", level: .error)
-            throw ServiceError.invalidUrl
+            throw ServiceError.genericError
         }
 
         let urlString = apiUrl.appendingPathComponent(path).absoluteString
         guard var urlComponents = URLComponents(string: urlString) else {
             Logger.log("Cannot send request. URL is invalid: \(urlString)", level: .error)
-            throw ServiceError.invalidUrl
+            throw ServiceError.genericError
         }
 
         urlComponents.queryItems = [
@@ -92,7 +102,7 @@ struct APIService: Service {
 
         guard let url = urlComponents.url else {
             Logger.log("Cannot send request. URL components are invalid: \(urlComponents)", level: .error)
-            throw ServiceError.invalidUrl
+            throw ServiceError.genericError
         }
 
         return url
@@ -108,7 +118,7 @@ extension URLRequest {
             do {
                 httpBody = try endpoint.encodedBody()
             } catch {
-                throw ServiceError.incorrectRequestBody
+                throw ServiceError.genericError
             }
         default:
             break
@@ -120,22 +130,9 @@ extension URLResponse {
 
     /// Map status code to `ServiceError`
     var serviceError: ServiceError? {
-        if let response = self as? HTTPURLResponse {
-            switch response.statusCode {
-            case 403:
-                Logger.log("Given request is forbidden (unauthorized)", level: .error)
-                return .unauthorized
-            case 400...499:
-                Logger.log("Incorrect request. It should be resolved on client side.", level: .error)
-                return .clientError
-            case 500...599:
-                Logger.log("There was an issue handling the request, It should be resolved on server side.", level: .error)
-                return .serverError
-            default:
-                break
-            }
-        }
+        guard let response = self as? HTTPURLResponse, !(200...299).contains(response.statusCode) else { return nil }
 
-        return nil
+        Logger.log("Received server response with unacceptable status code: \(response.statusCode)", level: .error)
+        return ServiceError.responseError(statusCode: response.statusCode)
     }
 }
