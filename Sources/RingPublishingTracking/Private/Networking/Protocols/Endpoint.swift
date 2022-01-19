@@ -35,7 +35,7 @@ protocol Endpoint {
 
     /// Decodes body data from the response into specific object
     /// - Returns: Decoded object
-    func decode(data: Data) throws -> Response?
+    func decode(data: Data) throws -> Response
 }
 
 extension Endpoint {

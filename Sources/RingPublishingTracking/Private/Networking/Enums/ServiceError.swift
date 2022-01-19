@@ -11,12 +11,9 @@ import Foundation
 /// Error used for issues with making network requests
 enum ServiceError: Error {
 
-    case noData
-    case invalidUrl
-    case incorrectRequestBody
-    case unauthorized
-    case failedToDecode
-    case clientError
-    case serverError
+    case genericError
     case requestError(error: Error)
+    case responseError(statusCode: Int)
+    case decodingError(error: Error)
+    case missingDecodedTrackingIdentifier
 }

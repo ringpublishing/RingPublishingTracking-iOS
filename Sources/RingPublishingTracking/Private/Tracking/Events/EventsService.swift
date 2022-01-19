@@ -75,7 +75,9 @@ final class EventsService {
 
         retrieveVendorIdentifier { [weak self] in
             // Call identify once the API is configured to retrieve trackingIdentifier as soon as possible
-            self?.identifyMe()
+            self?.identifyMe(completion: { [weak self] error in
+                self?.handleIdentifyMeRequestFailure(error: error)
+            })
         }
     }
 
@@ -106,16 +108,20 @@ final class EventsService {
     }
 
     /// Calls the /me endpoint from the API
-    func identifyMe(completion: ((_ success: Bool) -> Void)? = nil) {
+    ///
+    /// - Parameter completion: Completion handler
+    func identifyMe(completion: @escaping ((_ error: ServiceError?) -> Void)) {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
-            completion?(false)
+
+            // TODO: [ASZ] Maybe we should think how to handle callback here?
+            completion(nil)
             return
         }
 
         guard let apiService = apiService else {
             Logger.log("RingPublishingTracking is not configured. Configure it using initialize method.", level: .error)
-            completion?(false)
+            completion(.genericError)
             return
         }
 
@@ -125,18 +131,24 @@ final class EventsService {
         let endpoint = IdentifyEnpoint(body: body)
 
         isIdentifyMeRequestInProgress = true
+
         apiService.call(endpoint) { [weak self] result in
+            guard let self = self else { return }
+
             switch result {
             case .success(let response):
-                self?.storeEaUUID(response.eaUUID)
-                self?.storePostInterval(response.postInterval)
-                completion?(true)
+                self.storePostInterval(response.postInterval)
+                let eaUUIDStored = self.storeEaUUID(response.eaUUID)
+
+                let error: ServiceError? = eaUUIDStored ? nil : .missingDecodedTrackingIdentifier
+                completion(error)
+
             case .failure(let error):
                 Logger.log("Failed to identify with error: \(error.localizedDescription)")
-                completion?(false)
+                completion(error)
             }
 
-            self?.isIdentifyMeRequestInProgress = false
+            self.isIdentifyMeRequestInProgress = false
         }
     }
 
@@ -231,23 +243,25 @@ extension EventsService {
         }
     }
 
-    // Stores User Identifier
-    private func storeEaUUID(_ eaUUID: IdsWithLifetime?) {
-        guard
-            let eaUUID = eaUUID,
-            let value = eaUUID.value,
-            let lifetime = eaUUID.lifetime
-        else {
+    /// Stores User Identifier
+    ///
+    /// - Parameter eaUUID: IdsWithLifetime?
+    /// - Returns: True if identifier was stored, false otherwise
+    private func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> Bool {
+        guard let eaUUID = eaUUID, let value = eaUUID.value, let lifetime = eaUUID.lifetime else {
             storage.eaUUID = nil
-            return
+            storage.postInterval = nil
+            Logger.log("Tracking identifier could not be stored. Missing in decoded response.", level: .error)
+            return false
         }
 
         let creationDate = Date()
         storage.eaUUID = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
 
         let expirationDate = creationDate.addingTimeInterval(TimeInterval(lifetime))
-
         delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
+
+        return true
     }
 
     /// Stores Post Interval
@@ -267,7 +281,7 @@ extension EventsService {
                 self?.storePostInterval(response.postInterval)
             case .failure(let error):
                 switch error {
-                case .clientError:
+                case .responseError:
                     Logger.log("The request to send events was incorrect. Skipping those events.", level: .info)
                     self?.eventsQueueManager.events.removeFirst(body.events.count)
                 default:
@@ -280,9 +294,18 @@ extension EventsService {
     private func retryIdentifyRequest(completion: @escaping (_ success: Bool) -> Void) {
         Logger.log("Retrying identify request as required data is missing.")
 
-        identifyMe { success in
-            completion(success)
+        identifyMe { [weak self] error in
+            self?.handleIdentifyMeRequestFailure(error: error)
+
+            completion(error == nil)
         }
+    }
+
+    private func handleIdentifyMeRequestFailure(error: ServiceError?) {
+        guard let error = error else { return }
+
+        Logger.log("Failed to fetch tracking identifier with error: \(error)", level: .error)
+        delegate?.eventsService(self, didFailWhileRetrievingTrackingIdentifier: error)
     }
 
     /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
@@ -329,7 +352,6 @@ extension EventsService {
 }
 
 // MARK: - EventsQueueManagerDelegate
-
 extension EventsService: EventsQueueManagerDelegate {
 
     func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {

@@ -22,7 +22,7 @@ struct IdentifyEnpoint: Endpoint {
         return try body.toBodyData()
     }
 
-    func decode(data: Data) throws -> IdentifyResponse? {
+    func decode(data: Data) throws -> IdentifyResponse {
         try JSONDecoder().decode(IdentifyResponse.self, from: data)
     }
 }

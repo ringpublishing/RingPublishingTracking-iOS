@@ -22,7 +22,7 @@ private struct TestEndpoint: Endpoint {
         nil
     }
 
-    func decode(data: Data) throws -> Response? {
+    func decode(data: Data) throws -> Response {
         Response(value: "value")
     }
 }

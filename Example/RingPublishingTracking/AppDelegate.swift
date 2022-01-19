@@ -65,4 +65,9 @@ extension AppDelegate: RingPublishingTrackingDelegate {
                                 didAssignTrackingIdentifier identifier: TrackingIdentifier) {
         print("DEMO - RingPublishingTracking: received tracking identifier: \(identifier)")
     }
+
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didFailToRetrieveTrackingIdentifier error: TrackingIdentifierError) {
+        print("DEMO - RingPublishingTracking: did fail to retrieve tracking identifier: \(error)")
+    }
 }
