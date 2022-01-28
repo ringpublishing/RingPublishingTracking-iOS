@@ -19,4 +19,10 @@ struct EaUUID: Codable {
 
     /// Date when the identifier was created
     let creationDate: Date
+
+    // MARK: Computed properties
+
+    var expirationDate: Date {
+        return creationDate.addingTimeInterval(TimeInterval(lifetime))
+    }
 }

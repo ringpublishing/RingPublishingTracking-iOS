@@ -194,7 +194,7 @@ extension EventsService {
             return false
         }
 
-        let expirationDate = eaUUID.creationDate.addingTimeInterval(TimeInterval(eaUUID.lifetime))
+        let expirationDate = eaUUID.expirationDate
         let now = Date()
 
         return expirationDate > now
@@ -256,9 +256,10 @@ extension EventsService {
         }
 
         let creationDate = Date()
-        storage.eaUUID = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
+        let eaUUIDObject = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
+        let expirationDate = eaUUIDObject.expirationDate
 
-        let expirationDate = creationDate.addingTimeInterval(TimeInterval(lifetime))
+        storage.eaUUID = eaUUIDObject
         delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
 
         return true
@@ -302,10 +303,18 @@ extension EventsService {
     }
 
     private func handleIdentifyMeRequestFailure(error: ServiceError?) {
+        // Check if there was error at all - if not proper delegate with identifier was already called
         guard let error = error else { return }
 
-        Logger.log("Failed to fetch tracking identifier with error: \(error)", level: .error)
-        delegate?.eventsService(self, didFailWhileRetrievingTrackingIdentifier: error)
+        // In case we have stored valid tracking identifier, do not inform about error but pass stored identifier
+        guard let value = storage.eaUUID?.value, let expirationDate = storage.eaUUID?.expirationDate, isEaUuidValid else {
+            Logger.log("Failed to fetch tracking identifier with error: \(error)", level: .error)
+            delegate?.eventsService(self, didFailWhileRetrievingTrackingIdentifier: error)
+            return
+        }
+
+        Logger.log("Failed to fetch tracking identifier with error: \(error) but SDK has valid stored identifier.")
+        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
     }
 
     /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
