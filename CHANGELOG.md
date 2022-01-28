@@ -1,3 +1,12 @@
+1.1.1 Release notes (2022-01-28)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* 'didFailToRetrieveTrackingIdentifier' method from 'RingPublishingTrackingDelegate' protocol will not be called if tracking identifier was not fetched but SDK has valid identifier stored. In this case 'didAssignTrackingIdentifier' delegate method will be called.
+
 1.1.0 Release notes (2022-01-17)
 =============================================================
 
