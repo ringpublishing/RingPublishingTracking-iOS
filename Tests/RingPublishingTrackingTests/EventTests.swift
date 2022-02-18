@@ -66,4 +66,16 @@ class EventTests: XCTestCase {
         XCTAssertTrue(keys.contains("CS"))
         XCTAssertTrue(keys.contains("CW"))
     }
+
+    func testEquatable_twoEventsWithSameParameters_eventsAreNotEqual() {
+        // Given
+        let firstEvent = Event(analyticsSystemName: "a", eventName: "b", eventParameters: ["c": "d"])
+        let secondEvent = Event(analyticsSystemName: "a", eventName: "b", eventParameters: ["c": "d"])
+
+        // When
+        let areEventsEqual = firstEvent == secondEvent
+
+        // Then
+        XCTAssertFalse(areEventsEqual)
+    }
 }

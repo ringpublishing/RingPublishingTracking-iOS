@@ -9,7 +9,7 @@
 import Foundation
 
 /// Generic event which can be send using RingPublishingTracking module
-public struct Event {
+public struct Event: Equatable {
 
     /// Name of the analytic system where event should be stored
     public let analyticsSystemName: String
@@ -19,6 +19,9 @@ public struct Event {
 
     /// Event parameters
     public let eventParameters: [String: AnyHashable]
+
+    /// Event seed to distinguish event from another one with same parameters
+    private let seed = UUID().uuidString
 
     // MARK: Init
 

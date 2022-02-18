@@ -73,6 +73,7 @@
 		2536E3B07B61A064628951DB /* Pods_RingPublishingTrackingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED067BC36C6C6FA35D9F88B6 /* Pods_RingPublishingTrackingTests.framework */; };
 		7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */; };
 		7D1C1B4726E657430051A267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C1B4626E657430051A267 /* AppDelegate.swift */; };
+		7D34D08C27BFA9950045CCE0 /* AtomicArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34D08B27BFA9950045CCE0 /* AtomicArrayTests.swift */; };
 		7D7D5B8B26FCA3DF00B79FDD /* SampleArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B7A26FCA3DF00B79FDD /* SampleArticle.swift */; };
 		7D7D5B8C26FCA3DF00B79FDD /* ScreenTrackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B7B26FCA3DF00B79FDD /* ScreenTrackingData.swift */; };
 		7D7D5B8D26FCA3DF00B79FDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D7D5B7D26FCA3DF00B79FDD /* Assets.xcassets */; };
@@ -213,6 +214,7 @@
 		7D1C1B5426E657460051A267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D1C1B5926E657460051A267 /* RingPublishingTrackingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RingPublishingTrackingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1C1B5F26E657460051A267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Tests/Info.plist; sourceTree = SOURCE_ROOT; };
+		7D34D08B27BFA9950045CCE0 /* AtomicArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicArrayTests.swift; sourceTree = "<group>"; };
 		7D7D5B7A26FCA3DF00B79FDD /* SampleArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleArticle.swift; sourceTree = "<group>"; };
 		7D7D5B7B26FCA3DF00B79FDD /* ScreenTrackingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenTrackingData.swift; sourceTree = "<group>"; };
 		7D7D5B7D26FCA3DF00B79FDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -266,7 +268,7 @@
 		7D7D5BCE26FCA5AE00B79FDD /* EventsQueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsQueueManager.swift; sourceTree = "<group>"; };
 		7D9F12B42791A0C400F3635A /* TrackingIdentifierError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingIdentifierError.swift; sourceTree = "<group>"; };
 		7D9F12B62791A0CE00F3635A /* TrackingIdentifierError+ServiceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TrackingIdentifierError+ServiceError.swift"; sourceTree = "<group>"; };
-		7D9F12B82791A15D00F3635A /* RingPublishingTracking.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = RingPublishingTracking.podspec; path = ../RingPublishingTracking.podspec; sourceTree = "<group>"; };
+		7D9F12B82791A15D00F3635A /* RingPublishingTracking.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = RingPublishingTracking.podspec; path = ../RingPublishingTracking.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7D9F12B92791A15D00F3635A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7D9F12BA2791A15D00F3635A /* Changelogs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Changelogs; path = ../Changelogs; sourceTree = "<group>"; };
 		7DE4453A26E8913900A93431 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				204EAF31272944A4009E2F0D /* RingPublishingTrackingConfigurationTests.swift */,
 				204EAF332729469A009E2F0D /* IdentifyResponseTests.swift */,
 				204EAF3527294BF7009E2F0D /* EventTests.swift */,
+				7D34D08B27BFA9950045CCE0 /* AtomicArrayTests.swift */,
 			);
 			path = RingPublishingTrackingTests;
 			sourceTree = "<group>";
@@ -974,6 +977,7 @@
 				7D9F12B72791A0CE00F3635A /* TrackingIdentifierError+ServiceError.swift in Sources */,
 				7D7D5BD526FCA5AF00B79FDD /* ContentMetadata.swift in Sources */,
 				2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */,
+				7D34D08C27BFA9950045CCE0 /* AtomicArrayTests.swift in Sources */,
 				7D7D5BE726FCA5AF00B79FDD /* Profile.swift in Sources */,
 				204EAF1427197D24009E2F0D /* KeepAliveMeasureType.swift in Sources */,
 				7D7D5BEC26FCA5AF00B79FDD /* UserAgent.swift in Sources */,
@@ -1185,7 +1189,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1208,7 +1212,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

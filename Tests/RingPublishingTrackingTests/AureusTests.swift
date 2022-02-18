@@ -17,8 +17,8 @@ class AureusTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
 
-        let count = ringPublishingTracking.eventsService.eventsQueueManager.events.allElements.count
-        ringPublishingTracking.eventsService.eventsQueueManager.events.removeFirst(count)
+        let allEvents = ringPublishingTracking.eventsService.eventsQueueManager.events.allElements
+        ringPublishingTracking.eventsService.eventsQueueManager.events.removeItems(allEvents)
     }
 
     // MARK: Tests

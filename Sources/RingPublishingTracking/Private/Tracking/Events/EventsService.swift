@@ -278,13 +278,13 @@ extension EventsService {
         apiService?.call(endpoint, completion: { [weak self] result in
             switch result {
             case .success(let response):
-                self?.eventsQueueManager.events.removeFirst(body.events.count)
+                self?.eventsQueueManager.events.removeItems(body.events)
                 self?.storePostInterval(response.postInterval)
             case .failure(let error):
                 switch error {
                 case .responseError:
                     Logger.log("The request to send events was incorrect. Skipping those events.", level: .info)
-                    self?.eventsQueueManager.events.removeFirst(body.events.count)
+                    self?.eventsQueueManager.events.removeItems(body.events)
                 default:
                     break
                 }

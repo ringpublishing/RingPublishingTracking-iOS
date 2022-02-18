@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class AtomicArray<T> {
+final class AtomicArray<T: Equatable> {
+
     private var storage: [T] = []
 
     private let queue = DispatchQueue(label: "events.concurrent.queue", attributes: .concurrent)
@@ -25,9 +26,11 @@ final class AtomicArray<T> {
         }
     }
 
-    func removeFirst( _ count: Int) {
+    func removeItems(_ items: [T]) {
         queue.sync(flags: .barrier) {
-            storage.removeFirst(count)
+            items.forEach { item in
+                storage.removeAll(where: { $0 == item })
+            }
         }
     }
 }
