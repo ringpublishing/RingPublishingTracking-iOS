@@ -1,3 +1,12 @@
+1.1.2 Release notes (2022-02-18)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Bugfix
+
+* Fixed crash while removing events from internal queue
+
 1.1.1 Release notes (2022-01-28)
 =============================================================
 
