@@ -177,6 +177,7 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         XCTAssertNotNil(params["RDLU"], "RDLU should not be empty")
+        XCTAssertNotNil(params["IZ"], "IZ should not be empty")
     }
 
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
@@ -192,6 +193,7 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         XCTAssertNil(params["RDLU"], "RDLU should be empty")
+        XCTAssertNil(params["IZ"], "IZ should be empty")
     }
 
     // MARK: - TenantIdentifierDecorator Tests
