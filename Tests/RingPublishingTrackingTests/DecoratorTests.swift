@@ -169,15 +169,20 @@ class DecoratorTests: XCTestCase {
 
     func testParameters_userDataDecoratorCreated_returnedParametersAreCorrect() {
         // Given
+        let userId = "12345"
         let decorator = UserDataDecorator()
-        let data = UserData(sso: .init(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"))
+        let data = UserData(sso: .init(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"))
 
         // Then
         decorator.updateUserData(data: data)
         let params = decorator.parameters
 
-        XCTAssertNotNil(params["RDLU"], "RDLU should not be empty")
-        XCTAssertNotNil(params["IZ"], "IZ should not be empty")
+        let expectedBase64 = """
+        eyJzc28iOnsibmFtZSI6IlRlc3QiLCJsb2dnZWQiOnsiaWQiOiIxMjM0NSIsIm1kNSI6IjUyODExNDNlYzgxNGVhMmM2NmE0YjE5MTRhMDEzNWI3In19fQ==
+        """
+
+        XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
+        XCTAssertEqual(params["IZ"], userId, "IZ should match")
     }
 
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
