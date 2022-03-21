@@ -84,6 +84,7 @@ final class EventsFactory {
         let measurements = metaData.keepAliveContentStatus
 
         parameters["DX"] = contentMetadata.dxParameter
+        parameters["PU"] = contentMetadata.publicationId.trimmingCharacters(in: .whitespacesAndNewlines)
         parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
         parameters["KHF"] = metaData.hasFocus
         parameters["KMT"] = metaData.keepAliveMeasureType.map { $0.rawValue }
