@@ -1,3 +1,13 @@
+1.1.3 Release notes (2022-03-10)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added new internal parameter send with each event, 'userId" with fields name: 'IZ'
+* Added new internal parameter send with each 'Keep alive' event, 'PU' with article identifier
+
 1.1.2 Release notes (2022-02-18)
 =============================================================
 
