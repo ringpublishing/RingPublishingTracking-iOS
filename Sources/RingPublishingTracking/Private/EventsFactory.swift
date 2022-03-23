@@ -12,7 +12,7 @@ final class EventsFactory {
 
     func createClickEvent(selectedElementName: String?,
                           publicationUrl: URL?,
-                          publicationIdentifier: String?) -> Event {
+                          contentIdentifier: String?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
         if let selectedElementName = selectedElementName {
@@ -23,8 +23,8 @@ final class EventsFactory {
             parameters["VU"] = publicationUrl.absoluteString
         }
 
-        if let publicationIdentifier = publicationIdentifier {
-            parameters["PU"] = publicationIdentifier
+        if let contentIdentifier = contentIdentifier {
+            parameters["PU"] = contentIdentifier
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
@@ -62,11 +62,11 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
-    func createPageViewEvent(publicationIdentifier: String?, contentMetadata: ContentMetadata?) -> Event {
+    func createPageViewEvent(contentIdentifier: String?, contentMetadata: ContentMetadata?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
-        if let publicationIdentifier = publicationIdentifier {
-            parameters["PU"] = publicationIdentifier
+        if let contentIdentifier = contentIdentifier {
+            parameters["PU"] = contentIdentifier
         }
 
         if let contentMetadata = contentMetadata {
@@ -84,7 +84,7 @@ final class EventsFactory {
         let measurements = metaData.keepAliveContentStatus
 
         parameters["DX"] = contentMetadata.dxParameter
-        parameters["PU"] = contentMetadata.publicationId.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["PU"] = contentMetadata.contentId.trimmingCharacters(in: .whitespacesAndNewlines)
         parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
         parameters["KHF"] = metaData.hasFocus
         parameters["KMT"] = metaData.keepAliveMeasureType.map { $0.rawValue }

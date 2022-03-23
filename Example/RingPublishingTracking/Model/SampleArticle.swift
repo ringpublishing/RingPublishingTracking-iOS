@@ -15,6 +15,7 @@ struct SampleArticle {
     let publicationUrl: URL
     let sourceSystemName: String = "My Awesome CMS"
     let contentWasPaidFor: Bool
+    let contentId: String = generatePublicationId()
     let content = generateArticleContent()
 }
 
