@@ -131,7 +131,7 @@ final class KeepAliveManager {
     }
 
     func stop() {
-        if areMeasurementsTaken {
+        if areMeasurementsTaken && contentMetadata != nil {
             sendMeasurements()
         }
 
