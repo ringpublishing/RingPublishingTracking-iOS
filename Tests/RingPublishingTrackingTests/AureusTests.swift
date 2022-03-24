@@ -43,13 +43,13 @@ class AureusTests: XCTestCase {
         // Given
         let selectedElementName = "element_name"
         let publicationUrl = URL(string: "https://example.com/article?id=1")! // swiftlint:disable:this force_unwrapping
-        let publicationId = UUID()
+        let contentId = UUID()
         let aureusOfferId = "12345"
 
         // When
         ringPublishingTracking.reportContentClick(selectedElementName: selectedElementName,
                                                   publicationUrl: publicationUrl,
-                                                  publicationId: publicationId.uuidString,
+                                                  contentId: contentId.uuidString,
                                                   aureusOfferId: aureusOfferId)
 
         // Then
@@ -60,7 +60,7 @@ class AureusTests: XCTestCase {
         // Then
         XCTAssertEqual(params?["VE"], selectedElementName, "VE parameter should be correct")
         XCTAssertEqual(params?["VU"], publicationUrl.absoluteString, "VC parameter should be correct")
-        XCTAssertEqual(params?["PU"], publicationId.uuidString, "PU parameter should be nil")
+        XCTAssertEqual(params?["PU"], contentId.uuidString, "PU parameter should be nil")
         XCTAssertEqual(params?["EI"], aureusOfferId, "EI parameter should be nil")
     }
 

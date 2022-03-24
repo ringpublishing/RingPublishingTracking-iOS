@@ -121,7 +121,7 @@ class RingPublishingTrackingTests: XCTestCase {
         let publicationUrl1 = URL(string: "https://tests.example.com")! // swiftlint:disable:this force_unwrapping
         RingPublishingTracking.shared.reportContentClick(selectedElementName: "element2",
                                                          publicationUrl: publicationUrl1,
-                                                         publicationId: "publicationId1")
+                                                         contentId: "contentId1")
 
         // Then
         XCTAssertEqual(eventsQueueManager.events.allElements.count, 3, "Number of events in queue should be correct")
@@ -165,7 +165,8 @@ class RingPublishingTrackingTests: XCTestCase {
         let contentMetadata1 = ContentMetadata(publicationId: "publicationId12",
                                                publicationUrl: publicationUrl2,
                                                sourceSystemName: "sourceSystemName1",
-                                               contentWasPaidFor: true)
+                                               contentWasPaidFor: true,
+                                               contentId: "6789")
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata1,
                                                             currentStructurePath: ["path4"],
                                                             partiallyReloaded: false,

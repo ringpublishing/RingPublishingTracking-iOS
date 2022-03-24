@@ -39,15 +39,15 @@ public extension RingPublishingTracking {
     /// - Parameters:
     ///   - selectedElementName: String
     ///   - publicationUrl: URL
-    ///   - publicationId: String
+    ///   - contentId: String
     ///   - aureusOfferId: String
-    func reportContentClick(selectedElementName: String, publicationUrl: URL, publicationId: String, aureusOfferId: String) {
+    func reportContentClick(selectedElementName: String, publicationUrl: URL, contentId: String, aureusOfferId: String) {
         let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting 'Aureus' content click event for element named: \(logData)")
 
         let clickEvent = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
                                                         publicationUrl: publicationUrl,
-                                                        publicationIdentifier: publicationId)
+                                                        contentIdentifier: contentId)
 
         var parameters = clickEvent.eventParameters
         parameters["EI"] = aureusOfferId

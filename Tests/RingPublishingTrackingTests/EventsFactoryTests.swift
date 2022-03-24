@@ -26,13 +26,13 @@ class EventsFactoryTests: XCTestCase {
         // Given
         let elementName = "TestName"
         let sampleUrl = "https://test.com"
-        let sampleId = "https://test.com"
+        let sampleId = "12345"
         let factory = EventsFactory()
 
         // Then
         let event = factory.createClickEvent(selectedElementName: elementName,
                                              publicationUrl: URL(string: sampleUrl),
-                                             publicationIdentifier: sampleId)
+                                             contentIdentifier: sampleId)
         let params = event.eventParameters
 
         XCTAssertEqual(params["VE"], elementName, "VE should be correct")
@@ -47,7 +47,7 @@ class EventsFactoryTests: XCTestCase {
         // Then
         let event = factory.createClickEvent(selectedElementName: nil,
                                              publicationUrl: nil,
-                                             publicationIdentifier: nil)
+                                             contentIdentifier: nil)
         let params = event.eventParameters
 
         XCTAssertNil(params["VE"], "VE should be empty")
@@ -95,7 +95,7 @@ class EventsFactoryTests: XCTestCase {
         let factory = EventsFactory()
 
         // When
-        let event = factory.createPageViewEvent(publicationIdentifier: nil, contentMetadata: nil)
+        let event = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
         let params = event.eventParameters
 
         // Then
@@ -109,15 +109,16 @@ class EventsFactoryTests: XCTestCase {
         let contentMetadata = ContentMetadata(publicationId: "12345",
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
-                                              contentWasPaidFor: true)
+                                              contentWasPaidFor: true,
+                                              contentId: "6789")
 
         // When
-        let event = factory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
+        let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                 contentMetadata: contentMetadata)
         let params = event.eventParameters
 
         // Then
-        XCTAssertEqual(params["PU"], contentMetadata.publicationId, "PU parameter should be equal publication identifier")
+        XCTAssertEqual(params["PU"], contentMetadata.contentId, "PU parameter should be equal to content identifier")
         XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,t", "DX parameter should be in correct format")
     }
 
@@ -127,15 +128,16 @@ class EventsFactoryTests: XCTestCase {
         let contentMetadata = ContentMetadata(publicationId: "12345",
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
-                                              contentWasPaidFor: false)
+                                              contentWasPaidFor: false,
+                                              contentId: "6789")
 
         // When
-        let event = factory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
+        let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                 contentMetadata: contentMetadata)
         let params = event.eventParameters
 
         // Then
-        XCTAssertEqual(params["PU"], contentMetadata.publicationId, "PU parameter should be equal publication identifier")
+        XCTAssertEqual(params["PU"], contentMetadata.contentId, "PU parameter should be equal to content identifier")
         XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,f", "DX parameter should be in correct format")
     }
 
@@ -144,7 +146,7 @@ class EventsFactoryTests: XCTestCase {
     func testCreateErrorEvent_incorrectEventProvided_returnedEventIsDecorated() {
         // Given
         let factory = EventsFactory()
-        let incorrectEvent = factory.createClickEvent(selectedElementName: "test", publicationUrl: nil, publicationIdentifier: nil)
+        let incorrectEvent = factory.createClickEvent(selectedElementName: "test", publicationUrl: nil, contentIdentifier: nil)
 
         // When
         let event = factory.createErrorEvent(for: incorrectEvent, applicationRootPath: "Tests")

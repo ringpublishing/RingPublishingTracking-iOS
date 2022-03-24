@@ -24,7 +24,7 @@ public extension RingPublishingTracking {
 
         let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
                                                    publicationUrl: nil,
-                                                   publicationIdentifier: nil)
+                                                   contentIdentifier: nil)
         reportEvents([event])
     }
 
@@ -35,14 +35,14 @@ public extension RingPublishingTracking {
     /// - Parameters:
     ///   - selectedElementName: String
     ///   - publicationUrl: URL
-    ///   - publicationId: String
-    func reportContentClick(selectedElementName: String, publicationUrl: URL, publicationId: String) {
+    ///   - contentId: String
+    func reportContentClick(selectedElementName: String, publicationUrl: URL, contentId: String) {
         let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting content click event for element named: \(logData)")
 
         let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
                                                    publicationUrl: publicationUrl,
-                                                   publicationIdentifier: publicationId)
+                                                   contentIdentifier: contentId)
         reportEvents([event])
     }
 
@@ -98,7 +98,7 @@ public extension RingPublishingTracking {
         eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService.updateStructureType(structureType: .structurePath(currentStructurePath), contentPageViewSource: nil)
 
-        let event = eventsFactory.createPageViewEvent(publicationIdentifier: nil, contentMetadata: nil)
+        let event = eventsFactory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
         reportEvents([event])
     }
 
@@ -132,15 +132,15 @@ public extension RingPublishingTracking {
         eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
 
-        let event = eventsFactory.createPageViewEvent(publicationIdentifier: contentMetadata.publicationId,
+        let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                       contentMetadata: contentMetadata)
         reportEvents([event])
 
         // Start keepAlive
         Logger.log("Starting content keep alive tracking")
         keepAliveManager.start(for: contentMetadata,
-                                  contentKeepAliveDataSource: contentKeepAliveDataSource,
-                                  partiallyReloaded: partiallyReloaded)
+                               contentKeepAliveDataSource: contentKeepAliveDataSource,
+                               partiallyReloaded: partiallyReloaded)
     }
 
     /// Pauses tracking for currently displayed content

@@ -1,0 +1,10 @@
+1.2.0 Release notes (2022-03-23)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added required parameter 'contentId' to 'ContentMetadata'
+* Renamed 'publicationId' parameter to 'contentId' in methods:
+    - reportContentClick

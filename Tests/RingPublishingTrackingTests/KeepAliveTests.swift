@@ -32,7 +32,8 @@ class KeepAliveTests: XCTestCase {
                                           publicationUrl: url,
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
-                                          contentWasPaidFor: true)
+                                          contentWasPaidFor: true,
+                                          contentId: "6789")
 
         // When
         keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
@@ -61,7 +62,8 @@ class KeepAliveTests: XCTestCase {
                                           publicationUrl: url,
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
-                                          contentWasPaidFor: true)
+                                          contentWasPaidFor: true,
+                                          contentId: "6789")
 
         // When
         keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
@@ -97,7 +99,8 @@ class KeepAliveTests: XCTestCase {
                                           publicationUrl: url,
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
-                                          contentWasPaidFor: true)
+                                          contentWasPaidFor: true,
+                                          contentId: "6789")
 
         // When
         keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
