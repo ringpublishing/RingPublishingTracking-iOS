@@ -43,6 +43,23 @@ class DecoratorTests: XCTestCase {
         XCTAssertNotEqual(params1["IV"], params3["IV"], "Initial IV and new IV parameters should be different")
     }
 
+    func testParameters_uniqueIdentifierDecoratorCreated_returnedParametersHaveCorrectLength() {
+        // Run this test multiple times as only sometimes identifiers could be generated wrong
+
+        for _ in 0...100 {
+            // Given
+            let decorator = UniqueIdentifierDecorator()
+
+            // When
+            let ipParam = decorator.parameters["IP"] as? String ?? ""
+            let ivParam = decorator.parameters["IV"] as? String ?? ""
+
+            // Then
+            XCTAssertEqual(ipParam.count, 24, "IP parameter should have 24 characters")
+            XCTAssertEqual(ivParam.count, 24, "IV parameter should have 24 characters")
+        }
+    }
+
     // MARK: - SizeDecorator Tests
 
     func testParameters_sizeDecoratorCreated_returnedParametersAreCorrect() {
