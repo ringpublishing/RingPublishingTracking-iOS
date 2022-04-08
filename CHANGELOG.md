@@ -1,3 +1,12 @@
+1.2.1 Release notes (2022-04-08)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Fix for sometimes incorrectly generated parameters "IP" and "IV" (too short)
+
 1.2.0 Release notes (2022-03-23)
 =============================================================
 
