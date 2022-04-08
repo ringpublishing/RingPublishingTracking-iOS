@@ -17,6 +17,8 @@ final class UniqueIdentifierDecorator: Decorator {
         return formatter
     }()
 
+    private static let identifierRandomPartLength = 7
+
     private var primaryIdentifier: String
     private var secondaryIdentifier: String
 
@@ -35,11 +37,11 @@ final class UniqueIdentifierDecorator: Decorator {
     }
 
     private static func generatePageId() -> String {
-        let randomPart = Int(Double.random(in: 0...1) * 10000000)
         let now = Date()
-
         var pageId = Self.pageIdDateFormatter.string(from: now)
-        pageId += "\(randomPart)"
+
+        let randomPart = (0..<Self.identifierRandomPartLength).map { _ in String(Int.random(in: 0...9)) }.joined()
+        pageId += randomPart
 
         return pageId
     }
