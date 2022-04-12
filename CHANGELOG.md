@@ -1,3 +1,12 @@
+1.2.2 Release notes (2022-04-12)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added additional field to each request, 'RDLC' containing information that events come from native mobile app
+
 1.2.1 Release notes (2022-04-08)
 =============================================================
 
