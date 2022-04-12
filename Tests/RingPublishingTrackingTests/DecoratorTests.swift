@@ -231,4 +231,16 @@ class DecoratorTests: XCTestCase {
 
         XCTAssertEqual(params["TID"], tenantId, "TID should be correct")
     }
+
+    // MARK: - ClientDecorator Tests
+
+    func testParameters_clientDecoratorCreated_returnedParametersAreCorrect() {
+        // Given
+        let decorator = ClientDecorator()
+
+        // Then
+        let params = decorator.parameters
+
+        XCTAssertEqual(params["RDLC"], "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should be correct")
+    }
 }

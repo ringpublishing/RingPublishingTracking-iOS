@@ -42,6 +42,7 @@ final class EventsService {
     private let adAreaDecorator = AdAreaDecorator()
     private let userDataDecorator = UserDataDecorator()
     private let tenantIdentifierDecorator = TenantIdentifierDecorator()
+    private let clientDecorator = ClientDecorator()
 
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
@@ -357,6 +358,7 @@ extension EventsService {
         registerDecorator(adAreaDecorator)
         registerDecorator(userDataDecorator)
         registerDecorator(tenantIdentifierDecorator)
+        registerDecorator(clientDecorator)
     }
 }
 
