@@ -39,8 +39,8 @@ final class KeepAliveManager {
     private var pauseTimeStart = [Date]()
     private var pauseTimeEnd = [Date]()
 
-    private var measurementTimer: Timer?
-    private var sendingTimer: Timer?
+    private var measurementTimer: DispatchSourceTimer?
+    private var sendingTimer: DispatchSourceTimer?
 
     private var timeFromStart: TimeInterval? {
         guard let date = trackingStartDate else { return nil }
@@ -153,10 +153,10 @@ final class KeepAliveManager {
     }
 
     private func stopTimers() {
-        measurementTimer?.invalidate()
+        measurementTimer?.cancel()
         measurementTimer = nil
 
-        sendingTimer?.invalidate()
+        sendingTimer?.cancel()
         sendingTimer = nil
     }
 
