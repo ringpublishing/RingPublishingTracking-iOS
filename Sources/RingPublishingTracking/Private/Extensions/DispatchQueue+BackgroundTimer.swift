@@ -16,20 +16,15 @@ extension DispatchQueue {
     /// - Parameters:
     ///   - timeInterval: TimeInterval from now when timer should fire
     ///   - action: (() -> Void)? Action to execute when timer is fired
-    static func scheduledTimer(timeInterval: TimeInterval, action: (() -> Void)?) -> Timer {
-        let timer = Timer(timeInterval: timeInterval, repeats: false) { timer in
-            guard timer.isValid else { return }
-
+    static func scheduledTimer(timeInterval: TimeInterval, action: (() -> Void)?) -> DispatchSourceTimer {
+        let timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global(qos: .background))
+        timer.setEventHandler {
             DispatchQueue.main.async {
                 action?()
             }
         }
-
-        DispatchQueue.global(qos: .background).async {
-            let runLoop = RunLoop.current
-            runLoop.add(timer, forMode: .common)
-            runLoop.run()
-        }
+        timer.schedule(deadline: .now() + timeInterval, repeating: .never)
+        timer.activate()
 
         return timer
     }

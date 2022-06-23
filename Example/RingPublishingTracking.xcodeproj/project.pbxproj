@@ -43,7 +43,7 @@
 		204EAF1227197D0E009E2F0D /* KeepAliveMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1127197D0E009E2F0D /* KeepAliveMetadata.swift */; };
 		204EAF1427197D24009E2F0D /* KeepAliveMeasureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1327197D24009E2F0D /* KeepAliveMeasureType.swift */; };
 		204EAF18271B8781009E2F0D /* TrackingIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF17271B8781009E2F0D /* TrackingIdentifier.swift */; };
-		204EAF1A271CC05C009E2F0D /* DispatchQueue +BackgroundTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF19271CC05C009E2F0D /* DispatchQueue +BackgroundTimer.swift */; };
+		204EAF1A271CC05C009E2F0D /* DispatchQueue+BackgroundTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF19271CC05C009E2F0D /* DispatchQueue+BackgroundTimer.swift */; };
 		204EAF1C271DB4C3009E2F0D /* AureusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1B271DB4C3009E2F0D /* AureusTests.swift */; };
 		204EAF1E271EE53C009E2F0D /* KeepAliveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1D271EE53C009E2F0D /* KeepAliveTests.swift */; };
 		204EAF20271EE5A2009E2F0D /* KeepAliveIntervalsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF1F271EE5A2009E2F0D /* KeepAliveIntervalsProviderTests.swift */; };
@@ -175,7 +175,7 @@
 		204EAF1127197D0E009E2F0D /* KeepAliveMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveMetadata.swift; sourceTree = "<group>"; };
 		204EAF1327197D24009E2F0D /* KeepAliveMeasureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveMeasureType.swift; sourceTree = "<group>"; };
 		204EAF17271B8781009E2F0D /* TrackingIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingIdentifier.swift; sourceTree = "<group>"; };
-		204EAF19271CC05C009E2F0D /* DispatchQueue +BackgroundTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue +BackgroundTimer.swift"; sourceTree = "<group>"; };
+		204EAF19271CC05C009E2F0D /* DispatchQueue+BackgroundTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+BackgroundTimer.swift"; sourceTree = "<group>"; };
 		204EAF1B271DB4C3009E2F0D /* AureusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AureusTests.swift; sourceTree = "<group>"; };
 		204EAF1D271EE53C009E2F0D /* KeepAliveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveTests.swift; sourceTree = "<group>"; };
 		204EAF1F271EE5A2009E2F0D /* KeepAliveIntervalsProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAliveIntervalsProviderTests.swift; sourceTree = "<group>"; };
@@ -724,7 +724,7 @@
 				7D7D5BCD26FCA5AE00B79FDD /* Dictionary+JSON.swift */,
 				204EAF06271836BE009E2F0D /* ContentMetadata+DX.swift */,
 				204EAF082718DA30009E2F0D /* String+MD5.swift */,
-				204EAF19271CC05C009E2F0D /* DispatchQueue +BackgroundTimer.swift */,
+				204EAF19271CC05C009E2F0D /* DispatchQueue+BackgroundTimer.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -961,7 +961,7 @@
 				204EAEE9270F1093009E2F0D /* SizeProviderStub.swift in Sources */,
 				7D7D5BF526FCA5AF00B79FDD /* Dictionary+JSON.swift in Sources */,
 				7D7D5BED26FCA5AF00B79FDD /* Service.swift in Sources */,
-				204EAF1A271CC05C009E2F0D /* DispatchQueue +BackgroundTimer.swift in Sources */,
+				204EAF1A271CC05C009E2F0D /* DispatchQueue+BackgroundTimer.swift in Sources */,
 				2088321A270485E900EA53FD /* OperationMode.swift in Sources */,
 				7D7D5BE926FCA5AF00B79FDD /* User.swift in Sources */,
 				204EAECC270D9885009E2F0D /* UniqueIdentifierDecorator.swift in Sources */,
@@ -1197,7 +1197,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1220,7 +1220,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
