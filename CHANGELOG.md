@@ -1,3 +1,12 @@
+1.2.3 Release notes (2022-06-21)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Replaced internal KeepAlive timers implementation from 'Timer' to 'DispatchSourceTimer'. This change should not leave hanging background threads and eliminate possible deadlock with main thread
+
 1.2.2 Release notes (2022-04-12)
 =============================================================
 
