@@ -22,9 +22,7 @@ public extension RingPublishingTracking {
     func reportVideoEvent(_ videoEvent: VideoEvent, videoMetadata: VideoMetadata, videoState: VideoState) {
         Logger.log("Reporting video event: '\(videoEvent)' for publicationId: '\(videoMetadata.publicationId)'")
 
-
-
-        
+        let event = eventsFactory.createVideoEvent(for: videoEvent, videoMetadata: videoMetadata, videoState: videoState)
+        reportEvents([event])
     }
-
 }

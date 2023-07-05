@@ -10,6 +10,8 @@ import Foundation
 
 final class EventsFactory {
 
+    // MARK: Click
+
     func createClickEvent(selectedElementName: String?,
                           publicationUrl: URL?,
                           contentIdentifier: String?) -> Event {
@@ -31,6 +33,8 @@ final class EventsFactory {
                      eventName: EventType.click.rawValue,
                      eventParameters: parameters)
     }
+
+    // MARK: User action
 
     func createUserActionEvent(actionName: String, actionSubtypeName: String, parameter: UserActionParameter) -> Event {
         var parameters: [String: AnyHashable] = [
@@ -62,6 +66,8 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
+    // MARK: Page View
+
     func createPageViewEvent(contentIdentifier: String?, contentMetadata: ContentMetadata?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
@@ -77,6 +83,8 @@ final class EventsFactory {
                      eventName: EventType.pageView.rawValue,
                      eventParameters: parameters)
     }
+
+    // MARK: Keep Alive
 
     func createKeepAliveEvent(metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) -> Event {
         var parameters: [String: AnyHashable] = [:]
@@ -97,6 +105,26 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
+    // MARK: Video event
+
+    func createVideoEvent(for videoEvent: VideoEvent, videoMetadata: VideoMetadata, videoState: VideoState) -> Event {
+        var parameters: [String: AnyHashable] = [:]
+
+        parameters["VE"] = videoEvent.veParameter
+        parameters["RT"] = EventType.videoEvent.rawValue
+        parameters["PMU"] = videoMetadata.contentId
+        parameters["MUTED"] = videoState.isMuted ? 1 : 0
+        parameters["VT"] = videoMetadata.videoDuration
+        parameters["VP"] = videoState.currentTime
+        parameters["VC"] = createVideoEventVCParameter(videoMetadata: videoMetadata, videoState: videoState)
+
+        return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
+                     eventName: EventType.videoEvent.rawValue,
+                     eventParameters: parameters)
+    }
+
+    // MARK: Error
+
     func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {
         let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
         let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes), reason: exceeding size limit)"
@@ -109,5 +137,23 @@ final class EventsFactory {
                         "VE": "AppError",
                         "VM": message
                      ])
+    }
+}
+
+// MARK: Private
+private extension EventsFactory {
+
+    func createVideoEventVCParameter(videoMetadata: VideoMetadata, videoState: VideoState) -> String {
+        // Parameters format:
+        // [prefix]:[ckmId],[publicationId],video/[type],[bitrate]
+        // Example: "video:2334518,2334518.275928614,video/hls,4000"
+
+        let prefix = Constants.videoEventParametersPrefix
+        let ckmId = videoMetadata.publicationId.split(separator: ".").map { String($0) }[0]
+        let publicationId = videoMetadata.publicationId
+        let videoFormat = "video/\(videoMetadata.videoStreamFormat.vcParameterFormatName)"
+        let bitrate = videoState.currentBitrate
+
+        return "\(prefix):\(ckmId),\(publicationId),\(videoFormat),\(bitrate)"
     }
 }
