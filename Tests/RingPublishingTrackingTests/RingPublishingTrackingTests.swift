@@ -9,6 +9,7 @@
 import XCTest
 
 class RingPublishingTrackingTests: XCTestCase {
+
     let tenantId = "12345"
     let apiKey = "abcdef"
     let applicationRootPath = "RingPublishingTrackingTests"
@@ -96,7 +97,6 @@ class RingPublishingTrackingTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
 
-    // swiftlint:disable function_body_length
     func testEventsReporting_sampleDataProvided_eventsReportedCrorectly() {
         // Given
         let eventsQueueManager = RingPublishingTracking.shared.eventsService.eventsQueueManager

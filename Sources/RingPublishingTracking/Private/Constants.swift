@@ -8,14 +8,16 @@
 
 import Foundation
 
-// swiftlint:disable force_unwrapping
-
 struct Constants {
 
     // MARK: API
 
+    // swiftlint:disable force_unwrapping
+
     /// API url
     static let apiUrl: URL = URL(string: "https://events.ocdn.eu")!
+
+    // swiftlint:enable force_unwrapping
 
     /// Current version of API
     static let apiVersion: String = "v3"
