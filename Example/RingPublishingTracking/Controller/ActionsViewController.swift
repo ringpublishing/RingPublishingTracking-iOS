@@ -190,16 +190,20 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
     @IBAction func onReportVideoPlaybackStartActionTouch(_ sender: Any) {
         // Here is the example how can you report video events
-        // As an example, we are reporting here few events in order those should be reported in case, where vide
+        // We are reporting here few events in order of which those should be reported in case, where video
         // material was started by the user manually
 
-        let videoMetadata = VideoMetadata(publicationId: "2334518.275928614")
+        let videoMetadata = VideoMetadata(publicationId: "2334518.275928614",
+                                          contentId: "0394d662-b991-4451-bf28-24dc195ec2f0",
+                                          videoStreamFormat: .hls,
+                                          videoDuration: 1267)
+        let videoState = VideoState(currentTime: 0, currentBitrate: 4000, isMuted: true)
 
-        RingPublishingTracking.shared.reportVideoEvent(.documentReady, videoMetadata: videoMetadata)
-        RingPublishingTracking.shared.reportVideoEvent(.playerReady, videoMetadata: videoMetadata)
-        RingPublishingTracking.shared.reportVideoEvent(.start, videoMetadata: videoMetadata)
-        RingPublishingTracking.shared.reportVideoEvent(.simpleLicenseAcquired, videoMetadata: videoMetadata)
-        RingPublishingTracking.shared.reportVideoEvent(.playingStart, videoMetadata: videoMetadata)
+        RingPublishingTracking.shared.reportVideoEvent(.documentReady, videoMetadata: videoMetadata, videoState: videoState)
+        RingPublishingTracking.shared.reportVideoEvent(.playerReady, videoMetadata: videoMetadata, videoState: videoState)
+        RingPublishingTracking.shared.reportVideoEvent(.start, videoMetadata: videoMetadata, videoState: videoState)
+        RingPublishingTracking.shared.reportVideoEvent(.simpleLicenseAcquired, videoMetadata: videoMetadata, videoState: videoState)
+        RingPublishingTracking.shared.reportVideoEvent(.playingStart, videoMetadata: videoMetadata, videoState: videoState)
     }
 }
 

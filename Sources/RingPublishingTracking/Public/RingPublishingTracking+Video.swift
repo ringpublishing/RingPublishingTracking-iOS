@@ -18,7 +18,8 @@ public extension RingPublishingTracking {
     /// - Parameters:
     ///   - videoEvent: Type of Video event to report
     ///   - videoMetadata: Video material metadata
-    func reportVideoEvent(_ videoEvent: VideoEvent, videoMetadata: VideoMetadata) {
+    ///   - videoState: Current Video material state in video player
+    func reportVideoEvent(_ videoEvent: VideoEvent, videoMetadata: VideoMetadata, videoState: VideoState) {
         Logger.log("Reporting video event: '\(videoEvent)' for publicationId: '\(videoMetadata.publicationId)'")
 
 
