@@ -185,6 +185,22 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         let offerIds = ["123", "456", "789"]
         RingPublishingTracking.shared.reportAureusOffersImpressions(offerIds: offerIds)
     }
+
+    // MARK: Actions (Video event)
+
+    @IBAction func onReportVideoPlaybackStartActionTouch(_ sender: Any) {
+        // Here is the example how can you report video events
+        // As an example, we are reporting here few events in order those should be reported in case, where vide
+        // material was started by the user manually
+
+        let videoMetadata = VideoMetadata(publicationId: "2334518.275928614")
+
+        RingPublishingTracking.shared.reportVideoEvent(.documentReady, videoMetadata: videoMetadata)
+        RingPublishingTracking.shared.reportVideoEvent(.playerReady, videoMetadata: videoMetadata)
+        RingPublishingTracking.shared.reportVideoEvent(.start, videoMetadata: videoMetadata)
+        RingPublishingTracking.shared.reportVideoEvent(.simpleLicenseAcquired, videoMetadata: videoMetadata)
+        RingPublishingTracking.shared.reportVideoEvent(.playingStart, videoMetadata: videoMetadata)
+    }
 }
 
 // MARK: Private
