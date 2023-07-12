@@ -199,11 +199,9 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
                                           videoDuration: 1267)
         let videoState = VideoState(currentTime: 0, currentBitrate: 4000, isMuted: true)
 
-        RingPublishingTracking.shared.reportVideoEvent(.documentReady, videoMetadata: videoMetadata, videoState: videoState)
-        RingPublishingTracking.shared.reportVideoEvent(.playerReady, videoMetadata: videoMetadata, videoState: videoState)
         RingPublishingTracking.shared.reportVideoEvent(.start, videoMetadata: videoMetadata, videoState: videoState)
-        RingPublishingTracking.shared.reportVideoEvent(.simpleLicenseAcquired, videoMetadata: videoMetadata, videoState: videoState)
         RingPublishingTracking.shared.reportVideoEvent(.playingStart, videoMetadata: videoMetadata, videoState: videoState)
+        RingPublishingTracking.shared.reportVideoEvent(.keepPlaying, videoMetadata: videoMetadata, videoState: videoState)
     }
 }
 
