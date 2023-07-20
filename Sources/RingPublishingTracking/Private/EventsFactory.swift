@@ -152,7 +152,14 @@ private extension EventsFactory {
         let ckmId = videoMetadata.publicationId.split(separator: ".").map { String($0) }[0]
         let publicationId = videoMetadata.publicationId
         let videoFormat = "video/\(videoMetadata.videoStreamFormat.vcParameterFormatName)"
-        let bitrate = videoState.currentBitrate
+
+        // Send bitrate as Int
+        let bitrate: String
+        if let bitrateAsDouble = Double(videoState.currentBitrate) {
+            bitrate = "\(Int(floor(bitrateAsDouble)))"
+        } else {
+            bitrate = videoState.currentBitrate
+        }
 
         return "\(prefix):\(ckmId),\(publicationId),\(videoFormat),\(bitrate)"
     }
