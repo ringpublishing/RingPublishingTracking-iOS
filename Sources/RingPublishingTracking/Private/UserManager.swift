@@ -9,25 +9,21 @@
 import Foundation
 
 protocol Userable {
+
     func buildUser() -> User
     func updateIDFA(idfa: UUID?)
     func updateDeviceId(deviceId: String?)
+    func updateTCFV2(tcfv2: String?)
 }
 
 final class UserManager: Userable {
+
     private(set) var idfa: UUID?
     private(set) var deviceId: String?
+    private(set) var tcfv2: String?
 
     func buildUser() -> User {
-        if let idfa = idfa {
-            return User(advertisementId: idfa.uuidString, deviceId: nil)
-        }
-
-        if let deviceId = deviceId {
-            return User(advertisementId: nil, deviceId: deviceId)
-        }
-
-        return User(advertisementId: nil, deviceId: nil)
+        return User(advertisementId: idfa?.uuidString, deviceId: deviceId, tcfv2: tcfv2)
     }
 
     func updateIDFA(idfa: UUID?) {
@@ -36,5 +32,9 @@ final class UserManager: Userable {
 
     func updateDeviceId(deviceId: String?) {
         self.deviceId = deviceId
+    }
+
+    func updateTCFV2(tcfv2: String?) {
+        self.tcfv2 = tcfv2
     }
 }

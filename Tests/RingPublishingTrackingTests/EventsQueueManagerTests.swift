@@ -142,9 +142,10 @@ extension Event {
     }
 
     // swiftlint:disable function_body_length
+    // swiftlint:disable line_length
+
     static func tooBigEvent() -> Self { // over 16 KB
         Event(eventParameters: [
-            // swiftlint:disable line_length
             "key": """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis felis nisl, vel porttitor sapien vulputate viverra. Integer condimentum, erat a semper maximus, leo orci vulputate nisl, et fermentum leo odio vitae mauris. Sed scelerisque, lorem ut interdum ornare, nisi eros faucibus neque, sed egestas quam tellus eget est. Curabitur fringilla nisi vel dui tincidunt viverra. Duis rutrum blandit sapien, eget fermentum lectus efficitur a. Cras pulvinar magna dui, sit amet placerat nisi vulputate sed. In tortor libero, imperdiet eget ex viverra, eleifend venenatis diam. Nam sit amet eros pellentesque, iaculis ligula nec, porta erat. Suspendisse pulvinar eleifend ullamcorper. Sed mollis ligula at sapien rutrum dapibus. Mauris tincidunt sagittis sagittis. Curabitur sed vehicula ligula.
 
@@ -207,4 +208,7 @@ Duis libero nunc, imperdiet sit amet condimentum sit amet, finibus vel augue. In
 """
         ])
     }
+
+    // swiftlint:enable function_body_length
+    // swiftlint:enable line_length
 }

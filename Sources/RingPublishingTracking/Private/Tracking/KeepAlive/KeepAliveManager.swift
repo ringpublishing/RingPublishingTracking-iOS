@@ -81,7 +81,7 @@ final class KeepAliveManager {
     }
 
     deinit {
-        removeObservers()
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: -
@@ -182,10 +182,6 @@ extension KeepAliveManager {
                                                selector: #selector(applicationWillResignActive),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
-    }
-
-    func removeObservers() {
-        NotificationCenter.default.removeObserver(self)
     }
 
     @objc

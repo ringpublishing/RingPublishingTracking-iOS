@@ -17,22 +17,27 @@ struct User: Encodable {
     /// Device ID used when `advertisementId` is not available
     let deviceId: String?
 
+    /// TCFV2.0 Consents string
+    let tcfv2: String?
+
     enum CodingKeys: String, CodingKey {
 
         case deviceId
         case advertisementId = "advId"
+        case tcfv2
     }
 }
 
 extension User {
 
     var dictionary: [String: Any] {
-        var dic = [String: Any]()
+        var params = [String: Any]()
 
-        dic["advId"] = advertisementId
-        dic["deviceId"] = deviceId
+        params["advId"] = advertisementId
+        params["deviceId"] = deviceId
+        params["tcfv2"] = tcfv2
 
-        return dic
+        return params
     }
 
     var sizeInBytes: UInt {
