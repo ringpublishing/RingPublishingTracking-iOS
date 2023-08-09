@@ -32,7 +32,7 @@ file_length:
 type_name:
   min_length: 3
   max_length:
-    warning: 40
+    warning: 45
     error: 50
   excluded: iPhone
 identifier_name:

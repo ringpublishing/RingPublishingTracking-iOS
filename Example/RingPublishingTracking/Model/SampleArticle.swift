@@ -56,3 +56,5 @@ extension SampleArticle {
                       contentWasPaidFor: true)
     ]
 }
+
+// swiftlint:enable force_unwrapping

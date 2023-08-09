@@ -155,19 +155,6 @@ class DecoratorTests: XCTestCase {
         XCTAssertEqual(params3["DR"], params2["DU"], "DR should be equal to previous DU")
     }
 
-    // MARK: - ConsentStringDecorator Tests
-
-    func testParameters_consentStringDecoratorCreated_returnedParametersAreCorrect() {
-        // Given
-        let provider = ConsentProviderStub()
-        let decorator = ConsentStringDecorator(consentProvider: provider)
-
-        // Then
-        let params = decorator.parameters
-
-        XCTAssertEqual(params["_adpc"], provider.adpc, "_adpc should be correct")
-    }
-
     // MARK: - AdAreaDecorator Tests
 
     func testParameters_adAreaDecoratorCreated_returnedParametersAreCorrect() {

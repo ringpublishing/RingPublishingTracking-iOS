@@ -19,19 +19,6 @@ struct APIService: Service {
     /// Session object used to create requests
     let session: NetworkSession
 
-    // MARK: Init
-
-    /// Initialization for  API service
-    /// - Parameters:
-    ///   - apiUrl: API url
-    ///   - apiKey: API key
-    ///   - session: Session object used to create requests
-    init(apiUrl: URL, apiKey: String, session: NetworkSession) {
-        self.apiUrl = apiUrl
-        self.apiKey = apiKey
-        self.session = session
-    }
-
     // MARK: Methods
 
     /// Makes a network request with the given endpoint providing a response in the completion closure.

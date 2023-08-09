@@ -13,7 +13,6 @@
 		204EAECA270D9885009E2F0D /* UserDataDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC0270AEA0A009E2F0D /* UserDataDecorator.swift */; };
 		204EAECB270D9885009E2F0D /* SizeDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322727070C2C00EA53FD /* SizeDecorator.swift */; };
 		204EAECC270D9885009E2F0D /* UniqueIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832232707083700EA53FD /* UniqueIdentifierDecorator.swift */; };
-		204EAECD270D9885009E2F0D /* ConsentStringDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088322B27070D9A00EA53FD /* ConsentStringDecorator.swift */; };
 		204EAECE270D9885009E2F0D /* TenantIdentifierDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */; };
 		204EAECF270D989D009E2F0D /* Decorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883220270707CD00EA53FD /* Decorator.swift */; };
 		204EAED1270DB69B009E2F0D /* Event+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAED0270DB69B009E2F0D /* Event+API.swift */; };
@@ -200,7 +199,6 @@
 		208832232707083700EA53FD /* UniqueIdentifierDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueIdentifierDecorator.swift; sourceTree = "<group>"; };
 		2088322727070C2C00EA53FD /* SizeDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeDecorator.swift; sourceTree = "<group>"; };
 		2088322927070D4000EA53FD /* StructureInfoDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureInfoDecorator.swift; sourceTree = "<group>"; };
-		2088322B27070D9A00EA53FD /* ConsentStringDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentStringDecorator.swift; sourceTree = "<group>"; };
 		2088322D27070DC700EA53FD /* AdAreaDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdAreaDecorator.swift; sourceTree = "<group>"; };
 		208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsQueueManagerTests.swift; sourceTree = "<group>"; };
 		208CD61B26F9B3C0006A406C /* StaticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticStorage.swift; sourceTree = "<group>"; };
@@ -393,7 +391,6 @@
 				208832232707083700EA53FD /* UniqueIdentifierDecorator.swift */,
 				2088322727070C2C00EA53FD /* SizeDecorator.swift */,
 				2088322927070D4000EA53FD /* StructureInfoDecorator.swift */,
-				2088322B27070D9A00EA53FD /* ConsentStringDecorator.swift */,
 				2088322D27070DC700EA53FD /* AdAreaDecorator.swift */,
 				204EAEC0270AEA0A009E2F0D /* UserDataDecorator.swift */,
 				204EAEC4270C3B59009E2F0D /* TenantIdentifierDecorator.swift */,
@@ -928,7 +925,6 @@
 				7D7D5BD226FCA5AE00B79FDD /* RingPublishingTracking.swift in Sources */,
 				208832052702728300EA53FD /* VendorManager.swift in Sources */,
 				7D7D5BD926FCA5AF00B79FDD /* Constants.swift in Sources */,
-				204EAECD270D9885009E2F0D /* ConsentStringDecorator.swift in Sources */,
 				7D7D5BE326FCA5AF00B79FDD /* APIService.swift in Sources */,
 				208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */,
 				7D7D5BD826FCA5AF00B79FDD /* RingPublishingTracking+ContentPerformanceMonitor.swift in Sources */,
@@ -1197,7 +1193,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1220,7 +1216,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
