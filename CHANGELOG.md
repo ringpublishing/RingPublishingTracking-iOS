@@ -1,3 +1,12 @@
+1.2.4 Release notes (2023-07-31)
+=============================================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* User consents field (TCF2.0 string) is now part of user data in network requests instead of being part of event data.
+
 1.2.3 Release notes (2022-06-21)
 =============================================================
 
