@@ -10,6 +10,8 @@ import Foundation
 
 final class EventsFactory {
 
+    private var videoEventSessionTimestamps = [String: String]() // PMU: RR
+
     // MARK: Click
 
     func createClickEvent(selectedElementName: String?,
@@ -117,6 +119,7 @@ final class EventsFactory {
         parameters["VT"] = videoMetadata.videoDuration
         parameters["VP"] = videoState.currentTime
         parameters["VC"] = createVideoEventVCParameter(videoMetadata: videoMetadata, videoState: videoState)
+        parameters["RR"] = videoEventSessionTimestamp(for: videoMetadata.contentId, videoEvent: videoEvent)
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
                      eventName: EventType.videoEvent.rawValue,
@@ -162,5 +165,25 @@ private extension EventsFactory {
         }
 
         return "\(prefix):\(ckmId),\(publicationId),\(videoFormat),\(bitrate)"
+    }
+
+    func videoEventSessionTimestamp(for contentId: String, videoEvent: VideoEvent) -> String {
+        // For each new video session (recognized by .start event) generate new timestamp
+        // Timestamp format: 1692697330517 - current timestamp with miliseconds with 3 digits precision
+
+        let existingTimestamp = videoEventSessionTimestamps[contentId]
+
+        switch videoEvent {
+        case .start:
+            let timestamp = "\(Int(Date().timeIntervalSince1970 * 1000))"
+
+            videoEventSessionTimestamps[contentId] = timestamp
+
+            return timestamp
+
+        default:
+            // If timestamp does not exists, force generation
+            return videoEventSessionTimestamps[contentId] ?? videoEventSessionTimestamp(for: contentId, videoEvent: .start)
+        }
     }
 }
