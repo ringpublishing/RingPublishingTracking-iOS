@@ -103,24 +103,22 @@ final class EventsService {
     /// Adds list of events to the queue when the size of each event is appropriate
     /// - Parameter events: Array of `Event` that should be added to the queue
     func addEvents(_ events: [Event]) {
-        let decoratedEvents: [Event] = events.map { event in
-            event.decorated(using: decorators)
-        }
+        decorateEvents(events, using: decorators) { [weak self] decoratedEvents in
+            let filteredEvents = decoratedEvents.filter { event in
+                if !event.isValidJSONObject {
+                    let logMessage = """
+                    Event contains invalid parameters that are not JSONSerialization compatible.
+                    All objects should be String, Number, Array, Dictionary, or NSNull
+                    """
+                    Logger.log(logMessage)
+                    return false
+                }
 
-        let filteredEvents = decoratedEvents.filter { event in
-            if !event.isValidJSONObject {
-                let logMessage = """
-                Event contains invalid parameters that are not JSONSerialization compatible.
-                All objects should be String, Number, Array, Dictionary, or NSNull
-                """
-                Logger.log(logMessage)
-                return false
+                return true
             }
 
-            return true
+            self?.eventsQueueManager.addEvents(filteredEvents)
         }
-
-        eventsQueueManager.addEvents(filteredEvents)
     }
 
     /// Calls the /me endpoint from the API
@@ -202,7 +200,8 @@ final class EventsService {
     }
 }
 
-extension EventsService {
+// MARK: Private
+private extension EventsService {
 
     /// Checks if stored eaUUID is not expired
     var isEaUuidValid: Bool {
@@ -245,7 +244,7 @@ extension EventsService {
     }
 
     /// Retrieves Vendor Identifier (IDFA)
-    private func retrieveVendorIdentifier(completion: @escaping () -> Void) {
+    func retrieveVendorIdentifier(completion: @escaping () -> Void) {
         vendorManager.retrieveVendorIdentifier { [weak self] result in
             switch result {
             case .success(let identifier):
@@ -263,7 +262,7 @@ extension EventsService {
     ///
     /// - Parameter eaUUID: IdsWithLifetime?
     /// - Returns: True if identifier was stored, false otherwise
-    private func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> Bool {
+    func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> Bool {
         guard let eaUUID = eaUUID, let value = eaUUID.value, let lifetime = eaUUID.lifetime else {
             storage.eaUUID = nil
             storage.postInterval = nil
@@ -282,12 +281,12 @@ extension EventsService {
     }
 
     /// Stores Post Interval
-    private func storePostInterval(_ postInterval: Int) {
+    func storePostInterval(_ postInterval: Int) {
         storage.postInterval = postInterval
     }
 
     // Calls the root endpoint from the API
-    private func sendEvents(for eventsQueueManager: EventsQueueManager) {
+    func sendEvents(for eventsQueueManager: EventsQueueManager) {
         let body = buildEventRequest()
         let endpoint = SendEventEnpoint(body: body)
 
@@ -308,7 +307,7 @@ extension EventsService {
         })
     }
 
-    private func retryIdentifyRequest(completion: @escaping (_ success: Bool) -> Void) {
+    func retryIdentifyRequest(completion: @escaping (_ success: Bool) -> Void) {
         Logger.log("Retrying identify request as required data is missing.")
 
         identifyMe { [weak self] error in
@@ -318,7 +317,7 @@ extension EventsService {
         }
     }
 
-    private func handleIdentifyMeRequestFailure(error: ServiceError?) {
+    func handleIdentifyMeRequestFailure(error: ServiceError?) {
         // Check if there was error at all - if not proper delegate with identifier was already called
         guard let error = error else { return }
 
@@ -364,7 +363,7 @@ extension EventsService {
     }
 
     /// Prepares event decorators
-    private func prepareDecorators() {
+    func prepareDecorators() {
         // Generic
         registerDecorator(SizeDecorator())
         registerDecorator(uniqueIdentifierDecorator)
@@ -373,6 +372,13 @@ extension EventsService {
         registerDecorator(userDataDecorator)
         registerDecorator(tenantIdentifierDecorator)
         registerDecorator(clientDecorator)
+    }
+
+    func decorateEvents(_ events: [Event], using decorators: [Decorator], completion: @escaping (_ events: [Event]) -> Void) {
+        DispatchQueue.main.async {
+            let decoratedEvents = events.map { $0.decorated(using: decorators) }
+            completion(decoratedEvents)
+        }
     }
 }
 

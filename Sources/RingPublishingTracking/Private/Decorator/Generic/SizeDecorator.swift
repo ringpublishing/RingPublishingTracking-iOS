@@ -14,10 +14,6 @@ final class SizeDecorator: Decorator {
     private let screenDepth = 24
     private let sizeProvider: SizeProviding
 
-    init(sizeProvider: SizeProviding = SizeProvider()) {
-        self.sizeProvider = sizeProvider
-    }
-
     var parameters: [String: AnyHashable] {
         [
             "CS": formatSize(for: sizeProvider.screenSize) + "x\(screenDepth)",
@@ -25,7 +21,17 @@ final class SizeDecorator: Decorator {
         ]
     }
 
-    private func formatSize(for size: CGSize) -> String {
-        "\(Int(size.width))x\(Int(size.height))"
+    // MARK: Init
+
+    init(sizeProvider: SizeProviding = SizeProvider()) {
+        self.sizeProvider = sizeProvider
+    }
+}
+
+// MARK: Private
+private extension SizeDecorator {
+
+    func formatSize(for size: CGSize) -> String {
+        return "\(Int(size.width))x\(Int(size.height))"
     }
 }
