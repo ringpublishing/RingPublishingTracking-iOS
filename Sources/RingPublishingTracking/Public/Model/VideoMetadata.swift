@@ -23,19 +23,28 @@ public struct VideoMetadata {
     /// Video duration (in seconds)
     public let videoDuration: Int
 
+    /// Video player version name, for example 2.9.0
+    public let videoPlayerVersion: String
+
     // MARK: Init
 
     /// Initializer
-    /// 
+    ///
     /// - Parameters:
     ///   - publicationId: Publication identifier in source system (CMS)
     ///   - contentId: Content identifier in source system (CMS)
     ///   - videoStreamFormat: Type of video stream format loaded into video player
     ///   - videoDuration: Video duration (in seconds)
-    public init(publicationId: String, contentId: String, videoStreamFormat: VideoStreamFormat, videoDuration: Int) {
+    ///   - videoPlayerVersion: Video player version name, for example 2.9.0
+    public init(publicationId: String,
+                contentId: String,
+                videoStreamFormat: VideoStreamFormat,
+                videoDuration: Int,
+                videoPlayerVersion: String) {
         self.publicationId = publicationId
         self.contentId = contentId
         self.videoStreamFormat = videoStreamFormat
         self.videoDuration = videoDuration
+        self.videoPlayerVersion = videoPlayerVersion
     }
 }

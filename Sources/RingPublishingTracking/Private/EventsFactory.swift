@@ -122,6 +122,9 @@ final class EventsFactory {
         parameters["VC"] = createVideoEventVCParameter(videoMetadata: videoMetadata, videoState: videoState)
         parameters["RR"] = videoEventSessionTimestamp(for: videoMetadata.contentId, videoEvent: videoEvent)
         parameters["VEN"] = videoEventSessionCounter(for: videoMetadata.contentId, videoEvent: videoEvent)
+        parameters["VS"] = videoMetadata.videoStreamFormat.parameterFormatName
+        parameters["VSM"] = videoState.startMode.parameterName
+        parameters["XI"] = videoMetadata.videoPlayerVersion
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
                      eventName: EventType.videoEvent.rawValue,
@@ -156,7 +159,7 @@ private extension EventsFactory {
         let prefix = Constants.videoEventParametersPrefix
         let ckmId = videoMetadata.publicationId.split(separator: ".").map { String($0) }[0]
         let publicationId = videoMetadata.publicationId
-        let videoFormat = "video/\(videoMetadata.videoStreamFormat.vcParameterFormatName)"
+        let videoFormat = "video/\(videoMetadata.videoStreamFormat.parameterFormatName)"
 
         // Send bitrate as Int
         let bitrate: String

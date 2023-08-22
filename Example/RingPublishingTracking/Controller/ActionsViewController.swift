@@ -196,8 +196,9 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         let videoMetadata = VideoMetadata(publicationId: "2334518.275928614",
                                           contentId: "0394d662-b991-4451-bf28-24dc195ec2f0",
                                           videoStreamFormat: .hls,
-                                          videoDuration: 1267)
-        let videoState = VideoState(currentTime: 0, currentBitrate: "4000.00", isMuted: true)
+                                          videoDuration: 1267,
+                                          videoPlayerVersion: "3.5.0")
+        let videoState = VideoState(currentTime: 0, currentBitrate: "4000.00", isMuted: true, startMode: .muted)
 
         RingPublishingTracking.shared.reportVideoEvent(.start, videoMetadata: videoMetadata, videoState: videoState)
         RingPublishingTracking.shared.reportVideoEvent(.playingStart, videoMetadata: videoMetadata, videoState: videoState)

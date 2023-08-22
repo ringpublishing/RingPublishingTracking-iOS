@@ -1,5 +1,5 @@
 //
-//  VideoStreamFormat+VC.swift
+//  VideoStreamFormat+ParameterName.swift
 //  RingPublishingTracking
 //
 //  Created by Adam Szeremeta on 05/07/2023.
@@ -9,7 +9,7 @@ import Foundation
 
 extension VideoStreamFormat {
 
-    var vcParameterFormatName: String {
+    var parameterFormatName: String {
         switch self {
         case .flv:
             return "flv"
