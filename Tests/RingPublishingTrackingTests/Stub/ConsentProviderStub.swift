@@ -10,5 +10,5 @@ import Foundation
 
 struct ConsentProviderStub: ConsentProviding {
 
-    let adpc: String? = "test"
+    let tcfv2: String? = "test"
 }

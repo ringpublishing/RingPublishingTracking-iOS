@@ -29,6 +29,9 @@ final class EventsService {
     /// Events factory
     private let eventsFactory: EventsFactory
 
+    /// User consents provider
+    private let userConsentsProvider = ConsentProvider()
+
     /// Service responsible for sending requests to the backend
     private var apiService: APIService?
 
@@ -74,6 +77,14 @@ final class EventsService {
             storage.randomUniqueDeviceId = UUID().uuidString
         }
 
+        // Set initial TCF2.0 string value
+        userManager.updateTCFV2(tcfv2: userConsentsProvider.tcfv2)
+
+        // Observe for TCF2.0 consents string change
+        userConsentsProvider.observeConsentsChange(observerCallback: { [weak self] consents in
+            self?.userManager.updateTCFV2(tcfv2: consents)
+        })
+
         retrieveVendorIdentifier { [weak self] in
             // Call identify once the API is configured to retrieve trackingIdentifier as soon as possible
             self?.identifyMe(completion: { [weak self] error in
@@ -98,7 +109,11 @@ final class EventsService {
 
         let filteredEvents = decoratedEvents.filter { event in
             if !event.isValidJSONObject {
-                Logger.log("Event contains invalid parameters that are not JSONSerialization compatible. All objects should be String, Number, Array, Dictionary, or NSNull") // swiftlint:disable:this line_length
+                let logMessage = """
+                Event contains invalid parameters that are not JSONSerialization compatible.
+                All objects should be String, Number, Array, Dictionary, or NSNull
+                """
+                Logger.log(logMessage)
                 return false
             }
 
@@ -352,7 +367,6 @@ extension EventsService {
     private func prepareDecorators() {
         // Generic
         registerDecorator(SizeDecorator())
-        registerDecorator(ConsentStringDecorator())
         registerDecorator(uniqueIdentifierDecorator)
         registerDecorator(structureInfoDecorator)
         registerDecorator(adAreaDecorator)

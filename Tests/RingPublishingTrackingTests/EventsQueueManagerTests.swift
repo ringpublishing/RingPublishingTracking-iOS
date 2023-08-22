@@ -141,7 +141,8 @@ extension Event {
         ])
     }
 
-    // swiftlint:disable function_body_length line_length
+    // swiftlint:disable function_body_length
+    // swiftlint:disable line_length
 
     static func tooBigEvent() -> Self { // over 16 KB
         Event(eventParameters: [
@@ -208,5 +209,6 @@ Duis libero nunc, imperdiet sit amet condimentum sit amet, finibus vel augue. In
         ])
     }
 
-    // swiftlint:enable function_body_length line_length
+    // swiftlint:enable function_body_length
+    // swiftlint:enable line_length
 }

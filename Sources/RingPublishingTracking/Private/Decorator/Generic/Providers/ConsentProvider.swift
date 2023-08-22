@@ -8,9 +8,42 @@
 
 import Foundation
 
-struct ConsentProvider: ConsentProviding {
+class ConsentProvider: NSObject, ConsentProviding {
 
-    var adpc: String? {
-        UserDefaults.standard.string(forKey: "IABTCF_TCString")
+    private let tcfv2StorageKey = "IABTCF_TCString"
+
+    private var observerCallback: ((_ tcfv2: String?) -> Void)?
+
+    var tcfv2: String? {
+        return UserDefaults.standard.string(forKey: tcfv2StorageKey)
+    }
+
+    // MARK: Life cycle
+
+    override init() {
+        super.init()
+
+        UserDefaults.standard.addObserver(self, forKeyPath: tcfv2StorageKey, context: nil)
+    }
+
+    deinit {
+        UserDefaults.standard.removeObserver(self, forKeyPath: tcfv2StorageKey)
+        observerCallback = nil
+    }
+
+    // MARK: Methods
+
+    func observeConsentsChange(observerCallback: ((_ tcfv2: String?) -> Void)?) {
+        self.observerCallback = observerCallback
+
+    }
+
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey: Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        guard keyPath == tcfv2StorageKey else { return }
+
+        observerCallback?(tcfv2)
     }
 }

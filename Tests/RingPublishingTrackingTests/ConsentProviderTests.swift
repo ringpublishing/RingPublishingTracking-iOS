@@ -17,14 +17,14 @@ class ConsentProviderTests: XCTestCase {
     }
 
     // MARK: Tests
-    func testAdpc_IABTCF_TCStringNotFilled_noValueReturned() {
+    func testtcfv2_IABTCF_TCStringNotFilled_noValueReturned() {
         // Given
         let provider = ConsentProvider()
 
         // When
-        let adpc = provider.adpc
+        let tcfv2 = provider.tcfv2
 
         // Then
-        XCTAssertNil(adpc, "adpc should be nil")
+        XCTAssertNil(tcfv2, "tcfv2 should be nil")
     }
 }

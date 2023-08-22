@@ -19,21 +19,25 @@ class UserManagerTests: XCTestCase {
     }
 
     // MARK: - UserManager Tests
+
     func testBuildUser_idfaAndDeviceIdAreProvided_builtUserContainsAllData() {
         // Given
         let userManager = UserManager()
         let idfa = UUID()
         let deviceId = "1234567890"
+        let tcfv2 = "abcdefghijklmn"
 
         // When
         userManager.updateIDFA(idfa: idfa)
         userManager.updateDeviceId(deviceId: deviceId)
+        userManager.updateTCFV2(tcfv2: tcfv2)
 
         let user = userManager.buildUser()
 
         // Then
         XCTAssertEqual(user.advertisementId, idfa.uuidString, "Advertisement Identifier should be equal to IDFA")
-        XCTAssertNil(user.deviceId, "Device Identifier should be nil")
+        XCTAssertEqual(user.deviceId, deviceId, "Device Identifier should be equal to user device identifier")
+        XCTAssertEqual(user.tcfv2, tcfv2, "TCF string should be correctly set")
     }
 
     func testBuildUser_deviceIdIsProvided_builtUserContainsAllData() {

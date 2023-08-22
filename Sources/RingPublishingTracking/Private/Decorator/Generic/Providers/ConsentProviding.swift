@@ -10,5 +10,5 @@ import Foundation
 
 protocol ConsentProviding {
 
-    var adpc: String? { get }
+    var tcfv2: String? { get }
 }
