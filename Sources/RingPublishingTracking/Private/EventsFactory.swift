@@ -11,6 +11,7 @@ import Foundation
 final class EventsFactory {
 
     private var videoEventSessionTimestamps = [String: String]() // PMU: RR
+    private var videoEventSessionCounter = [String: Int]() // PMU: VEN
 
     // MARK: Click
 
@@ -120,6 +121,7 @@ final class EventsFactory {
         parameters["VP"] = videoState.currentTime
         parameters["VC"] = createVideoEventVCParameter(videoMetadata: videoMetadata, videoState: videoState)
         parameters["RR"] = videoEventSessionTimestamp(for: videoMetadata.contentId, videoEvent: videoEvent)
+        parameters["VEN"] = videoEventSessionCounter(for: videoMetadata.contentId, videoEvent: videoEvent)
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
                      eventName: EventType.videoEvent.rawValue,
@@ -171,8 +173,6 @@ private extension EventsFactory {
         // For each new video session (recognized by .start event) generate new timestamp
         // Timestamp format: 1692697330517 - current timestamp with miliseconds with 3 digits precision
 
-        let existingTimestamp = videoEventSessionTimestamps[contentId]
-
         switch videoEvent {
         case .start:
             let timestamp = "\(Int(Date().timeIntervalSince1970 * 1000))"
@@ -184,6 +184,28 @@ private extension EventsFactory {
         default:
             // If timestamp does not exists, force generation
             return videoEventSessionTimestamps[contentId] ?? videoEventSessionTimestamp(for: contentId, videoEvent: .start)
+        }
+    }
+
+    func videoEventSessionCounter(for contentId: String, videoEvent: VideoEvent) -> Int {
+        // For each new video session (recognized by .start event) reset events counter
+
+        switch videoEvent {
+        case .start:
+            videoEventSessionCounter[contentId] = 0
+
+            return 0
+
+        default:
+            // If counter does not exists, force generation
+            guard var counter = videoEventSessionCounter[contentId] else {
+                return videoEventSessionCounter(for: contentId, videoEvent: .start)
+            }
+
+            counter += 1
+            videoEventSessionCounter[contentId] = counter
+
+            return counter
         }
     }
 }
