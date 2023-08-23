@@ -27,6 +27,9 @@ public struct VideoMetadata {
     /// Video duration (in seconds)
     public let videoDuration: Int
 
+    /// Video content category in terms of paid access to it
+    public let videoContentCategory: VideoContentCategory
+
     /// Video ads configuration
     public let videoAdsConfiguration: VideoAdsConfiguration
 
@@ -43,13 +46,15 @@ public struct VideoMetadata {
     ///   - isMainContentPiece: Is video a main content piece?
     ///   - videoStreamFormat: Type of video stream format loaded into video player
     ///   - videoDuration: Video duration (in seconds)
-    ///   - videoPlayerVersion: Video player version name, for example 2.9.0
+    ///   - videoContentCategory: Video content category in terms of paid access to it
     ///   - videoAdsConfiguration: Video ads configuration
+    ///   - videoPlayerVersion: Video player version name, for example 2.9.0
     public init(publicationId: String,
                 contentId: String,
                 isMainContentPiece: Bool,
                 videoStreamFormat: VideoStreamFormat,
                 videoDuration: Int,
+                videoContentCategory: VideoContentCategory,
                 videoAdsConfiguration: VideoAdsConfiguration,
                 videoPlayerVersion: String) {
         self.publicationId = publicationId
@@ -57,6 +62,7 @@ public struct VideoMetadata {
         self.isMainContentPiece = isMainContentPiece
         self.videoStreamFormat = videoStreamFormat
         self.videoDuration = videoDuration
+        self.videoContentCategory = videoContentCategory
         self.videoAdsConfiguration = videoAdsConfiguration
         self.videoPlayerVersion = videoPlayerVersion
     }

@@ -126,7 +126,9 @@ final class EventsFactory {
         parameters["VSM"] = videoState.startMode.parameterName
         parameters["XI"] = videoMetadata.videoPlayerVersion
         parameters["VSLOT"] = videoMetadata.isMainContentPiece ? "player" : "splayer"
+        parameters["VEM"] = videoMetadata.isMainContentPiece ? "mainVideo" : "inTextVideo"
         parameters["VNA"] = videoMetadata.videoAdsConfiguration.noAdsParameterName
+        parameters["VPC"] = videoMetadata.videoContentCategory.parameterName
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
                      eventName: EventType.videoEvent.rawValue,
