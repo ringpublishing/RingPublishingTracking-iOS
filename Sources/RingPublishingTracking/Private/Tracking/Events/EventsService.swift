@@ -11,9 +11,6 @@ import Foundation
 /// Class used for all event operations
 final class EventsService {
 
-    /// Events queue manager for adding and removing events to/from queue
-    let eventsQueueManager: EventsQueueManager
-
     /// Storage
     private var storage: TrackingStorage
 
@@ -50,6 +47,31 @@ final class EventsService {
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
+    /// Events queue manager for adding and removing events to/from queue
+    let eventsQueueManager: EventsQueueManager
+
+    /// Checks if stored eaUUID is not expired
+    var isEaUuidValid: Bool {
+        guard let eaUUID = storage.eaUUID else {
+            return false
+        }
+
+        let expirationDate = eaUUID.expirationDate
+        let now = Date()
+
+        return expirationDate > now
+    }
+
+    var hasPostIntervalStored: Bool {
+        storage.postInterval != nil
+    }
+
+    var shouldRetryIdentifyRequest: Bool {
+        (!isEaUuidValid || !hasPostIntervalStored) && !isIdentifyMeRequestInProgress
+    }
+
+    // MARK: Init
+
     init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory, operationMode: Operationable) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
@@ -57,6 +79,8 @@ final class EventsService {
         self.decorators = []
         self.operationMode = operationMode
     }
+
+    // MARK: Methods
 
     /// Setups API Service
     /// - Parameters:
@@ -101,6 +125,7 @@ final class EventsService {
     }
 
     /// Adds list of events to the queue when the size of each event is appropriate
+    ///
     /// - Parameter events: Array of `Event` that should be added to the queue
     func addEvents(_ events: [Event]) {
         decorateEvents(events, using: decorators) { [weak self] decoratedEvents in
@@ -198,29 +223,38 @@ final class EventsService {
     func updateApplicationRootPath(applicationRootPath: String) {
         structureInfoDecorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
     }
-}
 
-// MARK: Private
-private extension EventsService {
+    // MARK: Internal
 
-    /// Checks if stored eaUUID is not expired
-    var isEaUuidValid: Bool {
-        guard let eaUUID = storage.eaUUID else {
-            return false
+    /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
+    /// 
+    /// - Returns: `EventRequest`
+    func buildEventRequest() -> EventRequest {
+        let events = eventsQueueManager.events.allElements
+
+        let user = userManager.buildUser()
+        let ids = storedIds()
+        let idsSize: UInt = ids.jsonSizeInBytes
+        let userSize = user.sizeInBytes
+
+        var availableEventsSize = Constants.requestBodySizeLimit - idsSize - userSize - 64 // Extra bytes for json structure
+
+        var eventsToSend = [Event]()
+        for event in events {
+            let eventSize = event.sizeInBytes + 4 // Extra bytes for json structure
+
+            if availableEventsSize > eventSize {
+                eventsToSend.append(event)
+
+                availableEventsSize -= eventSize
+            } else {
+                break
+            }
         }
 
-        let expirationDate = eaUUID.expirationDate
-        let now = Date()
-
-        return expirationDate > now
-    }
-
-    var hasPostIntervalStored: Bool {
-        storage.postInterval != nil
-    }
-
-    var shouldRetryIdentifyRequest: Bool {
-        (!isEaUuidValid || !hasPostIntervalStored) && !isIdentifyMeRequestInProgress
+        return EventRequest(ids: ids,
+                            user: user,
+                            events: eventsToSend)
     }
 
     /// Builds dictionary of stored tracking identifiers
@@ -242,6 +276,10 @@ private extension EventsService {
 
         return ids
     }
+}
+
+// MARK: Private
+private extension EventsService {
 
     /// Retrieves Vendor Identifier (IDFA)
     func retrieveVendorIdentifier(completion: @escaping () -> Void) {
@@ -330,36 +368,6 @@ private extension EventsService {
 
         Logger.log("Failed to fetch tracking identifier with error: \(error) but SDK has valid stored identifier.")
         delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
-    }
-
-    /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
-    /// - Returns: `EventRequest`
-    func buildEventRequest() -> EventRequest {
-        let events = eventsQueueManager.events.allElements
-
-        let user = userManager.buildUser()
-        let ids = storedIds()
-        let idsSize: UInt = ids.jsonSizeInBytes
-        let userSize = user.sizeInBytes
-
-        var availableEventsSize = Constants.requestBodySizeLimit - idsSize - userSize - 64 // Extra bytes for json structure
-
-        var eventsToSend = [Event]()
-        for event in events {
-            let eventSize = event.sizeInBytes + 4 // Extra bytes for json structure
-
-            if availableEventsSize > eventSize {
-                eventsToSend.append(event)
-
-                availableEventsSize -= eventSize
-            } else {
-                break
-            }
-        }
-
-        return EventRequest(ids: ids,
-                            user: user,
-                            events: eventsToSend)
     }
 
     /// Prepares event decorators
