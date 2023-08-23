@@ -195,8 +195,10 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
         let videoMetadata = VideoMetadata(publicationId: "2334518.275928614",
                                           contentId: "0394d662-b991-4451-bf28-24dc195ec2f0",
+                                          isMainContentPiece: false,
                                           videoStreamFormat: .hls,
                                           videoDuration: 1267,
+                                          videoAdsConfiguration: .disabledByConfiguration,
                                           videoPlayerVersion: "3.5.0")
         let videoState = VideoState(currentTime: 0, currentBitrate: "4000.00", isMuted: true, startMode: .muted)
 
