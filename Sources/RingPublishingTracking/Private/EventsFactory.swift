@@ -129,6 +129,7 @@ final class EventsFactory {
         parameters["VEM"] = videoMetadata.isMainContentPiece ? "mainVideo" : "inTextVideo"
         parameters["VNA"] = videoMetadata.videoAdsConfiguration.noAdsParameterName
         parameters["VPC"] = videoMetadata.videoContentCategory.parameterName
+        parameters["ECX"] = videoState.visibility.parameterName
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
                      eventName: EventType.videoEvent.rawValue,

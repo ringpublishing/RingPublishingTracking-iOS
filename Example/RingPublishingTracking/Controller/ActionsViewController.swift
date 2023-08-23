@@ -201,7 +201,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
                                           videoContentCategory: .free,
                                           videoAdsConfiguration: .disabledByConfiguration,
                                           videoPlayerVersion: "3.5.0")
-        let videoState = VideoState(currentTime: 0, currentBitrate: "4000.00", isMuted: true, startMode: .muted)
+        let videoState = VideoState(currentTime: 0, currentBitrate: "4000.00", isMuted: true, visibility: .outOfViewport, startMode: .muted)
 
         RingPublishingTracking.shared.reportVideoEvent(.start, videoMetadata: videoMetadata, videoState: videoState)
         RingPublishingTracking.shared.reportVideoEvent(.playingStart, videoMetadata: videoMetadata, videoState: videoState)

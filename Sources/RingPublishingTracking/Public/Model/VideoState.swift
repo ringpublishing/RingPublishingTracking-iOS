@@ -20,6 +20,9 @@ public struct VideoState {
     /// Is video currently muted?
     public let isMuted: Bool
 
+    /// Current video visibility
+    public let visibility: VideoVisibility
+
     /// Video start mode
     public let startMode: VideoStartMode
 
@@ -31,11 +34,13 @@ public struct VideoState {
     ///   - currentTime: Current video material timestamp shown in video player
     ///   - currentBitrate: Current video material bitrate (in kbps)
     ///   - isMuted:  Is video currently muted?
+    ///   - visibility: Current video visibility
     ///   - startMode: In which mode video was started / changed to?
-    public init(currentTime: Int, currentBitrate: String, isMuted: Bool, startMode: VideoStartMode) {
+    public init(currentTime: Int, currentBitrate: String, isMuted: Bool, visibility: VideoVisibility, startMode: VideoStartMode) {
         self.currentTime = currentTime
         self.currentBitrate = currentBitrate
         self.isMuted = isMuted
+        self.visibility = visibility
         self.startMode = startMode
     }
 }

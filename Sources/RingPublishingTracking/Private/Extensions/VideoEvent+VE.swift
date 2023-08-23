@@ -3,6 +3,7 @@
 //  RingPublishingTracking
 //
 //  Created by Adam Szeremeta on 05/07/2023.
+//  Copyright © 2023 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
