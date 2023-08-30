@@ -10,6 +10,11 @@ import Foundation
 
 final class EventsFactory {
 
+    private var videoEventSessionTimestamps = [String: String]() // PMU: RR
+    private var videoEventSessionCounter = [String: Int]() // PMU: VEN
+
+    // MARK: Click
+
     func createClickEvent(selectedElementName: String?,
                           publicationUrl: URL?,
                           contentIdentifier: String?) -> Event {
@@ -31,6 +36,8 @@ final class EventsFactory {
                      eventName: EventType.click.rawValue,
                      eventParameters: parameters)
     }
+
+    // MARK: User action
 
     func createUserActionEvent(actionName: String, actionSubtypeName: String, parameter: UserActionParameter) -> Event {
         var parameters: [String: AnyHashable] = [
@@ -62,6 +69,8 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
+    // MARK: Page View
+
     func createPageViewEvent(contentIdentifier: String?, contentMetadata: ContentMetadata?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
@@ -77,6 +86,8 @@ final class EventsFactory {
                      eventName: EventType.pageView.rawValue,
                      eventParameters: parameters)
     }
+
+    // MARK: Keep Alive
 
     func createKeepAliveEvent(metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) -> Event {
         var parameters: [String: AnyHashable] = [:]
@@ -97,6 +108,36 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
+    // MARK: Video event
+
+    func createVideoEvent(for videoEvent: VideoEvent, videoMetadata: VideoMetadata, videoState: VideoState) -> Event {
+        var parameters: [String: AnyHashable] = [:]
+
+        parameters["VE"] = videoEvent.veParameter
+        parameters["RT"] = EventType.videoEvent.rawValue
+        parameters["PMU"] = videoMetadata.contentId
+        parameters["MUTED"] = videoState.isMuted ? 1 : 0
+        parameters["VT"] = videoMetadata.videoDuration
+        parameters["VP"] = videoState.currentTime
+        parameters["VC"] = createVideoEventVCParameter(videoMetadata: videoMetadata, videoState: videoState)
+        parameters["RR"] = videoEventSessionTimestamp(for: videoMetadata.contentId, videoEvent: videoEvent)
+        parameters["VEN"] = videoEventSessionCounter(for: videoMetadata.contentId, videoEvent: videoEvent)
+        parameters["VS"] = videoMetadata.videoStreamFormat.parameterFormatName
+        parameters["VSM"] = videoState.startMode.parameterName
+        parameters["XI"] = videoMetadata.videoPlayerVersion
+        parameters["VSLOT"] = videoMetadata.isMainContentPiece ? "player" : "splayer"
+        parameters["VEM"] = videoMetadata.isMainContentPiece ? "mainVideo" : "inTextVideo"
+        parameters["VNA"] = videoMetadata.videoAdsConfiguration.noAdsParameterName
+        parameters["VPC"] = videoMetadata.videoContentCategory.parameterName
+        parameters["ECX"] = videoState.visibility.parameterName
+
+        return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
+                     eventName: EventType.videoEvent.rawValue,
+                     eventParameters: parameters)
+    }
+
+    // MARK: Error
+
     func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {
         let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
         let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes), reason: exceeding size limit)"
@@ -109,5 +150,70 @@ final class EventsFactory {
                         "VE": "AppError",
                         "VM": message
                      ])
+    }
+}
+
+// MARK: Private
+private extension EventsFactory {
+
+    func createVideoEventVCParameter(videoMetadata: VideoMetadata, videoState: VideoState) -> String {
+        // Parameters format:
+        // [prefix]:[ckmId],[publicationId],video/[type],[bitrate]
+        // Example: "video:2334518,2334518.275928614,video/hls,4000"
+
+        let prefix = Constants.videoEventParametersPrefix
+        let ckmId = videoMetadata.publicationId.split(separator: ".").map { String($0) }[0]
+        let publicationId = videoMetadata.publicationId
+        let videoFormat = "video/\(videoMetadata.videoStreamFormat.parameterFormatName)"
+
+        // Send bitrate as Int
+        let bitrate: String
+        if let bitrateAsDouble = Double(videoState.currentBitrate) {
+            bitrate = "\(Int(floor(bitrateAsDouble)))"
+        } else {
+            bitrate = videoState.currentBitrate
+        }
+
+        return "\(prefix):\(ckmId),\(publicationId),\(videoFormat),\(bitrate)"
+    }
+
+    func videoEventSessionTimestamp(for contentId: String, videoEvent: VideoEvent) -> String {
+        // For each new video session (recognized by .start event) generate new timestamp
+        // Timestamp format: 1692697330517 - current timestamp with miliseconds with 3 digits precision
+
+        switch videoEvent {
+        case .start:
+            let timestamp = "\(Int(Date().timeIntervalSince1970 * 1000))"
+
+            videoEventSessionTimestamps[contentId] = timestamp
+
+            return timestamp
+
+        default:
+            // If timestamp does not exists, force generation
+            return videoEventSessionTimestamps[contentId] ?? videoEventSessionTimestamp(for: contentId, videoEvent: .start)
+        }
+    }
+
+    func videoEventSessionCounter(for contentId: String, videoEvent: VideoEvent) -> Int {
+        // For each new video session (recognized by .start event) reset events counter
+
+        switch videoEvent {
+        case .start:
+            videoEventSessionCounter[contentId] = 0
+
+            return 0
+
+        default:
+            // If counter does not exists, force generation
+            guard var counter = videoEventSessionCounter[contentId] else {
+                return videoEventSessionCounter(for: contentId, videoEvent: .start)
+            }
+
+            counter += 1
+            videoEventSessionCounter[contentId] = counter
+
+            return counter
+        }
     }
 }

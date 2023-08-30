@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = "RingPublishingTracking"
-    s.version      = "1.2.4"
+    s.version      = "1.3.0"
 
     s.summary      = "SDK used to report events from mobile application"
     s.license      = { :type => 'Copyright. Ringier Axel Springer Polska', :file => 'LICENSE' }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RZf-xB-t58">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RZf-xB-t58">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yYw-mN-t3Q">
-                                <rect key="frame" x="151" y="80" width="112" height="30"/>
+                                <rect key="frame" x="151" y="84" width="112" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCh-7s-Xud">
                                         <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
@@ -49,7 +49,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4gW-eV-fJ9">
-                                <rect key="frame" x="16" y="146" width="382" height="30"/>
+                                <rect key="frame" x="16" y="150" width="382" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kEF-Nv-tL5">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
@@ -70,7 +70,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hhu-dd-hha">
-                                <rect key="frame" x="44" y="212" width="326" height="30"/>
+                                <rect key="frame" x="44" y="216" width="326" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8s-zn-chz">
                                         <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
@@ -91,7 +91,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="A0L-Do-Ynd">
-                                <rect key="frame" x="135" y="278" width="144" height="30"/>
+                                <rect key="frame" x="135" y="282" width="144" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5V-VG-5Ot">
                                         <rect key="frame" x="0.0" y="0.0" width="144" height="30"/>
@@ -104,7 +104,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="d0H-zo-woo">
-                                <rect key="frame" x="61" y="344" width="292" height="30"/>
+                                <rect key="frame" x="61" y="348" width="292" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oc-cE-CoI">
                                         <rect key="frame" x="0.0" y="0.0" width="142" height="30"/>
@@ -125,7 +125,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Li-kJ-9c6">
-                                <rect key="frame" x="53" y="410" width="308" height="30"/>
+                                <rect key="frame" x="53" y="414" width="308" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-FH-JXI">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
@@ -146,7 +146,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WHw-fV-Ebm">
-                                <rect key="frame" x="96.5" y="476" width="221" height="30"/>
+                                <rect key="frame" x="96.5" y="480" width="221" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asP-Ys-kCE">
                                         <rect key="frame" x="0.0" y="0.0" width="221" height="30"/>
@@ -158,10 +158,24 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c2s-FQ-jRo">
+                                <rect key="frame" x="75.5" y="546" width="263" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j79-Ju-fh9">
+                                        <rect key="frame" x="0.0" y="0.0" width="263" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Report Video events for playback start"/>
+                                        <connections>
+                                            <action selector="onReportVideoPlaybackStartActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="ARc-zG-HFX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sJr-lE-joG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="c2s-FQ-jRo" secondAttribute="trailing" constant="16" id="08I-0d-4YM"/>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="top" secondItem="sJr-lE-joG" secondAttribute="top" constant="36" id="440-Hn-74I"/>
                             <constraint firstItem="WHw-fV-Ebm" firstAttribute="top" secondItem="6Li-kJ-9c6" secondAttribute="bottom" constant="36" id="7s9-ah-g31"/>
                             <constraint firstItem="d0H-zo-woo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="9Sk-wj-wC4"/>
@@ -174,6 +188,7 @@
                             <constraint firstItem="hhu-dd-hha" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="RBC-sn-0NK"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yYw-mN-t3Q" secondAttribute="trailing" constant="16" id="VXe-gw-GGB"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="d0H-zo-woo" secondAttribute="trailing" constant="16" id="Wli-cg-NAX"/>
+                            <constraint firstItem="c2s-FQ-jRo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="Ysf-7D-SjN"/>
                             <constraint firstItem="WHw-fV-Ebm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="aMt-3T-lwG"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WHw-fV-Ebm" secondAttribute="trailing" constant="16" id="bdO-vz-7Mx"/>
                             <constraint firstItem="d0H-zo-woo" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="dLX-kW-iln"/>
@@ -183,10 +198,12 @@
                             <constraint firstItem="d0H-zo-woo" firstAttribute="top" secondItem="A0L-Do-Ynd" secondAttribute="bottom" constant="36" id="fBT-ws-n3H"/>
                             <constraint firstItem="6Li-kJ-9c6" firstAttribute="top" secondItem="d0H-zo-woo" secondAttribute="bottom" constant="36" id="g5W-CY-YIt"/>
                             <constraint firstItem="A0L-Do-Ynd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="nCS-oW-AuU"/>
+                            <constraint firstItem="c2s-FQ-jRo" firstAttribute="top" secondItem="WHw-fV-Ebm" secondAttribute="bottom" constant="36" id="q1q-yG-xQz"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="ubv-vO-h7a"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hhu-dd-hha" secondAttribute="trailing" constant="16" id="ujC-3x-0yD"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A0L-Do-Ynd" secondAttribute="trailing" constant="16" id="uvY-fJ-BYX"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="top" secondItem="yYw-mN-t3Q" secondAttribute="bottom" constant="36" id="wFK-Cv-c3Q"/>
+                            <constraint firstItem="c2s-FQ-jRo" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="wp4-D0-1uh"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Li-kJ-9c6" secondAttribute="trailing" constant="16" id="xfo-PU-s9r"/>
                             <constraint firstItem="hhu-dd-hha" firstAttribute="top" secondItem="4gW-eV-fJ9" secondAttribute="bottom" constant="36" id="xr7-7j-7v3"/>
                             <constraint firstItem="WHw-fV-Ebm" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="yF4-7X-tBY"/>
@@ -237,7 +254,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="i0Q-uj-vFb">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="dKT-N0-4Ci" id="GoI-sZ-a8y"/>
@@ -269,7 +286,7 @@
                 <navigationController id="RZf-xB-t58" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="I7d-tC-daw">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -285,11 +302,11 @@
             <objects>
                 <viewController storyboardIdentifier="DetailViewController" id="t9l-qS-kSS" customClass="DetailViewController" customModule="RingPublishingTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JZT-F4-9QQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="N2L-wm-aKb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="790"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="t9l-qS-kSS" id="b8g-rM-KGi"/>

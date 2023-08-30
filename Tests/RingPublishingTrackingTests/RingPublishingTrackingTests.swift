@@ -9,6 +9,7 @@
 import XCTest
 
 class RingPublishingTrackingTests: XCTestCase {
+
     let tenantId = "12345"
     let apiKey = "abcdef"
     let applicationRootPath = "RingPublishingTrackingTests"
@@ -98,6 +99,8 @@ class RingPublishingTrackingTests: XCTestCase {
 
     func testEventsReporting_sampleDataProvided_eventsReportedCrorectly() {
         // Given
+        let expectation = XCTestExpectation(description: "Events Reported Crorectly")
+
         let eventsQueueManager = RingPublishingTracking.shared.eventsService.eventsQueueManager
         RingPublishingTracking.shared.setOptOutMode(enabled: false)
 
@@ -107,59 +110,27 @@ class RingPublishingTrackingTests: XCTestCase {
                            eventParameters: [:])
         RingPublishingTracking.shared.reportEvent(event1)
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 1, "Number of events in queue should be correct")
-
-        // When
         RingPublishingTracking.shared.reportClick(selectedElementName: "element1")
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 2, "Number of events in queue should be correct")
-
-        // When
         let publicationUrl1 = URL(string: "https://tests.example.com")! // swiftlint:disable:this force_unwrapping
         RingPublishingTracking.shared.reportContentClick(selectedElementName: "element2",
                                                          publicationUrl: publicationUrl1,
                                                          contentId: "contentId1")
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 3, "Number of events in queue should be correct")
-
-        // When
         RingPublishingTracking.shared.reportUserAction(actionName: "actionName1",
                                                        actionSubtypeName: "subtype1",
                                                        parameters: ["key1": "value1"])
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 4, "Number of events in queue should be correct")
-
-        // When
         RingPublishingTracking.shared.reportUserAction(actionName: "actionName2",
                                                        actionSubtypeName: "subtype2",
                                                        parameters: "param1")
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 5, "Number of events in queue should be correct")
-
-        // When
         RingPublishingTracking.shared.reportPageView(currentStructurePath: ["path1"], partiallyReloaded: false)
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 6, "Number of events in queue should be correct")
-
-        // When
         RingPublishingTracking.shared.reportPageView(currentStructurePath: ["path2"], partiallyReloaded: true)
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 7, "Number of events in queue should be correct")
-
-        // When
         RingPublishingTracking.shared.reportPageView(currentStructurePath: ["path3"], partiallyReloaded: false)
 
-        // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 8, "Number of events in queue should be correct")
-
-        // When
         let publicationUrl2 = URL(string: "https://tests.example.com")! // swiftlint:disable:this force_unwrapping
         let contentMetadata1 = ContentMetadata(publicationId: "publicationId12",
                                                publicationUrl: publicationUrl2,
@@ -177,6 +148,12 @@ class RingPublishingTrackingTests: XCTestCase {
         RingPublishingTracking.shared.stopContentKeepAliveTracking()
 
         // Then
-        XCTAssertEqual(eventsQueueManager.events.allElements.count, 9, "Number of events in queue should be correct")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            XCTAssertEqual(eventsQueueManager.events.allElements.count, 9, "Number of events in queue should be correct")
+
+            expectation.fulfill()
+        })
+
+        wait(for: [expectation], timeout: 10.0)
     }
 }

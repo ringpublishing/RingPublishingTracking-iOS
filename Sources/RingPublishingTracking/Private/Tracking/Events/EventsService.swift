@@ -11,9 +11,6 @@ import Foundation
 /// Class used for all event operations
 final class EventsService {
 
-    /// Events queue manager for adding and removing events to/from queue
-    let eventsQueueManager: EventsQueueManager
-
     /// Storage
     private var storage: TrackingStorage
 
@@ -50,6 +47,31 @@ final class EventsService {
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
+    /// Events queue manager for adding and removing events to/from queue
+    let eventsQueueManager: EventsQueueManager
+
+    /// Checks if stored eaUUID is not expired
+    var isEaUuidValid: Bool {
+        guard let eaUUID = storage.eaUUID else {
+            return false
+        }
+
+        let expirationDate = eaUUID.expirationDate
+        let now = Date()
+
+        return expirationDate > now
+    }
+
+    var hasPostIntervalStored: Bool {
+        storage.postInterval != nil
+    }
+
+    var shouldRetryIdentifyRequest: Bool {
+        (!isEaUuidValid || !hasPostIntervalStored) && !isIdentifyMeRequestInProgress
+    }
+
+    // MARK: Init
+
     init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory, operationMode: Operationable) {
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
@@ -57,6 +79,8 @@ final class EventsService {
         self.decorators = []
         self.operationMode = operationMode
     }
+
+    // MARK: Methods
 
     /// Setups API Service
     /// - Parameters:
@@ -101,26 +125,25 @@ final class EventsService {
     }
 
     /// Adds list of events to the queue when the size of each event is appropriate
+    ///
     /// - Parameter events: Array of `Event` that should be added to the queue
     func addEvents(_ events: [Event]) {
-        let decoratedEvents: [Event] = events.map { event in
-            event.decorated(using: decorators)
-        }
+        decorateEvents(events, using: decorators) { [weak self] decoratedEvents in
+            let filteredEvents = decoratedEvents.filter { event in
+                if !event.isValidJSONObject {
+                    let logMessage = """
+                    Event contains invalid parameters that are not JSONSerialization compatible.
+                    All objects should be String, Number, Array, Dictionary, or NSNull
+                    """
+                    Logger.log(logMessage)
+                    return false
+                }
 
-        let filteredEvents = decoratedEvents.filter { event in
-            if !event.isValidJSONObject {
-                let logMessage = """
-                Event contains invalid parameters that are not JSONSerialization compatible.
-                All objects should be String, Number, Array, Dictionary, or NSNull
-                """
-                Logger.log(logMessage)
-                return false
+                return true
             }
 
-            return true
+            self?.eventsQueueManager.addEvents(filteredEvents)
         }
-
-        eventsQueueManager.addEvents(filteredEvents)
     }
 
     /// Calls the /me endpoint from the API
@@ -200,140 +223,11 @@ final class EventsService {
     func updateApplicationRootPath(applicationRootPath: String) {
         structureInfoDecorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
     }
-}
 
-extension EventsService {
-
-    /// Checks if stored eaUUID is not expired
-    var isEaUuidValid: Bool {
-        guard let eaUUID = storage.eaUUID else {
-            return false
-        }
-
-        let expirationDate = eaUUID.expirationDate
-        let now = Date()
-
-        return expirationDate > now
-    }
-
-    var hasPostIntervalStored: Bool {
-        storage.postInterval != nil
-    }
-
-    var shouldRetryIdentifyRequest: Bool {
-        (!isEaUuidValid || !hasPostIntervalStored) && !isIdentifyMeRequestInProgress
-    }
-
-    /// Builds dictionary of stored tracking identifiers
-    /// - Returns: Dictionary
-    func storedIds() -> [String: String] {
-        var ids = [String: String]()
-
-        if isEaUuidValid, let identifier = storage.eaUUID {
-            ids[Constants.trackingIdentifierKey] = identifier.value
-        }
-
-        if let trackingIds = storage.trackingIds {
-            for identifier in trackingIds {
-                if let identifierValue = identifier.value.value {
-                    ids[identifier.key] = identifierValue
-                }
-            }
-        }
-
-        return ids
-    }
-
-    /// Retrieves Vendor Identifier (IDFA)
-    private func retrieveVendorIdentifier(completion: @escaping () -> Void) {
-        vendorManager.retrieveVendorIdentifier { [weak self] result in
-            switch result {
-            case .success(let identifier):
-                self?.userManager.updateIDFA(idfa: identifier)
-            case .failure:
-                self?.userManager.updateIDFA(idfa: nil)
-                self?.userManager.updateDeviceId(deviceId: self?.storage.randomUniqueDeviceId)
-            }
-
-            completion()
-        }
-    }
-
-    /// Stores User Identifier
-    ///
-    /// - Parameter eaUUID: IdsWithLifetime?
-    /// - Returns: True if identifier was stored, false otherwise
-    private func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> Bool {
-        guard let eaUUID = eaUUID, let value = eaUUID.value, let lifetime = eaUUID.lifetime else {
-            storage.eaUUID = nil
-            storage.postInterval = nil
-            Logger.log("Tracking identifier could not be stored. Missing in decoded response.", level: .error)
-            return false
-        }
-
-        let creationDate = Date()
-        let eaUUIDObject = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
-        let expirationDate = eaUUIDObject.expirationDate
-
-        storage.eaUUID = eaUUIDObject
-        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
-
-        return true
-    }
-
-    /// Stores Post Interval
-    private func storePostInterval(_ postInterval: Int) {
-        storage.postInterval = postInterval
-    }
-
-    // Calls the root endpoint from the API
-    private func sendEvents(for eventsQueueManager: EventsQueueManager) {
-        let body = buildEventRequest()
-        let endpoint = SendEventEnpoint(body: body)
-
-        apiService?.call(endpoint, completion: { [weak self] result in
-            switch result {
-            case .success(let response):
-                self?.eventsQueueManager.events.removeItems(body.events)
-                self?.storePostInterval(response.postInterval)
-            case .failure(let error):
-                switch error {
-                case .responseError:
-                    Logger.log("The request to send events was incorrect. Skipping those events.", level: .info)
-                    self?.eventsQueueManager.events.removeItems(body.events)
-                default:
-                    break
-                }
-            }
-        })
-    }
-
-    private func retryIdentifyRequest(completion: @escaping (_ success: Bool) -> Void) {
-        Logger.log("Retrying identify request as required data is missing.")
-
-        identifyMe { [weak self] error in
-            self?.handleIdentifyMeRequestFailure(error: error)
-
-            completion(error == nil)
-        }
-    }
-
-    private func handleIdentifyMeRequestFailure(error: ServiceError?) {
-        // Check if there was error at all - if not proper delegate with identifier was already called
-        guard let error = error else { return }
-
-        // In case we have stored valid tracking identifier, do not inform about error but pass stored identifier
-        guard let value = storage.eaUUID?.value, let expirationDate = storage.eaUUID?.expirationDate, isEaUuidValid else {
-            Logger.log("Failed to fetch tracking identifier with error: \(error)", level: .error)
-            delegate?.eventsService(self, didFailWhileRetrievingTrackingIdentifier: error)
-            return
-        }
-
-        Logger.log("Failed to fetch tracking identifier with error: \(error) but SDK has valid stored identifier.")
-        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
-    }
+    // MARK: Internal
 
     /// Creates an requests to send events. Builds the list of events to send up to the maximum size limit for a whole request
+    /// 
     /// - Returns: `EventRequest`
     func buildEventRequest() -> EventRequest {
         let events = eventsQueueManager.events.allElements
@@ -363,8 +257,121 @@ extension EventsService {
                             events: eventsToSend)
     }
 
+    /// Builds dictionary of stored tracking identifiers
+    /// - Returns: Dictionary
+    func storedIds() -> [String: String] {
+        var ids = [String: String]()
+
+        if isEaUuidValid, let identifier = storage.eaUUID {
+            ids[Constants.trackingIdentifierKey] = identifier.value
+        }
+
+        if let trackingIds = storage.trackingIds {
+            for identifier in trackingIds {
+                if let identifierValue = identifier.value.value {
+                    ids[identifier.key] = identifierValue
+                }
+            }
+        }
+
+        return ids
+    }
+}
+
+// MARK: Private
+private extension EventsService {
+
+    /// Retrieves Vendor Identifier (IDFA)
+    func retrieveVendorIdentifier(completion: @escaping () -> Void) {
+        vendorManager.retrieveVendorIdentifier { [weak self] result in
+            switch result {
+            case .success(let identifier):
+                self?.userManager.updateIDFA(idfa: identifier)
+            case .failure:
+                self?.userManager.updateIDFA(idfa: nil)
+                self?.userManager.updateDeviceId(deviceId: self?.storage.randomUniqueDeviceId)
+            }
+
+            completion()
+        }
+    }
+
+    /// Stores User Identifier
+    ///
+    /// - Parameter eaUUID: IdsWithLifetime?
+    /// - Returns: True if identifier was stored, false otherwise
+    func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> Bool {
+        guard let eaUUID = eaUUID, let value = eaUUID.value, let lifetime = eaUUID.lifetime else {
+            storage.eaUUID = nil
+            storage.postInterval = nil
+            Logger.log("Tracking identifier could not be stored. Missing in decoded response.", level: .error)
+            return false
+        }
+
+        let creationDate = Date()
+        let eaUUIDObject = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
+        let expirationDate = eaUUIDObject.expirationDate
+
+        storage.eaUUID = eaUUIDObject
+        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
+
+        return true
+    }
+
+    /// Stores Post Interval
+    func storePostInterval(_ postInterval: Int) {
+        storage.postInterval = postInterval
+    }
+
+    // Calls the root endpoint from the API
+    func sendEvents(for eventsQueueManager: EventsQueueManager) {
+        let body = buildEventRequest()
+        let endpoint = SendEventEnpoint(body: body)
+
+        apiService?.call(endpoint, completion: { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.eventsQueueManager.events.removeItems(body.events)
+                self?.storePostInterval(response.postInterval)
+            case .failure(let error):
+                switch error {
+                case .responseError:
+                    Logger.log("The request to send events was incorrect. Skipping those events.", level: .info)
+                    self?.eventsQueueManager.events.removeItems(body.events)
+                default:
+                    break
+                }
+            }
+        })
+    }
+
+    func retryIdentifyRequest(completion: @escaping (_ success: Bool) -> Void) {
+        Logger.log("Retrying identify request as required data is missing.")
+
+        identifyMe { [weak self] error in
+            self?.handleIdentifyMeRequestFailure(error: error)
+
+            completion(error == nil)
+        }
+    }
+
+    func handleIdentifyMeRequestFailure(error: ServiceError?) {
+        // Check if there was error at all - if not proper delegate with identifier was already called
+        guard let error = error else { return }
+
+        // In case we have stored valid tracking identifier, do not inform about error but pass stored identifier
+        guard let value = storage.eaUUID?.value, let expirationDate = storage.eaUUID?.expirationDate, isEaUuidValid else {
+            Logger.log("Failed to fetch tracking identifier with error: \(error)", level: .error)
+            delegate?.eventsService(self, didFailWhileRetrievingTrackingIdentifier: error)
+            return
+        }
+
+        Logger.log("Failed to fetch tracking identifier with error: \(error) but SDK has valid stored identifier.")
+        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
+    }
+
     /// Prepares event decorators
-    private func prepareDecorators() {
+    func prepareDecorators() {
         // Generic
         registerDecorator(SizeDecorator())
         registerDecorator(uniqueIdentifierDecorator)
@@ -373,6 +380,13 @@ extension EventsService {
         registerDecorator(userDataDecorator)
         registerDecorator(tenantIdentifierDecorator)
         registerDecorator(clientDecorator)
+    }
+
+    func decorateEvents(_ events: [Event], using decorators: [Decorator], completion: @escaping (_ events: [Event]) -> Void) {
+        DispatchQueue.main.async {
+            let decoratedEvents = events.map { $0.decorated(using: decorators) }
+            completion(decoratedEvents)
+        }
     }
 }
 

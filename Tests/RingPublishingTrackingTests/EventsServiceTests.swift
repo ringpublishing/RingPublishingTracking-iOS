@@ -103,6 +103,8 @@ class EventsServiceTests: XCTestCase {
 
     func testAddEvents_eventsWithInvalidAddedToQueue_invalidEventsAreNotAdded() {
         // Given
+        let expectation = XCTestExpectation(description: "Events not added to queue")
+
         let storage = StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: nil)
         let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
 
@@ -115,10 +117,15 @@ class EventsServiceTests: XCTestCase {
 
         service.addEvents([incorrectEvent, correctEvent])
 
-        let request = service.buildEventRequest()
-
         // Then
-        XCTAssertEqual(request.events.count, 1, "Incorrect event should not be added")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            let request = service.buildEventRequest()
+            XCTAssertEqual(request.events.count, 1, "Incorrect event should not be added")
+
+            expectation.fulfill()
+        })
+
+        wait(for: [expectation], timeout: 10.0)
     }
 
     func testShouldRetryIdentifyRequest_allRequredDataStored_shouldNotRetry() {

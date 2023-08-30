@@ -41,4 +41,8 @@ struct Constants {
     static let eventDefaultAnalyticsSystemName = "_GENERIC"
     static let eventDefaultName = "Event"
     static let applicationPrefix = "app.ios"
+
+    // MARK: Video event
+
+    static let videoEventParametersPrefix = "video"
 }
