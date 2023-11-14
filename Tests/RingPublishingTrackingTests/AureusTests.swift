@@ -14,11 +14,23 @@ class AureusTests: XCTestCase {
 
     // MARK: Setup
 
+    override func setUp() {
+        super.setUp()
+        let configuration = RingPublishingTrackingConfiguration(tenantId: "tenantID", apiKey: "some_api_key", applicationRootPath: "/")
+        ringPublishingTracking.eventsService =  EventsService(
+            storage: StaticStorage(),
+            configuration: configuration,
+            eventsFactory: EventsFactory(),
+            operationMode: OperationMode()
+        )
+    }
+
     override func tearDown() {
         super.tearDown()
 
         let allEvents = ringPublishingTracking.eventsService?.eventsQueueManager.events.allElements ?? []
         ringPublishingTracking.eventsService?.eventsQueueManager.events.removeItems(allEvents)
+        ringPublishingTracking.eventsService = nil
     }
 
     // MARK: Tests
