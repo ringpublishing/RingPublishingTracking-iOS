@@ -10,13 +10,6 @@ import XCTest
 
 class StoredValueInUserDefaultsTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-
-    }
-
     // MARK: Tests
 
     func testStoredValueInUserDefaults_setNewStringValue_valueIsAccessibleWithWrapper() {

@@ -44,6 +44,8 @@ final class EventsService {
     private let tenantIdentifierDecorator = TenantIdentifierDecorator()
     private let clientDecorator = ClientDecorator()
 
+    private let configuration: RingPublishingTrackingConfiguration
+
     /// Delegate
     private weak var delegate: EventsServiceDelegate?
 
@@ -62,17 +64,31 @@ final class EventsService {
         return expirationDate > now
     }
 
+    /// Checks if stored ArtemisID is not expired
+    var isArtemisIDValid: Bool {
+        guard let artemisID = storage.artemisID else {
+            return false
+        }
+        let expirationDate = artemisID.expirationDate
+        let now = Date()
+        return expirationDate > now
+    }
+
     var hasPostIntervalStored: Bool {
         storage.postInterval != nil
     }
 
     var shouldRetryIdentifyRequest: Bool {
-        (!isEaUuidValid || !hasPostIntervalStored) && !isIdentifyMeRequestInProgress
+        (!isEaUuidValid || !hasPostIntervalStored || !isArtemisIDValid) && !isIdentifyMeRequestInProgress
     }
 
     // MARK: Init
 
-    init(storage: TrackingStorage = UserDefaultsStorage(), eventsFactory: EventsFactory, operationMode: Operationable) {
+    init(storage: TrackingStorage = UserDefaultsStorage(),
+         configuration: RingPublishingTrackingConfiguration,
+         eventsFactory: EventsFactory,
+         operationMode: Operationable) {
+        self.configuration = configuration
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
         self.eventsFactory = eventsFactory
@@ -84,11 +100,9 @@ final class EventsService {
 
     /// Setups API Service
     /// - Parameters:
-    ///   - apiUrl: API url. If not provided the default URL will be used
-    ///   - apiKey: API key
     ///   - session: Session object used to create requests. Defaults to `URLSession.shared`
-    func setup(apiUrl: URL?, apiKey: String, delegate: EventsServiceDelegate?, session: NetworkSession = URLSession.shared) {
-        apiService = APIService(apiUrl: apiUrl ?? Constants.apiUrl, apiKey: apiKey, session: session)
+    func setup(delegate: EventsServiceDelegate?, session: NetworkSession = URLSession.shared) {
+        apiService = APIService(apiUrl: configuration.apiUrl ?? Constants.apiUrl, apiKey: configuration.apiKey, session: session)
         eventsQueueManager.delegate = self
 
         self.delegate = delegate
@@ -110,9 +124,33 @@ final class EventsService {
         })
 
         retrieveVendorIdentifier { [weak self] in
+            guard let self else { return }
             // Call identify once the API is configured to retrieve trackingIdentifier as soon as possible
-            self?.identifyMe(completion: { [weak self] error in
-                self?.handleIdentifyMeRequestFailure(error: error)
+            self.performSequentialIdentityChecks(tenantID: self.configuration.tenantId, completion: { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let identifiers):
+                    self.publishTrackingIdentifier(eaUUID: identifiers.0, artemis: identifiers.1)
+                    self.isIdentifyMeRequestInProgress = false
+                case .failure(let error):
+                    switch self.shouldRetryIdentifyRequest {
+                    case true:
+                        self.handleIdentifyMeRequestFailure(error: error)
+                        self.isIdentifyMeRequestInProgress = false
+                    case false:
+                        guard let eaUUID = storage.eaUUID else { return }
+                        self.retryArtemisRequest(eaUUID: eaUUID) { artemisResult in
+                            switch artemisResult {
+                            case .success(let artemis):
+                                self.publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
+                                self.isIdentifyMeRequestInProgress = false
+                            case .failure(let error):
+                                self.handleIdentifyMeRequestFailure(error: error)
+                                self.isIdentifyMeRequestInProgress = false
+                            }
+                        }
+                    }
+                }
             })
         }
     }
@@ -149,18 +187,17 @@ final class EventsService {
     /// Calls the /me endpoint from the API
     ///
     /// - Parameter completion: Completion handler
-    func identifyMe(completion: @escaping ((_ error: ServiceError?) -> Void)) {
+    func fetchIdentity(completion: @escaping (Result<EaUUID, ServiceError>) -> Void) {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
-
             // TODO: [ASZ] Maybe we should think how to handle callback here?
-            completion(nil)
+            completion(.failure(.genericError))
             return
         }
 
-        guard let apiService = apiService else {
+        guard let apiService else {
             Logger.log("RingPublishingTracking is not configured. Configure it using initialize method.", level: .error)
-            completion(.genericError)
+            completion(.failure(.genericError))
             return
         }
 
@@ -169,8 +206,6 @@ final class EventsService {
         let body = IdentifyRequest(ids: ids, user: user)
         let endpoint = IdentifyEnpoint(body: body)
 
-        isIdentifyMeRequestInProgress = true
-
         apiService.call(endpoint) { [weak self] result in
             guard let self = self else { return }
 
@@ -178,16 +213,64 @@ final class EventsService {
             case .success(let response):
                 self.storePostInterval(response.postInterval)
                 let eaUUIDStored = self.storeEaUUID(response.eaUUID)
-
-                let error: ServiceError? = eaUUIDStored ? nil : .missingDecodedTrackingIdentifier
-                completion(error)
-
+                guard let eaUUIDStored else {
+                    completion(.failure(.missingDecodedTrackingIdentifier))
+                    return
+                }
+                completion(.success(eaUUIDStored))
             case .failure(let error):
                 Logger.log("Failed to identify with error: \(error.localizedDescription)")
-                completion(error)
+                completion(.failure(error))
             }
+        }
+    }
 
-            self.isIdentifyMeRequestInProgress = false
+    func fetchArtemisID(tenantID: String, eaUUID: EaUUID, completion: @escaping(Result<ArtemisObject, ServiceError>) -> Void) {
+        guard operationMode.canSendNetworkRequests else {
+            Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
+            // TODO: [ASZ] Maybe we should think how to handle callback here?
+            completion(.failure(.genericError))
+            return
+        }
+
+        guard let apiService else {
+            Logger.log("RingPublishingTracking is not configured. Configure it using initialize method.", level: .error)
+            completion(.failure(.genericError))
+            return
+        }
+
+        let request: ArtemisRequest = ArtemisRequest(eaUUID: eaUUID.value, sso: userDataDecorator.sso, tenantID: tenantID)
+        let endpoint: ArtemisEndpoint = ArtemisEndpoint(body: request)
+        apiService.call(endpoint) { [weak self] result in
+            switch result {
+            case .success(let response):
+                let object = response.transform()
+                self?.storeArtemisObject(object)
+                completion(.success((object)))
+            case .failure(let error):
+                self?.storeArtemisObject(nil)
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func performSequentialIdentityChecks(tenantID: String, completion: @escaping(Result<(EaUUID, ArtemisObject), ServiceError>) -> Void) {
+        self.isIdentifyMeRequestInProgress = true
+        fetchIdentity { [weak self] identityResult in
+            switch identityResult {
+            case .success(let eaUUID):
+                self?.fetchArtemisID(tenantID: tenantID, eaUUID: eaUUID) { artemisResult in
+                    switch artemisResult {
+                    case .success(let artemis):
+                        completion(.success(((eaUUID, artemis))))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            self?.isIdentifyMeRequestInProgress = false
         }
     }
 
@@ -281,6 +364,18 @@ final class EventsService {
 // MARK: Private
 private extension EventsService {
 
+    /// Determinate if the whole identity process should be performed from the beginning.
+    /// - Returns: Returns `True` is eaUUID is missing or not valid, otherwise returns `False`.
+    func shouldRetryWholeIdentityProcess() -> Bool {
+        guard storage.eaUUID != nil, isEaUuidValid else {
+            return true
+        }
+        guard storage.artemisID != nil, isArtemisIDValid else {
+            return false
+        }
+        return false
+    }
+
     /// Retrieves Vendor Identifier (IDFA)
     func retrieveVendorIdentifier(completion: @escaping () -> Void) {
         vendorManager.retrieveVendorIdentifier { [weak self] result in
@@ -300,27 +395,26 @@ private extension EventsService {
     ///
     /// - Parameter eaUUID: IdsWithLifetime?
     /// - Returns: True if identifier was stored, false otherwise
-    func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> Bool {
+    func storeEaUUID(_ eaUUID: IdsWithLifetime?) -> EaUUID? {
         guard let eaUUID = eaUUID, let value = eaUUID.value, let lifetime = eaUUID.lifetime else {
             storage.eaUUID = nil
             storage.postInterval = nil
             Logger.log("Tracking identifier could not be stored. Missing in decoded response.", level: .error)
-            return false
+            return nil
         }
-
         let creationDate = Date()
         let eaUUIDObject = EaUUID(value: value, lifetime: lifetime, creationDate: creationDate)
-        let expirationDate = eaUUIDObject.expirationDate
-
         storage.eaUUID = eaUUIDObject
-        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
-
-        return true
+        return eaUUIDObject
     }
 
     /// Stores Post Interval
     func storePostInterval(_ postInterval: Int) {
         storage.postInterval = postInterval
+    }
+
+    func storeArtemisObject(_ object: ArtemisObject?) {
+        storage.artemisID = object
     }
 
     // Calls the root endpoint from the API
@@ -345,29 +439,55 @@ private extension EventsService {
         })
     }
 
-    func retryIdentifyRequest(completion: @escaping (_ success: Bool) -> Void) {
+    func retryIdentifyRequest(completion: @escaping(Result<Void, Error>) -> Void) {
         Logger.log("Retrying identify request as required data is missing.")
 
-        identifyMe { [weak self] error in
-            self?.handleIdentifyMeRequestFailure(error: error)
+        performSequentialIdentityChecks(tenantID: configuration.tenantId) { result in
+            switch result {
+            case .success:
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 
-            completion(error == nil)
+    func retryArtemisRequest(eaUUID: EaUUID, completion: @escaping(Result<ArtemisObject, ServiceError>) -> Void) {
+        Logger.log("Retrying artemis request as required data is missing.")
+        fetchArtemisID(tenantID: configuration.tenantId, eaUUID: eaUUID) { result in
+            switch result {
+            case .success(let artemis):
+                completion(.success(artemis))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 
     func handleIdentifyMeRequestFailure(error: ServiceError?) {
         // Check if there was error at all - if not proper delegate with identifier was already called
-        guard let error = error else { return }
+        guard let error else { return }
 
-        // In case we have stored valid tracking identifier, do not inform about error but pass stored identifier
-        guard let value = storage.eaUUID?.value, let expirationDate = storage.eaUUID?.expirationDate, isEaUuidValid else {
+        guard isEaUuidValid, isArtemisIDValid else {
             Logger.log("Failed to fetch tracking identifier with error: \(error)", level: .error)
             delegate?.eventsService(self, didFailWhileRetrievingTrackingIdentifier: error)
             return
         }
 
+        guard let eaUUID = storage.eaUUID, let artemis = storage.artemisID else {
+            delegate?.eventsService(self, didFailWhileRetrievingTrackingIdentifier: error)
+            return
+        }
+        // In case we have stored valid tracking identifier, do not inform about error but pass stored identifier
         Logger.log("Failed to fetch tracking identifier with error: \(error) but SDK has valid stored identifier.")
-        delegate?.eventsService(self, retrievedTrackingIdentifier: value, expirationDate: expirationDate)
+        publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
+    }
+
+    func publishTrackingIdentifier(eaUUID: EaUUID, artemis: ArtemisObject) {
+        let eaID = TrackingIdentifier.EaUUID(identifier: eaUUID.value, expirationDate: eaUUID.expirationDate)
+        let art = TrackingIdentifier.Artemis(identifier: artemis, expirationDate: artemis.expirationDate)
+        let identifier: TrackingIdentifier = TrackingIdentifier(eaUUID: eaID, artemisID: art)
+        delegate?.eventsService(self, retrievedTrackingIdentifier: identifier)
     }
 
     /// Prepares event decorators
@@ -399,14 +519,15 @@ extension EventsService: EventsQueueManagerDelegate {
     }
 
     func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager) {
-        guard shouldRetryIdentifyRequest else {
-            return
-        }
+        guard shouldRetryIdentifyRequest else { return }
 
-        retryIdentifyRequest { [weak self] success in
-            guard success else { return }
-
-            self?.eventsQueueManager.sendEventsIfPossible()
+        retryIdentifyRequest { [weak self] result in
+            switch result {
+            case .success:
+                self?.eventsQueueManager.sendEventsIfPossible()
+            case .failure:
+                Logger.log("Error occured during the retrying of identity check.")
+            }
         }
     }
 

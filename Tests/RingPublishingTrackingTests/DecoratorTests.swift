@@ -10,12 +10,6 @@ import XCTest
 
 class DecoratorTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: UniqueIdentifierDecorator Tests
 
     func testParameters_uniqueIdentifierDecoratorCreated_returnedParametersAreCorrect() {
@@ -82,11 +76,11 @@ class DecoratorTests: XCTestCase {
 
     // MARK: - StructureInfoDecorator Tests
 
-    func testParameters_structureInfoDecoratorCreated_returnedParametersAreCorrect() {
+    func testParameters_structureInfoDecoratorCreated_returnedParametersAreCorrect() throws {
         // Given
         let applicationRootPath = "Onet"
         let applicationDefaultStructurePath  = ["Home"]
-        let sampleArticleURL = URL(string: "https://test.com/article?id=123")! // swiftlint:disable:this force_unwrapping
+        let sampleArticleURL = try XCTUnwrap(URL(string: "https://test.com/article?id=123"))
 
         let decorator = StructureInfoDecorator()
 

@@ -12,12 +12,6 @@ class KeepAliveIntervalsProviderTests: XCTestCase {
 
     let provider = KeepAliveIntervalsProvider()
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: Tests (Tracking)
 
     func testTrackingInterval_noElapsedTime_correctIntervalReturned() {

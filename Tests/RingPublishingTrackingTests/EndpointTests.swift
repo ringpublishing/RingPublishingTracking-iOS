@@ -13,13 +13,6 @@ class EndpointTests: XCTestCase {
     private let apiKey = "test_key"
     private let apiUrl = URL(string: "https://test.com")
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-
-    }
-
     // MARK: Tests
 
     func testIdentifyRequestEncoding_sampleIdentifyEnpointCreated_encodedBodyIsReturned() {

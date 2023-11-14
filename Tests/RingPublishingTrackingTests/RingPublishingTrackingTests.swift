@@ -101,7 +101,7 @@ class RingPublishingTrackingTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "Events Reported Crorectly")
 
-        let eventsQueueManager = RingPublishingTracking.shared.eventsService.eventsQueueManager
+        let eventsQueueManager = RingPublishingTracking.shared.eventsService?.eventsQueueManager
         RingPublishingTracking.shared.setOptOutMode(enabled: false)
 
         // When
@@ -149,7 +149,7 @@ class RingPublishingTrackingTests: XCTestCase {
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            XCTAssertEqual(eventsQueueManager.events.allElements.count, 9, "Number of events in queue should be correct")
+            XCTAssertEqual(eventsQueueManager?.events.allElements.count, 9, "Number of events in queue should be correct")
 
             expectation.fulfill()
         })

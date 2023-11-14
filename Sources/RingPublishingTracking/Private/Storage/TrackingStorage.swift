@@ -12,6 +12,7 @@ import Foundation
 protocol TrackingStorage {
 
     var eaUUID: EaUUID? { get set }
+    var artemisID: ArtemisObject? { get set }
     var trackingIds: [String: IdsWithLifetime]? { get set }
     var postInterval: Int? { get set }
     var randomUniqueDeviceId: String? { get set }

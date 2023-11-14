@@ -9,11 +9,17 @@
 import XCTest
 
 class EventsQueueManagerTests: XCTestCase {
-
-    // MARK: Setup
+    
+    var configuration: RingPublishingTrackingConfiguration?
 
     override func setUp() {
         super.setUp()
+        configuration = RingPublishingTrackingConfiguration(tenantId: "tenantID", apiKey: "some_api_key", applicationRootPath: "/")
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        configuration = nil
     }
 
     // MARK: Tests
@@ -37,10 +43,16 @@ class EventsQueueManagerTests: XCTestCase {
         XCTAssertEqual(events.count, 5, "Event request should contain proper number of events")
     }
 
-    func testAddEvents_oneTooBigEventAddedToQueue_builtRequestContainsErrorEvent() {
+    func testAddEvents_oneTooBigEventAddedToQueue_builtRequestContainsErrorEvent() throws {
         // Given
         let storage = StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: nil)
-        let service = EventsService(storage: storage, eventsFactory: EventsFactory(), operationMode: OperationMode())
+        let configuration = try XCTUnwrap(configuration)
+        let service = EventsService(
+            storage: storage,
+            configuration: configuration,
+            eventsFactory: EventsFactory(),
+            operationMode: OperationMode()
+        )
         let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
         manager.delegate = service
 

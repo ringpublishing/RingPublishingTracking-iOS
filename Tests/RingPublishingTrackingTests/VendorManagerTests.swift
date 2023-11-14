@@ -11,13 +11,6 @@ import XCTest
 
 class VendorManagerTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-
-    }
-
     // MARK: Tests
 
     func testRetrieveVendorIdentifier_mockedSourceProvided_identifierRetrieved() {

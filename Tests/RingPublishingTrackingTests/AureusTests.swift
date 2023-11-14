@@ -17,8 +17,8 @@ class AureusTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
 
-        let allEvents = ringPublishingTracking.eventsService.eventsQueueManager.events.allElements
-        ringPublishingTracking.eventsService.eventsQueueManager.events.removeItems(allEvents)
+        let allEvents = ringPublishingTracking.eventsService?.eventsQueueManager.events.allElements ?? []
+        ringPublishingTracking.eventsService?.eventsQueueManager.events.removeItems(allEvents)
     }
 
     // MARK: Tests
@@ -33,8 +33,8 @@ class AureusTests: XCTestCase {
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            let request = self.ringPublishingTracking.eventsService.buildEventRequest()
-            let event = request.events.first
+            let request = self.ringPublishingTracking.eventsService?.buildEventRequest()
+            let event = request?.events.first
             let params = event?.eventParameters
 
             XCTAssertEqual(params?["VE"], "aureusOfferImpressions", "VE parameter should be correct")
@@ -64,8 +64,8 @@ class AureusTests: XCTestCase {
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            let request = self.ringPublishingTracking.eventsService.buildEventRequest()
-            let event = request.events.first
+            let request = self.ringPublishingTracking.eventsService?.buildEventRequest()
+            let event = request?.events.first
             let params = event?.eventParameters
 
             XCTAssertEqual(params?["VE"], selectedElementName, "VE parameter should be correct")
@@ -90,8 +90,8 @@ class AureusTests: XCTestCase {
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            let request = self.ringPublishingTracking.eventsService.buildEventRequest()
-            let event = request.events.first
+            let request = self.ringPublishingTracking.eventsService?.buildEventRequest()
+            let event = request?.events.first
             let params = event?.eventParameters
 
             XCTAssertEqual(params?["VE"], "aureusOfferImpressions", "VE parameter should be correct")

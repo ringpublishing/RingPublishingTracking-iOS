@@ -10,12 +10,6 @@ import XCTest
 
 class MD5Tests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: Tests
     func testMd5_exampleEmailProvided_createdMD5HashIsCorrect() {
         // Given

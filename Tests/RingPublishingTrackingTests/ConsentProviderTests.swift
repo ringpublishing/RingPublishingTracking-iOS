@@ -10,12 +10,6 @@ import XCTest
 
 class ConsentProviderTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: Tests
     func testtcfv2_IABTCF_TCStringNotFilled_noValueReturned() {
         // Given

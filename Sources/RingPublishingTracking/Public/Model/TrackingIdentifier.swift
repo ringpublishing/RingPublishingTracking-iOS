@@ -11,9 +11,25 @@ import Foundation
 /// Tracking identifier and its expiration date
 public struct TrackingIdentifier {
 
-    /// Identifier
-    public let identifier: String
+    public struct EaUUID {
+        /// Identifier
+        public let identifier: String
 
-    /// Expiration date
-    public let expirationDate: Date
+        /// Expiration date
+        public let expirationDate: Date
+    }
+
+    public struct Artemis {
+        /// Identifier
+        public let identifier: ArtemisObject
+
+        /// Expiration date
+        public let expirationDate: Date
+    }
+
+    /// EaUUID identifier
+    public let eaUUID: TrackingIdentifier.EaUUID
+
+    /// Arthemis identifier
+    public let artemisID: TrackingIdentifier.Artemis
 }

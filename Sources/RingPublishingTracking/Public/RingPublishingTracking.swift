@@ -42,7 +42,7 @@ public class RingPublishingTracking {
     // MARK: Internal properties
 
     /// Events service for handling all operations on events
-    let eventsService: EventsService
+    var eventsService: EventsService?
 
     /// Events factory for creating specific events
     let eventsFactory = EventsFactory()
@@ -60,9 +60,7 @@ public class RingPublishingTracking {
 
     // MARK: Initializer
 
-    private init() {
-        eventsService = EventsService(eventsFactory: eventsFactory, operationMode: operationMode)
-    }
+    private init() {}
 
     /// Configure RingPublishingTracking module
     ///
@@ -71,16 +69,14 @@ public class RingPublishingTracking {
     ///   - delegate: RingPublishingTrackingDelegate
     public func initialize(configuration: RingPublishingTrackingConfiguration, delegate: RingPublishingTrackingDelegate?) {
         Logger.log("Initializing module with configuration: '\(configuration)'")
-
+        eventsService = EventsService(configuration: configuration, eventsFactory: eventsFactory, operationMode: operationMode)
         self.delegate = delegate
-
         keepAliveManager.delegate = self
-
-        eventsService.setup(apiUrl: configuration.apiUrl, apiKey: configuration.apiKey, delegate: self)
-        eventsService.updateApplicationAdvertisementArea(configuration.applicationDefaultAdvertisementArea)
-        eventsService.updateTenantId(tenantId: configuration.tenantId)
-        eventsService.updateApplicationRootPath(applicationRootPath: configuration.applicationRootPath)
-        eventsService.updateStructureType(structureType: .structurePath(configuration.applicationDefaultStructurePath),
+        eventsService?.setup(delegate: self)
+        eventsService?.updateApplicationAdvertisementArea(configuration.applicationDefaultAdvertisementArea)
+        eventsService?.updateTenantId(tenantId: configuration.tenantId)
+        eventsService?.updateApplicationRootPath(applicationRootPath: configuration.applicationRootPath)
+        eventsService?.updateStructureType(structureType: .structurePath(configuration.applicationDefaultStructurePath),
                                           contentPageViewSource: nil)
     }
 
@@ -122,6 +118,6 @@ public class RingPublishingTracking {
     public func reportEvents(_ events: [Event]) {
         Logger.log("Reporting generic events, events count: '\(events.count)'")
 
-        eventsService.addEvents(events)
+        eventsService?.addEvents(events)
     }
 }

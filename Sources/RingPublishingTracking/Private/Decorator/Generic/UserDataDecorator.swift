@@ -12,6 +12,10 @@ final class UserDataDecorator: Decorator {
 
     private var data: UserData?
 
+    var sso: SSO? {
+        return data?.sso
+    }
+
     var parameters: [String: AnyHashable] {
         var userDataParams: [String: AnyHashable] = [:]
 

@@ -12,12 +12,6 @@ class KeepAliveTests: XCTestCase {
 
     let keepAliveManager = KeepAliveManager()
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: Tests
 
     func testCollectingMeasurements_sampleContentDataProvidedWith20SecFocusTime_properMeasurementsTaken() {

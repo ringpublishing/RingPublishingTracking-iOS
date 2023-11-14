@@ -29,12 +29,6 @@ private struct TestEndpoint: Endpoint {
 
 class APIServiceTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: Tests
 
     func testCallEndpoint_simpleRequestCreated_closureIsCalledWithSuccessResult() {
