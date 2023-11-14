@@ -224,7 +224,12 @@ final class EventsService {
             }
         }
     }
-
+    
+    /// Calls the /user endpoint from the API.
+    /// - Parameters:
+    ///   - tenantID: Instance of tenantID.
+    ///   - eaUUID: Identifier coming from the /me endpoint.
+    ///   - completion: Completion handler.
     func fetchArtemisID(tenantID: String, eaUUID: EaUUID, completion: @escaping(Result<ArtemisObject, ServiceError>) -> Void) {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
@@ -253,7 +258,11 @@ final class EventsService {
             }
         }
     }
-
+    
+    /// Perform sequential identity checks from API.
+    /// - Parameters:
+    ///   - tenantID: Instance of tenantID.
+    ///   - completion: Completion handler.
     func performSequentialIdentityChecks(tenantID: String, completion: @escaping(Result<(EaUUID, ArtemisObject), ServiceError>) -> Void) {
         self.isIdentifyMeRequestInProgress = true
         fetchIdentity { [weak self] identityResult in
@@ -270,7 +279,6 @@ final class EventsService {
             case .failure(let error):
                 completion(.failure(error))
             }
-            self?.isIdentifyMeRequestInProgress = false
         }
     }
 
@@ -412,7 +420,9 @@ private extension EventsService {
     func storePostInterval(_ postInterval: Int) {
         storage.postInterval = postInterval
     }
-
+    
+    /// Store artemis' object value.
+    /// - Parameter object: Instance of the `ArtemisObject` or `nil`.
     func storeArtemisObject(_ object: ArtemisObject?) {
         storage.artemisID = object
     }
@@ -441,7 +451,6 @@ private extension EventsService {
 
     func retryIdentifyRequest(completion: @escaping(Result<Void, Error>) -> Void) {
         Logger.log("Retrying identify request as required data is missing.")
-
         performSequentialIdentityChecks(tenantID: configuration.tenantId) { result in
             switch result {
             case .success:
@@ -482,7 +491,7 @@ private extension EventsService {
         Logger.log("Failed to fetch tracking identifier with error: \(error) but SDK has valid stored identifier.")
         publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
     }
-
+    
     func publishTrackingIdentifier(eaUUID: EaUUID, artemis: ArtemisObject) {
         let eaID = TrackingIdentifier.EaUUID(identifier: eaUUID.value, expirationDate: eaUUID.expirationDate)
         let art = TrackingIdentifier.Artemis(identifier: artemis, expirationDate: artemis.expirationDate)
