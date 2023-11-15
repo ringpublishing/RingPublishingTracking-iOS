@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ArtemisExternal: Codable {
+public struct ArtemisExternal: Codable {
 
     let model: String
 

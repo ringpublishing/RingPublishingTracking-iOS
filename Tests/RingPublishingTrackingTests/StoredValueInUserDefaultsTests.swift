@@ -5,6 +5,7 @@
 //  Created by Adam Szeremeta on 07/09/2021.
 //
 
+@testable import RingPublishingTracking
 import Foundation
 import XCTest
 

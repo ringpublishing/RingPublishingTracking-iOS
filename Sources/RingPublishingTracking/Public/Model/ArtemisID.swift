@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ArtemisID: Codable {
+public struct ArtemisID: Codable {
 
     let artemis: String
 

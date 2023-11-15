@@ -6,6 +6,7 @@
 //  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
 //
 
+@testable import RingPublishingTracking
 import Foundation
 import CoreGraphics
 
