@@ -165,6 +165,25 @@ class DecoratorTests: XCTestCase {
 
     // MARK: - UserDataDecorator Tests
 
+    func testParameters_userDataDecoratorCreated_returnedParametersAreMatching() {
+        // Given
+        let artemisExternal = ArtemisExternal(model: "202010190919497238108361", models: "202010190919497238108361")
+        let artemisID = ArtemisID(artemis: "202010190919497238108361", external: artemisExternal)
+        let decorator = UserDataDecorator()
+
+        let data = UserData(sso: nil, id: artemisID)
+
+        // Then
+        decorator.updateUserData(data: data)
+        let params = decorator.parameters
+
+        // swiftlint:disable line_length
+        let expectedBase64 = "eyJpZCI6eyJhcnRlbWlzIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIiwiZXh0ZXJuYWwiOnsibW9kZWxzIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIiwibW9kZWwiOiIyMDIwMTAxOTA5MTk0OTcyMzgxMDgzNjEifX19"
+        // swiftlint:enable line_length
+        XCTAssertEqual(params["RDLU"], expectedBase64)
+        XCTAssertNil(params["IZ"], "IZ should be empty")
+    }
+
     func testParameters_userDataDecoratorCreated_returnedParametersAreCorrect() {
         // Given
         let userId = "12345"
@@ -196,11 +215,10 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         let rdluData = """
-            eyJzc28iOnsibG9nZ2VkIjp7fSwibmFtZSI6IlRlc3QifX0=
+        eyJzc28iOnsibmFtZSI6IlRlc3QiLCJsb2dnZWQiOnt9fX0=
         """
 
         XCTAssertEqual(params["RDLU"], rdluData)
-//        XCTAssertNil(params["RDLU"], "RDLU should be empty")
         XCTAssertNil(params["IZ"], "IZ should be empty")
     }
 
