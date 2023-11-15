@@ -7,42 +7,43 @@
 
 import Foundation
 
+struct ArtemisResponseCFG: Decodable {
+
+    /// Expiration time
+    let ttl: Int
+}
+
+struct ArtemisResponseUser: Decodable {
+
+    let id: ArtemisResponseID
+}
+
+struct ArtemisResponseID: Decodable {
+    let real: String
+
+    let model: String
+
+    let models: ArtemisResponseModels
+}
+
+struct ArtemisResponseModels: Decodable {
+
+    let atsRi: String
+
+    private enum CodingKeys: String, CodingKey {
+        case atsRi = "ats_ri"
+    }
+}
+
 struct ArtemisResponse: Decodable {
 
-    struct CFG: Decodable {
-        /// Expiration time
-        let ttl: Int
-    }
+    let cfg: ArtemisResponseCFG
 
-    struct User: Decodable {
+    let user: ArtemisResponseUser
 
-        let id: ID
-    }
-
-    struct ID: Decodable {
-        let real: String
-
-        let model: String
-
-        let models: Models
-    }
-
-    struct Models: Decodable {
-
-        let atsRi: String
-
-        private enum CodingKeys: String, CodingKey {
-            case atsRi = "ats_ri"
-        }
-    }
-
-    let cfg: ArtemisResponse.CFG
-
-    let user: ArtemisResponse.User
-
-    func transform() -> ArtemisObject {
-        let external: ArtemisObject.ID.External = .init(model: user.id.model, models: user.id.models.atsRi)
-        let id: ArtemisObject.ID = .init(artemis: user.id.real, external: external)
-        return ArtemisObject(id: id, lifetime: cfg.ttl, creationDate: Date())
+    func transform() -> Artemis {
+        let external = ArtemisExternal(model: user.id.model, models: user.id.models.atsRi)
+        let id = ArtemisID(artemis: user.id.real, external: external)
+        return Artemis(id: id, lifetime: cfg.ttl, creationDate: Date())
     }
 }

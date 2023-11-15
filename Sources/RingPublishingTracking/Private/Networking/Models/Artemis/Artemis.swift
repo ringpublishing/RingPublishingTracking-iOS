@@ -1,5 +1,5 @@
 //
-//  ArtemisID.swift
+//  Artemis.swift
 //  RingPublishingTracking
 //
 //  Created by Adam Mordavsky on 09.11.23.
@@ -7,23 +7,9 @@
 
 import Foundation
 
-public struct ArtemisObject: Codable {
+public struct Artemis: Codable {
 
-    public struct ID: Codable {
-
-        struct External: Codable {
-
-            let model: String
-
-            let models: String
-        }
-
-        let artemis: String
-
-        let external: External
-    }
-
-    let id: ArtemisObject.ID
+    let id: ArtemisID
 
     /// The time in seconds of how long the identifier is valid for since the refresh's date
     let lifetime: Int

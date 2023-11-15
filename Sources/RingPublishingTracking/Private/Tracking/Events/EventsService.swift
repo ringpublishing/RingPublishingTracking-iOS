@@ -230,7 +230,7 @@ final class EventsService {
     ///   - tenantID: Instance of tenantID.
     ///   - eaUUID: Identifier coming from the /me endpoint.
     ///   - completion: Completion handler.
-    func fetchArtemisID(tenantID: String, eaUUID: EaUUID, completion: @escaping(Result<ArtemisObject, ServiceError>) -> Void) {
+    func fetchArtemisID(tenantID: String, eaUUID: EaUUID, completion: @escaping(Result<Artemis, ServiceError>) -> Void) {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
             // TODO: [ASZ] Maybe we should think how to handle callback here?
@@ -250,10 +250,10 @@ final class EventsService {
             switch result {
             case .success(let response):
                 let object = response.transform()
-                self?.storeArtemisObject(object)
+                self?.storeArtemis(object)
                 completion(.success((object)))
             case .failure(let error):
-                self?.storeArtemisObject(nil)
+                self?.storeArtemis(nil)
                 completion(.failure(error))
             }
         }
@@ -263,7 +263,7 @@ final class EventsService {
     /// - Parameters:
     ///   - tenantID: Instance of tenantID.
     ///   - completion: Completion handler.
-    func performSequentialIdentityChecks(tenantID: String, completion: @escaping(Result<(EaUUID, ArtemisObject), ServiceError>) -> Void) {
+    func performSequentialIdentityChecks(tenantID: String, completion: @escaping(Result<(EaUUID, Artemis), ServiceError>) -> Void) {
         self.isIdentifyMeRequestInProgress = true
         fetchIdentity { [weak self] identityResult in
             switch identityResult {
@@ -422,8 +422,8 @@ private extension EventsService {
     }
 
     /// Store artemis' object value.
-    /// - Parameter object: Instance of the `ArtemisObject` or `nil`.
-    func storeArtemisObject(_ object: ArtemisObject?) {
+    /// - Parameter object: Instance of the `Artemis` or `nil`.
+    func storeArtemis(_ object: Artemis?) {
         storage.artemisID = object
     }
 
@@ -461,7 +461,7 @@ private extension EventsService {
         }
     }
 
-    func retryArtemisRequest(eaUUID: EaUUID, completion: @escaping(Result<ArtemisObject, ServiceError>) -> Void) {
+    func retryArtemisRequest(eaUUID: EaUUID, completion: @escaping(Result<Artemis, ServiceError>) -> Void) {
         Logger.log("Retrying artemis request as required data is missing.")
         fetchArtemisID(tenantID: configuration.tenantId, eaUUID: eaUUID) { result in
             switch result {
@@ -492,9 +492,9 @@ private extension EventsService {
         publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
     }
 
-    func publishTrackingIdentifier(eaUUID: EaUUID, artemis: ArtemisObject) {
+    func publishTrackingIdentifier(eaUUID: EaUUID, artemis: Artemis) {
         let eaID = TrackingIdentifier.EaUUID(identifier: eaUUID.value, expirationDate: eaUUID.expirationDate)
-        let art = TrackingIdentifier.Artemis(identifier: artemis, expirationDate: artemis.expirationDate)
+        let art = TrackingIdentifier.ArtemisIdentifier(identifier: artemis, expirationDate: artemis.expirationDate)
         let identifier: TrackingIdentifier = TrackingIdentifier(eaUUID: eaID, artemisID: art)
         delegate?.eventsService(self, retrievedTrackingIdentifier: identifier)
     }
