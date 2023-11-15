@@ -19,11 +19,12 @@ struct ArtemisResponseUser: Decodable {
 }
 
 struct ArtemisResponseID: Decodable {
+
     let real: String
 
     let model: String
 
-    let models: ArtemisResponseModels
+    let models: [String: AnyCodable]
 }
 
 struct ArtemisResponseModels: Decodable {
@@ -42,7 +43,7 @@ struct ArtemisResponse: Decodable {
     let user: ArtemisResponseUser
 
     func transform() -> Artemis {
-        let external = ArtemisExternal(model: user.id.model, models: user.id.models.atsRi)
+        let external = ArtemisExternal(model: user.id.model, models: user.id.models)
         let id = ArtemisID(artemis: user.id.real, external: external)
         return Artemis(id: id, lifetime: cfg.ttl, creationDate: Date())
     }

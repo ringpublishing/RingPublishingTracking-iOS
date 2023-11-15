@@ -12,5 +12,5 @@ public struct ArtemisExternal: Codable {
 
     let model: String
 
-    let models: String
+    let models: [String: AnyCodable]
 }

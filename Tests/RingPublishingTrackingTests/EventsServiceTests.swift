@@ -174,7 +174,12 @@ class EventsServiceTests: XCTestCase {
         // Given
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-        let artemisExternal = ArtemisExternal(model: "202311081625290741208292", models: "202311081625290741208292")
+        let artemisExternal = ArtemisExternal(
+            model: "202010190919497238108361",
+            models: [
+                "ats_ri": AnyCodable("202010190919497238108361")
+            ]
+        )
         let artemisID = ArtemisID(artemis: "202311081625290741208292", external: artemisExternal)
         let artemis = Artemis(id: artemisID, lifetime: 360, creationDate: Date())
         let storage = StaticStorage(eaUUID: eaUuid, artemisID: artemis, trackingIds: [
@@ -242,7 +247,12 @@ class EventsServiceTests: XCTestCase {
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
         let artemisCreationDate = Date().addingTimeInterval(-380)
-        let artemisExternal = ArtemisExternal(model: "202311081625290741208292", models: "202311081625290741208292")
+        let artemisExternal = ArtemisExternal(
+            model: "202010190919497238108361",
+            models: [
+                "ats_ri": AnyCodable("202010190919497238108361")
+            ]
+        )
         let artemisID = ArtemisID(artemis: "202311081625290741208292", external: artemisExternal)
         let artemis = Artemis(id: artemisID, lifetime: 360, creationDate: artemisCreationDate)
         let storage = StaticStorage(eaUUID: eaUuid, artemisID: artemis, trackingIds: [

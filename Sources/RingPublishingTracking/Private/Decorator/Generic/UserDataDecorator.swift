@@ -10,6 +10,12 @@ import Foundation
 
 final class UserDataDecorator: Decorator {
 
+    private lazy var encoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        return encoder
+    }()
+
     private var data: UserData?
 
     var sso: SSO? {
@@ -33,17 +39,18 @@ final class UserDataDecorator: Decorator {
 
         return userDataParams
     }
-
-    private func prepareRDLU(data: UserData) -> Data? {
-        guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
-        guard let jsonString = String(data: jsonData, encoding: .utf8) else { return nil }
-        return Data(jsonString.utf8)
-    }
 }
 
 extension UserDataDecorator {
 
     func updateUserData(data: UserData?) {
         self.data = data
+    }
+}
+
+private extension UserDataDecorator {
+    func prepareRDLU(data: UserData) -> Data? {
+        guard let jsonData = try? encoder.encode(data) else { return nil }
+        return jsonData
     }
 }

@@ -167,7 +167,12 @@ class DecoratorTests: XCTestCase {
 
     func testParameters_userDataDecoratorCreated_returnedParametersAreMatching() {
         // Given
-        let artemisExternal = ArtemisExternal(model: "202010190919497238108361", models: "202010190919497238108361")
+        let artemisExternal = ArtemisExternal(
+            model: "202010190919497238108361",
+            models: [
+                "ats_ri": AnyCodable("202010190919497238108361")
+            ]
+        )
         let artemisID = ArtemisID(artemis: "202010190919497238108361", external: artemisExternal)
         let decorator = UserDataDecorator()
 
@@ -178,7 +183,7 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         // swiftlint:disable line_length
-        let expectedBase64 = "eyJpZCI6eyJhcnRlbWlzIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIiwiZXh0ZXJuYWwiOnsibW9kZWxzIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIiwibW9kZWwiOiIyMDIwMTAxOTA5MTk0OTcyMzgxMDgzNjEifX19"
+        let expectedBase64 = "eyJpZCI6eyJhcnRlbWlzIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIiwiZXh0ZXJuYWwiOnsibW9kZWwiOiIyMDIwMTAxOTA5MTk0OTcyMzgxMDgzNjEiLCJtb2RlbHMiOnsiYXRzX3JpIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIn19fX0="
         // swiftlint:enable line_length
         XCTAssertEqual(params["RDLU"], expectedBase64)
         XCTAssertNil(params["IZ"], "IZ should be empty")
@@ -195,7 +200,7 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         let expectedBase64 = """
-        eyJzc28iOnsibmFtZSI6IlRlc3QiLCJsb2dnZWQiOnsiaWQiOiIxMjM0NSIsIm1kNSI6IjUyODExNDNlYzgxNGVhMmM2NmE0YjE5MTRhMDEzNWI3In19fQ==
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI1MjgxMTQzZWM4MTRlYTJjNjZhNGIxOTE0YTAxMzViNyJ9LCJuYW1lIjoiVGVzdCJ9fQ==
         """
 
         XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
@@ -215,7 +220,7 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         let rdluData = """
-        eyJzc28iOnsibmFtZSI6IlRlc3QiLCJsb2dnZWQiOnt9fX0=
+        eyJzc28iOnsibG9nZ2VkIjp7fSwibmFtZSI6IlRlc3QifX0=
         """
 
         XCTAssertEqual(params["RDLU"], rdluData)
