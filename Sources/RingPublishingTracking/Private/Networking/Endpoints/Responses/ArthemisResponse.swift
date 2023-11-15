@@ -41,9 +41,9 @@ struct ArtemisResponse: Decodable {
 
     let user: ArtemisResponseUser
 
-    func transform() -> ArtemisIdentifier {
+    func transform() -> Artemis {
         let external = ArtemisExternal(model: user.id.model, models: user.id.models.atsRi)
         let id = ArtemisID(artemis: user.id.real, external: external)
-        return ArtemisIdentifier(id: id, lifetime: cfg.ttl, creationDate: Date())
+        return Artemis(id: id, lifetime: cfg.ttl, creationDate: Date())
     }
 }

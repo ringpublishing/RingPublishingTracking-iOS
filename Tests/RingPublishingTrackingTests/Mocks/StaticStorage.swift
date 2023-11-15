@@ -11,7 +11,7 @@ import Foundation
 struct StaticStorage: TrackingStorage {
 
     var eaUUID: EaUUID?
-    var artemisID: ArtemisIdentifier?
+    var artemisID: Artemis?
     var trackingIds: [String: IdsWithLifetime]?
     var postInterval: Int?
     var randomUniqueDeviceId: String?

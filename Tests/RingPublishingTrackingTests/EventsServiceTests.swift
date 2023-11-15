@@ -176,7 +176,7 @@ class EventsServiceTests: XCTestCase {
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
         let artemisExternal = ArtemisExternal(model: "202311081625290741208292", models: "202311081625290741208292")
         let artemisID = ArtemisID(artemis: "202311081625290741208292", external: artemisExternal)
-        let artemis = ArtemisIdentifier(id: artemisID, lifetime: 360, creationDate: Date())
+        let artemis = Artemis(id: artemisID, lifetime: 360, creationDate: Date())
         let storage = StaticStorage(eaUUID: eaUuid, artemisID: artemis, trackingIds: [
             "key1": .init(value: "id1", lifetime: nil),
             "key2": .init(value: "id2", lifetime: nil),
@@ -244,7 +244,7 @@ class EventsServiceTests: XCTestCase {
         let artemisCreationDate = Date().addingTimeInterval(-380)
         let artemisExternal = ArtemisExternal(model: "202311081625290741208292", models: "202311081625290741208292")
         let artemisID = ArtemisID(artemis: "202311081625290741208292", external: artemisExternal)
-        let artemis = ArtemisIdentifier(id: artemisID, lifetime: 360, creationDate: artemisCreationDate)
+        let artemis = Artemis(id: artemisID, lifetime: 360, creationDate: artemisCreationDate)
         let storage = StaticStorage(eaUUID: eaUuid, artemisID: artemis, trackingIds: [
             "key1": .init(value: "id1", lifetime: nil),
             "key2": .init(value: "id2", lifetime: nil),

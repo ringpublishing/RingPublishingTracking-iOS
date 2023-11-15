@@ -11,25 +11,9 @@ import Foundation
 /// Wrapper around tracking identifiers
 public struct TrackingIdentifier {
 
-    public struct EaUUID {
-        /// Identifier
-        public let identifier: String
-
-        /// Expiration date
-        public let expirationDate: Date
-    }
-
-    public struct Artemis {
-        /// Identifier
-        public let identifier: ArtemisIdentifier
-
-        /// Expiration date
-        public let expirationDate: Date
-    }
-
     /// EaUUID identifier
-    public let eaUUID: TrackingIdentifier.EaUUID
+    public let eaUUID: TrackingIdentfierEaUUID
 
     /// Arthemis identifier
-    public let artemisID: TrackingIdentifier.Artemis
+    public let artemisID: TrackingIdentifierArtemis
 }
