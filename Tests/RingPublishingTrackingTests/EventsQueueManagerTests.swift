@@ -9,7 +9,7 @@
 import XCTest
 
 class EventsQueueManagerTests: XCTestCase {
-    
+
     var configuration: RingPublishingTrackingConfiguration?
 
     override func setUp() {

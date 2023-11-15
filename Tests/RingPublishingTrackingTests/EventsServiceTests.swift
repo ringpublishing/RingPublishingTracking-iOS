@@ -236,7 +236,7 @@ class EventsServiceTests: XCTestCase {
         // Then
         XCTAssertTrue(service.shouldRetryIdentifyRequest, "Identify request should be retried")
     }
-    
+
     func testShouldRetryIdentifyRequest_artemisIdentifierMissing_shouldRetry() throws {
         // Given
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))

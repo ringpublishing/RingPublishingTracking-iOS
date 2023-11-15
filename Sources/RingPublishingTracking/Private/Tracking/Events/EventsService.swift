@@ -224,7 +224,7 @@ final class EventsService {
             }
         }
     }
-    
+
     /// Calls the /user endpoint from the API.
     /// - Parameters:
     ///   - tenantID: Instance of tenantID.
@@ -258,7 +258,7 @@ final class EventsService {
             }
         }
     }
-    
+
     /// Perform sequential identity checks from API.
     /// - Parameters:
     ///   - tenantID: Instance of tenantID.
@@ -420,7 +420,7 @@ private extension EventsService {
     func storePostInterval(_ postInterval: Int) {
         storage.postInterval = postInterval
     }
-    
+
     /// Store artemis' object value.
     /// - Parameter object: Instance of the `ArtemisObject` or `nil`.
     func storeArtemisObject(_ object: ArtemisObject?) {
@@ -491,7 +491,7 @@ private extension EventsService {
         Logger.log("Failed to fetch tracking identifier with error: \(error) but SDK has valid stored identifier.")
         publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
     }
-    
+
     func publishTrackingIdentifier(eaUUID: EaUUID, artemis: ArtemisObject) {
         let eaID = TrackingIdentifier.EaUUID(identifier: eaUUID.value, expirationDate: eaUUID.expirationDate)
         let art = TrackingIdentifier.Artemis(identifier: artemis, expirationDate: artemis.expirationDate)
