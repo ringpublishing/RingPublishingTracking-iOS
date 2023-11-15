@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Artemis ID wrapper
 public struct ArtemisID: Codable {
 
     let artemis: String

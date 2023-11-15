@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Artemis External model wrapper
 public struct ArtemisExternal: Codable {
 
     let model: String

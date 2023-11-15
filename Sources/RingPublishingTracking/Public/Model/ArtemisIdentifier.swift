@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Artemis identifier
 public struct ArtemisIdentifier: Codable {
 
     let id: ArtemisID

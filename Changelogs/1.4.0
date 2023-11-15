@@ -6,4 +6,5 @@ Improvements to the 'RingPublishingTracking' module.
 ### Features
 
 * Added new tracking identifier 'Artemis'
+* Changed structure of '[RDLU]' parameter
 

@@ -100,6 +100,7 @@ final class EventsService {
 
     /// Setups API Service
     /// - Parameters:
+    ///   - delegate: Instance of the object which conforms to `EventsServiceDelegate`, otherwise `nil`.
     ///   - session: Session object used to create requests. Defaults to `URLSession.shared`
     func setup(delegate: EventsServiceDelegate?, session: NetworkSession = URLSession.shared) {
         apiService = APIService(apiUrl: configuration.apiUrl ?? Constants.apiUrl, apiKey: configuration.apiKey, session: session)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Tracking identifier and its expiration date
+/// Wrapper around tracking identifiers
 public struct TrackingIdentifier {
 
     public struct EaUUID {
