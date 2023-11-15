@@ -134,23 +134,7 @@ final class EventsService {
                     self.publishTrackingIdentifier(eaUUID: identifiers.0, artemis: identifiers.1)
                     self.isIdentifyMeRequestInProgress = false
                 case .failure(let error):
-                    switch self.shouldRetryIdentifyRequest {
-                    case true:
-                        self.handleIdentifyMeRequestFailure(error: error)
-                        self.isIdentifyMeRequestInProgress = false
-                    case false:
-                        guard let eaUUID = storage.eaUUID else { return }
-                        self.retryArtemisRequest(eaUUID: eaUUID) { artemisResult in
-                            switch artemisResult {
-                            case .success(let artemis):
-                                self.publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
-                                self.isIdentifyMeRequestInProgress = false
-                            case .failure(let error):
-                                self.handleIdentifyMeRequestFailure(error: error)
-                                self.isIdentifyMeRequestInProgress = false
-                            }
-                        }
-                    }
+                    self.retryIdentityRequest(error: error)
                 }
             })
         }
@@ -383,6 +367,28 @@ private extension EventsService {
             return false
         }
         return false
+    }
+    
+    /// Retry whole identity process from start.
+    /// - Parameter error: `ServiceError` instance from previous operation.
+    func retryIdentityRequest(error: ServiceError) {
+        switch shouldRetryIdentifyRequest {
+        case true:
+            self.handleIdentifyMeRequestFailure(error: error)
+            self.isIdentifyMeRequestInProgress = false
+        case false:
+            guard let eaUUID = storage.eaUUID else { return }
+            retryArtemisRequest(eaUUID: eaUUID) { [weak self] artemisResult in
+                switch artemisResult {
+                case .success(let artemis):
+                    self?.publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
+                    self?.isIdentifyMeRequestInProgress = false
+                case .failure(let error):
+                    self?.handleIdentifyMeRequestFailure(error: error)
+                    self?.isIdentifyMeRequestInProgress = false
+                }
+            }
+        }
     }
 
     /// Retrieves Vendor Identifier (IDFA)
