@@ -22,17 +22,22 @@ final class UserDataDecorator: Decorator {
         guard let data = data else { return userDataParams }
 
         // RDLU
-        if data.sso.logged.id != nil || data.sso.logged.md5 != nil,
-           let jsonData = try? JSONEncoder().encode(data), let jsonString = String(data: jsonData, encoding: .utf8) {
-            userDataParams["RDLU"] = Data(jsonString.utf8).base64EncodedString()
+        if let rdlu = prepareRDLU(data: data) {
+            userDataParams["RDLU"] = rdlu.base64EncodedString()
         }
 
         // IZ
-        if let userId = data.sso.logged.id {
+        if let userId = data.sso?.logged.id {
             userDataParams["IZ"] = userId
         }
 
         return userDataParams
+    }
+
+    private func prepareRDLU(data: UserData) -> Data? {
+        guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
+        guard let jsonString = String(data: jsonData, encoding: .utf8) else { return nil }
+        return Data(jsonString.utf8)
     }
 }
 

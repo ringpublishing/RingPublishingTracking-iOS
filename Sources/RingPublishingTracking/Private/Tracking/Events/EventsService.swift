@@ -275,8 +275,13 @@ final class EventsService {
 
     func updateUserData(ssoSystemName: String, userId: String?, email: String?) {
         let preparedEmail = email?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let data = UserData(sso: .init(logged: .init(id: userId, md5: preparedEmail?.md5()), name: ssoSystemName))
-
+        let data = UserData(
+            sso: SSO(
+                logged: Logged(id: userId, md5: preparedEmail?.md5()),
+                name: ssoSystemName
+            ),
+            id: storage.artemisID?.id
+        )
         userDataDecorator.updateUserData(data: data)
     }
 
@@ -368,7 +373,7 @@ private extension EventsService {
         }
         return false
     }
-    
+
     /// Retry whole identity process from start.
     /// - Parameter error: `ServiceError` instance from previous operation.
     func retryIdentityRequest(error: ServiceError) {

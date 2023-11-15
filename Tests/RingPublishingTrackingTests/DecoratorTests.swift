@@ -169,7 +169,7 @@ class DecoratorTests: XCTestCase {
         // Given
         let userId = "12345"
         let decorator = UserDataDecorator()
-        let data = UserData(sso: .init(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"))
+        let data = UserData(sso: .init(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"), id: nil)
 
         // Then
         decorator.updateUserData(data: data)
@@ -186,8 +186,8 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
         // Given
         let decorator = UserDataDecorator()
-        let data = UserData(sso: .init(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"))
-        let emptyData = UserData(sso: .init(logged: .init(id: nil, md5: nil), name: "Test"))
+        let data = UserData(sso: .init(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"), id: nil)
+        let emptyData = UserData(sso: .init(logged: .init(id: nil, md5: nil), name: "Test"), id: nil)
 
         // Then
         decorator.updateUserData(data: data)
@@ -195,7 +195,12 @@ class DecoratorTests: XCTestCase {
 
         let params = decorator.parameters
 
-        XCTAssertNil(params["RDLU"], "RDLU should be empty")
+        let rdluData = """
+            eyJzc28iOnsibG9nZ2VkIjp7fSwibmFtZSI6IlRlc3QifX0=
+        """
+
+        XCTAssertEqual(params["RDLU"], rdluData)
+//        XCTAssertNil(params["RDLU"], "RDLU should be empty")
         XCTAssertNil(params["IZ"], "IZ should be empty")
     }
 
