@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Artemis: Codable {
+public struct ArtemisIdentifier: Codable {
 
     let id: ArtemisID
 

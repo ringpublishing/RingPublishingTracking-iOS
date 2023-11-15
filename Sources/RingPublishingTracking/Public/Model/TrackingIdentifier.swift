@@ -19,9 +19,9 @@ public struct TrackingIdentifier {
         public let expirationDate: Date
     }
 
-    public struct ArtemisIdentifier {
+    public struct Artemis {
         /// Identifier
-        public let identifier: Artemis
+        public let identifier: ArtemisIdentifier
 
         /// Expiration date
         public let expirationDate: Date
@@ -31,5 +31,5 @@ public struct TrackingIdentifier {
     public let eaUUID: TrackingIdentifier.EaUUID
 
     /// Arthemis identifier
-    public let artemisID: TrackingIdentifier.ArtemisIdentifier
+    public let artemisID: TrackingIdentifier.Artemis
 }

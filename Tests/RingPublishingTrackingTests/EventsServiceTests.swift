@@ -174,9 +174,9 @@ class EventsServiceTests: XCTestCase {
         // Given
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
-        let artemisExternal = ArtemisObject.ID.External(model: "202311081625290741208292", models: "202311081625290741208292")
-        let artemisID = ArtemisObject.ID(artemis: "202311081625290741208292", external: artemisExternal)
-        let artemis = ArtemisObject(id: artemisID, lifetime: 360, creationDate: Date())
+        let artemisExternal = ArtemisExternal(model: "202311081625290741208292", models: "202311081625290741208292")
+        let artemisID = ArtemisID(artemis: "202311081625290741208292", external: artemisExternal)
+        let artemis = ArtemisIdentifier(id: artemisID, lifetime: 360, creationDate: Date())
         let storage = StaticStorage(eaUUID: eaUuid, artemisID: artemis, trackingIds: [
             "key1": .init(value: "id1", lifetime: nil),
             "key2": .init(value: "id2", lifetime: nil),
@@ -242,9 +242,9 @@ class EventsServiceTests: XCTestCase {
         let creationDate = Date().addingTimeInterval(TimeInterval(-60 * 60 * 12))
         let eaUuid = EaUUID(value: "1234567890", lifetime: 60 * 60 * 24, creationDate: creationDate)
         let artemisCreationDate = Date().addingTimeInterval(-380)
-        let artemisExternal = ArtemisObject.ID.External(model: "202311081625290741208292", models: "202311081625290741208292")
-        let artemisID = ArtemisObject.ID(artemis: "202311081625290741208292", external: artemisExternal)
-        let artemis = ArtemisObject(id: artemisID, lifetime: 360, creationDate: artemisCreationDate)
+        let artemisExternal = ArtemisExternal(model: "202311081625290741208292", models: "202311081625290741208292")
+        let artemisID = ArtemisID(artemis: "202311081625290741208292", external: artemisExternal)
+        let artemis = ArtemisIdentifier(id: artemisID, lifetime: 360, creationDate: artemisCreationDate)
         let storage = StaticStorage(eaUUID: eaUuid, artemisID: artemis, trackingIds: [
             "key1": .init(value: "id1", lifetime: nil),
             "key2": .init(value: "id2", lifetime: nil),
