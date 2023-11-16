@@ -176,10 +176,8 @@ class DecoratorTests: XCTestCase {
         let artemisID = ArtemisID(artemis: "202010190919497238108361", external: artemisExternal)
         let decorator = UserDataDecorator()
 
-        let data = UserData(sso: nil, id: artemisID)
-
         // Then
-        decorator.updateUserData(data: data)
+        decorator.updateArtemisData(artemis: artemisID)
         let params = decorator.parameters
 
         // swiftlint:disable line_length
@@ -193,10 +191,10 @@ class DecoratorTests: XCTestCase {
         // Given
         let userId = "12345"
         let decorator = UserDataDecorator()
-        let data = UserData(sso: .init(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"), id: nil)
+        let sso = SSO(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
 
         // Then
-        decorator.updateUserData(data: data)
+        decorator.updateSSOData(sso: sso)
         let params = decorator.parameters
 
         let expectedBase64 = """
@@ -210,12 +208,12 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
         // Given
         let decorator = UserDataDecorator()
-        let data = UserData(sso: .init(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"), id: nil)
-        let emptyData = UserData(sso: .init(logged: .init(id: nil, md5: nil), name: "Test"), id: nil)
+        let sso = SSO(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
+        let emptySSO = SSO(logged: .init(id: nil, md5: nil), name: "Test")
 
         // Then
-        decorator.updateUserData(data: data)
-        decorator.updateUserData(data: emptyData)
+        decorator.updateSSOData(sso: sso)
+        decorator.updateSSOData(sso: emptySSO)
 
         let params = decorator.parameters
 
