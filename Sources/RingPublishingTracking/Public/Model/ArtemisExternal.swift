@@ -9,7 +9,7 @@
 import Foundation
 
 /// Artemis External model wrapper
-public struct ArtemisExternal: Codable {
+struct ArtemisExternal: Codable {
 
     /// Artemis ID model value
     let model: String

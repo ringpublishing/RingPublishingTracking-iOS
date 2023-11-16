@@ -12,10 +12,7 @@ import Foundation
 public struct TrackingIdentifierArtemis {
 
     /// Identifier
-    public let id: ArtemisID
-
-    /// External Artemis models
-    public let external: ArtemisExternal
+    public let identifier: String
 
     /// Expiration date
     public let expirationDate: Date
