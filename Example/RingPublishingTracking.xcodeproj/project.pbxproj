@@ -47,13 +47,12 @@
 		60108E742B0515C6005656C1 /* VideoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF72B0515C6005656C1 /* VideoState.swift */; };
 		60108E752B0515C6005656C1 /* VideoEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF82B0515C6005656C1 /* VideoEvent.swift */; };
 		60108E762B0515C6005656C1 /* VideoContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF92B0515C6005656C1 /* VideoContentCategory.swift */; };
-		60108E772B0515C6005656C1 /* TrackingIdentifierArtemis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DFA2B0515C6005656C1 /* TrackingIdentifierArtemis.swift */; };
 		60108E782B0515C6005656C1 /* ArtemisExternal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DFB2B0515C6005656C1 /* ArtemisExternal.swift */; };
 		60108E792B0515C6005656C1 /* VideoAdsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DFC2B0515C6005656C1 /* VideoAdsConfiguration.swift */; };
 		60108E7A2B0515C6005656C1 /* TrackingIdentifierError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DFD2B0515C6005656C1 /* TrackingIdentifierError.swift */; };
 		60108E7B2B0515C6005656C1 /* ContentMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DFE2B0515C6005656C1 /* ContentMetadata.swift */; };
 		60108E7C2B0515C6005656C1 /* VideoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DFF2B0515C6005656C1 /* VideoMetadata.swift */; };
-		60108E7D2B0515C6005656C1 /* TrackingIdentfierEaUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E002B0515C6005656C1 /* TrackingIdentfierEaUUID.swift */; };
+		60108E7D2B0515C6005656C1 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E002B0515C6005656C1 /* Identifier.swift */; };
 		60108E7E2B0515C6005656C1 /* ArtemisID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E012B0515C6005656C1 /* ArtemisID.swift */; };
 		60108E7F2B0515C6005656C1 /* VideoVisibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E022B0515C6005656C1 /* VideoVisibility.swift */; };
 		60108E802B0515C6005656C1 /* TrackingIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E032B0515C6005656C1 /* TrackingIdentifier.swift */; };
@@ -212,13 +211,12 @@
 		60108DF72B0515C6005656C1 /* VideoState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoState.swift; sourceTree = "<group>"; };
 		60108DF82B0515C6005656C1 /* VideoEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoEvent.swift; sourceTree = "<group>"; };
 		60108DF92B0515C6005656C1 /* VideoContentCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoContentCategory.swift; sourceTree = "<group>"; };
-		60108DFA2B0515C6005656C1 /* TrackingIdentifierArtemis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingIdentifierArtemis.swift; sourceTree = "<group>"; };
 		60108DFB2B0515C6005656C1 /* ArtemisExternal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtemisExternal.swift; sourceTree = "<group>"; };
 		60108DFC2B0515C6005656C1 /* VideoAdsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdsConfiguration.swift; sourceTree = "<group>"; };
 		60108DFD2B0515C6005656C1 /* TrackingIdentifierError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingIdentifierError.swift; sourceTree = "<group>"; };
 		60108DFE2B0515C6005656C1 /* ContentMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMetadata.swift; sourceTree = "<group>"; };
 		60108DFF2B0515C6005656C1 /* VideoMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMetadata.swift; sourceTree = "<group>"; };
-		60108E002B0515C6005656C1 /* TrackingIdentfierEaUUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingIdentfierEaUUID.swift; sourceTree = "<group>"; };
+		60108E002B0515C6005656C1 /* Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		60108E012B0515C6005656C1 /* ArtemisID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtemisID.swift; sourceTree = "<group>"; };
 		60108E022B0515C6005656C1 /* VideoVisibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoVisibility.swift; sourceTree = "<group>"; };
 		60108E032B0515C6005656C1 /* TrackingIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingIdentifier.swift; sourceTree = "<group>"; };
@@ -460,12 +458,11 @@
 				60108DF72B0515C6005656C1 /* VideoState.swift */,
 				60108DF82B0515C6005656C1 /* VideoEvent.swift */,
 				60108DF92B0515C6005656C1 /* VideoContentCategory.swift */,
-				60108DFA2B0515C6005656C1 /* TrackingIdentifierArtemis.swift */,
 				60108DFC2B0515C6005656C1 /* VideoAdsConfiguration.swift */,
 				60108DFD2B0515C6005656C1 /* TrackingIdentifierError.swift */,
 				60108DFE2B0515C6005656C1 /* ContentMetadata.swift */,
 				60108DFF2B0515C6005656C1 /* VideoMetadata.swift */,
-				60108E002B0515C6005656C1 /* TrackingIdentfierEaUUID.swift */,
+				60108E002B0515C6005656C1 /* Identifier.swift */,
 				60108E022B0515C6005656C1 /* VideoVisibility.swift */,
 				60108E032B0515C6005656C1 /* TrackingIdentifier.swift */,
 			);
@@ -1087,7 +1084,6 @@
 				204EAF24271F18AB009E2F0D /* KeepAliveManagerDelegateMock.swift in Sources */,
 				60108EB72B0515C6005656C1 /* DispatchQueue+BackgroundTimer.swift in Sources */,
 				60108EC82B0515C6005656C1 /* KeepAliveManagerDelegate.swift in Sources */,
-				60108E772B0515C6005656C1 /* TrackingIdentifierArtemis.swift in Sources */,
 				60108EC52B0515C6005656C1 /* VendorIdentifiable.swift in Sources */,
 				2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */,
 				60108E722B0515C6005656C1 /* VideoStreamFormat.swift in Sources */,
@@ -1138,7 +1134,7 @@
 				60108EBF2B0515C6005656C1 /* VideoAdsConfiguration+ParameterName.swift in Sources */,
 				204EAF3627294BF7009E2F0D /* EventTests.swift in Sources */,
 				60108ECA2B0515C6005656C1 /* KeepAliveIntervalsProvider.swift in Sources */,
-				60108E7D2B0515C6005656C1 /* TrackingIdentfierEaUUID.swift in Sources */,
+				60108E7D2B0515C6005656C1 /* Identifier.swift in Sources */,
 				204EAEEF270F1313009E2F0D /* VendorIdentifierProviderMock.swift in Sources */,
 				60108EAB2B0515C6005656C1 /* IdsWithLifetime.swift in Sources */,
 				60108E9C2B0515C6005656C1 /* SendEventEndpoint.swift in Sources */,

@@ -202,10 +202,10 @@ extension EventsService {
     }
 
     func publishTrackingIdentifier(eaUUID: EaUUID, artemis: Artemis) {
-        let eaID = TrackingIdentfierEaUUID(identifier: eaUUID.value, expirationDate: eaUUID.expirationDate)
-        let artemisId = TrackingIdentifierArtemis(identifier: artemis.id.artemis, expirationDate: artemis.expirationDate)
-        let identifier: TrackingIdentifier = TrackingIdentifier(eaUUID: eaID, artemisID: artemisId)
+        let eaUUID = Identifier(value: eaUUID.value, expirationDate: eaUUID.expirationDate)
+        let artemisId = Identifier(value: artemis.id.artemis, expirationDate: artemis.expirationDate)
+        let trackingIdentifier: TrackingIdentifier = TrackingIdentifier(eaUUID: eaUUID, artemisID: artemisId)
 
-        delegate?.eventsService(self, retrievedTrackingIdentifier: identifier)
+        delegate?.eventsService(self, retrievedTrackingIdentifier: trackingIdentifier)
     }
 }

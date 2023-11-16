@@ -12,8 +12,8 @@ import Foundation
 public struct TrackingIdentifier {
 
     /// EaUUID identifier
-    public let eaUUID: TrackingIdentfierEaUUID
+    public let eaUUID: Identifier
 
     /// Arthemis identifier
-    public let artemisID: TrackingIdentifierArtemis
+    public let artemisID: Identifier
 }

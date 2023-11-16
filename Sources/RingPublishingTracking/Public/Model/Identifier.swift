@@ -1,5 +1,5 @@
 //
-//  TrackingIdentifierArtemis.swift
+//  Identifier.swift
 //  RingPublishingTracking
 //
 //  Created by Adam Mordavsky on 15.11.23.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// Tracking identifier wrapper for Artemis
-public struct TrackingIdentifierArtemis {
+/// Tracking identifier
+public struct Identifier {
 
     /// Identifier
-    public let identifier: String
+    public let value: String
 
     /// Expiration date
     public let expirationDate: Date
