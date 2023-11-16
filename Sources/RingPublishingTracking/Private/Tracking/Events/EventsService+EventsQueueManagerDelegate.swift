@@ -10,6 +10,27 @@ import Foundation
 // MARK: - EventsQueueManagerDelegate
 extension EventsService: EventsQueueManagerDelegate {
 
+    func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {
+        Logger.log("Events queue is ready to send events. Events in queue: \(eventsQueueManager.events.allElements.count)")
+        checkIfIdentityRequestShouldBePerformed()
+    }
+
+    func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager) {
+        checkIfIdentityRequestShouldBePerformed()
+    }
+
+    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {
+        let errorEvent = eventsFactory.createErrorEvent(
+            for: event,
+            applicationRootPath: structureInfoDecorator.applicationRootPath
+        )
+        eventsQueueManager.addEvents([errorEvent])
+    }
+}
+
+// MARK: Private
+private extension EventsService {
+
     // Calls the root endpoint from the API
     func sendEvents(for eventsQueueManager: EventsQueueManager) {
         let body = buildEventRequest()
@@ -32,13 +53,11 @@ extension EventsService: EventsQueueManagerDelegate {
         })
     }
 
-    func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {
-        Logger.log("Events queue is ready to send events. Events in queue: \(eventsQueueManager.events.allElements.count)")
-        sendEvents(for: eventsQueueManager)
-    }
-
-    func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager) {
-        guard shouldRetryIdentifyRequest else { return }
+    func checkIfIdentityRequestShouldBePerformed() {
+        guard shouldRetryIdentifyRequest else {
+            sendEvents(for: eventsQueueManager)
+            return
+        }
 
         retryIdentifyRequest { [weak self] result in
             switch result {
@@ -48,13 +67,5 @@ extension EventsService: EventsQueueManagerDelegate {
                 Logger.log("Error occured during the retrying of identity check.")
             }
         }
-    }
-
-    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {
-        let errorEvent = eventsFactory.createErrorEvent(
-            for: event,
-            applicationRootPath: structureInfoDecorator.applicationRootPath
-        )
-        eventsQueueManager.addEvents([errorEvent])
     }
 }
