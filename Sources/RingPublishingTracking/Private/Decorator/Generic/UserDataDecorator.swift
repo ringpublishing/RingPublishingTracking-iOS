@@ -16,7 +16,7 @@ final class UserDataDecorator: Decorator {
         return encoder
     }()
 
-    private var data: UserData?
+    private var data: UserData? = UserData(sso: nil, id: nil)
 
     var sso: SSO? {
         return data?.sso
@@ -25,15 +25,13 @@ final class UserDataDecorator: Decorator {
     var parameters: [String: AnyHashable] {
         var userDataParams: [String: AnyHashable] = [:]
 
-        guard let data = data else { return userDataParams }
-
         // RDLU
         if let rdlu = prepareRDLU(data: data) {
             userDataParams["RDLU"] = rdlu.base64EncodedString()
         }
 
         // IZ
-        if let userId = data.sso?.logged.id {
+        if let userId = data?.sso?.logged.id {
             userDataParams["IZ"] = userId
         }
 
@@ -43,14 +41,20 @@ final class UserDataDecorator: Decorator {
 
 extension UserDataDecorator {
 
-    func updateUserData(data: UserData?) {
-        self.data = data
+    func updateSSOData(sso: SSO?) {
+        data?.sso = sso
+    }
+
+    func updateArtemisData(artemis: ArtemisID?) {
+        data?.id = artemis
     }
 }
 
 private extension UserDataDecorator {
-    func prepareRDLU(data: UserData) -> Data? {
-        guard let jsonData = try? encoder.encode(data) else { return nil }
-        return jsonData
+
+    func prepareRDLU(data: UserData?) -> Data? {
+        guard let data = data, data.sso != nil || data.id != nil else { return nil }
+
+        return try? encoder.encode(data)
     }
 }

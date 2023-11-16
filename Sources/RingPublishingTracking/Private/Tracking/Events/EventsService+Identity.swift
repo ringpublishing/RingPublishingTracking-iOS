@@ -75,9 +75,12 @@ extension EventsService {
             case .success(let response):
                 let object = response.transform()
                 self?.storeArtemis(object)
+                self?.userDataDecorator.updateArtemisData(artemis: object.id)
                 completion(.success((object)))
+
             case .failure(let error):
                 self?.storeArtemis(nil)
+                self?.userDataDecorator.updateArtemisData(artemis: nil)
                 completion(.failure(error))
             }
         }

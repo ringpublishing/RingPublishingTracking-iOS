@@ -36,14 +36,9 @@ extension EventsService {
 
     func updateUserData(ssoSystemName: String, userId: String?, email: String?) {
         let preparedEmail = email?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let data = UserData(
-            sso: SSO(
-                logged: Logged(id: userId, md5: preparedEmail?.md5()),
-                name: ssoSystemName
-            ),
-            id: storage.artemisID?.id
-        )
-        userDataDecorator.updateUserData(data: data)
+        let sso = SSO(logged: Logged(id: userId, md5: preparedEmail?.md5()), name: ssoSystemName)
+
+        userDataDecorator.updateSSOData(sso: sso)
     }
 
     func updateUniqueIdentifier(partiallyReloaded: Bool) {
