@@ -1,3 +1,14 @@
+1.4.0 Release notes (2023-11-16)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Features
+
+* Added new tracking identifier called 'Artemis'
+* Public model, 'TrackingIdentifier' contains now both "EAUUID" (previously known as 'identifier') and 'Artemis' identifier
+* Changed internal structure of 'RDLU' parameter
+
 1.3.0 Release notes (2023-05-07)
 =============================================================
 
