@@ -11,13 +11,6 @@ import XCTest
 
 class EventsFactoryTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-
-    }
-
     // MARK: Tests
 
     // MARK: - ClickEvent Tests

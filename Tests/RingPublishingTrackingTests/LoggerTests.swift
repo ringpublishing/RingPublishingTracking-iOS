@@ -10,13 +10,6 @@ import XCTest
 
 class LoggerTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-
-    }
-
     // MARK: Tests
 
     func testLog_setClosureAsLoggerOutputAndLogMessage_closureIsCalledByLogger() {

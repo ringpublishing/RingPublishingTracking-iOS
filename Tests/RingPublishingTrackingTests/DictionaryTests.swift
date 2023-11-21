@@ -10,12 +10,6 @@ import XCTest
 
 class DictionaryTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: Tests
 
     func testJsonSizeInBytes_sampleDictionaryCreated_returnedSizeInBytesIsCorrect() {

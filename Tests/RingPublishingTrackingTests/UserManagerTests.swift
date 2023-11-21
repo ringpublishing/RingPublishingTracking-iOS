@@ -11,13 +11,6 @@ import XCTest
 
 class UserManagerTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-
-    }
-
     // MARK: - UserManager Tests
 
     func testBuildUser_idfaAndDeviceIdAreProvided_builtUserContainsAllData() {

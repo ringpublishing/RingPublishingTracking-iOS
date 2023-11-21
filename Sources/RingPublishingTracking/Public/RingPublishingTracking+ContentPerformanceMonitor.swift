@@ -95,8 +95,8 @@ public extension RingPublishingTracking {
     func reportPageView(currentStructurePath: [String], partiallyReloaded: Bool) {
         Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
 
-        eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
-        eventsService.updateStructureType(structureType: .structurePath(currentStructurePath), contentPageViewSource: nil)
+        eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService?.updateStructureType(structureType: .structurePath(currentStructurePath), contentPageViewSource: nil)
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
         reportEvents([event])
@@ -128,8 +128,8 @@ public extension RingPublishingTracking {
         """
         Logger.log(log)
 
-        eventsService.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
-        eventsService.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
+        eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,

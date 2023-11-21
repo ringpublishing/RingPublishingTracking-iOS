@@ -10,12 +10,6 @@ import XCTest
 
 class DecoratorTests: XCTestCase {
 
-    // MARK: Setup
-
-    override func setUp() {
-        super.setUp()
-    }
-
     // MARK: UniqueIdentifierDecorator Tests
 
     func testParameters_uniqueIdentifierDecoratorCreated_returnedParametersAreCorrect() {
@@ -82,11 +76,11 @@ class DecoratorTests: XCTestCase {
 
     // MARK: - StructureInfoDecorator Tests
 
-    func testParameters_structureInfoDecoratorCreated_returnedParametersAreCorrect() {
+    func testParameters_structureInfoDecoratorCreated_returnedParametersAreCorrect() throws {
         // Given
         let applicationRootPath = "Onet"
         let applicationDefaultStructurePath  = ["Home"]
-        let sampleArticleURL = URL(string: "https://test.com/article?id=123")! // swiftlint:disable:this force_unwrapping
+        let sampleArticleURL = try XCTUnwrap(URL(string: "https://test.com/article?id=123"))
 
         let decorator = StructureInfoDecorator()
 
@@ -171,18 +165,40 @@ class DecoratorTests: XCTestCase {
 
     // MARK: - UserDataDecorator Tests
 
+    func testParameters_userDataDecoratorCreated_returnedParametersAreMatching() {
+        // Given
+        let artemisExternal = ArtemisExternal(
+            model: "202010190919497238108361",
+            models: [
+                "ats_ri": AnyCodable("202010190919497238108361")
+            ]
+        )
+        let artemisID = ArtemisID(artemis: "202010190919497238108361", external: artemisExternal)
+        let decorator = UserDataDecorator()
+
+        // Then
+        decorator.updateArtemisData(artemis: artemisID)
+        let params = decorator.parameters
+
+        // swiftlint:disable line_length
+        let expectedBase64 = "eyJpZCI6eyJhcnRlbWlzIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIiwiZXh0ZXJuYWwiOnsibW9kZWwiOiIyMDIwMTAxOTA5MTk0OTcyMzgxMDgzNjEiLCJtb2RlbHMiOnsiYXRzX3JpIjoiMjAyMDEwMTkwOTE5NDk3MjM4MTA4MzYxIn19fX0="
+        // swiftlint:enable line_length
+        XCTAssertEqual(params["RDLU"], expectedBase64)
+        XCTAssertNil(params["IZ"], "IZ should be empty")
+    }
+
     func testParameters_userDataDecoratorCreated_returnedParametersAreCorrect() {
         // Given
         let userId = "12345"
         let decorator = UserDataDecorator()
-        let data = UserData(sso: .init(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"))
+        let sso = SSO(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
 
         // Then
-        decorator.updateUserData(data: data)
+        decorator.updateSSOData(sso: sso)
         let params = decorator.parameters
 
         let expectedBase64 = """
-        eyJzc28iOnsibmFtZSI6IlRlc3QiLCJsb2dnZWQiOnsiaWQiOiIxMjM0NSIsIm1kNSI6IjUyODExNDNlYzgxNGVhMmM2NmE0YjE5MTRhMDEzNWI3In19fQ==
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI1MjgxMTQzZWM4MTRlYTJjNjZhNGIxOTE0YTAxMzViNyJ9LCJuYW1lIjoiVGVzdCJ9fQ==
         """
 
         XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
@@ -192,16 +208,20 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
         // Given
         let decorator = UserDataDecorator()
-        let data = UserData(sso: .init(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test"))
-        let emptyData = UserData(sso: .init(logged: .init(id: nil, md5: nil), name: "Test"))
+        let sso = SSO(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
+        let emptySSO = SSO(logged: .init(id: nil, md5: nil), name: "Test")
 
         // Then
-        decorator.updateUserData(data: data)
-        decorator.updateUserData(data: emptyData)
+        decorator.updateSSOData(sso: sso)
+        decorator.updateSSOData(sso: emptySSO)
 
         let params = decorator.parameters
 
-        XCTAssertNil(params["RDLU"], "RDLU should be empty")
+        let rdluData = """
+        eyJzc28iOnsibG9nZ2VkIjp7fSwibmFtZSI6IlRlc3QifX0=
+        """
+
+        XCTAssertEqual(params["RDLU"], rdluData)
         XCTAssertNil(params["IZ"], "IZ should be empty")
     }
 

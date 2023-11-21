@@ -8,12 +8,12 @@
 
 import Foundation
 
-/// Tracking identifier and its expiration date
+/// Wrapper around tracking identifiers
 public struct TrackingIdentifier {
 
-    /// Identifier
-    public let identifier: String
+    /// EaUUID identifier
+    public let eaUUID: Identifier
 
-    /// Expiration date
-    public let expirationDate: Date
+    /// Arthemis identifier
+    public let artemisID: Identifier
 }

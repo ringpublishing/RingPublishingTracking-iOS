@@ -11,8 +11,8 @@ import Foundation
 /// Events Service Delegate
 extension RingPublishingTracking: EventsServiceDelegate {
 
-    func eventsService(_ eventsService: EventsService, retrievedTrackingIdentifier identifier: String, expirationDate: Date) {
-        trackingIdentifier = TrackingIdentifier(identifier: identifier, expirationDate: expirationDate)
+    func eventsService(_ eventsService: EventsService, retrievedTrackingIdentifier identifier: TrackingIdentifier) {
+        delegate?.ringPublishingTracking(self, didAssignTrackingIdentifier: identifier)
     }
 
     func eventsService(_ eventsService: EventsService, didFailWhileRetrievingTrackingIdentifier error: ServiceError) {

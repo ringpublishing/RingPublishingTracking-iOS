@@ -13,6 +13,9 @@ final class UserDefaultsStorage: TrackingStorage {
     @StoredValueInUserDefaults(key: "eaUUID", storage: UserDefaults.standard)
     var eaUUID: EaUUID?
 
+    @StoredValueInUserDefaults(key: "artemisID", storage: UserDefaults.standard)
+    var artemisID: Artemis?
+
     @StoredValueInUserDefaults(key: "trackingIds", storage: UserDefaults.standard)
     var trackingIds: [String: IdsWithLifetime]?
 

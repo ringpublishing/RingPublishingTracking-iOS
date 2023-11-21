@@ -22,5 +22,6 @@ struct Logged: Encodable {
 
 struct UserData: Encodable {
 
-    let sso: SSO
+    var sso: SSO?
+    var id: ArtemisID?
 }

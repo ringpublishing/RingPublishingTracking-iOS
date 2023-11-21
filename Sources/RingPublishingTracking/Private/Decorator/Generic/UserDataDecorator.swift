@@ -10,21 +10,28 @@ import Foundation
 
 final class UserDataDecorator: Decorator {
 
-    private var data: UserData?
+    private lazy var encoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        return encoder
+    }()
+
+    private var data: UserData? = UserData(sso: nil, id: nil)
+
+    var sso: SSO? {
+        return data?.sso
+    }
 
     var parameters: [String: AnyHashable] {
         var userDataParams: [String: AnyHashable] = [:]
 
-        guard let data = data else { return userDataParams }
-
         // RDLU
-        if data.sso.logged.id != nil || data.sso.logged.md5 != nil,
-           let jsonData = try? JSONEncoder().encode(data), let jsonString = String(data: jsonData, encoding: .utf8) {
-            userDataParams["RDLU"] = Data(jsonString.utf8).base64EncodedString()
+        if let rdlu = prepareRDLU(data: data) {
+            userDataParams["RDLU"] = rdlu.base64EncodedString()
         }
 
         // IZ
-        if let userId = data.sso.logged.id {
+        if let userId = data?.sso?.logged.id {
             userDataParams["IZ"] = userId
         }
 
@@ -34,7 +41,20 @@ final class UserDataDecorator: Decorator {
 
 extension UserDataDecorator {
 
-    func updateUserData(data: UserData?) {
-        self.data = data
+    func updateSSOData(sso: SSO?) {
+        data?.sso = sso
+    }
+
+    func updateArtemisData(artemis: ArtemisID?) {
+        data?.id = artemis
+    }
+}
+
+private extension UserDataDecorator {
+
+    func prepareRDLU(data: UserData?) -> Data? {
+        guard let data = data, data.sso != nil || data.id != nil else { return nil }
+
+        return try? encoder.encode(data)
     }
 }

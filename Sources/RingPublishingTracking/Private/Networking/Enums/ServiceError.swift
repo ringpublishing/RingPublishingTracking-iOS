@@ -10,10 +10,10 @@ import Foundation
 
 /// Error used for issues with making network requests
 enum ServiceError: Error {
-
     case genericError
     case requestError(error: Error)
     case responseError(statusCode: Int)
     case decodingError(error: Error)
     case missingDecodedTrackingIdentifier
+    case missingEaUUID
 }

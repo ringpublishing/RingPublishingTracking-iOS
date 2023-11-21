@@ -37,6 +37,8 @@ extension TrackingIdentifierError {
             let statusCodeError = NSError(domain: "TrackingIdentifierError", code: 2, userInfo: info)
 
             self = .responseError(error: statusCodeError)
+        case .missingEaUUID:
+            self = .genericError
         }
     }
 }
