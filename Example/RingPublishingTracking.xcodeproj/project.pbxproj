@@ -155,6 +155,10 @@
 		7D7D5B9426FCA3DF00B79FDD /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8726FCA3DF00B79FDD /* ActionsViewController.swift */; };
 		7D7D5B9526FCA3DF00B79FDD /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8926FCA3DF00B79FDD /* PagerViewController.swift */; };
 		7D7D5B9626FCA3DF00B79FDD /* TraceableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8A26FCA3DF00B79FDD /* TraceableScreen.swift */; };
+		7DAB07F62B834E30009435B3 /* AureusEventContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAB07F42B834E30009435B3 /* AureusEventContext.swift */; };
+		7DAB07F82B8352AD009435B3 /* AureusEventContext+ECX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAB07F72B8352AD009435B3 /* AureusEventContext+ECX.swift */; };
+		7DAB07FA2B835883009435B3 /* AureusTeaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAB07F92B835883009435B3 /* AureusTeaser.swift */; };
+		7DAB07FC2B836762009435B3 /* AureusTeaser+Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAB07FB2B836762009435B3 /* AureusTeaser+Encodable.swift */; };
 		7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE4453A26E8913900A93431 /* LoggerTests.swift */; };
 		854F1289D6E3FA4BC790018B /* Pods_RingPublishingTracking_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */; };
 /* End PBXBuildFile section */
@@ -327,6 +331,10 @@
 		7D9F12B82791A15D00F3635A /* RingPublishingTracking.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = RingPublishingTracking.podspec; path = ../RingPublishingTracking.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7D9F12B92791A15D00F3635A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7D9F12BA2791A15D00F3635A /* Changelogs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Changelogs; path = ../Changelogs; sourceTree = "<group>"; };
+		7DAB07F42B834E30009435B3 /* AureusEventContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AureusEventContext.swift; sourceTree = "<group>"; };
+		7DAB07F72B8352AD009435B3 /* AureusEventContext+ECX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AureusEventContext+ECX.swift"; sourceTree = "<group>"; };
+		7DAB07F92B835883009435B3 /* AureusTeaser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AureusTeaser.swift; sourceTree = "<group>"; };
+		7DAB07FB2B836762009435B3 /* AureusTeaser+Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AureusTeaser+Encodable.swift"; sourceTree = "<group>"; };
 		7DE4453A26E8913900A93431 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		8E2A37C5A1593C87B0EB5A44 /* Pods-RingPublishingTrackingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RingPublishingTrackingTests.release.xcconfig"; path = "Target Support Files/Pods-RingPublishingTrackingTests/Pods-RingPublishingTrackingTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTracking_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,6 +473,8 @@
 				60108E002B0515C6005656C1 /* Identifier.swift */,
 				60108E022B0515C6005656C1 /* VideoVisibility.swift */,
 				60108E032B0515C6005656C1 /* TrackingIdentifier.swift */,
+				7DAB07F42B834E30009435B3 /* AureusEventContext.swift */,
+				7DAB07F92B835883009435B3 /* AureusTeaser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -656,6 +666,8 @@
 				60108E512B0515C6005656C1 /* VideoStartMode+ParameterName.swift */,
 				60108E522B0515C6005656C1 /* VideoAdsConfiguration+ParameterName.swift */,
 				60108E532B0515C6005656C1 /* VideoStreamFormat+ParameterName.swift */,
+				7DAB07F72B8352AD009435B3 /* AureusEventContext+ECX.swift */,
+				7DAB07FB2B836762009435B3 /* AureusTeaser+Encodable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1019,6 +1031,7 @@
 				60108E8A2B0515C6005656C1 /* Optional+Logable.swift in Sources */,
 				60108E6C2B0515C6005656C1 /* RingPublishingTrackingKeepAliveDataSource.swift in Sources */,
 				60108E7C2B0515C6005656C1 /* VideoMetadata.swift in Sources */,
+				7DAB07F62B834E30009435B3 /* AureusEventContext.swift in Sources */,
 				60108EAD2B0515C6005656C1 /* UserAgent.swift in Sources */,
 				60108E9B2B0515C6005656C1 /* IdentifyResponse.swift in Sources */,
 				60108ED12B0515C6005656C1 /* EventsService+EventsQueueManagerDelegate.swift in Sources */,
@@ -1039,6 +1052,7 @@
 				60108EBA2B0515C6005656C1 /* ContentMetadata+DX.swift in Sources */,
 				204EAF3027293B08009E2F0D /* RingPublishingTrackingTests.swift in Sources */,
 				60108EC32B0515C6005656C1 /* EventType.swift in Sources */,
+				7DAB07FA2B835883009435B3 /* AureusTeaser.swift in Sources */,
 				204EAEFB2710F57B009E2F0D /* EventsFactoryTests.swift in Sources */,
 				60108E832B0515C6005656C1 /* RingPublishingTracking+ContentPerformanceMonitor.swift in Sources */,
 				204EAEE9270F1093009E2F0D /* SizeProviderStub.swift in Sources */,
@@ -1072,6 +1086,7 @@
 				7D1A2B6426E796C000648882 /* StoredValueInUserDefaultsTests.swift in Sources */,
 				60108E922B0515C6005656C1 /* UniqueIdentifierDecorator.swift in Sources */,
 				60108EB42B0515C6005656C1 /* AtomicArray.swift in Sources */,
+				7DAB07F82B8352AD009435B3 /* AureusEventContext+ECX.swift in Sources */,
 				60108E7E2B0515C6005656C1 /* ArtemisID.swift in Sources */,
 				204EAEFD27143837009E2F0D /* UserManagerTests.swift in Sources */,
 				60108ECD2B0515C6005656C1 /* EventsServiceDelegate.swift in Sources */,
@@ -1132,6 +1147,7 @@
 				60108E8D2B0515C6005656C1 /* ConsentProvider.swift in Sources */,
 				60108E702B0515C6005656C1 /* VideoStartMode.swift in Sources */,
 				60108EBF2B0515C6005656C1 /* VideoAdsConfiguration+ParameterName.swift in Sources */,
+				7DAB07FC2B836762009435B3 /* AureusTeaser+Encodable.swift in Sources */,
 				204EAF3627294BF7009E2F0D /* EventTests.swift in Sources */,
 				60108ECA2B0515C6005656C1 /* KeepAliveIntervalsProvider.swift in Sources */,
 				60108E7D2B0515C6005656C1 /* Identifier.swift in Sources */,
