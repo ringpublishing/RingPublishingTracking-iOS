@@ -21,6 +21,7 @@ extension AureusEventContext {
 
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.outputFormatting = .sortedKeys
 
         guard let jsonData = try? encoder.encode(wrapper),
               let jsonString = String(data: jsonData, encoding: .utf8) else {
