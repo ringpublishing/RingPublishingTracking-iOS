@@ -23,7 +23,7 @@ struct SampleArticle {
 private extension SampleArticle {
 
     static func generatePublicationId() -> String {
-        return UUID().uuidString
+        return UUID().uuidString.lowercased()
     }
 
     static func generateArticleContent() -> [String] {
