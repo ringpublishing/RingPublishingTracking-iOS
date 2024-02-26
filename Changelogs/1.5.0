@@ -1,0 +1,13 @@
+1.5.0 Release notes (2024-02-19)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added new model - 'AureusTeaser'
+* Added new model - 'AureusEventContext'
+* Changed 'reportContentClick' method for Aureus which now accepts 'AureusTeaser' and 'AureusEventContext' as parameters
+* Changed 'reportAureusOffersImpressions' method:
+    - method was renamed to 'reportAureusImpression'
+    - method now now accepts 'AureusTeaser' array and 'AureusEventContext' as parameters

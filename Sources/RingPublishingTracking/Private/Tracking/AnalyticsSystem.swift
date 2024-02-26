@@ -10,6 +10,7 @@ import Foundation
 
 enum AnalyticsSystem: String {
 
+    case generic = "_GENERIC_"
     case kropkaEvents = "kropka-events"
     case kropkaStats = "kropka-stats"
     case kropkaMonitoring = "kropka-monitoring"
