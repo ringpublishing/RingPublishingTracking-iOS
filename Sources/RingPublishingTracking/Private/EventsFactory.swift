@@ -136,23 +136,6 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
-    // MARK: Aureus Impression event
-
-    func createAureusImpressionEvent(for teasers: [AureusTeaser], eventContext: AureusEventContext) -> Event {
-        var parameters: [String: AnyHashable] = [:]
-
-        parameters["displayed_items"] = teasers.asJsonArray
-        parameters["client_uuid"] = eventContext.clientUuid
-        parameters["variant_uuid"] = eventContext.variantUuid
-        parameters["segment_id"] = eventContext.segmentId
-        parameters["batch_id"] = eventContext.batchId
-        parameters["recommendation_id"] = eventContext.recommendationId
-
-        return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
-                     eventName: EventType.aureusImpressionEvent.rawValue,
-                     eventParameters: parameters)
-    }
-
     // MARK: Error
 
     func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {

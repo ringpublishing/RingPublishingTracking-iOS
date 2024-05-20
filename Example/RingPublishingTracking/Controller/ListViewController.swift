@@ -86,18 +86,9 @@ extension ListViewController: UITableViewDelegate {
         // Report content click event
 
         let selectedArticle = sampleArticleData[indexPath.row]
-        let aureusOfferId = "a4gb35"
-        let teaser = AureusTeaser(teaserId: "teaser_id_1", contentId: selectedArticle.contentId)
-        let aureusContext = AureusEventContext(clientUuid: "581ad584-2333-4e69-8963-c105184cfd04",
-                                               variantUuid: "0e8c860f-006a-49ef-923c-38b8cfc7ca57",
-                                               batchId: "79935e2327",
-                                               recommendationId: "e4b25216db",
-                                               segmentId: "group1.segment1")
-
         RingPublishingTracking.shared.reportContentClick(selectedElementName: selectedArticle.title,
                                                          publicationUrl: selectedArticle.publicationUrl,
-                                                         aureusOfferId: aureusOfferId,
-                                                         teaser: teaser,
-                                                         eventContext: aureusContext)
+                                                         contentId: selectedArticle.contentId,
+                                                         aureusOfferId: "a4gb35")
     }
 }
