@@ -16,10 +16,10 @@ final class UserDataDecorator: Decorator {
         return encoder
     }()
 
-    private var data: UserData? = UserData(sso: nil, id: nil)
+    private var data: UserData = UserData()
 
     var sso: SSO? {
-        return data?.sso
+        return data.sso
     }
 
     var parameters: [String: AnyHashable] {
@@ -31,7 +31,7 @@ final class UserDataDecorator: Decorator {
         }
 
         // IZ
-        if let userId = data?.sso?.logged.id {
+        if let userId = data.sso?.logged.id {
             userDataParams["IZ"] = userId
         }
 
@@ -41,19 +41,29 @@ final class UserDataDecorator: Decorator {
 
 extension UserDataDecorator {
 
-    func updateSSOData(sso: SSO?) {
-        data?.sso = sso
+    func updateUserData(userId: String?, email: String?) {
+        data.userId = userId
+        data.email = email
+    }
+
+    func updateSSO(ssoSystemName: String?) {
+        data.ssoSystemName = ssoSystemName
     }
 
     func updateArtemisData(artemis: ArtemisID?) {
-        data?.id = artemis
+        data.id = artemis
+    }
+
+    func updateActiveSubscriber(_ isActiveSubscriber: Bool?) {
+        data.isActiveSubscriber = isActiveSubscriber
     }
 }
 
 private extension UserDataDecorator {
 
     func prepareRDLU(data: UserData?) -> Data? {
-        guard let data = data, data.sso != nil || data.id != nil else { return nil }
+        guard let data = data,
+              data.userId != nil && data.sso != nil || data.id != nil else { return nil }
 
         return try? encoder.encode(data)
     }

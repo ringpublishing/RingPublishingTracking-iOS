@@ -190,15 +190,16 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreated_returnedParametersAreCorrect() {
         // Given
         let userId = "12345"
+        let email = "test@email.com"
         let decorator = UserDataDecorator()
-        let sso = SSO(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
 
         // Then
-        decorator.updateSSOData(sso: sso)
+        decorator.updateUserData(userId: userId, email: email)
+        decorator.updateSSO(ssoSystemName: "Test")
         let params = decorator.parameters
 
         let expectedBase64 = """
-        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI1MjgxMTQzZWM4MTRlYTJjNjZhNGIxOTE0YTAxMzViNyJ9LCJuYW1lIjoiVGVzdCJ9fQ==
+        eyJpZCI6bnVsbCwic3NvIjp7ImxvZ2dlZCI6eyJpZCI6IjEyMzQ1IiwibWQ1IjoiOTM5NDJlOTZmNWFjZDgzZTJlMDQ3YWQ4ZmUwMzExNGQifSwibmFtZSI6IlRlc3QifX0=
         """
 
         XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
@@ -208,12 +209,10 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
         // Given
         let decorator = UserDataDecorator()
-        let sso = SSO(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
-        let emptySSO = SSO(logged: .init(id: nil, md5: nil), name: "Test")
 
         // Then
-        decorator.updateSSOData(sso: sso)
-        decorator.updateSSOData(sso: emptySSO)
+        decorator.updateUserData(userId: nil, email: nil)
+        decorator.updateSSO(ssoSystemName: "Test")
 
         let params = decorator.parameters
 
@@ -221,7 +220,7 @@ class DecoratorTests: XCTestCase {
         eyJzc28iOnsibG9nZ2VkIjp7fSwibmFtZSI6IlRlc3QifX0=
         """
 
-        XCTAssertEqual(params["RDLU"], rdluData)
+        XCTAssertNil(params["RDLU"], rdluData)
         XCTAssertNil(params["IZ"], "IZ should be empty")
     }
 

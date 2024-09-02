@@ -34,11 +34,16 @@ extension EventsService {
         adAreaDecorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: currentAdvertisementArea)
     }
 
-    func updateUserData(ssoSystemName: String, userId: String?, email: String?) {
-        let preparedEmail = email?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let sso = SSO(logged: Logged(id: userId, md5: preparedEmail?.md5()), name: ssoSystemName)
+    func updateUserData(userId: String?, email: String?) {
+        userDataDecorator.updateUserData(userId: userId, email: email)
+    }
 
-        userDataDecorator.updateSSOData(sso: sso)
+    func updateActiveSubscriber(_ isActiveSubscriber: Bool?) {
+        userDataDecorator.updateActiveSubscriber(isActiveSubscriber)
+    }
+
+    func updateSSO(ssoSystemName: String?) {
+        userDataDecorator.updateSSO(ssoSystemName: ssoSystemName)
     }
 
     func updateUniqueIdentifier(partiallyReloaded: Bool) {
