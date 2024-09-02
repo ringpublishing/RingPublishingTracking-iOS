@@ -199,7 +199,7 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         let expectedBase64 = """
-        eyJpZCI6bnVsbCwic3NvIjp7ImxvZ2dlZCI6eyJpZCI6IjEyMzQ1IiwibWQ1IjoiOTM5NDJlOTZmNWFjZDgzZTJlMDQ3YWQ4ZmUwMzExNGQifSwibmFtZSI6IlRlc3QifX0=
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9fQ==
         """
 
         XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
@@ -220,8 +220,47 @@ class DecoratorTests: XCTestCase {
         eyJzc28iOnsibG9nZ2VkIjp7fSwibmFtZSI6IlRlc3QifX0=
         """
 
-        XCTAssertNil(params["RDLU"], rdluData)
+        XCTAssertEqual(params["RDLU"], rdluData)
         XCTAssertNil(params["IZ"], "IZ should be empty")
+    }
+
+    func testParameters_userDataDecoratorCreatedWithActiveSubscription_subscriptionIsPresent() {
+
+        let decorator = UserDataDecorator()
+
+        decorator.updateUserData(userId: "12345", email: "test@email.com")
+        decorator.updateSSO(ssoSystemName: "Test")
+        decorator.updateActiveSubscriber(true)
+
+        let params = decorator.parameters
+
+        // swiftlint:disable line_length
+        let rdluData = """
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9LCJ0eXBlIjoic3Vic2NyaWJlciJ9
+        """
+        // swiftlint:enable line_length
+
+        XCTAssertEqual(params["RDLU"], rdluData)
+    }
+
+    func testParameters_userDataDecoratorCreatedWithInactiveSubscription_subscriptionIsNotPresent() {
+
+        let decorator = UserDataDecorator()
+
+        decorator.updateUserData(userId: "12345", email: "test@email.com")
+        decorator.updateSSO(ssoSystemName: "Test")
+        decorator.updateActiveSubscriber(true)
+        decorator.updateActiveSubscriber(false)
+
+        let params = decorator.parameters
+
+        // swiftlint:disable line_length
+        let rdluData = """
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9fQ==
+        """
+        // swiftlint:enable line_length
+
+        XCTAssertEqual(params["RDLU"], rdluData)
     }
 
     // MARK: - TenantIdentifierDecorator Tests

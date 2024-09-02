@@ -45,8 +45,13 @@ struct UserData: Encodable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(sso, forKey: .sso)
-        try container.encode(id, forKey: .id)
+        if sso != nil {
+            try container.encode(sso, forKey: .sso)
+        }
+
+        if id != nil {
+            try container.encode(id, forKey: .id)
+        }
 
         if isActiveSubscriber == true {
             try container.encode("subscriber", forKey: .isActiveSubscriber)
