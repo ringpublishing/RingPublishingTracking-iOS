@@ -29,12 +29,9 @@ struct UserData: Encodable {
     }
 
     var sso: SSO? {
-        guard let ssoSystemName = ssoSystemName,
-              let userId = userId,
-              let emailMD5 = email?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased().md5() else {
+        guard let ssoSystemName = ssoSystemName else { return nil }
 
-            return nil
-        }
+        let emailMD5 = email?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased().md5()
 
         return SSO(logged: Logged(id: userId, md5: emailMD5), name: ssoSystemName)
     }

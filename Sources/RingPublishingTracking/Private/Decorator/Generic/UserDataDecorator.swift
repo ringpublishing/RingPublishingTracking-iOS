@@ -62,8 +62,7 @@ extension UserDataDecorator {
 private extension UserDataDecorator {
 
     func prepareRDLU(data: UserData?) -> Data? {
-        guard let data = data,
-              data.userId != nil && data.sso != nil || data.id != nil else { return nil }
+        guard let data = data, data.sso != nil || data.id != nil else { return nil }
 
         return try? encoder.encode(data)
     }
