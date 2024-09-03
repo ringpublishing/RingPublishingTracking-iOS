@@ -38,7 +38,7 @@ extension EventsService {
         userDataDecorator.updateUserData(userId: userId, email: email)
     }
 
-    func updateActiveSubscriber(_ isActiveSubscriber: Bool?) {
+    func updateActiveSubscriber(_ isActiveSubscriber: Bool) {
         userDataDecorator.updateActiveSubscriber(isActiveSubscriber)
     }
 

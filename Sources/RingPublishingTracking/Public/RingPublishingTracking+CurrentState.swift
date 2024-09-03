@@ -28,7 +28,7 @@ public extension RingPublishingTracking {
     /// Update user active subscription status
     ///
     /// - Parameter isActiveSubscriber: Bool
-    func updateActiveSubscriber(_ isActiveSubscriber: Bool?) {
+    func updateActiveSubscriber(_ isActiveSubscriber: Bool) {
         eventsService?.updateActiveSubscriber(isActiveSubscriber)
     }
 
