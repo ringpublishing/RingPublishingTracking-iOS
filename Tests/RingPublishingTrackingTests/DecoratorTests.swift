@@ -254,11 +254,9 @@ class DecoratorTests: XCTestCase {
 
         let params = decorator.parameters
 
-        // swiftlint:disable line_length
         let rdluData = """
         eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9fQ==
         """
-        // swiftlint:enable line_length
 
         XCTAssertEqual(params["RDLU"], rdluData)
     }
