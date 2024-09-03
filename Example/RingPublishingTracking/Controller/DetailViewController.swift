@@ -153,7 +153,7 @@ private extension DetailViewController {
         let contentMetadata = ContentMetadata(publicationId: article.publicationId,
                                               publicationUrl: article.publicationUrl,
                                               sourceSystemName: article.sourceSystemName,
-                                              contentWasPaidFor: article.contentWasPaidFor,
+                                              paidContent: article.paidContent,
                                               contentId: article.contentId)
 
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,

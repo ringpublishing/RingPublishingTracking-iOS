@@ -26,7 +26,7 @@ class KeepAliveTests: XCTestCase {
                                           publicationUrl: url,
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
-                                          contentWasPaidFor: true,
+                                          paidContent: true,
                                           contentId: "6789")
 
         // When
@@ -41,7 +41,6 @@ class KeepAliveTests: XCTestCase {
         XCTAssertEqual(managerDelegateMock.measurementsCount, 13, "13 measures should be taken")
         XCTAssertEqual(activityTimerMeasurements.count, 11, "11 activity timer measures should be taken")
         XCTAssertEqual(sendTimerMeasurements.count, 2, "2 send timer measures should be taken")
-
     }
 
     func testCollectingMeasurements_sampleContentDataProvidedWith10SecBackgroundTime_properMeasurementsTaken() {
@@ -56,7 +55,7 @@ class KeepAliveTests: XCTestCase {
                                           publicationUrl: url,
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
-                                          contentWasPaidFor: true,
+                                          paidContent: true,
                                           contentId: "6789")
 
         // When
@@ -93,7 +92,7 @@ class KeepAliveTests: XCTestCase {
                                           publicationUrl: url,
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
-                                          contentWasPaidFor: true,
+                                          paidContent: true,
                                           contentId: "6789")
 
         // When
@@ -116,5 +115,51 @@ class KeepAliveTests: XCTestCase {
         XCTAssertEqual(sendTimerMeasurements.count, 1, "1 send timer measures should be taken")
         XCTAssertEqual(inativeMeasurements.count, 0, "0 document inactive measures should be taken")
         XCTAssertEqual(activeMeasurements.count, 0, "0 document active measures should be taken")
+    }
+
+    func testCreateKeepAliveEvent_contentMetaDataWithUnpaidContentProvided_returnedEventHasRDLCN() {
+        // Given
+        let factory = EventsFactory()
+
+        let contentMetadata = ContentMetadata(publicationId: "12345",
+                                              publicationUrl: URL(fileURLWithPath: "path"),
+                                              sourceSystemName: "system_name",
+                                              paidContent: false,
+                                              contentId: "6789")
+        let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [],
+                                                  timings: [],
+                                                  hasFocus: [],
+                                                  keepAliveMeasureType: [])
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjY3ODkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
+
+        // When
+        let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
+        let params = event.eventParameters
+
+        // Then
+        XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
+    }
+
+    func testCreateKeepAliveEvent_contentMetaDataWithPaidContentProvided_returnedEventHasRDLCN() {
+        // Given
+        let factory = EventsFactory()
+
+        let contentMetadata = ContentMetadata(publicationId: "12345",
+                                              publicationUrl: URL(fileURLWithPath: "path"),
+                                              sourceSystemName: "system_name",
+                                              paidContent: false,
+                                              contentId: "6789")
+        let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [],
+                                                  timings: [],
+                                                  hasFocus: [],
+                                                  keepAliveMeasureType: [])
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjY3ODkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
+
+        // When
+        let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
+        let params = event.eventParameters
+
+        // Then
+        XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
     }
 }

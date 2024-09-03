@@ -157,6 +157,8 @@
 		7D7D5B9626FCA3DF00B79FDD /* TraceableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8A26FCA3DF00B79FDD /* TraceableScreen.swift */; };
 		7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE4453A26E8913900A93431 /* LoggerTests.swift */; };
 		854F1289D6E3FA4BC790018B /* Pods_RingPublishingTracking_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */; };
+		A0A52C412C873DF800748DCB /* ContentMarkAsPaidDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C402C873DF700748DCB /* ContentMarkAsPaidDecorator.swift */; };
+		A0A52C432C873E0600748DCB /* ContentMarkAsPaid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,6 +331,8 @@
 		7D9F12BA2791A15D00F3635A /* Changelogs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Changelogs; path = ../Changelogs; sourceTree = "<group>"; };
 		7DE4453A26E8913900A93431 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		8E2A37C5A1593C87B0EB5A44 /* Pods-RingPublishingTrackingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RingPublishingTrackingTests.release.xcconfig"; path = "Target Support Files/Pods-RingPublishingTrackingTests/Pods-RingPublishingTrackingTests.release.xcconfig"; sourceTree = "<group>"; };
+		A0A52C402C873DF700748DCB /* ContentMarkAsPaidDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMarkAsPaidDecorator.swift; sourceTree = "<group>"; };
+		A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMarkAsPaid.swift; sourceTree = "<group>"; };
 		BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTracking_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED067BC36C6C6FA35D9F88B6 /* Pods_RingPublishingTrackingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTrackingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -521,6 +525,7 @@
 				60108E1E2B0515C6005656C1 /* AdAreaDecorator.swift */,
 				60108E1F2B0515C6005656C1 /* TenantIdentifierDecorator.swift */,
 				60108E202B0515C6005656C1 /* SizeDecorator.swift */,
+				A0A52C402C873DF700748DCB /* ContentMarkAsPaidDecorator.swift */,
 			);
 			path = Generic;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 			children = (
 				60108E1C2B0515C6005656C1 /* ClientType.swift */,
 				60108E1D2B0515C6005656C1 /* UserData.swift */,
+				A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1107,6 +1113,7 @@
 				60108E732B0515C6005656C1 /* Event.swift in Sources */,
 				60108E9A2B0515C6005656C1 /* ArthemisResponse.swift in Sources */,
 				60108E842B0515C6005656C1 /* Constants.swift in Sources */,
+				A0A52C432C873E0600748DCB /* ContentMarkAsPaid.swift in Sources */,
 				60108E6D2B0515C6005656C1 /* RingPublishingTrackingDelegate.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
@@ -1128,6 +1135,7 @@
 				204EAF20271EE5A2009E2F0D /* KeepAliveIntervalsProviderTests.swift in Sources */,
 				208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
+				A0A52C412C873DF800748DCB /* ContentMarkAsPaidDecorator.swift in Sources */,
 				60108E942B0515C6005656C1 /* UserData.swift in Sources */,
 				60108E8D2B0515C6005656C1 /* ConsentProvider.swift in Sources */,
 				60108E702B0515C6005656C1 /* VideoStartMode.swift in Sources */,

@@ -102,8 +102,9 @@ class EventsFactoryTests: XCTestCase {
         let contentMetadata = ContentMetadata(publicationId: "12345",
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
-                                              contentWasPaidFor: true,
+                                              paidContent: true,
                                               contentId: "6789")
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjp0cnVlfSwic291cmNlIjp7ImlkIjoiNjc4OSIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
 
         // When
         let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -113,6 +114,7 @@ class EventsFactoryTests: XCTestCase {
         // Then
         XCTAssertEqual(params["PU"], contentMetadata.contentId, "PU parameter should be equal to content identifier")
         XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,t", "DX parameter should be in correct format")
+        XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
     }
 
     func testCreatePageViewEvent_contentMetaDataWithUnpaidContentProvided_returnedEventIsDecorated() {
@@ -121,8 +123,9 @@ class EventsFactoryTests: XCTestCase {
         let contentMetadata = ContentMetadata(publicationId: "12345",
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
-                                              contentWasPaidFor: false,
+                                              paidContent: false,
                                               contentId: "6789")
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjY3ODkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
 
         // When
         let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -132,6 +135,7 @@ class EventsFactoryTests: XCTestCase {
         // Then
         XCTAssertEqual(params["PU"], contentMetadata.contentId, "PU parameter should be equal to content identifier")
         XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,f", "DX parameter should be in correct format")
+        XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
     }
 
     // MARK: - ErrorEvent Tests

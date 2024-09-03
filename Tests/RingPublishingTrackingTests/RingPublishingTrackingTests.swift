@@ -135,7 +135,7 @@ class RingPublishingTrackingTests: XCTestCase {
         let contentMetadata1 = ContentMetadata(publicationId: "publicationId12",
                                                publicationUrl: publicationUrl2,
                                                sourceSystemName: "sourceSystemName1",
-                                               contentWasPaidFor: true,
+                                               paidContent: true,
                                                contentId: "6789")
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata1,
                                                             currentStructurePath: ["path4"],

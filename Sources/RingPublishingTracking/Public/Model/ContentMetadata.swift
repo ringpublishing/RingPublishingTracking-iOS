@@ -24,8 +24,8 @@ public struct ContentMetadata {
     /// Default value is set to 1.
     public let contentPartIndex: Int
 
-    /// Did user paid for access to this content?
-    public let contentWasPaidFor: Bool
+    /// Is content mark as paid
+    public let paidContent: Bool
 
     /// Content identifier in source system (CMS)
     public let contentId: String
@@ -45,13 +45,13 @@ public struct ContentMetadata {
                 publicationUrl: URL,
                 sourceSystemName: String,
                 contentPartIndex: Int = 1,
-                contentWasPaidFor: Bool,
+                paidContent: Bool,
                 contentId: String) {
         self.publicationId = publicationId
         self.publicationUrl = publicationUrl
         self.sourceSystemName = sourceSystemName
         self.contentPartIndex = contentPartIndex
-        self.contentWasPaidFor = contentWasPaidFor
+        self.paidContent = paidContent
         self.contentId = contentId
     }
 }

@@ -14,7 +14,7 @@ extension ContentMetadata {
         let sourceSystem = sourceSystemName.trimmingCharacters(in: .whitespacesAndNewlines)
         let pubId = publicationId.trimmingCharacters(in: .whitespacesAndNewlines)
         let part = contentPartIndex
-        let paid = contentWasPaidFor ? "t" : "f"
+        let paid = paidContent ? "t" : "f"
 
         return "PV_4,\(sourceSystem),\(pubId),\(part),\(paid)".replacingOccurrences(of: " ", with: "_")
     }

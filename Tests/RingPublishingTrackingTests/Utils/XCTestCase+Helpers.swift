@@ -11,6 +11,6 @@ import XCTest
 extension XCTestCase {
 
     func wait(for seconds: TimeInterval) {
-        _ = XCTWaiter.wait(for: [expectation(description: "Wait for \(seconds) seconds")], timeout: seconds)
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: seconds))
     }
 }
