@@ -11,8 +11,6 @@ import Foundation
 /// Functionality related to current aplication state
 public extension RingPublishingTracking {
 
-    // MARK: Dynamic tracking properties
-
     /// Update application user identifier for tracking purpose.
     /// If user is not logged in, pass nil as 'userId'.
     ///
@@ -34,10 +32,14 @@ public extension RingPublishingTracking {
         eventsService?.updateActiveSubscriber(isActiveSubscriber)
     }
 
+    /// Update SSO system name
+    ///
+    /// - Parameter ssoSystemName: String
     func updateSSO(ssoSystemName: String?) {
         eventsService?.updateSSO(ssoSystemName: ssoSystemName)
     }
 
+    /// User logged out, clear user data
     func logout() {
         eventsService?.updateUserData(userId: nil, email: nil)
     }
