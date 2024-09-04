@@ -25,6 +25,8 @@ extension ContentMetadata {
         return "PV_4,\(sourceSystem),\(pubId),\(part),\(paid)".replacingOccurrences(of: " ", with: "_")
     }
 
+    // swiftlint:disable non_optional_string_data_conversion
+
     var rdlcnParameter: String? {
         let contentMarkAsPaid = ContentMarkAsPaid(contentMetadata: self)
 
@@ -35,4 +37,7 @@ extension ContentMetadata {
 
         return nil
     }
+
+    // swiftlint:enable non_optional_string_data_conversion
+
 }
