@@ -113,7 +113,6 @@
 		60108EB72B0515C6005656C1 /* DispatchQueue+BackgroundTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E4A2B0515C6005656C1 /* DispatchQueue+BackgroundTimer.swift */; };
 		60108EB82B0515C6005656C1 /* VideoContentCategory+ParameterName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E4B2B0515C6005656C1 /* VideoContentCategory+ParameterName.swift */; };
 		60108EB92B0515C6005656C1 /* Dictionary+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E4C2B0515C6005656C1 /* Dictionary+JSON.swift */; };
-		60108EBA2B0515C6005656C1 /* ContentMetadata+DX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E4D2B0515C6005656C1 /* ContentMetadata+DX.swift */; };
 		60108EBB2B0515C6005656C1 /* VideoVisibility+ParameterName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E4E2B0515C6005656C1 /* VideoVisibility+ParameterName.swift */; };
 		60108EBC2B0515C6005656C1 /* VideoEvent+VE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E4F2B0515C6005656C1 /* VideoEvent+VE.swift */; };
 		60108EBD2B0515C6005656C1 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108E502B0515C6005656C1 /* String+MD5.swift */; };
@@ -157,8 +156,8 @@
 		7D7D5B9626FCA3DF00B79FDD /* TraceableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8A26FCA3DF00B79FDD /* TraceableScreen.swift */; };
 		7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE4453A26E8913900A93431 /* LoggerTests.swift */; };
 		854F1289D6E3FA4BC790018B /* Pods_RingPublishingTracking_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */; };
-		A0A52C412C873DF800748DCB /* ContentMarkAsPaidDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C402C873DF700748DCB /* ContentMarkAsPaidDecorator.swift */; };
 		A0A52C432C873E0600748DCB /* ContentMarkAsPaid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */; };
+		A0A52C452C88867900748DCB /* ContentMetadata+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,7 +278,6 @@
 		60108E4A2B0515C6005656C1 /* DispatchQueue+BackgroundTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+BackgroundTimer.swift"; sourceTree = "<group>"; };
 		60108E4B2B0515C6005656C1 /* VideoContentCategory+ParameterName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VideoContentCategory+ParameterName.swift"; sourceTree = "<group>"; };
 		60108E4C2B0515C6005656C1 /* Dictionary+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
-		60108E4D2B0515C6005656C1 /* ContentMetadata+DX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+DX.swift"; sourceTree = "<group>"; };
 		60108E4E2B0515C6005656C1 /* VideoVisibility+ParameterName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VideoVisibility+ParameterName.swift"; sourceTree = "<group>"; };
 		60108E4F2B0515C6005656C1 /* VideoEvent+VE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VideoEvent+VE.swift"; sourceTree = "<group>"; };
 		60108E502B0515C6005656C1 /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
@@ -331,8 +329,8 @@
 		7D9F12BA2791A15D00F3635A /* Changelogs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Changelogs; path = ../Changelogs; sourceTree = "<group>"; };
 		7DE4453A26E8913900A93431 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		8E2A37C5A1593C87B0EB5A44 /* Pods-RingPublishingTrackingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RingPublishingTrackingTests.release.xcconfig"; path = "Target Support Files/Pods-RingPublishingTrackingTests/Pods-RingPublishingTrackingTests.release.xcconfig"; sourceTree = "<group>"; };
-		A0A52C402C873DF700748DCB /* ContentMarkAsPaidDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMarkAsPaidDecorator.swift; sourceTree = "<group>"; };
 		A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMarkAsPaid.swift; sourceTree = "<group>"; };
+		A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+Parameters.swift"; sourceTree = "<group>"; };
 		BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTracking_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED067BC36C6C6FA35D9F88B6 /* Pods_RingPublishingTrackingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTrackingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -525,7 +523,6 @@
 				60108E1E2B0515C6005656C1 /* AdAreaDecorator.swift */,
 				60108E1F2B0515C6005656C1 /* TenantIdentifierDecorator.swift */,
 				60108E202B0515C6005656C1 /* SizeDecorator.swift */,
-				A0A52C402C873DF700748DCB /* ContentMarkAsPaidDecorator.swift */,
 			);
 			path = Generic;
 			sourceTree = "<group>";
@@ -652,10 +649,10 @@
 		60108E492B0515C6005656C1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */,
 				60108E4A2B0515C6005656C1 /* DispatchQueue+BackgroundTimer.swift */,
 				60108E4B2B0515C6005656C1 /* VideoContentCategory+ParameterName.swift */,
 				60108E4C2B0515C6005656C1 /* Dictionary+JSON.swift */,
-				60108E4D2B0515C6005656C1 /* ContentMetadata+DX.swift */,
 				60108E4E2B0515C6005656C1 /* VideoVisibility+ParameterName.swift */,
 				60108E4F2B0515C6005656C1 /* VideoEvent+VE.swift */,
 				60108E502B0515C6005656C1 /* String+MD5.swift */,
@@ -1042,7 +1039,6 @@
 				60108ED02B0515C6005656C1 /* EventsService.swift in Sources */,
 				60108ECB2B0515C6005656C1 /* EventsService+Identity.swift in Sources */,
 				60108ECF2B0515C6005656C1 /* EventsService+Storage.swift in Sources */,
-				60108EBA2B0515C6005656C1 /* ContentMetadata+DX.swift in Sources */,
 				204EAF3027293B08009E2F0D /* RingPublishingTrackingTests.swift in Sources */,
 				60108EC32B0515C6005656C1 /* EventType.swift in Sources */,
 				204EAEFB2710F57B009E2F0D /* EventsFactoryTests.swift in Sources */,
@@ -1130,12 +1126,12 @@
 				208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */,
 				60108E7F2B0515C6005656C1 /* VideoVisibility.swift in Sources */,
 				204EAF1E271EE53C009E2F0D /* KeepAliveTests.swift in Sources */,
+				A0A52C452C88867900748DCB /* ContentMetadata+Parameters.swift in Sources */,
 				60108E8C2B0515C6005656C1 /* StructureInfoDecorator.swift in Sources */,
 				60108E812B0515C6005656C1 /* RingPublishingTracking+CurrentState.swift in Sources */,
 				204EAF20271EE5A2009E2F0D /* KeepAliveIntervalsProviderTests.swift in Sources */,
 				208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */,
 				20C2394D26F22238005A734A /* APIServiceTests.swift in Sources */,
-				A0A52C412C873DF800748DCB /* ContentMarkAsPaidDecorator.swift in Sources */,
 				60108E942B0515C6005656C1 /* UserData.swift in Sources */,
 				60108E8D2B0515C6005656C1 /* ConsentProvider.swift in Sources */,
 				60108E702B0515C6005656C1 /* VideoStartMode.swift in Sources */,
