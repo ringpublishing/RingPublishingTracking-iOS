@@ -30,6 +30,8 @@ class EndpointTests: XCTestCase {
         XCTAssertNotNil(encoded)
     }
 
+    // swiftlint:disable non_optional_string_data_conversion
+
     func testIdentifyRequestDecoding_sampleIdentifyResponseDataCreated_decodedResponseIsReturned() {
         // Given
         let data = """
@@ -51,7 +53,7 @@ class EndpointTests: XCTestCase {
 
         // When
         let endpoint = IdentifyEnpoint(body: nil)
-        let decoded = try? endpoint.decode(data: data)
+        let decoded = try?  endpoint.decode(data: data)
 
         // Then
         XCTAssertNotNil(decoded)
@@ -59,6 +61,8 @@ class EndpointTests: XCTestCase {
         XCTAssertNotNil(decoded?.profile, "profile of decoded response should be present")
         XCTAssertEqual(decoded?.postInterval, 30000, "postInterval of decoded response should match")
     }
+
+    // swiftlint:enable non_optional_string_data_conversion
 
     func testEventRequestEncoding_sampleSendEventEnpointCreated_encodedBodyIsReturned() {
         // Given
@@ -76,6 +80,8 @@ class EndpointTests: XCTestCase {
         XCTAssertNotNil(encoded)
     }
 
+    // swiftlint:disable non_optional_string_data_conversion
+
     func testEventRequestDecoding_sampleSendEventResponseDataCreated_decodedResponseIsReturned() {
         // Given
         let data = """
@@ -91,4 +97,6 @@ class EndpointTests: XCTestCase {
         // Then
         XCTAssertEqual(decoded?.postInterval, 30000, "postInterval of decoded response should match")
     }
+
+    // swiftlint:enable non_optional_string_data_conversion
 }
