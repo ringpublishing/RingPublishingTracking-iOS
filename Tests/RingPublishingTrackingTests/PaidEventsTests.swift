@@ -191,6 +191,8 @@ class PaidEventsFactoryTests: XCTestCase {
             temporaryUserId: sampleFakeUserId
         )
 
+        // swiftlint:disable line_length
+
         // Then
         XCTAssertTrue(!event.eventParameters.isEmpty)
         XCTAssertEqual(event.eventParameters[PaidEventParameter.supplierAppId.rawValue], sampleOfferData.supplierData.supplierAppId)
@@ -211,6 +213,8 @@ class PaidEventsFactoryTests: XCTestCase {
         XCTAssertEqual(event.eventParameters[PaidEventParameter.termConversionId.rawValue], sampleTermConversionId)
         XCTAssertEqual(event.eventParameters[PaidEventParameter.eventDetails.rawValue], sampleFakeUserJson)
         XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
+
+        // swiftlint:enable line_length
     }
 
     func testPaidEvent_createShowMetricLimitEvent_properParametersInEvent() {
