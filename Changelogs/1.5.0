@@ -9,3 +9,5 @@ Improvements to the 'RingPublishingTracking' module.
 * Separate method to update user data
 * Separate method to update SSO system name
 * New method for user logout
+* New event parameter - Content marked as paid
+* New tracking event types for paid
