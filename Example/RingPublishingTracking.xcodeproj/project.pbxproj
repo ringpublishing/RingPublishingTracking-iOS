@@ -164,7 +164,6 @@
 		A03CD5532C891219002DFD48 /* OfferData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD54D2C891219002DFD48 /* OfferData.swift */; };
 		A03CD5542C891219002DFD48 /* SubscriptionPaymentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD54E2C891219002DFD48 /* SubscriptionPaymentData.swift */; };
 		A03CD5562C891287002DFD48 /* EventsFactory+Paid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD5552C891287002DFD48 /* EventsFactory+Paid.swift */; };
-		A03CD5582C891331002DFD48 /* PaidEventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD5572C891331002DFD48 /* PaidEventParameter.swift */; };
 		A03CD55A2C8926F3002DFD48 /* PaidEventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD5592C8926F3002DFD48 /* PaidEventsTests.swift */; };
 		A0A52C432C873E0600748DCB /* ContentMarkAsPaid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */; };
 		A0A52C452C88867900748DCB /* ContentMetadata+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */; };
@@ -347,7 +346,6 @@
 		A03CD54D2C891219002DFD48 /* OfferData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferData.swift; sourceTree = "<group>"; };
 		A03CD54E2C891219002DFD48 /* SubscriptionPaymentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionPaymentData.swift; sourceTree = "<group>"; };
 		A03CD5552C891287002DFD48 /* EventsFactory+Paid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventsFactory+Paid.swift"; sourceTree = "<group>"; };
-		A03CD5572C891331002DFD48 /* PaidEventParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidEventParameter.swift; sourceTree = "<group>"; };
 		A03CD5592C8926F3002DFD48 /* PaidEventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidEventsTests.swift; sourceTree = "<group>"; };
 		A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMarkAsPaid.swift; sourceTree = "<group>"; };
 		A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+Parameters.swift"; sourceTree = "<group>"; };
@@ -698,7 +696,6 @@
 				60108E012B0515C6005656C1 /* ArtemisID.swift */,
 				60108DFB2B0515C6005656C1 /* ArtemisExternal.swift */,
 				60108E592B0515C6005656C1 /* VendorIdentifiable.swift */,
-				A03CD5572C891331002DFD48 /* PaidEventParameter.swift */,
 				60108E5A2B0515C6005656C1 /* KeepAlive */,
 				60108E602B0515C6005656C1 /* Events */,
 			);
@@ -1159,7 +1156,6 @@
 				60108E6D2B0515C6005656C1 /* RingPublishingTrackingDelegate.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
-				A03CD5582C891331002DFD48 /* PaidEventParameter.swift in Sources */,
 				60108EAF2B0515C6005656C1 /* Bodable.swift in Sources */,
 				204EAF32272944A4009E2F0D /* RingPublishingTrackingConfigurationTests.swift in Sources */,
 				60108EC72B0515C6005656C1 /* KeepAliveMeasureType.swift in Sources */,

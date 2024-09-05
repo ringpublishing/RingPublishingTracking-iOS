@@ -3,6 +3,7 @@
 //  RingPublishingTracking
 //
 //  Created by Bernard Bijoch on 04/09/2024.
+//  Copyright © 2023 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
@@ -24,6 +25,18 @@ public struct SubscriptionPaymentData {
 
     /// Payment method
     let paymentMethod: PaymentMethod
+
+    public init(subscriptionBasePrice: String,
+                subscriptionPromoPrice: String?,
+                subscriptionPromoPriceDuration: String?,
+                subscriptionPriceCurrency: String,
+                paymentMethod: PaymentMethod) {
+        self.subscriptionBasePrice = subscriptionBasePrice
+        self.subscriptionPromoPrice = subscriptionPromoPrice
+        self.subscriptionPromoPriceDuration = subscriptionPromoPriceDuration
+        self.subscriptionPriceCurrency = subscriptionPriceCurrency
+        self.paymentMethod = paymentMethod
+    }
 }
 
 /// Payment method

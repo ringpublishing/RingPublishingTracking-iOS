@@ -3,6 +3,7 @@
 //  RingPublishingTracking
 //
 //  Created by Bernard Bijoch on 04/09/2024.
+//  Copyright © 2023 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
@@ -15,4 +16,9 @@ public struct OfferContextData {
 
     /// Percentage of offer being hidden by the paywall
     let closurePercentage: Int?
+
+    public init(source: String, closurePercentage: Int?) {
+        self.source = source
+        self.closurePercentage = closurePercentage
+    }
 }

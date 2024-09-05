@@ -3,6 +3,7 @@
 //  RingPublishingTracking
 //
 //  Created by Bernard Bijoch on 04/09/2024.
+//  Copyright © 2023 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
@@ -13,12 +14,27 @@ public struct OfferData {
     let paywallTemplateId: String
     let paywallVariantId: String?
     let displayMode: OfferDisplayMode
+
+    public init(supplierData: SupplierData,
+                paywallTemplateId: String,
+                paywallVariantId: String?,
+                displayMode: OfferDisplayMode) {
+        self.supplierData = supplierData
+        self.paywallTemplateId = paywallTemplateId
+        self.paywallVariantId = paywallVariantId
+        self.displayMode = displayMode
+    }
 }
 
 /// Sales supplier data
 public struct SupplierData {
     let supplierAppId: String
     let paywallSupplier: String
+
+    public init(supplierAppId: String, paywallSupplier: String) {
+        self.supplierAppId = supplierAppId
+        self.paywallSupplier = paywallSupplier
+    }
 }
 
 /// Offer display mode

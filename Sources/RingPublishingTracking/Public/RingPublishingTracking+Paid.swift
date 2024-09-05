@@ -109,7 +109,7 @@ extension RingPublishingTracking {
     ///   - contentMetadata: Content metadata
     ///   - supplierData: Data regarding the supplier of sales
     ///   - metricsData: Metric counter data
-    func reportShowMetricLimitEvent(contentMetadata: ContentMetadata?,
+    func reportShowMetricLimitEvent(contentMetadata: ContentMetadata,
                                     supplierData: SupplierData,
                                     metricsData: MetricsData) {
         let event = eventsFactory.createShowMetricLimitEvent(contentMetadata: contentMetadata,
@@ -118,7 +118,7 @@ extension RingPublishingTracking {
         reportEvent(event)
     }
 
-    /// Reports event of piano prediction of user likelihood to subscribe / cancel subscription
+    /// Reports event of prediction of user likelihood to subscribe / cancel subscription
     ///
     /// - Parameters:
     ///   - contentMetadata: Content metadata
@@ -136,14 +136,11 @@ extension RingPublishingTracking {
     /// Reports event about changing user data from temporary to real
     ///
     /// - Parameters:
-    ///   - contentMetadata: Content metadata
     ///   - temporaryUserId: Temporary user id
     ///   - realUserId: New user id
-    func reportMobileAppTemporaryUserIdReplacedEvent(contentMetadata: ContentMetadata?,
-                                                     temporaryUserId: String,
+    func reportMobileAppTemporaryUserIdReplacedEvent(temporaryUserId: String,
                                                      realUserId: String) {
-        let event = eventsFactory.createMobileAppFakeUserIdReplacedEvent(contentMetadata: contentMetadata,
-                                                                         temporaryUserId: temporaryUserId,
+        let event = eventsFactory.createMobileAppFakeUserIdReplacedEvent(temporaryUserId: temporaryUserId,
                                                                          realUserId: realUserId)
         reportEvent(event)
     }
