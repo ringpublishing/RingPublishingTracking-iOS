@@ -12,7 +12,6 @@ final class EventsFactory {
 
     private var videoEventSessionTimestamps = [String: String]() // PMU: RR
     private var videoEventSessionCounter = [String: Int]() // PMU: VEN
-
     // MARK: Click
 
     func createClickEvent(selectedElementName: String?,
@@ -84,6 +83,7 @@ final class EventsFactory {
 
         if let contentMetadata = contentMetadata {
             parameters["DX"] = contentMetadata.dxParameter
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
@@ -106,6 +106,7 @@ final class EventsFactory {
         parameters["KTA"] = 1
         parameters["KTP"] = metaData.timings
         parameters["KTS"] = measurements.map { Int($0.scrollOffset) }
+        parameters["RDLCN"] = contentMetadata.rdlcnParameter
 
         return Event(analyticsSystemName: AnalyticsSystem.timescore.rawValue,
                      eventName: EventType.keepAlive.rawValue,

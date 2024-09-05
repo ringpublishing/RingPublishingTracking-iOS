@@ -71,7 +71,7 @@ extension ListViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.textLabel?.text = articleData.title
         cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.text = "Content paid for: \(articleData.contentWasPaidFor)"
+        cell.detailTextLabel?.text = "Content marked as paid: \(articleData.paidContent)"
 
         return cell
     }
