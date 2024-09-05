@@ -72,8 +72,7 @@ class PaidEventsFactoryTests: XCTestCase {
         )
     }
 
-    // Test 1: createPaidEvent_StringParameters_ThenParametersInEvent
-    func testCreatePaidEvent_StringParameters_ThenParametersInEvent() {
+    func testCreatePaidEvent_createShowOfferEvent_parametersInEvent() {
         // Given
         let eventsFactory = EventsFactory()
 
@@ -89,8 +88,7 @@ class PaidEventsFactoryTests: XCTestCase {
         XCTAssertFalse(event.eventParameters.isEmpty, "Event parameters should not be empty")
     }
 
-    // Test 2: createShowOfferEvent_ThenProperParametersInEvent
-    func testCreateShowOfferEvent_ThenProperParametersInEvent() {
+    func testPaidEvent_createShowOfferEvent_properParametersInEvent() {
         // Given
         let eventsFactory = EventsFactory()
         let sampleTpcc = "hard_xmass_promoInline"
@@ -116,8 +114,7 @@ class PaidEventsFactoryTests: XCTestCase {
         XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
     }
 
-    // Test 3: createShowOfferTeaserEvent_ThenProperParametersInEvent
-    func testCreateShowOfferTeaserEvent_ThenProperParametersInEvent() {
+    func testPaidEvent_createShowOfferTeaserEvent_properParametersInEvent() {
         // Given
         let eventsFactory = EventsFactory()
         let sampleTpcc = "hard_xmass_promoInline"
@@ -143,8 +140,7 @@ class PaidEventsFactoryTests: XCTestCase {
         XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
     }
 
-    // Test 4: createPurchaseClickButtonEvent_ThenProperParametersInEvent
-    func testCreatePurchaseClickButtonEvent_ThenProperParametersInEvent() {
+    func testPaidEvent_createPurchaseClickButtonEvent_properParametersInEvent() {
         // Given
         let eventsFactory = EventsFactory()
         let sampleTpcc = "hard_xmass_promoInline"
@@ -174,7 +170,112 @@ class PaidEventsFactoryTests: XCTestCase {
         XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
     }
 
-    // Continue converting other tests similarly...
+    func testPaidEvent_createPurchaseEvent_properParametersInEvent() {
+        // Given
+        let eventsFactory = EventsFactory()
+        let sampleTpcc = "hard_xmass_promoInline"
+        let sampleTermId = "TMEVT00KVHV0"
+        let sampleFakeUserId = "fake_001"
+        let sampleTermConversionId = "TCCJTS9X87VB"
+        let sampleFakeUserJson = "{\"fake_user_id\":\"\(sampleFakeUserId)\"}"
+
+        // When
+        let event = eventsFactory.createPurchaseEvent(
+            contentMetadata: sampleContentMetadata,
+            offerData: sampleOfferData,
+            offerContextData: OfferContextData(source: sampleOfferContextData.source, closurePercentage: nil),
+            subscriptionPaymentData: sampleSubscriptionPaymentData,
+            termId: sampleTermId,
+            termConversionId: sampleTermConversionId,
+            targetPromotionCampaignCode: sampleTpcc,
+            temporaryUserId: sampleFakeUserId
+        )
+
+        // Then
+        XCTAssertTrue(!event.eventParameters.isEmpty)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.supplierAppId.rawValue], sampleOfferData.supplierData.supplierAppId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.paywallSupplier.rawValue], sampleOfferData.supplierData.paywallSupplier)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.paywallTemplateId.rawValue], sampleOfferData.paywallTemplateId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.paywallVariantId.rawValue], sampleOfferData.paywallVariantId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.source.rawValue], sampleOfferContextData.source)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.sourcePublicationUuid.rawValue], sampleContentMetadata.publicationId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.sourceDx.rawValue], sampleContentMetadata.dxParameter)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.closurePercentage.rawValue], nil)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.subscriptionBasePrice.rawValue], sampleSubscriptionPaymentData.subscriptionBasePrice)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.subscriptionPromoPrice.rawValue], sampleSubscriptionPaymentData.subscriptionPromoPrice)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.subscriptionPromoPriceDuration.rawValue], sampleSubscriptionPaymentData.subscriptionPromoPriceDuration)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.subscriptionPriceCurrency.rawValue], sampleSubscriptionPaymentData.subscriptionPriceCurrency)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.paymentMethod.rawValue], sampleSubscriptionPaymentData.paymentMethod.rawValue)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.tpcc.rawValue], sampleTpcc)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.termId.rawValue], sampleTermId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.termConversionId.rawValue], sampleTermConversionId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.eventDetails.rawValue], sampleFakeUserJson)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
+    }
+
+    func testPaidEvent_createShowMetricLimitEvent_properParametersInEvent() {
+        // Given
+        let eventsFactory = EventsFactory()
+
+        // When
+        let event = eventsFactory.createShowMetricLimitEvent(contentMetadata: sampleContentMetadata,
+                                                             supplierData: sampleSupplierData,
+                                                             metricsData: sampleMetricsData)
+
+        // Then
+        XCTAssertTrue(!event.eventParameters.isEmpty)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.metricLimitName.rawValue], sampleMetricsData.metricLimitName)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.freePvCnt.rawValue], sampleMetricsData.freePageViewCount)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.freePvLimit.rawValue], sampleMetricsData.freePageViewLimit)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.supplierAppId.rawValue], sampleSupplierData.supplierAppId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.paywallSupplier.rawValue], sampleSupplierData.paywallSupplier)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.sourcePublicationUuid.rawValue], sampleContentMetadata.publicationId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.sourceDx.rawValue], sampleContentMetadata.dxParameter)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
+    }
+
+    func testPaidEvent_createLikelihoodScoringEvent_properParametersInEvent() {
+        // Given
+        let eventsFactory = EventsFactory()
+        let sampleLikelihoodJson = "{\"ltc\":\(sampleLikelihoodData.likelihoodToCancel ?? 0)," +
+                                    "\"lts\":\(sampleLikelihoodData.likelihoodToSubscribe ?? 0)}"
+
+        // When
+        let event = eventsFactory.createLikelihoodScoringEvent(
+            contentMetadata: sampleContentMetadata,
+            supplierData: sampleSupplierData,
+            likelihoodData: sampleLikelihoodData
+        )
+
+        // Then
+        XCTAssertTrue(!event.eventParameters.isEmpty)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.supplierAppId.rawValue], sampleSupplierData.supplierAppId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.paywallSupplier.rawValue], sampleSupplierData.paywallSupplier)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.sourcePublicationUuid.rawValue], sampleContentMetadata.publicationId)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.sourceDx.rawValue], sampleContentMetadata.dxParameter)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.eventDetails.rawValue], sampleLikelihoodJson)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
+    }
+
+    func testPaidEvent_createMobileAppFakeUserIdReplacedEvent_properParametersInEvent() {
+        // Given
+        let eventsFactory = EventsFactory()
+        let sampleFakeUserId = "fake_001"
+        let sampleRealUserId = "real_001"
+        let sampleUserJson = "{\"fake_user_id\":\"\(sampleFakeUserId)\",\"real_user_id\":\"\(sampleRealUserId)\"}"
+
+        // When
+        let event = eventsFactory.createMobileAppFakeUserIdReplacedEvent(
+            contentMetadata: sampleContentMetadata,
+            temporaryUserId: sampleFakeUserId,
+            realUserId: sampleRealUserId
+        )
+
+        // Then
+        XCTAssertTrue(!event.eventParameters.isEmpty)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.eventDetails.rawValue], sampleUserJson)
+        XCTAssertEqual(event.eventParameters[PaidEventParameter.contentMarkedAsPaid.rawValue], mockRdlcnEncodingPaid())
+    }
 
     // Utility function
     private func mockRdlcnEncodingPaid() -> String {
