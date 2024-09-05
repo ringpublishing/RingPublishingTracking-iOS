@@ -30,7 +30,11 @@ struct ContentMarkAsPaid: Encodable {
         case source
     }
 
-    init(contentMetadata: ContentMetadata) {
+    init?(contentMetadata: ContentMetadata?) {
+        guard let contentMetadata = contentMetadata else {
+            return nil
+        }
+
         publication = Publication(premium: contentMetadata.paidContent)
         source = Source(id: contentMetadata.contentId, system: contentMetadata.sourceSystemName)
     }

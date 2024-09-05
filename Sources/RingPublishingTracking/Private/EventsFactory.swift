@@ -83,9 +83,7 @@ final class EventsFactory {
 
         if let contentMetadata = contentMetadata {
             parameters["DX"] = contentMetadata.dxParameter
-
-            let contentMarkAsPaidParameters = ContentMarkAsPaidDecorator(contentMetadata: contentMetadata).parameters
-            parameters["RDLCN"] = contentMarkAsPaidParameters["RDLCN"]
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,
@@ -99,7 +97,6 @@ final class EventsFactory {
         var parameters: [String: AnyHashable] = [:]
 
         let measurements = metaData.keepAliveContentStatus
-        let contentMarkAsPaidParameters = ContentMarkAsPaidDecorator(contentMetadata: contentMetadata).parameters
 
         parameters["DX"] = contentMetadata.dxParameter
         parameters["PU"] = contentMetadata.contentId.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -109,7 +106,7 @@ final class EventsFactory {
         parameters["KTA"] = 1
         parameters["KTP"] = metaData.timings
         parameters["KTS"] = measurements.map { Int($0.scrollOffset) }
-        parameters["RDLCN"] = contentMarkAsPaidParameters["RDLCN"]
+        parameters["RDLCN"] = contentMetadata.rdlcnParameter
 
         return Event(analyticsSystemName: AnalyticsSystem.timescore.rawValue,
                      eventName: EventType.keepAlive.rawValue,

@@ -25,14 +25,7 @@ extension VideoVisibility {
 
         let visibilityData = VideoVisibilityWrapper(context: VideoVisibilityContext(visible: visibilityParamName))
 
-        // swiftlint:disable non_optional_string_data_conversion
-        guard let jsonData = try? JSONEncoder().encode(visibilityData),
-              let jsonString = String(data: jsonData, encoding: .utf8) else {
-            return nil
-        }
-        // swiftlint:enable non_optional_string_data_conversion
-
-        return Data(jsonString.utf8).base64EncodedString()
+        return visibilityData.jsonStringBase64
     }
 }
 

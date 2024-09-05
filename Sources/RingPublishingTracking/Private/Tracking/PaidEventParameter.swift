@@ -31,7 +31,7 @@ enum PaidEventParameter: String {
     case eventDetails
     case eventCategory
     case eventAction
-    case rdlcn = "RDLCN"
+    case contentMarkedAsPaid = "RDLCN"
 }
 
 extension Dictionary where Key == PaidEventParameter, Value == AnyHashable {
