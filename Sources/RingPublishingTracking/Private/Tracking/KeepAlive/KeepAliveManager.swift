@@ -39,6 +39,7 @@ final class KeepAliveManager {
     private var pauseTimeStart = [Date]()
     private var pauseTimeEnd = [Date]()
 
+    private let timerQueue = DispatchQueue(label: "timerQueue", attributes: .concurrent)
     private var measurementTimer: DispatchSourceTimer?
     private var sendingTimer: DispatchSourceTimer?
 
@@ -213,6 +214,25 @@ extension KeepAliveManager {
 
 extension KeepAliveManager {
 
+    /// Schedule timer on dedicated concurrent queue
+    /// Action is called on main thread
+    ///
+    /// - Parameters:
+    ///   - timeInterval: TimeInterval from now when timer should fire
+    ///   - action: (() -> Void)? Action to execute when timer is fired
+    func scheduledTimer(timeInterval: TimeInterval, action: (() -> Void)?) -> DispatchSourceTimer {
+        let timer = DispatchSource.makeTimerSource(queue: timerQueue)
+        timer.setEventHandler {
+            DispatchQueue.main.async {
+                action?()
+            }
+        }
+        timer.schedule(deadline: .now() + timeInterval, repeating: .never)
+        timer.activate()
+
+        return timer
+    }
+
     private func scheduleMeasurementTimer() {
         guard let timeFromStart = timeFromStart else {
             stop()
@@ -223,7 +243,7 @@ extension KeepAliveManager {
 
         Logger.log("Keep alive manager: Scheduling measurement timer \(interval)s")
 
-        measurementTimer = DispatchQueue.scheduledTimer(timeInterval: interval, action: { [weak self] in
+        measurementTimer = scheduledTimer(timeInterval: interval, action: { [weak self] in
             self?.takeMeasurements(measureType: .activityTimer)
             self?.scheduleMeasurementTimer()
         })
@@ -239,7 +259,7 @@ extension KeepAliveManager {
 
         Logger.log("Keep alive manager: Scheduling sending timer \(interval)s")
 
-        sendingTimer = DispatchQueue.scheduledTimer(timeInterval: interval, action: { [weak self] in
+        sendingTimer = scheduledTimer(timeInterval: interval, action: { [weak self] in
             self?.takeMeasurements(measureType: .sendTimer)
             self?.sendMeasurements()
             self?.scheduleSendingTimer()

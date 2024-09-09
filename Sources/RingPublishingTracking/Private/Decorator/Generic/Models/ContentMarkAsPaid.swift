@@ -3,6 +3,7 @@
 //  RingPublishingTracking
 //
 //  Created by Bernard Bijoch on 03/09/2024.
+//  Copyright © 2023 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
@@ -30,7 +31,11 @@ struct ContentMarkAsPaid: Encodable {
         case source
     }
 
-    init(contentMetadata: ContentMetadata) {
+    init?(contentMetadata: ContentMetadata?) {
+        guard let contentMetadata = contentMetadata else {
+            return nil
+        }
+
         publication = Publication(premium: contentMetadata.paidContent)
         source = Source(id: contentMetadata.contentId, system: contentMetadata.sourceSystemName)
     }

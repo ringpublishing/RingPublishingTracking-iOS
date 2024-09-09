@@ -36,3 +36,5 @@ Example/Pods
 
 fastlane/*
 !fastlane/.env
+tests-build/*
+test-reports/*

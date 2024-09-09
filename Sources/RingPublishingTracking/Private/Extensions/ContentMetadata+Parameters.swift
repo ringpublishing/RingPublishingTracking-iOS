@@ -25,19 +25,7 @@ extension ContentMetadata {
         return "PV_4,\(sourceSystem),\(pubId),\(part),\(paid)".replacingOccurrences(of: " ", with: "_")
     }
 
-    // swiftlint:disable non_optional_string_data_conversion
-
     var rdlcnParameter: String? {
-        let contentMarkAsPaid = ContentMarkAsPaid(contentMetadata: self)
-
-        if let jsonData = try? Self.encoder.encode(contentMarkAsPaid),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            return Data(jsonString.utf8).base64EncodedString()
-        }
-
-        return nil
+        return ContentMarkAsPaid(contentMetadata: self).jsonStringBase64
     }
-
-    // swiftlint:enable non_optional_string_data_conversion
-
 }
