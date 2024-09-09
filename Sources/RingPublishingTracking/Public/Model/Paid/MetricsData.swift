@@ -20,6 +20,12 @@ public struct MetricsData {
     /// Number of free views within the metric counter
     let freePageViewLimit: Int
 
+    /// MetricsData initializer
+    ///
+    /// Parameters:
+    /// - metricLimitName: Name of displayed metric counter
+    /// - freePageViewCount: Number of views remaining within the metric counter
+    /// - freePageViewLimit: Number of free views within the metric counter
     public init(metricLimitName: String, freePageViewCount: Int, freePageViewLimit: Int) {
         self.metricLimitName = metricLimitName
         self.freePageViewCount = freePageViewCount

@@ -22,6 +22,11 @@ public struct LikelihoodData: Encodable {
     /// Likelihood to cancel
     let likelihoodToCancel: Int?
 
+    /// LikelihoodData initializer
+    ///
+    /// Prameters:
+    /// - likelihoodToSubscribe: Likelihood to subscribe
+    /// - likelihoodToCancel: Likelihood to cancel
     public init(likelihoodToSubscribe: Int?, likelihoodToCancel: Int?) {
         self.likelihoodToSubscribe = likelihoodToSubscribe
         self.likelihoodToCancel = likelihoodToCancel

@@ -15,6 +15,13 @@ public struct OfferData {
     let paywallVariantId: String?
     let displayMode: OfferDisplayMode
 
+    /// OfferData initializer
+    ///
+    /// Paramters:
+    /// - supplierData: Supplier data
+    /// - paywallTemplateId: Paywall template ID
+    /// - paywallVariantId: Paywall variant ID
+    /// - displayMode: Offer display mode
     public init(supplierData: SupplierData,
                 paywallTemplateId: String,
                 paywallVariantId: String?,
@@ -28,9 +35,18 @@ public struct OfferData {
 
 /// Sales supplier data
 public struct SupplierData {
+
+    /// Supplier app ID
     let supplierAppId: String
+
+    /// Paywall supplier
     let paywallSupplier: String
 
+    /// SupplierData initializer
+    ///
+    /// Parameters:
+    /// - supplierAppId: Supplier app ID
+    /// - paywallSupplier: Paywall supplier
     public init(supplierAppId: String, paywallSupplier: String) {
         self.supplierAppId = supplierAppId
         self.paywallSupplier = paywallSupplier

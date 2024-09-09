@@ -26,6 +26,14 @@ public struct SubscriptionPaymentData {
     /// Payment method
     let paymentMethod: PaymentMethod
 
+    /// SubscriptionPaymentData initializer
+    ///
+    /// Parameters:
+    /// - subscriptionBasePrice: Subscription base price
+    /// - subscriptionPromoPrice: Subscription promotion price
+    /// - subscriptionPromoPriceDuration: Promotion duration
+    /// - subscriptionPriceCurrency: Purchase price currency identifier
+    /// - paymentMethod: Payment method
     public init(subscriptionBasePrice: String,
                 subscriptionPromoPrice: String?,
                 subscriptionPromoPriceDuration: String?,
