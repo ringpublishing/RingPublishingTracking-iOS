@@ -12,7 +12,7 @@ import Foundation
 public struct OfferContextData {
 
     /// Location where the offer was presented
-    let source: String
+    let source: String?
 
     /// Percentage of offer being hidden by the paywall
     let closurePercentage: Int?
@@ -22,7 +22,7 @@ public struct OfferContextData {
     /// Parameters:
     /// - source: Location where the offer was presented
     /// - closurePercentage: Percentage of offer being hidden by the paywall
-    public init(source: String, closurePercentage: Int?) {
+    public init(source: String?, closurePercentage: Int?) {
         self.source = source
         self.closurePercentage = closurePercentage
     }
