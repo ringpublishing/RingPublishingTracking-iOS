@@ -107,16 +107,11 @@ extension EventsFactory {
         parameters["source"] = offerContextData.source
         parameters["term_id"] = termId
         parameters["term_conversion_id"] = termConversionId
-        parameters["payment_method"] = subscriptionPaymentData.paymentMethod.rawValue
-        parameters["subscription_base_price"] = subscriptionPaymentData.subscriptionBasePrice
-        parameters["subscription_price_currency"] = subscriptionPaymentData.subscriptionPriceCurrency
         parameters["source_dx"] = contentMetadata?.dxParameter
         parameters["source_publication_uuid"] = contentMetadata?.publicationId
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["tpcc"] = targetPromotionCampaignCode
-        parameters["subscription_promo_price"] = subscriptionPaymentData.subscriptionPromoPrice
-        parameters["subscription_promo_price_duration"] = subscriptionPaymentData.subscriptionPromoPriceDuration
-        parameters["event_details"] = PaidEventUserId(fakeUserId: temporaryUserId, realUserId: nil).jsonString
+        parameters["event_details"] = EventDetails(fakeUserId: temporaryUserId, subscriptionPaymentData: subscriptionPaymentData).jsonString
         parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
@@ -166,7 +161,7 @@ extension EventsFactory {
 
         parameters["event_category"] = "mobile_app_fake_user_id_replaced"
         parameters["event_action"] = "mobileAppFakeUserIdReplaced"
-        parameters["event_details"] = PaidEventUserId(fakeUserId: temporaryUserId, realUserId: realUserId).jsonString
+        parameters["event_details"] = EventDetails(fakeUserId: temporaryUserId, realUserId: realUserId).jsonString
 
         return createPaidEvent(parameters: parameters)
     }
