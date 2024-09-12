@@ -14,10 +14,7 @@ final class ClientDecorator: Decorator {
     var parameters: [String: AnyHashable] {
         var userDataParams: [String: AnyHashable] = [:]
 
-        if let jsonData = try? JSONEncoder().encode(client),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            userDataParams["RDLC"] = Data(jsonString.utf8).base64EncodedString()
-        }
+        userDataParams["RDLC"] = client.jsonStringBase64
 
         return userDataParams
     }

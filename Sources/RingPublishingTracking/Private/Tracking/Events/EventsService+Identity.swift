@@ -54,7 +54,7 @@ extension EventsService {
     ///   - tenantID: Instance of tenantID.
     ///   - eaUUID: Identifier coming from the /me endpoint.
     ///   - completion: Completion handler.
-    func fetchArtemisID(tenantID: String, eaUUID: EaUUID, completion: @escaping(Result<Artemis, ServiceError>) -> Void) {
+    func fetchArtemisID(tenantID: String, eaUUID: EaUUID, completion: @escaping (Result<Artemis, ServiceError>) -> Void) {
         guard operationMode.canSendNetworkRequests else {
             Logger.log("Opt-out/Debug mode is enabled. Ignoring identify request.")
             // TODO: [ASZ] Maybe we should think how to handle callback here?
@@ -90,7 +90,7 @@ extension EventsService {
     /// - Parameters:
     ///   - tenantID: Instance of tenantID.
     ///   - completion: Completion handler.
-    func performSequentialIdentity(tenantID: String, completion: @escaping(Result<(EaUUID, Artemis), ServiceError>) -> Void) {
+    func performSequentialIdentity(tenantID: String, completion: @escaping (Result<(EaUUID, Artemis), ServiceError>) -> Void) {
         self.isIdentifyMeRequestInProgress = true
         fetchIdentity { [weak self] identityResult in
             switch identityResult {
@@ -158,7 +158,7 @@ extension EventsService {
         }
     }
 
-    func retryIdentifyRequest(completion: @escaping(Result<Void, Error>) -> Void) {
+    func retryIdentifyRequest(completion: @escaping (Result<Void, Error>) -> Void) {
         Logger.log("Retrying identify request as required data is missing.")
         performSequentialIdentity(tenantID: configuration.tenantId) { result in
             switch result {
@@ -170,7 +170,7 @@ extension EventsService {
         }
     }
 
-    func retryArtemisRequest(eaUUID: EaUUID, completion: @escaping(Result<Artemis, ServiceError>) -> Void) {
+    func retryArtemisRequest(eaUUID: EaUUID, completion: @escaping (Result<Artemis, ServiceError>) -> Void) {
         Logger.log("Retrying artemis request as required data is missing.")
         fetchArtemisID(tenantID: configuration.tenantId, eaUUID: eaUUID) { result in
             switch result {

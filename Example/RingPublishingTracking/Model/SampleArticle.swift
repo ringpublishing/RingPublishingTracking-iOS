@@ -14,7 +14,7 @@ struct SampleArticle {
     let publicationId: String = generatePublicationId()
     let publicationUrl: URL
     let sourceSystemName: String = "My Awesome CMS"
-    let contentWasPaidFor: Bool
+    let paidContent: Bool
     let contentId: String = generatePublicationId()
     let content = generateArticleContent()
 }
@@ -47,13 +47,13 @@ extension SampleArticle {
     static let testData = [
         SampleArticle(title: "France cancels Washington reception amid submarine spat",
                       publicationUrl: URL(string: "https://example.com/politics/battle-of-the-capes")!,
-                      contentWasPaidFor: false),
+                      paidContent: false),
         SampleArticle(title: "Australia's decades-long balancing act between the US and China is over",
                       publicationUrl: URL(string: "https://example.com/australia-china-us-aukus-submarine")!,
-                      contentWasPaidFor: false),
+                      paidContent: false),
         SampleArticle(title: "Kids worried about the vaccine? Medical expert answers their questions",
                       publicationUrl: URL(string: "https://example.com/sanjay-gupta-students-kids-ask")!,
-                      contentWasPaidFor: true)
+                      paidContent: true)
     ]
 }
 

@@ -11,8 +11,6 @@ import Foundation
 /// Functionality related to current aplication state
 public extension RingPublishingTracking {
 
-    // MARK: Dynamic tracking properties
-
     /// Update application user identifier for tracking purpose.
     /// If user is not logged in, pass nil as 'userId'.
     ///
@@ -24,7 +22,26 @@ public extension RingPublishingTracking {
         let obscuredId: String? = userId == nil ? nil : String(repeating: "*", count: userId?.count ?? 0)
         Logger.log("Updating application user data, SSO: '\(ssoSystemName)' and userId: '\(obscuredId.logable)'")
 
-        eventsService?.updateUserData(ssoSystemName: ssoSystemName, userId: userId, email: userEmail)
+        eventsService?.updateUserData(userId: userId, email: userEmail)
+    }
+
+    /// Update user active subscription status
+    ///
+    /// - Parameter isActiveSubscriber: Bool
+    func updateActiveSubscriber(_ isActiveSubscriber: Bool) {
+        eventsService?.updateActiveSubscriber(isActiveSubscriber)
+    }
+
+    /// Update SSO system name
+    ///
+    /// - Parameter ssoSystemName: String
+    func updateSSO(ssoSystemName: String?) {
+        eventsService?.updateSSO(ssoSystemName: ssoSystemName)
+    }
+
+    /// User logged out, clear user data
+    func logout() {
+        eventsService?.updateUserData(userId: nil, email: nil)
     }
 
     /// Update ad space name of the application, for example "ads/list/sport"

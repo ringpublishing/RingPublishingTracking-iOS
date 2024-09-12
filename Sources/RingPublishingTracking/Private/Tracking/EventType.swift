@@ -16,4 +16,5 @@ enum EventType: String {
     case keepAlive = "KeepAlive"
     case videoEvent = "VidEvent"
     case error = "ErrEvent"
+    case paid = "PaidEvent"
 }

@@ -190,15 +190,16 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreated_returnedParametersAreCorrect() {
         // Given
         let userId = "12345"
+        let email = "test@email.com"
         let decorator = UserDataDecorator()
-        let sso = SSO(logged: .init(id: userId, md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
 
         // Then
-        decorator.updateSSOData(sso: sso)
+        decorator.updateUserData(userId: userId, email: email)
+        decorator.updateSSO(ssoSystemName: "Test")
         let params = decorator.parameters
 
         let expectedBase64 = """
-        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI1MjgxMTQzZWM4MTRlYTJjNjZhNGIxOTE0YTAxMzViNyJ9LCJuYW1lIjoiVGVzdCJ9fQ==
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9fQ==
         """
 
         XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
@@ -208,12 +209,10 @@ class DecoratorTests: XCTestCase {
     func testParameters_userDataDecoratorCreatedAndUsedLoggedOut_parametersAreEmpty() {
         // Given
         let decorator = UserDataDecorator()
-        let sso = SSO(logged: .init(id: "12345", md5: "5281143ec814ea2c66a4b1914a0135b7"), name: "Test")
-        let emptySSO = SSO(logged: .init(id: nil, md5: nil), name: "Test")
 
         // Then
-        decorator.updateSSOData(sso: sso)
-        decorator.updateSSOData(sso: emptySSO)
+        decorator.updateUserData(userId: nil, email: nil)
+        decorator.updateSSO(ssoSystemName: "Test")
 
         let params = decorator.parameters
 
@@ -223,6 +222,43 @@ class DecoratorTests: XCTestCase {
 
         XCTAssertEqual(params["RDLU"], rdluData)
         XCTAssertNil(params["IZ"], "IZ should be empty")
+    }
+
+    func testParameters_userDataDecoratorCreatedWithActiveSubscription_subscriptionIsPresent() {
+
+        let decorator = UserDataDecorator()
+
+        decorator.updateUserData(userId: "12345", email: "test@email.com")
+        decorator.updateSSO(ssoSystemName: "Test")
+        decorator.updateActiveSubscriber(true)
+
+        let params = decorator.parameters
+
+        // swiftlint:disable line_length
+        let rdluData = """
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9LCJ0eXBlIjoic3Vic2NyaWJlciJ9
+        """
+        // swiftlint:enable line_length
+
+        XCTAssertEqual(params["RDLU"], rdluData)
+    }
+
+    func testParameters_userDataDecoratorCreatedWithInactiveSubscription_subscriptionIsNotPresent() {
+
+        let decorator = UserDataDecorator()
+
+        decorator.updateUserData(userId: "12345", email: "test@email.com")
+        decorator.updateSSO(ssoSystemName: "Test")
+        decorator.updateActiveSubscriber(true)
+        decorator.updateActiveSubscriber(false)
+
+        let params = decorator.parameters
+
+        let rdluData = """
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9fQ==
+        """
+
+        XCTAssertEqual(params["RDLU"], rdluData)
     }
 
     // MARK: - TenantIdentifierDecorator Tests

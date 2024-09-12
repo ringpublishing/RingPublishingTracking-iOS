@@ -25,12 +25,7 @@ extension VideoVisibility {
 
         let visibilityData = VideoVisibilityWrapper(context: VideoVisibilityContext(visible: visibilityParamName))
 
-        guard let jsonData = try? JSONEncoder().encode(visibilityData),
-              let jsonString = String(data: jsonData, encoding: .utf8) else {
-            return nil
-        }
-
-        return Data(jsonString.utf8).base64EncodedString()
+        return visibilityData.jsonStringBase64
     }
 }
 
