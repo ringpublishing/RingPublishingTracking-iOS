@@ -22,9 +22,9 @@ struct EventDetails: Encodable {
 
     let fakeUserId: String?
     let realUserId: String?
-    let subscriptionBasePrice: String?
+    let subscriptionBasePrice: Float?
     let subscriptionPriceCurrency: String?
-    let subscriptionPromoPrice: String?
+    let subscriptionPromoPrice: Float?
     let subscriptionPromoDuration: String?
     let paymentMethod: String?
 
