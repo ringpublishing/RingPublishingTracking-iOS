@@ -38,8 +38,6 @@ final class EventsFactory {
 
     // MARK: User action
 
-    // swiftlint:disable non_optional_string_data_conversion
-
     func createUserActionEvent(actionName: String, actionSubtypeName: String, parameter: UserActionParameter) -> Event {
         var parameters: [String: AnyHashable] = [
             "VE": actionName,
@@ -69,8 +67,6 @@ final class EventsFactory {
                      eventName: EventType.userAction.rawValue,
                      eventParameters: parameters)
     }
-
-    // swiftlint:enable non_optional_string_data_conversion
 
     // MARK: Page View
 

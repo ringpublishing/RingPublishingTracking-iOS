@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension RingPublishingTracking {
+public extension RingPublishingTracking {
 
     /// Reports showing offer event
     /// There is possibility to start purchasing process flow from this place

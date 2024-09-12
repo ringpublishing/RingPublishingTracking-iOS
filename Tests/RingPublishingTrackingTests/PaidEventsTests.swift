@@ -44,9 +44,9 @@ class PaidEventsFactoryTests: XCTestCase {
         )
 
         sampleSubscriptionPaymentData = SubscriptionPaymentData(
-            subscriptionBasePrice: "100",
-            subscriptionPromoPrice: "99.99",
-            subscriptionPromoPriceDuration: "1w",
+            subscriptionBasePrice: 100.0,
+            subscriptionPromoPrice: 99.99,
+            subscriptionPromoDuration: "1w",
             subscriptionPriceCurrency: "usd",
             paymentMethod: .appStore
         )
@@ -177,7 +177,16 @@ class PaidEventsFactoryTests: XCTestCase {
         let sampleTermId = "TMEVT00KVHV0"
         let sampleFakeUserId = "fake_001"
         let sampleTermConversionId = "TCCJTS9X87VB"
-        let sampleFakeUserJson = "{\"fake_user_id\":\"\(sampleFakeUserId)\"}"
+        let sampleEventDetails = """
+        {
+            "fake_user_id": "fake_001",
+            "payment_method": "app_store",
+            "subscription_base_price": 100,
+            "subscription_price_currency": "usd",
+            "subscription_promo_duration": "1w",
+            "subscription_promo_price": 99.99
+        }
+        """.replacingOccurrences(of: "\\s+", with: "", options: .regularExpression)
 
         // When
         let event = eventsFactory.createPurchaseEvent(
@@ -191,8 +200,6 @@ class PaidEventsFactoryTests: XCTestCase {
             temporaryUserId: sampleFakeUserId
         )
 
-        // swiftlint:disable line_length
-
         // Then
         XCTAssertTrue(!event.eventParameters.isEmpty)
         XCTAssertEqual(event.eventParameters["supplier_app_id"], sampleOfferData.supplierData.supplierAppId)
@@ -203,19 +210,12 @@ class PaidEventsFactoryTests: XCTestCase {
         XCTAssertEqual(event.eventParameters["source_publication_uuid"], sampleContentMetadata.publicationId)
         XCTAssertEqual(event.eventParameters["source_dx"], sampleContentMetadata.dxParameter)
         XCTAssertEqual(event.eventParameters["closure_percentage"], nil)
-        XCTAssertEqual(event.eventParameters["subscription_base_price"], sampleSubscriptionPaymentData.subscriptionBasePrice)
-        XCTAssertEqual(event.eventParameters["subscription_promo_price"], sampleSubscriptionPaymentData.subscriptionPromoPrice)
-        XCTAssertEqual(event.eventParameters["subscription_promo_price_duration"], sampleSubscriptionPaymentData.subscriptionPromoPriceDuration)
-        XCTAssertEqual(event.eventParameters["subscription_price_currency"], sampleSubscriptionPaymentData.subscriptionPriceCurrency)
-        XCTAssertEqual(event.eventParameters["payment_method"], sampleSubscriptionPaymentData.paymentMethod.rawValue)
         XCTAssertEqual(event.eventParameters["tpcc"], sampleTpcc)
         XCTAssertEqual(event.eventParameters["term_id"], sampleTermId)
         XCTAssertEqual(event.eventParameters["term_conversion_id"], sampleTermConversionId)
         XCTAssertEqual(event.eventParameters["RDLCN"], mockRdlcnEncodingPaid())
-        XCTAssertEqual(event.eventParameters["event_details"], sampleFakeUserJson)
+        XCTAssertEqual(event.eventParameters["event_details"], sampleEventDetails)
     }
-
-    // swiftlint:enable line_length
 
     func testPaidEvent_createShowMetricLimitEvent_properParametersInEvent() {
         // Given

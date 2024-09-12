@@ -12,13 +12,13 @@ import Foundation
 public struct SubscriptionPaymentData {
 
     /// Subscription base price
-    let subscriptionBasePrice: String
+    let subscriptionBasePrice: Float
 
     /// Subscription promotion price (optional - of someone purchases from promotion)
-    let subscriptionPromoPrice: String?
+    let subscriptionPromoPrice: Float?
 
     /// Promotion duration (optional - of someone purchases from promotion) 1w / 1m / 1y etc.
-    let subscriptionPromoPriceDuration: String?
+    let subscriptionPromoDuration: String?
 
     /// Purchase price currency identifier
     let subscriptionPriceCurrency: String
@@ -34,14 +34,14 @@ public struct SubscriptionPaymentData {
     /// - subscriptionPromoPriceDuration: Promotion duration
     /// - subscriptionPriceCurrency: Purchase price currency identifier
     /// - paymentMethod: Payment method
-    public init(subscriptionBasePrice: String,
-                subscriptionPromoPrice: String?,
-                subscriptionPromoPriceDuration: String?,
+    public init(subscriptionBasePrice: Float,
+                subscriptionPromoPrice: Float?,
+                subscriptionPromoDuration: String?,
                 subscriptionPriceCurrency: String,
                 paymentMethod: PaymentMethod) {
         self.subscriptionBasePrice = subscriptionBasePrice
         self.subscriptionPromoPrice = subscriptionPromoPrice
-        self.subscriptionPromoPriceDuration = subscriptionPromoPriceDuration
+        self.subscriptionPromoDuration = subscriptionPromoDuration
         self.subscriptionPriceCurrency = subscriptionPriceCurrency
         self.paymentMethod = paymentMethod
     }
