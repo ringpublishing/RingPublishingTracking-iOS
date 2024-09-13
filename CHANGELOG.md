@@ -1,3 +1,17 @@
+1.5.0 Release notes (2024-09-03)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Features
+
+* Marking active subscriber
+* Separate method to update user data
+* Separate method to update SSO system name
+* New method for user logout
+* New event parameter - Content marked as paid
+* New tracking event types for paid
+
 1.4.0 Release notes (2023-11-16)
 ================================
 
