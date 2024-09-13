@@ -15,12 +15,11 @@ public extension RingPublishingTracking {
     /// If user is not logged in, pass nil as 'userId'.
     ///
     /// - Parameters:
-    ///   - ssoSystemName: Name of SSO system used to login
     ///   - userId: User identifier
     ///   - userEmail: User email address
-    func updateUserData(ssoSystemName: String, userId: String?, userEmail: String?) {
+    func updateUserData(userId: String?, userEmail: String?) {
         let obscuredId: String? = userId == nil ? nil : String(repeating: "*", count: userId?.count ?? 0)
-        Logger.log("Updating application user data, SSO: '\(ssoSystemName)' and userId: '\(obscuredId.logable)'")
+        Logger.log("Updating application user data: userId='\(obscuredId.logable)'")
 
         eventsService?.updateUserData(userId: userId, email: userEmail)
     }
