@@ -11,7 +11,7 @@ import Foundation
 extension EventsFactory {
 
     func createPaidEvent(parameters: [String: AnyHashable]) -> Event {
-        return Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
+        return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
                      eventName: EventType.paid.rawValue,
                      eventParameters: parameters)
     }

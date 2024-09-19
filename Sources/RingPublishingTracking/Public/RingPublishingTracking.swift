@@ -118,7 +118,8 @@ public class RingPublishingTracking {
     public func reportEvents(_ events: [Event]) {
 
         for event in events {
-            Logger.log("Reporting generic event: \(event.eventName), parameters: \(event.eventParameters)")
+            let eventParameters = event.eventParameters.mapValues { "\(String(describing: $0))"}
+            Logger.log("Reporting generic event: \(event.eventName), parameters:\n\(eventParameters) ")
         }
 
         eventsService?.addEvents(events)
