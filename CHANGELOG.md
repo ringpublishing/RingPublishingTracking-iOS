@@ -1,3 +1,10 @@
+1.5.1 Release notes (2024-09-18)
+================================
+
+### Changes
+
+* 'Generic' as a new analytics system name
+
 1.5.0 Release notes (2024-09-03)
 ================================
 
