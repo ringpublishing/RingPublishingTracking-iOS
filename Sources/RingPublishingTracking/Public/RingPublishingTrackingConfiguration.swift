@@ -32,6 +32,9 @@ public struct RingPublishingTrackingConfiguration {
     /// If no new value will be set during app session, this value will be always used.
     public let applicationDefaultAdvertisementArea: String
 
+    /// Should extract article publicationId based on article url?
+    public let shouldUseUrlBasedPublicationId: Bool
+
     // MARK: Init
 
     /// Initialize for configuration data used in RingPublishingTracking SDK
@@ -49,12 +52,14 @@ public struct RingPublishingTrackingConfiguration {
                 apiUrl: URL? = nil,
                 applicationRootPath: String,
                 applicationDefaultStructurePath: [String]? = nil,
-                applicationDefaultAdvertisementArea: String? = nil) {
+                applicationDefaultAdvertisementArea: String? = nil,
+                shouldUseUrlBasedPublicationId: Bool) {
         self.tenantId = tenantId
         self.apiKey = apiKey
         self.apiUrl = apiUrl
         self.applicationRootPath = applicationRootPath
         self.applicationDefaultStructurePath = applicationDefaultStructurePath ?? Constants.applicationDefaultStructurePath
         self.applicationDefaultAdvertisementArea = applicationDefaultAdvertisementArea ?? Constants.applicationDefaultAdvertisementArea
+        self.shouldUseUrlBasedPublicationId = shouldUseUrlBasedPublicationId
     }
 }

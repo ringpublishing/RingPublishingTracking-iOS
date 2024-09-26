@@ -12,7 +12,7 @@ import Foundation
 public struct ContentMetadata {
 
     /// Publication identifier in source system (CMS)
-    public let publicationId: String
+    public var publicationId: String
 
     /// Publication website URL
     public let publicationUrl: URL
