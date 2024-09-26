@@ -22,6 +22,7 @@ public extension RingPublishingTracking {
                               offerData: OfferData,
                               offerContextData: OfferContextData,
                               targetPromotionCampaignCode: String?) {
+
         let event = eventsFactory.createShowOfferEvent(contentMetadata: contentMetadata,
                                                        offerData: offerData,
                                                        offerContextData: offerContextData,

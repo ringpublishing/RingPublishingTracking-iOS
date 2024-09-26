@@ -177,10 +177,10 @@ class PaidEventsFactoryTests: XCTestCase {
         let sampleTermId = "TMEVT00KVHV0"
         let sampleFakeUserId = "fake_001"
         let sampleTermConversionId = "TCCJTS9X87VB"
+        let paymentMethod = "app_store"
         let sampleEventDetails = """
         {
             "fake_user_id": "fake_001",
-            "payment_method": "app_store",
             "subscription_base_price": 100,
             "subscription_price_currency": "usd",
             "subscription_promo_duration": "1w",
@@ -215,6 +215,7 @@ class PaidEventsFactoryTests: XCTestCase {
         XCTAssertEqual(event.eventParameters["term_conversion_id"], sampleTermConversionId)
         XCTAssertEqual(event.eventParameters["RDLCN"], mockRdlcnEncodingPaid())
         XCTAssertEqual(event.eventParameters["event_details"], sampleEventDetails)
+        XCTAssertEqual(event.eventParameters["payment_method"], paymentMethod)
     }
 
     func testPaidEvent_createShowMetricLimitEvent_properParametersInEvent() {
