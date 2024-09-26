@@ -1,3 +1,10 @@
+1.5.2 Release notes (2024-09-26)
+================================
+
+### Changes
+
+* 'payment_method' parameter moved from 'event_details'
+
 1.5.1 Release notes (2024-09-18)
 ================================
 
