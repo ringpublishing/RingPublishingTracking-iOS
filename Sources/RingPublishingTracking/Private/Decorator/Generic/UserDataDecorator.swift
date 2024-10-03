@@ -31,7 +31,7 @@ final class UserDataDecorator: Decorator {
         }
 
         // IZ
-        if let userId = data.sso?.logged.id {
+        if let userId = data.userId {
             userDataParams["IZ"] = userId
         }
 
