@@ -45,8 +45,8 @@ struct Constants {
     // MARK: Video event
 
     static let videoEventParametersPrefix = "video"
-    
+
     // MARK: SSO system name
-    
+
     static let raspSsoSystemName = "O!Konto"
 }
