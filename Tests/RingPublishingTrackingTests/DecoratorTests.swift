@@ -187,7 +187,7 @@ class DecoratorTests: XCTestCase {
         XCTAssertNil(params["IZ"], "IZ should be empty")
     }
 
-    func testParameters_userDataDecoratorCreated_returnedParametersAreCorrect() {
+    func testParameters_userDataDecoratorCreatedForNonOKontoSSO_returnedParametersAreCorrect() {
         // Given
         let userId = "12345"
         let email = "test@email.com"
@@ -200,6 +200,25 @@ class DecoratorTests: XCTestCase {
 
         let expectedBase64 = """
         eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiVGVzdCJ9fQ==
+        """
+
+        XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
+        XCTAssertTrue(params["IZ"] == nil, "IZ should be empty for SSO system name not equal to O!Konto")
+    }
+
+    func testParameters_userDataDecoratorCreatedForOKontoSSO_returnedParametersAreCorrect() {
+        // Given
+        let userId = "12345"
+        let email = "test@email.com"
+        let decorator = UserDataDecorator()
+
+        // Then
+        decorator.updateUserData(userId: userId, email: email)
+        decorator.updateSSO(ssoSystemName: "O!Konto")
+        let params = decorator.parameters
+
+        let expectedBase64 = """
+        eyJzc28iOnsibG9nZ2VkIjp7ImlkIjoiMTIzNDUiLCJtZDUiOiI5Mzk0MmU5NmY1YWNkODNlMmUwNDdhZDhmZTAzMTE0ZCJ9LCJuYW1lIjoiTyFLb250byJ9fQ==
         """
 
         XCTAssertEqual(params["RDLU"], expectedBase64, "RDLU should match")
