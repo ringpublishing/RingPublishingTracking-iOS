@@ -3,6 +3,13 @@
 
 ### Changes
 
+* IZ parameter set only when SSO system name equals 'O!Konto'
+
+1.5.3 Release notes (2024-10-03)
+================================
+
+### Changes
+
 * IZ parameter set based on userId fix
 
 1.5.2 Release notes (2024-09-26)
