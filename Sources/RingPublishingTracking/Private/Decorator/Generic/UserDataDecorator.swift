@@ -31,7 +31,7 @@ final class UserDataDecorator: Decorator {
         }
 
         // IZ
-        if let userId = data.userId {
+        if let userId = data.sso?.logged.id, data.ssoSystemName == Constants.raspSsoSystemName {
             userDataParams["IZ"] = userId
         }
 
