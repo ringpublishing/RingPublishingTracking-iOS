@@ -10,8 +10,8 @@ import Foundation
 
 final class EventsFactory {
 
-    private var videoEventSessionTimestamps = [String: String]() // PMU: RR
-    private var videoEventSessionCounter = [String: Int]() // PMU: VEN
+    var videoEventSessionTimestamps = [String: String]() // PMU: RR
+    var videoEventSessionCounter = [String: Int]() // PMU: VEN
     // MARK: Click
 
     func createClickEvent(selectedElementName: String?,
