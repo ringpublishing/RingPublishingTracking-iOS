@@ -22,6 +22,14 @@ public struct AudioState {
     /// Audio output type
     public let audioOutput: AudioOutput
 
+
+    /// Initializer
+    ///
+    /// - Parameters:
+    ///   - currentTime: The current playback time of the audio (in seconds)
+    ///   - currentBitrate: The current bitrate of the audio stream (in kbps)
+    ///   - visibilityState: The visibility state of the audio player (e.g., foreground, background)
+    ///   - audioOutput: The audio output device or channel (e.g., mobile, car, bluetooth)
     public init(currentTime: Int,
                 currentBitrate: Int,
                 visibilityState: AudioPlayerVisibilityState,

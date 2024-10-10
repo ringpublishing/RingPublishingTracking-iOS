@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Audio metadata for event tracking
 public struct AudioMetadata: Encodable {
 
     /// Content identifier in source system (CMS)
@@ -40,6 +41,19 @@ public struct AudioMetadata: Encodable {
     /// Audio player version name, for example 1.2.0
     public let audioPlayerVersion: String
 
+    /// Initializer
+    ///
+    /// - Parameters:
+    ///   - contentId: Content identifier in source system (CMS)
+    ///   - contentTitle: Title of the audio content
+    ///   - contentSeriesId: Series identifier for the content (if applicable)
+    ///   - contentSeriesTitle: Series title for the content (if applicable)
+    ///   - mediaType: Type of media (e.g., podcast, brand, radio, etc.)
+    ///   - audioDuration: Audio duration (in seconds, optional)
+    ///   - audioStreamFormat: Type of audio stream format loaded into audio player
+    ///   - isContentFragment: Is this content a fragment or a full piece?
+    ///   - audioContentCategory: Audio content category in terms of paid access to it
+    ///   - audioPlayerVersion: Audio player version name, for example 1.2.0
     public init(contentId: String,
                 contentTitle: String,
                 contentSeriesId: String?,

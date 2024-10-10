@@ -69,29 +69,29 @@ private extension EventsFactory {
         case .start:
             let timestamp = "\(Int(Date().timeIntervalSince1970 * 1000))"
 
-            videoEventSessionTimestamps[contentId] = timestamp
+            audioEventSessionTimestamps[contentId] = timestamp
 
             return timestamp
 
         default:
-            return videoEventSessionTimestamps[contentId] ?? audioEventSessionTimestamp(for: contentId, audioEvent: .start)
+            return audioEventSessionTimestamps[contentId] ?? audioEventSessionTimestamp(for: contentId, audioEvent: .start)
         }
     }
 
     func audioEventSessionCounter(for contentId: String, audioEvent: AudioEvent) -> Int {
         switch audioEvent {
         case .start:
-            videoEventSessionCounter[contentId] = 0
+            audioEventSessionCounter[contentId] = 0
 
             return 0
 
         default:
-            guard var counter = videoEventSessionCounter[contentId] else {
+            guard var counter = audioEventSessionCounter[contentId] else {
                 return audioEventSessionCounter(for: contentId, audioEvent: .start)
             }
 
             counter += 1
-            videoEventSessionCounter[contentId] = counter
+            audioEventSessionCounter[contentId] = counter
 
             return counter
         }
