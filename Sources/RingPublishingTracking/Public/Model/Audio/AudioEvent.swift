@@ -8,38 +8,26 @@
 
 import Foundation
 
-public enum AudioEvent {
+public enum AudioEvent: String {
 
     /// Audio player instance started loading Audio data
-    case start
+    case start = "START"
 
     /// Audio player started audio playback (manually)
-    case playingStart
+    case playingStart = "PLAYING_START"
 
     /// Audio player started audio playback (automatically)
-    case autoPlayingStart
+    case autoPlayingStart = "PLAYING_AUTOSTART"
 
     /// Audio player was paused
-    case paused
+    case paused = "PAUSED"
 
     /// Audio player was resumed after it was previously paused/stopped and it is playing audio material
-    case playing
+    case playing = "PLAYING"
 
     /// Audio player is still playing material (after given period of time)
-    case keepPlaying
+    case keepPlaying = "KEEP-PLAYING"
 
     /// Audio player finished playing Audio material
-    case playingEnd
-
-    var text: String {
-        switch self {
-        case .start: return "START"
-        case .playingStart: return "PLAYING_START"
-        case .autoPlayingStart: return "PLAYING_AUTOSTART"
-        case .paused: return "PAUSED"
-        case .playing: return "PLAYING"
-        case .keepPlaying: return "KEEP-PLAYING"
-        case .playingEnd: return "PLAYING_END"
-        }
-    }
+    case playingEnd = "PLAYING_END"
 }

@@ -40,17 +40,16 @@ public struct AudioMetadata: Encodable {
     /// Audio player version name, for example 1.2.0
     public let audioPlayerVersion: String
 
-
     public init(contentId: String,
-         contentTitle: String,
-         contentSeriesId: String?,
-         contentSeriesTitle: String?,
-         mediaType: String,
-         audioDuration: Int?,
-         audioStreamFormat: AudioStreamFormat,
-         isContentFragment: Bool,
-         audioContentCategory: AudioContentCategory,
-         audioPlayerVersion: String) {
+                contentTitle: String,
+                contentSeriesId: String?,
+                contentSeriesTitle: String?,
+                mediaType: String,
+                audioDuration: Int?,
+                audioStreamFormat: AudioStreamFormat,
+                isContentFragment: Bool,
+                audioContentCategory: AudioContentCategory,
+                audioPlayerVersion: String) {
         self.contentId = contentId
         self.contentTitle = contentTitle
         self.contentSeriesId = contentSeriesId
