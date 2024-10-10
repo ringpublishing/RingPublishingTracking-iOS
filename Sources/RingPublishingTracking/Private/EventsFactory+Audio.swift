@@ -13,7 +13,7 @@ extension EventsFactory {
     func createAudioEvent(audioEvent: AudioEvent, audioMetadata: AudioMetadata, audioState: AudioState) -> Event {
 
         var parameters: [String: AnyHashable] = [:]
-        parameters["VE"] = audioEvent.text
+        parameters["VE"] = audioEvent.rawValue
         parameters["RT"] = EventType.videoEvent.rawValue
         parameters["PMU"] = audioMetadata.contentId
         parameters["VP"] = audioState.currentTime
@@ -98,6 +98,7 @@ private extension EventsFactory {
     }
 
     private func createContextParam(visibility: AudioPlayerVisibilityState, output: AudioOutput) -> String? {
-        AudioContextParam(context: AudioContext(visible: visibility.rawValue, audio: AudioOutputContext(output: output.rawValue))).jsonString
+        AudioContextParam(context: AudioContext(visible: visibility.rawValue,
+                                                audio: AudioOutputContext(output: output.rawValue))).jsonStringBase64
     }
 }

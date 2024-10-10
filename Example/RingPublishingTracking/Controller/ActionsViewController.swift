@@ -206,7 +206,6 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         RingPublishingTracking.shared.reportVideoEvent(.keepPlaying, videoMetadata: videoMetadata, videoState: videoState)
     }
 
-    
     @IBAction func onReportAudioStartActionTouch(_ sender: Any) {
         RingPublishingTracking.shared.reportAudioEvent(audioEvent: .start, audioMetadata: sampleAudioMetadata, audioState: sampleAudioState)
     }
@@ -246,7 +245,6 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
                                                        audioMetadata: sampleAudioMetadata,
                                                        audioState: sampleAudioState)
     }
-
 }
 
 // MARK: Private
