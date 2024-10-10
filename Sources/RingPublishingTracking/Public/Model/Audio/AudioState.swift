@@ -22,7 +22,6 @@ public struct AudioState {
     /// Audio output type
     public let audioOutput: AudioOutput
 
-
     /// Initializer
     ///
     /// - Parameters:

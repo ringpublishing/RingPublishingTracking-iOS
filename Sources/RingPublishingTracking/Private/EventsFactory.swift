@@ -14,7 +14,7 @@ final class EventsFactory {
     private var videoEventSessionCounter = [String: Int]() // PMU: VEN
     var audioEventSessionTimestamps = [String: String]()
     var audioEventSessionCounter = [String: Int]()
-    
+
     // MARK: Click
 
     func createClickEvent(selectedElementName: String?,
