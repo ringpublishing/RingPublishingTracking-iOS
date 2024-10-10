@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RZf-xB-t58">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RZf-xB-t58">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -171,6 +171,83 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Mjg-Bx-hHb">
+                                <rect key="frame" x="41" y="594" width="332" height="84"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report Audio events:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N91-T3-J9J">
+                                        <rect key="frame" x="0.0" y="0.0" width="143" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="lxc-6u-H3x">
+                                        <rect key="frame" x="0.0" y="21" width="324" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pb4-GK-rKZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="34" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Start"/>
+                                                <connections>
+                                                    <action selector="onReportAudioStartActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="xnd-DA-xmD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7g-Wc-y60">
+                                                <rect key="frame" x="68" y="0.0" width="87" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Playing Start"/>
+                                                <connections>
+                                                    <action selector="onReportAudioPlayingStartActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="MaX-KL-WCw"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1J4-yD-FBf">
+                                                <rect key="frame" x="189" y="0.0" width="50" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Playing"/>
+                                                <connections>
+                                                    <action selector="onReportAudioPlayingActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="zcf-zJ-nW4"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ts-kf-iJ1">
+                                                <rect key="frame" x="273" y="0.0" width="51" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Paused"/>
+                                                <connections>
+                                                    <action selector="onReportAudioPausedActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="RQe-3B-aOo"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="wd9-Dd-DWt">
+                                        <rect key="frame" x="0.0" y="54" width="332" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJL-Ut-4DZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="89" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Keep Playing"/>
+                                                <connections>
+                                                    <action selector="onReportAudioKeepPlayingActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="uV3-0O-KyA"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHq-3Z-ksS">
+                                                <rect key="frame" x="112" y="0.0" width="117" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Playing Autostart"/>
+                                                <connections>
+                                                    <action selector="onReportAudioPlayingAutostartActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="vCL-Mh-dvo"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SdE-iC-7ZQ">
+                                                <rect key="frame" x="252" y="0.0" width="80" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Playing End"/>
+                                                <connections>
+                                                    <action selector="onReportAudioPlayingEndActionTouch:" destination="BDG-lq-n5Z" eventType="touchUpInside" id="Fm1-c5-1Bm"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sJr-lE-joG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -181,6 +258,7 @@
                             <constraint firstItem="d0H-zo-woo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="9Sk-wj-wC4"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="C3m-rM-iZg"/>
                             <constraint firstItem="yYw-mN-t3Q" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="D8B-WT-t6P"/>
+                            <constraint firstItem="Mjg-Bx-hHb" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="DIB-aq-buO"/>
                             <constraint firstItem="A0L-Do-Ynd" firstAttribute="top" secondItem="hhu-dd-hha" secondAttribute="bottom" constant="36" id="J10-n6-dre"/>
                             <constraint firstItem="hhu-dd-hha" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="KnU-6K-rbv"/>
                             <constraint firstItem="6Li-kJ-9c6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJr-lE-joG" secondAttribute="leading" constant="16" id="Obg-M8-HSO"/>
@@ -202,6 +280,7 @@
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="ubv-vO-h7a"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hhu-dd-hha" secondAttribute="trailing" constant="16" id="ujC-3x-0yD"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A0L-Do-Ynd" secondAttribute="trailing" constant="16" id="uvY-fJ-BYX"/>
+                            <constraint firstItem="Mjg-Bx-hHb" firstAttribute="top" secondItem="c2s-FQ-jRo" secondAttribute="bottom" constant="18" id="vhZ-6j-h5n"/>
                             <constraint firstItem="4gW-eV-fJ9" firstAttribute="top" secondItem="yYw-mN-t3Q" secondAttribute="bottom" constant="36" id="wFK-Cv-c3Q"/>
                             <constraint firstItem="c2s-FQ-jRo" firstAttribute="centerX" secondItem="jBZ-js-FHy" secondAttribute="centerX" id="wp4-D0-1uh"/>
                             <constraint firstItem="sJr-lE-joG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Li-kJ-9c6" secondAttribute="trailing" constant="16" id="xfo-PU-s9r"/>
@@ -302,11 +381,11 @@
             <objects>
                 <viewController storyboardIdentifier="DetailViewController" id="t9l-qS-kSS" customClass="DetailViewController" customModule="RingPublishingTracking_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JZT-F4-9QQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="N2L-wm-aKb">
-                                <rect key="frame" x="0.0" y="48" width="414" height="790"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="t9l-qS-kSS" id="b8g-rM-KGi"/>
