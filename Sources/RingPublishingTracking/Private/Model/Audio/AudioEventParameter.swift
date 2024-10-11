@@ -8,7 +8,7 @@
 import Foundation
 
 /// Audio event parameter
-public struct AudioEventParameter: Encodable {
+struct AudioEventParameter: Encodable {
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -32,13 +32,4 @@ public struct AudioEventParameter: Encodable {
 
     /// Media type, like podcast, brand, radio
     let mediaType: String
-
-    /// Initializer
-    public init(id: String, seriesId: String?, title: String, seriesTitle: String?, mediaType: String) {
-        self.id = id
-        self.seriesId = seriesId
-        self.title = title
-        self.seriesTitle = seriesTitle
-        self.mediaType = mediaType
-    }
 }

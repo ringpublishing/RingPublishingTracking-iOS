@@ -41,14 +41,6 @@ public struct AudioMetadata: Encodable {
     /// Audio player version name, for example 1.2.0
     public let audioPlayerVersion: String
 
-    public var audioEventParameter: AudioEventParameter {
-        AudioEventParameter(id: contentId,
-                            seriesId: contentSeriesId,
-                            title: contentTitle,
-                            seriesTitle: contentSeriesTitle,
-                            mediaType: mediaType)
-    }
-
     /// Initializer
     ///
     /// - Parameters:
