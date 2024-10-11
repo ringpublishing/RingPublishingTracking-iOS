@@ -31,7 +31,7 @@ extension EventsFactory {
         parameters["VT"] = audioMetadata.audioDuration
 
         if  [AudioEvent.start, .playingStart, .autoPlayingStart].contains(where: { $0 == audioEvent }) {
-            parameters["AUDIO"] = audioMetadata.jsonString
+            parameters["AUDIO"] = audioMetadata.audioEventParameter.jsonString
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,

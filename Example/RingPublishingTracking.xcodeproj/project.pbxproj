@@ -175,6 +175,7 @@
 		A04E94F62CB7E9580048B4AF /* AudioStreamFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04E94EE2CB7E9580048B4AF /* AudioStreamFormat.swift */; };
 		A04E94F82CB7E9F40048B4AF /* RingPublishingTracking+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04E94F72CB7E9F40048B4AF /* RingPublishingTracking+Audio.swift */; };
 		A04E94FA2CB7EE660048B4AF /* EventsFactory+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04E94F92CB7EE660048B4AF /* EventsFactory+Audio.swift */; };
+		A04E94FE2CB82A9E0048B4AF /* AudioEventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04E94FD2CB82A9E0048B4AF /* AudioEventParameter.swift */; };
 		A0A52C432C873E0600748DCB /* ContentMarkAsPaid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */; };
 		A0A52C452C88867900748DCB /* ContentMetadata+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */; };
 /* End PBXBuildFile section */
@@ -367,6 +368,7 @@
 		A04E94EE2CB7E9580048B4AF /* AudioStreamFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStreamFormat.swift; sourceTree = "<group>"; };
 		A04E94F72CB7E9F40048B4AF /* RingPublishingTracking+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RingPublishingTracking+Audio.swift"; sourceTree = "<group>"; };
 		A04E94F92CB7EE660048B4AF /* EventsFactory+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventsFactory+Audio.swift"; sourceTree = "<group>"; };
+		A04E94FD2CB82A9E0048B4AF /* AudioEventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEventParameter.swift; sourceTree = "<group>"; };
 		A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMarkAsPaid.swift; sourceTree = "<group>"; };
 		A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+Parameters.swift"; sourceTree = "<group>"; };
 		BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTracking_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -879,6 +881,7 @@
 				A04E94EC2CB7E9580048B4AF /* AudioPlayerVisibilityState.swift */,
 				A04E94ED2CB7E9580048B4AF /* AudioState.swift */,
 				A04E94EE2CB7E9580048B4AF /* AudioStreamFormat.swift */,
+				A04E94FD2CB82A9E0048B4AF /* AudioEventParameter.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -1093,6 +1096,7 @@
 				60108ECE2B0515C6005656C1 /* EventsService+Decorators.swift in Sources */,
 				60108E742B0515C6005656C1 /* VideoState.swift in Sources */,
 				60108E802B0515C6005656C1 /* TrackingIdentifier.swift in Sources */,
+				A04E94FE2CB82A9E0048B4AF /* AudioEventParameter.swift in Sources */,
 				60108EB82B0515C6005656C1 /* VideoContentCategory+ParameterName.swift in Sources */,
 				60108E8A2B0515C6005656C1 /* Optional+Logable.swift in Sources */,
 				60108E6C2B0515C6005656C1 /* RingPublishingTrackingKeepAliveDataSource.swift in Sources */,
@@ -1391,7 +1395,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 97W46277W4;
 				INFOPLIST_FILE = RingPublishingTracking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1414,7 +1419,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 97W46277W4;
 				INFOPLIST_FILE = RingPublishingTracking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

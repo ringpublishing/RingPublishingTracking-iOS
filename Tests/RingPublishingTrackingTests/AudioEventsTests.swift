@@ -25,7 +25,7 @@ class AudioEventsFactoryTest: XCTestCase {
     }
 
     var sampleAudioState: AudioState {
-        AudioState(currentTime: Int(Date().timeIntervalSince1970),
+        AudioState(currentTime: 10,
                    currentBitrate: 360,
                    visibilityState: .background,
                    audioOutput: .bluetooth)

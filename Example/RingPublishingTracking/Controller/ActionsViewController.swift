@@ -264,7 +264,7 @@ private extension ActionsViewController {
     }
 
     var sampleAudioState: AudioState {
-        AudioState(currentTime: Int(Date().timeIntervalSince1970),
+        AudioState(currentTime: 10,
                    currentBitrate: 360,
                    visibilityState: .background,
                    audioOutput: .bluetooth)
