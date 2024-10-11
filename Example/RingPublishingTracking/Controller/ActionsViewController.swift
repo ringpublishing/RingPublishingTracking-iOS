@@ -205,10 +205,70 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         RingPublishingTracking.shared.reportVideoEvent(.playingStart, videoMetadata: videoMetadata, videoState: videoState)
         RingPublishingTracking.shared.reportVideoEvent(.keepPlaying, videoMetadata: videoMetadata, videoState: videoState)
     }
+
+    @IBAction func onReportAudioStartActionTouch(_ sender: Any) {
+        RingPublishingTracking.shared.reportAudioEvent(audioEvent: .start, audioMetadata: sampleAudioMetadata, audioState: sampleAudioState)
+    }
+
+    @IBAction func onReportAudioPlayingStartActionTouch(_ sender: Any) {
+        RingPublishingTracking.shared.reportAudioEvent(audioEvent: .playingStart,
+                                                       audioMetadata: sampleAudioMetadata,
+                                                       audioState: sampleAudioState)
+    }
+
+    @IBAction func onReportAudioPlayingActionTouch(_ sender: Any) {
+        RingPublishingTracking.shared.reportAudioEvent(audioEvent: .playing,
+                                                       audioMetadata: sampleAudioMetadata,
+                                                       audioState: sampleAudioState)
+    }
+
+    @IBAction func onReportAudioPausedActionTouch(_ sender: Any) {
+        RingPublishingTracking.shared.reportAudioEvent(audioEvent: .paused,
+                                                       audioMetadata: sampleAudioMetadata,
+                                                       audioState: sampleAudioState)
+    }
+
+    @IBAction func onReportAudioKeepPlayingActionTouch(_ sender: Any) {
+        RingPublishingTracking.shared.reportAudioEvent(audioEvent: .keepPlaying,
+                                                       audioMetadata: sampleAudioMetadata,
+                                                       audioState: sampleAudioState)
+    }
+
+    @IBAction func onReportAudioPlayingAutostartActionTouch(_ sender: Any) {
+        RingPublishingTracking.shared.reportAudioEvent(audioEvent: .autoPlayingStart,
+                                                       audioMetadata: sampleAudioMetadata,
+                                                       audioState: sampleAudioState)
+    }
+
+    @IBAction func onReportAudioPlayingEndActionTouch(_ sender: Any) {
+        RingPublishingTracking.shared.reportAudioEvent(audioEvent: .playingEnd,
+                                                       audioMetadata: sampleAudioMetadata,
+                                                       audioState: sampleAudioState)
+    }
 }
 
 // MARK: Private
 private extension ActionsViewController {
+
+    var sampleAudioMetadata: AudioMetadata {
+        AudioMetadata(contentId: "12167",
+                      contentTitle: "Bartosz Kwolek: siatkówka nie jest całym moim życiem",
+                      contentSeriesId: "67",
+                      contentSeriesTitle: "W cieniu sportu",
+                      mediaType: "podcast",
+                      audioDuration: 3722,
+                      audioStreamFormat: .mp3,
+                      isContentFragment: false,
+                      audioContentCategory: .free,
+                      audioPlayerVersion: "1.0.0")
+    }
+
+    var sampleAudioState: AudioState {
+        AudioState(currentTime: 10,
+                   currentBitrate: 360,
+                   visibilityState: .background,
+                   audioOutput: .bluetooth)
+    }
 
     func reportButtonClickEvent(_ sender: Any) {
         // If our click action does not have a name, we can omit it
