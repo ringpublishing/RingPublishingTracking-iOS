@@ -30,7 +30,7 @@ extension EventsFactory {
         parameters["display_mode"] = offerData.displayMode.rawValue
         parameters["source"] = offerContextData.source
         parameters["source_dx"] = contentMetadata?.dxParameter
-        parameters["source_publication_uuid"] = contentMetadata?.publicationId
+        parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["closure_percentage"] = offerContextData.closurePercentage
         parameters["tpcc"] = targetPromotionCampaignCode
@@ -53,7 +53,7 @@ extension EventsFactory {
         parameters["display_mode"] = offerData.displayMode.rawValue
         parameters["source"] = offerContextData.source
         parameters["source_dx"] = contentMetadata?.dxParameter
-        parameters["source_publication_uuid"] = contentMetadata?.publicationId
+        parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["closure_percentage"] = offerContextData.closurePercentage
         parameters["tpcc"] = targetPromotionCampaignCode
@@ -78,7 +78,7 @@ extension EventsFactory {
         parameters["source"] = offerContextData.source
         parameters["term_id"] = termId
         parameters["source_dx"] = contentMetadata?.dxParameter
-        parameters["source_publication_uuid"] = contentMetadata?.publicationId
+        parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["tpcc"] = targetPromotionCampaignCode
         parameters["RDLCN"] = contentMetadata?.rdlcnParameter
@@ -108,7 +108,7 @@ extension EventsFactory {
         parameters["term_id"] = termId
         parameters["term_conversion_id"] = termConversionId
         parameters["source_dx"] = contentMetadata?.dxParameter
-        parameters["source_publication_uuid"] = contentMetadata?.publicationId
+        parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["tpcc"] = targetPromotionCampaignCode
         parameters["event_details"] = EventDetails(fakeUserId: temporaryUserId, subscriptionPaymentData: subscriptionPaymentData).jsonString
@@ -133,7 +133,7 @@ extension EventsFactory {
         parameters["free_pv_cnt"] = metricsData.freePageViewCount
         parameters["free_pv_limit"] = metricsData.freePageViewLimit
         parameters["source_dx"] = contentMetadata.dxParameter
-        parameters["source_publication_uuid"] = contentMetadata.publicationId
+        parameters["source_publication_uuid"] = contentMetadata.contentId
         parameters["RDLCN"] = contentMetadata.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
@@ -149,7 +149,7 @@ extension EventsFactory {
         parameters["supplier_app_id"] = supplierData.supplierAppId
         parameters["paywall_supplier"] = supplierData.paywallSupplier
         parameters["source_dx"] = contentMetadata?.dxParameter
-        parameters["source_publication_uuid"] = contentMetadata?.publicationId
+        parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["event_details"] = likelihoodData.jsonString
         parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
