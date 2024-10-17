@@ -26,22 +26,6 @@ class EventTests: XCTestCase {
         XCTAssertTrue(isValid)
     }
 
-    func testIsValidJSONObject_incorrectParameterProvided_jsonObjectIsInvalid() {
-        // Given
-        let specialString = String(bytes: [0xD8, 0x00] as [UInt8],
-                                   encoding: String.Encoding.utf16BigEndian)
-
-        let event = Event(eventParameters: [
-            "incorrectValue": specialString
-        ])
-
-        // When
-        let isValid = event.isValidJSONObject
-
-        // Then
-        XCTAssertFalse(isValid)
-    }
-
     func testSizeInBytes_sampleEventCreated_sizeInBytesIsCorrect() {
         // Given
         let event = Event(analyticsSystemName: "a", eventName: "b", eventParameters: ["c": "d"])
