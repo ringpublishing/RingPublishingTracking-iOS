@@ -1,3 +1,10 @@
+1.6.1 Release notes (2024-10-16)
+================================
+
+### Changes
+
+* Source publication uuid set to content id
+
 1.5.3 Release notes (2024-10-03)
 ================================
 
