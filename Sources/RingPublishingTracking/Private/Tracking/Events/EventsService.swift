@@ -220,9 +220,16 @@ final class EventsService {
 private extension EventsService {
 
     func decorateEvents(_ events: [Event], using decorators: [Decorator], completion: @escaping (_ events: [Event]) -> Void) {
-        DispatchQueue.main.async {
+        switch Thread.isMainThread {
+        case true:
             let decoratedEvents = events.map { $0.decorated(using: decorators) }
             completion(decoratedEvents)
+
+        case false:
+            DispatchQueue.main.sync {
+                let decoratedEvents = events.map { $0.decorated(using: decorators) }
+                completion(decoratedEvents)
+            }
         }
     }
 }
