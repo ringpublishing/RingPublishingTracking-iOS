@@ -17,8 +17,11 @@ extension ContentMetadata {
     }()
 
     var dxParameter: String {
-        let sourceSystem = sourceSystemName.trimmingCharacters(in: .whitespacesAndNewlines)
         let pubId = publicationId.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !pubId.isEmpty else { return "" }
+
+        let sourceSystem = sourceSystemName.trimmingCharacters(in: .whitespacesAndNewlines)
         let part = contentPartIndex
         let paid = paidContent ? "t" : "f"
 
