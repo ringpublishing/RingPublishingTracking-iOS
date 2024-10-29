@@ -1,3 +1,10 @@
+1.6.3 Release notes (2024-10-28)
+================================
+
+### Changes
+
+* Setting dx_source empty for empty publicationId
+
 1.6.2 Release notes (2024-10-22)
 ================================
 
