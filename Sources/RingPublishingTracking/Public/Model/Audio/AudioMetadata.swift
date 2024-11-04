@@ -33,7 +33,7 @@ public struct AudioMetadata: Encodable {
     public let audioStreamFormat: AudioStreamFormat
 
     /// Is audio a part of a bigger content piece
-    public let isContentFragment: Bool
+    public let isContentFragment: Int
 
     /// Audio content category in terms of paid access to it
     public let audioContentCategory: AudioContentCategory
@@ -61,7 +61,7 @@ public struct AudioMetadata: Encodable {
                 mediaType: String,
                 audioDuration: Int?,
                 audioStreamFormat: AudioStreamFormat,
-                isContentFragment: Bool,
+                isContentFragment: Int,
                 audioContentCategory: AudioContentCategory,
                 audioPlayerVersion: String) {
         self.contentId = contentId
