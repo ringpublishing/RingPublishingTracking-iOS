@@ -27,7 +27,7 @@ extension EventsFactory {
         parameters["VEM"] = mainAudio
         parameters["VPC"] = audioMetadata.audioContentCategory.rawValue
         parameters["ECX"] = createContextParam(visibility: audioState.visibilityState, output: audioState.audioOutput)
-        parameters["FRA"] = audioMetadata.isContentFragment
+        parameters["FRA"] = audioMetadata.isContentFragment ? 1 : 0
         parameters["VT"] = audioMetadata.audioDuration
 
         if  [AudioEvent.start, .playingStart, .autoPlayingStart].contains(where: { $0 == audioEvent }) {
