@@ -1,3 +1,10 @@
+1.6.4 Release notes (2024-11-04)
+================================
+
+### Changes
+
+* Audio event field FRA (fragment indicator) type changed from Bool to Int
+
 1.6.3 Release notes (2024-10-28)
 ================================
 
