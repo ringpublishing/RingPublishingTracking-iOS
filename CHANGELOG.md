@@ -1,3 +1,11 @@
+1.6.5 Release notes (2024-11-07)
+================================
+
+### Changes
+
+* Content id in audio event field VC set to "6" for media type "tts"
+* Unit test updated
+
 1.6.4 Release notes (2024-11-04)
 ================================
 
