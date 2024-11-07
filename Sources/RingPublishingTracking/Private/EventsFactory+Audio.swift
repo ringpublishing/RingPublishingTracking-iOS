@@ -15,7 +15,7 @@ extension EventsFactory {
         var parameters: [String: AnyHashable] = [:]
         parameters["VE"] = audioEvent.rawValue
         parameters["RT"] = EventType.videoEvent.rawValue
-        parameters["PMU"] = audioMetadata.contentId
+        parameters["PMU"] = audioMetadata.contentId.uuidValidation()
         parameters["VP"] = audioState.currentTime
         parameters["VC"] = createAudioEventVCParameter(metadata: audioMetadata, audioState: audioState)
         parameters["RR"] = audioEventSessionTimestamp(for: audioMetadata.contentId, audioEvent: audioEvent)
