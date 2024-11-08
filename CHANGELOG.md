@@ -1,3 +1,10 @@
+1.6.5 Release notes (2024-11-06)
+================================
+
+### Changes
+
+* Audio event field PMU contains value only if it is in UUID format
+
 1.6.4 Release notes (2024-11-04)
 ================================
 
