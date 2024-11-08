@@ -179,6 +179,7 @@
 		A04E950A2CB92D870048B4AF /* AudioMetadata+AudioEventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04E95092CB92D870048B4AF /* AudioMetadata+AudioEventParameter.swift */; };
 		A0A52C432C873E0600748DCB /* ContentMarkAsPaid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */; };
 		A0A52C452C88867900748DCB /* ContentMetadata+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */; };
+		A0EBEFA22CDE3C3D000629DF /* String+UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EBEFA12CDE3C3D000629DF /* String+UUID.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -373,6 +374,7 @@
 		A04E95092CB92D870048B4AF /* AudioMetadata+AudioEventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioMetadata+AudioEventParameter.swift"; sourceTree = "<group>"; };
 		A0A52C422C873E0600748DCB /* ContentMarkAsPaid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMarkAsPaid.swift; sourceTree = "<group>"; };
 		A0A52C442C88867900748DCB /* ContentMetadata+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentMetadata+Parameters.swift"; sourceTree = "<group>"; };
+		A0EBEFA12CDE3C3D000629DF /* String+UUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UUID.swift"; sourceTree = "<group>"; };
 		BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTracking_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED067BC36C6C6FA35D9F88B6 /* Pods_RingPublishingTrackingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RingPublishingTrackingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -707,6 +709,7 @@
 				60108E4E2B0515C6005656C1 /* VideoVisibility+ParameterName.swift */,
 				60108E4F2B0515C6005656C1 /* VideoEvent+VE.swift */,
 				60108E502B0515C6005656C1 /* String+MD5.swift */,
+				A0EBEFA12CDE3C3D000629DF /* String+UUID.swift */,
 				60108E512B0515C6005656C1 /* VideoStartMode+ParameterName.swift */,
 				60108E522B0515C6005656C1 /* VideoAdsConfiguration+ParameterName.swift */,
 				60108E532B0515C6005656C1 /* VideoStreamFormat+ParameterName.swift */,
@@ -1215,6 +1218,7 @@
 				60108ED22B0515C6005656C1 /* EventsQueueManagerDelegate.swift in Sources */,
 				60108E9F2B0515C6005656C1 /* ArtemisRequest.swift in Sources */,
 				60108E892B0515C6005656C1 /* Logger.swift in Sources */,
+				A0EBEFA22CDE3C3D000629DF /* String+UUID.swift in Sources */,
 				60108EAA2B0515C6005656C1 /* Artemis.swift in Sources */,
 				60108EA22B0515C6005656C1 /* APIService.swift in Sources */,
 				60108EA62B0515C6005656C1 /* Profile.swift in Sources */,
