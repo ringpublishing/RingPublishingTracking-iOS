@@ -132,7 +132,7 @@ class AudioEventsFactoryTest: XCTestCase {
 
         XCTAssertEqual(event.eventParameters["VE"] as? String, audioEvent.rawValue)
         XCTAssertEqual(event.eventParameters["RT"] as? String, EventType.videoEvent.rawValue)
-        XCTAssertEqual(event.eventParameters["PMU"] as? String, sampleAudioMetadata.contentId.uuidValidation())
+        XCTAssertEqual(event.eventParameters["PMU"] as? String, sampleAudioMetadata.contentId)
         XCTAssertEqual(event.eventParameters["VT"] as? Int, sampleAudioMetadata.audioDuration)
         XCTAssertEqual(event.eventParameters["VP"] as? Int, sampleAudioState.currentTime)
         XCTAssertEqual(event.eventParameters["VC"] as? String, sampleData)
