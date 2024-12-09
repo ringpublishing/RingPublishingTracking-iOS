@@ -31,5 +31,5 @@ struct AudioEventParameter: Encodable {
     let seriesTitle: String?
 
     /// Media type, like podcast, brand, radio
-    let mediaType: String
+    let mediaType: AudioMediaType
 }

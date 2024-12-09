@@ -24,7 +24,7 @@ public struct AudioMetadata: Encodable {
     public let contentSeriesTitle: String?
 
     /// Audio media type (tts / podcast / livestream etc.)
-    public let mediaType: String
+    public let mediaType: AudioMediaType
 
     /// Audio duration (in seconds)
     public let audioDuration: Int?
@@ -58,7 +58,7 @@ public struct AudioMetadata: Encodable {
                 contentTitle: String,
                 contentSeriesId: String?,
                 contentSeriesTitle: String?,
-                mediaType: String,
+                mediaType: AudioMediaType,
                 audioDuration: Int?,
                 audioStreamFormat: AudioStreamFormat,
                 isContentFragment: Bool,

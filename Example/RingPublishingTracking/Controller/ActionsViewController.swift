@@ -255,7 +255,7 @@ private extension ActionsViewController {
                       contentTitle: "Bartosz Kwolek: siatkówka nie jest całym moim życiem",
                       contentSeriesId: "67",
                       contentSeriesTitle: "W cieniu sportu",
-                      mediaType: "podcast",
+                      mediaType: .podcast,
                       audioDuration: 3722,
                       audioStreamFormat: .mp3,
                       isContentFragment: false,
