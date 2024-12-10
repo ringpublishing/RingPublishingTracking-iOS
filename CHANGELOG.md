@@ -1,10 +1,3 @@
-1.7.0 Release notes (2024-12-06)
-================================
-
-### Changes
-
-* Audio event field VE contains hardcoded value = 6 if media type is .tts in every other case value is normal content id
-
 1.6.5 Release notes (2024-11-06)
 ================================
 

@@ -61,8 +61,8 @@ private extension EventsFactory {
 
     func createAudioEventVCParameter(metadata: AudioMetadata, audioState: AudioState) -> String {
         let contentId = metadata.mediaType == .tts ? "6" : metadata.contentId
-        
-        return "audio:\(contentId),\(metadata.contentId),\(metadata.audioStreamFormat.rawValue),\(audioState.currentBitrate)"
+
+        return "audio:\(contentId),\(contentId),\(metadata.audioStreamFormat.rawValue),\(audioState.currentBitrate)"
     }
 
     func audioEventSessionTimestamp(for contentId: String, audioEvent: AudioEvent) -> String {
