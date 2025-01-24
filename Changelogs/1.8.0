@@ -1,0 +1,8 @@
+1.7.0 Release notes (2024-12-24)
+================================
+
+### Changes
+
+* Adding support for collecting information about old and new conversionId from Piano
+    - before conversion from fakeUser - previous_term_conversion_id
+    - after conversion for real user - new_term_conversion_id 

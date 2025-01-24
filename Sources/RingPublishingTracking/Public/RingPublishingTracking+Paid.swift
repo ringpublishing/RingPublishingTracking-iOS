@@ -140,9 +140,13 @@ public extension RingPublishingTracking {
     ///   - temporaryUserId: Temporary user id
     ///   - realUserId: New user id
     func reportMobileAppTemporaryUserIdReplacedEvent(temporaryUserId: String,
-                                                     realUserId: String) {
+                                                     realUserId: String,
+                                                     previousTermConversionId: String,
+                                                     newTermConversionId: String) {
         let event = eventsFactory.createMobileAppFakeUserIdReplacedEvent(temporaryUserId: temporaryUserId,
-                                                                         realUserId: realUserId)
+                                                                         realUserId: realUserId,
+                                                                         previousTermConversionId: previousTermConversionId,
+                                                                         newTermConversionId: newTermConversionId)
         reportEvent(event)
     }
 
