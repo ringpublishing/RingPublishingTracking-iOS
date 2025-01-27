@@ -274,7 +274,9 @@ class PaidEventsFactoryTests: XCTestCase {
         // When
         let event = eventsFactory.createMobileAppFakeUserIdReplacedEvent(
             temporaryUserId: sampleFakeUserId,
-            realUserId: sampleRealUserId
+            realUserId: sampleRealUserId,
+            previousTermConversionId: nil,
+            newTermConversionId: nil
         )
 
         // Then

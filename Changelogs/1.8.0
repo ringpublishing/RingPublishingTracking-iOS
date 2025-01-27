@@ -1,0 +1,8 @@
+1.8.0 Release notes (2025-01-24)
+================================
+
+### Changes
+
+* Adding support for collecting information about old and new conversionId
+    - before conversion from fakeUser - previous_term_conversion_id
+    - after conversion for real user - new_term_conversion_id 
