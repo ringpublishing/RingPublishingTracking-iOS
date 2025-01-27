@@ -158,8 +158,8 @@ extension EventsFactory {
 
     func createMobileAppFakeUserIdReplacedEvent(temporaryUserId: String,
                                                 realUserId: String,
-                                                previousTermConversionId: String,
-                                                newTermConversionId: String) -> Event {
+                                                previousTermConversionId: String?,
+                                                newTermConversionId: String?) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
         parameters["event_category"] = "mobile_app_fake_user_id_replaced"
