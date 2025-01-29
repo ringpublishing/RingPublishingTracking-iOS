@@ -1,3 +1,12 @@
+1.8.1 Release notes (2025-01-29)
+================================
+
+### Changes
+
+* Changes for fields for mobile_app_fake_user_id_replaced:
+    - previous_term_conversion_id -> fake_user_term_conversion_id
+    - new_term_conversion_id -> real_user_term_conversion_id
+
 1.8.0 Release notes (2025-01-24)
 ================================
 
