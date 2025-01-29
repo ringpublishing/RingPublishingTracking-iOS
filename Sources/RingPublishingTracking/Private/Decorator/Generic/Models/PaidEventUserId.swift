@@ -13,8 +13,8 @@ struct EventDetails: Encodable {
     enum CodingKeys: String, CodingKey {
         case fakeUserId = "fake_user_id"
         case realUserId = "real_user_id"
-        case previousTermConversionId = "previous_term_conversion_id"
-        case newTermConversionId = "new_term_conversion_id"
+        case fakeUserTermConversionId = "fake_user_term_conversion_id"
+        case realUserTermConversionId = "real_user_term_conversion_id"
         case subscriptionBasePrice = "subscription_base_price"
         case subscriptionPriceCurrency = "subscription_price_currency"
         case subscriptionPromoPrice = "subscription_promo_price"
@@ -23,8 +23,8 @@ struct EventDetails: Encodable {
 
     let fakeUserId: String?
     let realUserId: String?
-    let previousTermConversionId: String?
-    let newTermConversionId: String?
+    let fakeUserTermConversionId: String?
+    let realUserTermConversionId: String?
     let subscriptionBasePrice: Float?
     let subscriptionPriceCurrency: String?
     let subscriptionPromoPrice: Float?
@@ -32,13 +32,13 @@ struct EventDetails: Encodable {
 
     init(fakeUserId: String?,
          realUserId: String? = nil,
-         previousTermConversionId: String? = nil,
-         newTermConversionId: String? = nil,
+         fakeUserTermConversionId: String? = nil,
+         realUserTermConversionId: String? = nil,
          subscriptionPaymentData: SubscriptionPaymentData? = nil) {
         self.fakeUserId = fakeUserId
         self.realUserId = realUserId
-        self.previousTermConversionId = previousTermConversionId
-        self.newTermConversionId = newTermConversionId
+        self.fakeUserTermConversionId = fakeUserTermConversionId
+        self.realUserTermConversionId = realUserTermConversionId
         self.subscriptionBasePrice = subscriptionPaymentData?.subscriptionBasePrice
         self.subscriptionPriceCurrency = subscriptionPaymentData?.subscriptionPriceCurrency
         self.subscriptionPromoPrice = subscriptionPaymentData?.subscriptionPromoPrice

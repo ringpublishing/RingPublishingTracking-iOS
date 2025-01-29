@@ -166,8 +166,8 @@ extension EventsFactory {
         parameters["event_action"] = "mobileAppFakeUserIdReplaced"
         parameters["event_details"] = EventDetails(fakeUserId: temporaryUserId,
                                                    realUserId: realUserId,
-                                                   previousTermConversionId: previousTermConversionId,
-                                                   newTermConversionId: newTermConversionId).jsonString
+                                                   fakeUserTermConversionId: previousTermConversionId,
+                                                   realUserTermConversionId: newTermConversionId).jsonString
 
         return createPaidEvent(parameters: parameters)
     }
