@@ -1,3 +1,11 @@
+1.8.2 Release notes (2025-02-05)
+================================
+
+### Changes
+
+* Changes for field DA:
+    - sending site parametr when area is inaccessible
+
 1.8.1 Release notes (2025-01-29)
 ================================
 

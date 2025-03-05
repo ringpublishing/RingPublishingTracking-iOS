@@ -64,5 +64,6 @@ extension EventsService {
 
     func updateApplicationRootPath(applicationRootPath: String) {
         structureInfoDecorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
+        adAreaDecorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
     }
 }

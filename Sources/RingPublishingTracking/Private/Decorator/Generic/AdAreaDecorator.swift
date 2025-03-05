@@ -11,6 +11,7 @@ import Foundation
 final class AdAreaDecorator: Decorator {
 
     private var applicationAdvertisementArea: String?
+    private var applicationRootPath: String?
 
     var parameters: [String: AnyHashable] {
         if let area = applicationAdvertisementArea {
@@ -18,7 +19,9 @@ final class AdAreaDecorator: Decorator {
                 "DA": area
             ]
         } else {
-            return [:]
+            return [
+                "DA": applicationRootPath
+            ]
         }
     }
 }
@@ -27,5 +30,12 @@ extension AdAreaDecorator {
 
     func updateApplicationAdvertisementArea(applicationAdvertisementArea: String) {
         self.applicationAdvertisementArea = applicationAdvertisementArea
+    }
+    
+    func updateApplicationRootPath(applicationRootPath: String) {
+        self.applicationRootPath = [applicationRootPath + ".\(Constants.applicationPrefix)"]
+                                                                            .joined()
+                                                                            .lowercased()
+                                                                            .replacingOccurrences(of: ".", with: "_")
     }
 }
