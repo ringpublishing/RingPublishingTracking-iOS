@@ -3,8 +3,9 @@
 
 ### Changes
 
-* Changes for field DA:
-    - sending site parametr when area is inaccessible
+* Changes for field DA and DV:
+    - sending site parametr when area is inaccessible for DA
+    - sending site as prefix for DV instead of root
 
 1.8.1 Release notes (2025-01-29)
 ================================
