@@ -76,6 +76,7 @@ public class RingPublishingTracking {
         eventsService?.updateApplicationAdvertisementArea(configuration.applicationDefaultAdvertisementArea)
         eventsService?.updateTenantId(tenantId: configuration.tenantId)
         eventsService?.updateApplicationRootPath(applicationRootPath: configuration.applicationRootPath)
+        eventsService?.updateApplicationAdvertisementSite(applicationAdvertisementSite: configuration.applicationAdvertisementSite)
         eventsService?.updateStructureType(structureType: .structurePath(configuration.applicationDefaultStructurePath),
                                           contentPageViewSource: nil)
     }
