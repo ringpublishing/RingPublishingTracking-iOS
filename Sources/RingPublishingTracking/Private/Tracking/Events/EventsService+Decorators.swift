@@ -30,7 +30,7 @@ extension EventsService {
 
     // MARK: - Decorators helpers
 
-    func updateApplicationAdvertisementArea(_ currentAdvertisementArea: String) {
+    func updateApplicationAdvertisementArea(_ currentAdvertisementArea: String?) {
         adAreaDecorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: currentAdvertisementArea)
     }
 
@@ -65,8 +65,8 @@ extension EventsService {
     func updateApplicationRootPath(applicationRootPath: String) {
         structureInfoDecorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
     }
-    
-    func updateApplicationAdvertisementSite(applicationAdvertisementSite: String) {
+
+    func updateApplicationAdvertisementSite(applicationAdvertisementSite: String?) {
         structureInfoDecorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: applicationAdvertisementSite)
         adAreaDecorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: applicationAdvertisementSite)
     }

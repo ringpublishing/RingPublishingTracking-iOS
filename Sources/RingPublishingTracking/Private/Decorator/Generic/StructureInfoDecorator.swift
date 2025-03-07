@@ -13,24 +13,20 @@ enum StructureType {
     case publicationUrl(URL, [String])
     case structurePath([String])
 
-    func parametersResolved(applicationRootPath: String, applicationAdvertisementSite: String) -> (dv: String, du: String) {
+    func parametersResolved(applicationRootPath: String, applicationAdvertisementSite: String?) -> (dv: String, du: String) {
         let dvField: String
         let duField: String
 
         switch self {
         case .publicationUrl(let url, let array):
-            dvField = formatFieldDV(for: applicationAdvertisementSite, array: array)
+            dvField = ([applicationAdvertisementSite ?? applicationRootPath] + array).joined(separator: "/")
             duField = url.absoluteString
         case .structurePath(let array):
-            dvField = formatFieldDV(for: applicationAdvertisementSite, array: array)
+            dvField = ([applicationAdvertisementSite ?? applicationRootPath] + array).joined(separator: "/")
             duField = "https://\(applicationRootPath).\(Constants.applicationPrefix)/\(array.joined(separator: "/"))".lowercased()
         }
 
         return (dvField, duField)
-    }
-
-    private func formatFieldDV(for applicationAdvertisementSite: String, array: [String]) -> String {
-        ([applicationAdvertisementSite] + array).joined(separator: "/")
     }
 }
 
@@ -78,7 +74,7 @@ extension StructureInfoDecorator {
         self.applicationRootPath = applicationRootPath
     }
     
-    func updateApplicationAdvertisementSite(applicationAdvertisementSite: String) {
+    func updateApplicationAdvertisementSite(applicationAdvertisementSite: String?) {
         self.applicationAdvertisementSite = applicationAdvertisementSite
     }
 }

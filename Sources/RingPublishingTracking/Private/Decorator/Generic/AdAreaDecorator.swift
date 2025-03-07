@@ -14,25 +14,19 @@ final class AdAreaDecorator: Decorator {
     private var applicationAdvertisementSite: String?
 
     var parameters: [String: AnyHashable] {
-        if let area = applicationAdvertisementArea {
-            return [
-                "DA": area
-            ]
-        } else {
-            return [
-                "DA": applicationAdvertisementSite
-            ]
-        }
+        return  [
+            "DA": [applicationAdvertisementSite, applicationAdvertisementArea].compactMap { $0 }.joined(separator: "/")
+        ]
     }
 }
 
 extension AdAreaDecorator {
 
-    func updateApplicationAdvertisementArea(applicationAdvertisementArea: String) {
+    func updateApplicationAdvertisementArea(applicationAdvertisementArea: String?) {
         self.applicationAdvertisementArea = applicationAdvertisementArea
     }
-    
-    func updateApplicationAdvertisementSite(applicationAdvertisementSite: String) {
+
+    func updateApplicationAdvertisementSite(applicationAdvertisementSite: String?) {
         self.applicationAdvertisementSite = applicationAdvertisementSite
     }
 }

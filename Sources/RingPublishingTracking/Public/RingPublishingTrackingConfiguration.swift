@@ -31,10 +31,9 @@ public struct RingPublishingTrackingConfiguration {
     /// Default ad space name of the application, for example "ads/list/sport"
     /// If no new value will be set during app session, this value will be always used.
     public let applicationDefaultAdvertisementArea: String
-    
-    /// Application site name, for example site name like "onet" or "newsweek".
-    /// This value will be used to identify site
-    public let applicationAdvertisementSite: String
+
+    /// Application advertisement site, which is used as a prefix for all advertisement areas
+    public let applicationAdvertisementSite: String?
 
     // MARK: Init
 
@@ -54,7 +53,7 @@ public struct RingPublishingTrackingConfiguration {
                 applicationRootPath: String,
                 applicationDefaultStructurePath: [String]? = nil,
                 applicationDefaultAdvertisementArea: String? = nil,
-                applicationAdvertisementSite: String) {
+                applicationAdvertisementSite: String? = nil) {
         self.tenantId = tenantId
         self.apiKey = apiKey
         self.apiUrl = apiUrl
