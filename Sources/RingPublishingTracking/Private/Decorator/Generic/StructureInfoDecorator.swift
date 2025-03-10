@@ -13,31 +13,27 @@ enum StructureType {
     case publicationUrl(URL, [String])
     case structurePath([String])
 
-    func parametersResolved(with applicationRootPath: String) -> (dv: String, du: String) {
+    func parametersResolved(applicationRootPath: String, applicationAdvertisementSite: String?) -> (dv: String, du: String) {
         let dvField: String
         let duField: String
 
         switch self {
         case .publicationUrl(let url, let array):
-            dvField = formatFieldDV(for: applicationRootPath, array: array)
+            dvField = ([applicationAdvertisementSite ?? applicationRootPath] + array).joined(separator: "/")
             duField = url.absoluteString
         case .structurePath(let array):
-            dvField = formatFieldDV(for: applicationRootPath, array: array)
+            dvField = ([applicationAdvertisementSite ?? applicationRootPath] + array).joined(separator: "/")
             duField = "https://\(applicationRootPath).\(Constants.applicationPrefix)/\(array.joined(separator: "/"))".lowercased()
         }
 
         return (dvField, duField)
-    }
-
-    private func formatFieldDV(for applicationRootPath: String, array: [String]) -> String {
-        ([applicationRootPath + ".\(Constants.applicationPrefix)"] + array).joined(separator: "/").lowercased()
-            .replacingOccurrences(of: ".", with: "_")
     }
 }
 
 final class StructureInfoDecorator: Decorator {
 
     private(set) var applicationRootPath: String?
+    private(set) var applicationAdvertisementSite: String?
     private(set) var structureType: StructureType?
     private(set) var contentPageViewSource: ContentPageViewSource?
     private(set) var previousInfo: (structureType: StructureType?, contentPageViewSource: ContentPageViewSource?)
@@ -45,12 +41,13 @@ final class StructureInfoDecorator: Decorator {
     var parameters: [String: AnyHashable] {
         guard
             let structureType = structureType,
-            let applicationRootPath = applicationRootPath
+            let applicationRootPath = applicationRootPath,
+            let applicationAdvertisementSite = applicationAdvertisementSite
         else {
             return [:]
         }
 
-        let resolved = structureType.parametersResolved(with: applicationRootPath)
+        let resolved = structureType.parametersResolved(applicationRootPath: applicationRootPath, applicationAdvertisementSite: applicationAdvertisementSite)
         var params = [
             "DV": resolved.dv,
             "DU": resolved.du + contentPageViewSource.utmMedium
@@ -58,7 +55,7 @@ final class StructureInfoDecorator: Decorator {
 
         if let previousStructureType = previousInfo.structureType {
             let source = previousInfo.contentPageViewSource
-            params["DR"] = previousStructureType.parametersResolved(with: applicationRootPath).du + source.utmMedium
+            params["DR"] = previousStructureType.parametersResolved(applicationRootPath: applicationRootPath, applicationAdvertisementSite: applicationAdvertisementSite).du + source.utmMedium
         }
 
         return params
@@ -75,6 +72,10 @@ extension StructureInfoDecorator {
 
     func updateApplicationRootPath(applicationRootPath: String) {
         self.applicationRootPath = applicationRootPath
+    }
+    
+    func updateApplicationAdvertisementSite(applicationAdvertisementSite: String?) {
+        self.applicationAdvertisementSite = applicationAdvertisementSite
     }
 }
 
