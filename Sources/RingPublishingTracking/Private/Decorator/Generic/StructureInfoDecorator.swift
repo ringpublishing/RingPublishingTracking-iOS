@@ -41,8 +41,7 @@ final class StructureInfoDecorator: Decorator {
     var parameters: [String: AnyHashable] {
         guard
             let structureType = structureType,
-            let applicationRootPath = applicationRootPath,
-            let applicationAdvertisementSite = applicationAdvertisementSite
+            let applicationRootPath = applicationRootPath
         else {
             return [:]
         }
