@@ -1,3 +1,10 @@
+1.8.4 Release notes (2025-04-15)
+================================
+
+### Changes
+
+* Platform suffix added to DV parameter
+
 1.8.2 Release notes (2025-03-05)
 ================================
 
