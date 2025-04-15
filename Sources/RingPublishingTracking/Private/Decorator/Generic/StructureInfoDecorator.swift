@@ -19,14 +19,18 @@ enum StructureType {
 
         switch self {
         case .publicationUrl(let url, let array):
-            dvField = ([applicationAdvertisementSite ?? applicationRootPath] + array).joined(separator: "/")
+            dvField = ([applicationAdvertisementSite ?? formatFieldDV(for: applicationRootPath)] + array).joined(separator: "/")
             duField = url.absoluteString
         case .structurePath(let array):
-            dvField = ([applicationAdvertisementSite ?? applicationRootPath] + array).joined(separator: "/")
+            dvField = ([applicationAdvertisementSite ?? formatFieldDV(for: applicationRootPath)] + array).joined(separator: "/")
             duField = "https://\(applicationRootPath).\(Constants.applicationPrefix)/\(array.joined(separator: "/"))".lowercased()
         }
 
         return (dvField, duField)
+    }
+
+    private func formatFieldDV(for applicationRootPath: String) -> String {
+        (applicationRootPath + ".\(Constants.applicationPrefix)").lowercased().replacingOccurrences(of: ".", with: "_")
     }
 }
 
