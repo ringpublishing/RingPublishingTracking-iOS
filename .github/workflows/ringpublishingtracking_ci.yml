@@ -1,0 +1,63 @@
+# The name of the workflow
+name: RingPublishingTracking - Continous Integration
+
+# When workflow should start
+on:
+  workflow_dispatch:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+      - 'feature/**'
+      - 'bugfix/**'
+
+# If workflow is already running - cancel it
+concurrency:
+  cancel-in-progress: true
+  group: RingPublishingTracking-CI-${{ github.ref }}
+
+# Jobs to run
+jobs:
+
+  # Normal build with everything
+  sdk:
+    name: 'RingPublishingTracking'
+    uses: ringier-axel-springer-pl/native-mobile-workflow/.github/workflows/ci-ios-sdk.yml@main
+    with:
+      sdk-name: 'RingPublishingTracking'
+      fastlane-sdk-env-name: 'alpha'
+    secrets: inherit
+
+  # Summary job
+  sdk_summary:
+    name: RingPublishingTracking build summary
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
+    needs:
+      - sdk
+    if: always()
+    steps:
+      - name: Set exit code based on job statuses
+        run: |
+          # When none of the needed jobs fail or are cancelled (skipped or successful jobs are ok)
+          if ${{ !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }} ; then
+            echo "RingPublishingTracking - build successful"
+            exit 0
+          else
+            echo "RingPublishingTracking - build failed"
+            exit 1
+          fi
+
+  # Deployment
+  sdk_deployment:
+    name: 'RingPublishingTracking'
+    uses: ringier-axel-springer-pl/native-mobile-workflow/.github/workflows/deployment-ios-sdk.yml@main
+    needs:
+      - sdk_summary
+    if: github.ref_name == 'master'
+    with:
+      sdk-name: 'RingPublishingTracking'
+      fastlane-sdk-env-name: 'alpha'
+      deploy-environment: 'production'
+    secrets:
+      create_github_token_private_key: ${{ secrets.NATIVE_MOBILE_FASTLANE_GH_APP_CERTIFICATE }}
