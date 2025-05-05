@@ -17,24 +17,51 @@ concurrency:
   cancel-in-progress: true
   group: RingPublishingTracking-CI-${{ github.ref }}
 
+# Global environment variables
+env:
+  is_ci: true
+  ci_planRepository_branch: ${{ github.ref_name }}
+  CI_MATCH_KEYCHAIN_PASSWORD: ${{ secrets.NATIVE_MOBILE_CI_MATCH_KEYCHAIN_PASSWORD }}
+  CI_MATCH_KEYCHAIN_NAME: ${{ secrets.NATIVE_MOBILE_CI_MATCH_KEYCHAIN_NAME }}
+
 # Jobs to run
 jobs:
 
-  # Normal build with everything
-  sdk:
-    name: 'RingPublishingTracking'
-    uses: ringier-axel-springer-pl/native-mobile-workflow/.github/workflows/ci-ios-sdk.yml@main
-    with:
-      sdk-name: 'RingPublishingTracking'
-      fastlane-sdk-env-name: 'alpha'
-    secrets: inherit
+  # Swiftlint job
+  swiftlint:
+    name: Swift Lint
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Swiftlint
+        run: |
+          fastlane init_env
+          fastlane strict_lint --env alpha
+
+  # Build demo app
+  build_app:
+    name: Build iOS app
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
+    needs:
+      - swiftlint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build iOS app
+        run: |
+          fastlane init_env
+          fastlane build_ipa skip_cocoapods:false build_number:${{ github.run_number }} --env alpha
 
   # Summary job
   sdk_summary:
     name: RingPublishingTracking build summary
     runs-on: ["self-hosted", "macOS", "Xcode-16"]
     needs:
-      - sdk
+      - swiftlint
+      - build_app
     if: always()
     steps:
       - name: Set exit code based on job statuses
@@ -51,13 +78,16 @@ jobs:
   # Deployment
   sdk_deployment:
     name: 'RingPublishingTracking'
-    uses: ringier-axel-springer-pl/native-mobile-workflow/.github/workflows/deployment-ios-sdk.yml@main
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
     needs:
       - sdk_summary
     if: github.ref_name == 'master'
-    with:
-      sdk-name: 'RingPublishingTracking'
-      fastlane-sdk-env-name: 'alpha'
-      deploy-environment: 'production'
-    secrets:
-      create_github_token_private_key: ${{ secrets.NATIVE_MOBILE_FASTLANE_GH_APP_CERTIFICATE }}
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy .podspec to repository
+        run: |
+          fastlane init_env
+          fastlane publish_open_source_sdk --env alpha
