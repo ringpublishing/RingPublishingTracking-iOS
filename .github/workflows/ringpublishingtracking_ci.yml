@@ -1,0 +1,94 @@
+# The name of the workflow
+name: RingPublishingTracking - Continous Integration
+
+# When workflow should start
+on:
+  workflow_dispatch:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+      - 'feature/**'
+      - 'bugfix/**'
+
+# If workflow is already running - cancel it
+concurrency:
+  cancel-in-progress: true
+  group: RingPublishingTracking-CI-${{ github.ref }}
+
+# Global environment variables
+env:
+  is_ci: true
+  ci_planRepository_branch: ${{ github.ref_name }}
+  CI_MATCH_KEYCHAIN_PASSWORD: ${{ secrets.NATIVE_MOBILE_CI_MATCH_KEYCHAIN_PASSWORD }}
+  CI_MATCH_KEYCHAIN_NAME: ${{ secrets.NATIVE_MOBILE_CI_MATCH_KEYCHAIN_NAME }}
+  DL_GITHUB_PERSONAL_TOKEN: ${{ secrets.DL_GITHUB_PERSONAL_TOKEN }}
+
+# Jobs to run
+jobs:
+
+  # Swiftlint job
+  swiftlint:
+    name: Swift Lint
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Swiftlint
+        run: |
+          fastlane init_env
+          fastlane strict_lint --env alpha
+
+  # Build demo app
+  build_app:
+    name: Build iOS app
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
+    needs:
+      - swiftlint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build iOS app
+        run: |
+          fastlane init_env
+          fastlane build_ipa skip_cocoapods:false build_number:${{ github.run_number }} --env alpha
+
+  # Summary job
+  sdk_summary:
+    name: RingPublishingTracking build summary
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
+    needs:
+      - swiftlint
+      - build_app
+    if: always()
+    steps:
+      - name: Set exit code based on job statuses
+        run: |
+          # When none of the needed jobs fail or are cancelled (skipped or successful jobs are ok)
+          if ${{ !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }} ; then
+            echo "RingPublishingTracking - build successful"
+            exit 0
+          else
+            echo "RingPublishingTracking - build failed"
+            exit 1
+          fi
+
+  # Deployment
+  sdk_deployment:
+    name: 'RingPublishingTracking deployment'
+    runs-on: ["self-hosted", "macOS", "Xcode-16"]
+    needs:
+      - sdk_summary
+    if: github.ref_name == 'master'
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy .podspec to repository
+        run: |
+          fastlane init_env
+          fastlane publish_open_source_sdk --env alpha

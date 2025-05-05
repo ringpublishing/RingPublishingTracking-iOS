@@ -34,7 +34,5 @@ Example/Pods
 ## SPM
 .swiftpm
 
-fastlane/*
-!fastlane/.env
 tests-build/*
 test-reports/*
