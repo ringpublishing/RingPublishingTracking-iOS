@@ -23,6 +23,7 @@ env:
   ci_planRepository_branch: ${{ github.ref_name }}
   CI_MATCH_KEYCHAIN_PASSWORD: ${{ secrets.NATIVE_MOBILE_CI_MATCH_KEYCHAIN_PASSWORD }}
   CI_MATCH_KEYCHAIN_NAME: ${{ secrets.NATIVE_MOBILE_CI_MATCH_KEYCHAIN_NAME }}
+  DL_GITHUB_PERSONAL_TOKEN: ${{ secrets.DL_GITHUB_PERSONAL_TOKEN }}
 
 # Jobs to run
 jobs:
@@ -77,7 +78,7 @@ jobs:
 
   # Deployment
   sdk_deployment:
-    name: 'RingPublishingTracking'
+    name: 'RingPublishingTracking deployment'
     runs-on: ["self-hosted", "macOS", "Xcode-16"]
     needs:
       - sdk_summary
