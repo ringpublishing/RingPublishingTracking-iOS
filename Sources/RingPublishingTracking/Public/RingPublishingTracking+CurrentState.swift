@@ -47,7 +47,7 @@ public extension RingPublishingTracking {
     ///
     /// - Parameter currentAdvertisementArea: String
     func updateApplicationAdvertisementArea(currentAdvertisementArea: String?) {
-        Logger.log("Updating application advertisement area to: '\(currentAdvertisementArea)'")
+        Logger.log("Updating application advertisement area to: '\(String(describing: currentAdvertisementArea))'")
 
         eventsService?.updateApplicationAdvertisementArea(currentAdvertisementArea)
     }

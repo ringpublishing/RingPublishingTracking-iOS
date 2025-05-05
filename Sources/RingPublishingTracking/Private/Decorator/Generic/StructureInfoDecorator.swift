@@ -50,7 +50,8 @@ final class StructureInfoDecorator: Decorator {
             return [:]
         }
 
-        let resolved = structureType.parametersResolved(applicationRootPath: applicationRootPath, applicationAdvertisementSite: applicationAdvertisementSite)
+        let resolved = structureType.parametersResolved(applicationRootPath: applicationRootPath,
+                                                        applicationAdvertisementSite: applicationAdvertisementSite)
         var params = [
             "DV": resolved.dv,
             "DU": resolved.du + contentPageViewSource.utmMedium
@@ -58,7 +59,9 @@ final class StructureInfoDecorator: Decorator {
 
         if let previousStructureType = previousInfo.structureType {
             let source = previousInfo.contentPageViewSource
-            params["DR"] = previousStructureType.parametersResolved(applicationRootPath: applicationRootPath, applicationAdvertisementSite: applicationAdvertisementSite).du + source.utmMedium
+            let resolvedDU = previousStructureType.parametersResolved(applicationRootPath: applicationRootPath,
+                                                                      applicationAdvertisementSite: applicationAdvertisementSite).du
+            params["DR"] = resolvedDU + source.utmMedium
         }
 
         return params
@@ -76,7 +79,7 @@ extension StructureInfoDecorator {
     func updateApplicationRootPath(applicationRootPath: String) {
         self.applicationRootPath = applicationRootPath
     }
-    
+
     func updateApplicationAdvertisementSite(applicationAdvertisementSite: String?) {
         self.applicationAdvertisementSite = applicationAdvertisementSite
     }
