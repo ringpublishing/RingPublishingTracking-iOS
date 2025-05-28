@@ -19,6 +19,7 @@ struct EventDetails: Encodable {
         case subscriptionPriceCurrency = "subscription_price_currency"
         case subscriptionPromoPrice = "subscription_promo_price"
         case subscriptionPromoDuration = "subscription_promo_duration"
+        case subscriptionOfferId = "mobile_offer_id"
     }
 
     let fakeUserId: String?
@@ -29,6 +30,7 @@ struct EventDetails: Encodable {
     let subscriptionPriceCurrency: String?
     let subscriptionPromoPrice: Float?
     let subscriptionPromoDuration: String?
+    let subscriptionOfferId: String?
 
     init(fakeUserId: String?,
          realUserId: String? = nil,
@@ -43,5 +45,6 @@ struct EventDetails: Encodable {
         self.subscriptionPriceCurrency = subscriptionPaymentData?.subscriptionPriceCurrency
         self.subscriptionPromoPrice = subscriptionPaymentData?.subscriptionPromoPrice
         self.subscriptionPromoDuration = subscriptionPaymentData?.subscriptionPromoDuration
+        self.subscriptionOfferId = subscriptionPaymentData?.subscriptionOfferId
     }
 }
