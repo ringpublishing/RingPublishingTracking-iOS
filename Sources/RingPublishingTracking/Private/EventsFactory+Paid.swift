@@ -111,7 +111,8 @@ extension EventsFactory {
         parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["tpcc"] = targetPromotionCampaignCode
-        parameters["event_details"] = EventDetails(fakeUserId: temporaryUserId, subscriptionPaymentData: subscriptionPaymentData).jsonString
+        parameters["event_details"] = EventDetails(fakeUserId: temporaryUserId,
+                                                   subscriptionPaymentData: subscriptionPaymentData).jsonString
         parameters["payment_method"] = subscriptionPaymentData.paymentMethod.rawValue
         parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
