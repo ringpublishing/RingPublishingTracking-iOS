@@ -308,8 +308,6 @@ extension KeepAliveManager {
             }
             self.lastKeepAliveMeasurementDate = now
             print("[BB] do ___ store now: \(now) next:\(lastMeasurementDate.addingTimeInterval(interval)) interval: \(interval)")
-        } else {
-            print("[BB] do ___ store now: \(now) interval: \(interval)")
         }
 
         addMeasurement(timing: Int(timeFromStart), status: lastMeasurement, measureType: measureType)

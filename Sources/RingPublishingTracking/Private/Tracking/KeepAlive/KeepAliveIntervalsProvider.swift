@@ -12,24 +12,19 @@ final class KeepAliveIntervalsProvider {
 
     func nextIntervalForContentMetaActivityTracking(for elapsedTime: TimeInterval) -> TimeInterval {
         // How many seconds after tracking was started
+        let elapsedTime = elapsedTime.rounded(.toNearestOrAwayFromZero)
+
         switch elapsedTime {
-        case 0..<15:
-            let steps: [TimeInterval] = [1, 2, 3, 4, 5, 6, 8, 10, 12, 14]
+        case 0..<6:
+            return 1
 
-            // Return first interval bigger then current time elapsed
-            guard let interval = steps.first(where: { $0 > elapsedTime }) else {
-                fallthrough
-            }
-
-            print("[BB] nextInterval: \(interval) - \(elapsedTime) = \(interval - elapsedTime)")
-            return interval - elapsedTime
+        case 6..<15:
+            return 2
 
         case 15..<50:
-            // Next interval after 3s
             return 3
 
         default:
-            // Next interval after 8s
             return 8
         }
     }
