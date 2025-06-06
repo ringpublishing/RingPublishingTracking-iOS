@@ -82,6 +82,8 @@ final class EventsService {
         (!isEaUuidValid || !hasPostIntervalStored || !isArtemisIDValid) && !isIdentifyMeRequestInProgress
     }
 
+    var isEffectivePageViewEventSent = false
+
     // MARK: Init
 
     init(storage: TrackingStorage = UserDefaultsStorage(),

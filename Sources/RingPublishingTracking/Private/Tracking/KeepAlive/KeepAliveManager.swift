@@ -32,6 +32,8 @@ final class KeepAliveManager {
     private var isPaused: Bool = false
 
     private var trackingStartDate: Date?
+    private var lastMeasurementDate: Date?
+    var lastMeasurement: KeepAliveContentStatus?
 
     private var backgroundTimeStart = [Date]()
     private var backgroundTimeEnd = [Date]()
@@ -241,10 +243,8 @@ extension KeepAliveManager {
 
         let interval = intervalsProvider.nextIntervalForContentMetaActivityTracking(for: timeFromStart)
 
-        Logger.log("Keep alive manager: Scheduling measurement timer \(interval)s")
-
-        measurementTimer = scheduledTimer(timeInterval: interval, action: { [weak self] in
-            self?.takeMeasurements(measureType: .activityTimer)
+        measurementTimer = scheduledTimer(timeInterval: 1, action: { [weak self] in
+            self?.takeMeasurements(measureType: .activityTimer, intervalFromLastStoredMeasurement: interval)
             self?.scheduleMeasurementTimer()
         })
     }
@@ -266,7 +266,7 @@ extension KeepAliveManager {
         })
     }
 
-    private func takeMeasurements(measureType: KeepAliveMeasureType) {
+    private func takeMeasurements(measureType: KeepAliveMeasureType, intervalFromLastStoredMeasurement interval: TimeInterval? = nil) {
         guard
             let timeFromStart = timeFromStart,
             let contentKeepAliveDataSource = contentKeepAliveDataSource,
@@ -278,25 +278,36 @@ extension KeepAliveManager {
             return
         }
 
-        Logger.log("Keep alive manager: Taking measurements for type \(measureType.rawValue), time: \(timeFromStart)s")
-
         guard let delegate = delegate else {
             Logger.log("Keep alive manager is missing a delegate. Make sure it's been set.", level: .fault)
 
-            addMeasurement(timing: Int(timeFromStart), status: (0, .init(width: 0, height: 0)), measureType: .error)
+            addMeasurement(timing: Int(timeFromStart), status: .zero, measureType: .error)
             stop()
             return
         }
 
         // Take measurements
-        let status = delegate.keepAliveManager(self,
-                                               contentKeepAliveDataSource: contentKeepAliveDataSource,
-                                               didAskForKeepAliveContentStatus: contentMetadata)
+        lastMeasurement = delegate.keepAliveManager(self,
+                                                    contentKeepAliveDataSource: contentKeepAliveDataSource,
+                                                    didAskForKeepAliveContentStatus: contentMetadata)
 
-        addMeasurement(timing: Int(timeFromStart), status: status, measureType: measureType)
+        let now = Date()
+        if lastMeasurementDate == nil { lastMeasurementDate = now }
+
+        guard let lastMeasurementDate = lastMeasurementDate, let lastMeasurement = lastMeasurement else { return }
+
+        delegate.keepAliveManager(self, didTakeMeasurement: lastMeasurement, for: contentMetadata)
+
+        if let interval = interval {
+            guard now >= lastMeasurementDate.addingTimeInterval(interval) else { return }
+        }
+
+        addMeasurement(timing: Int(timeFromStart), status: lastMeasurement, measureType: measureType)
+        self.lastMeasurementDate = now
     }
 
     private func addMeasurement(timing: Int, status: KeepAliveContentStatus, measureType: KeepAliveMeasureType) {
+        Logger.log("Keep alive manager: Storing measurements for type \(measureType.rawValue), time: \(timing)s")
         timings.append(timing)
         hasFocus.append(1)
         keepAliveContentStatus.append(status)

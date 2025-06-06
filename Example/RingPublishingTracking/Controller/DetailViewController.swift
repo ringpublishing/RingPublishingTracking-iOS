@@ -172,6 +172,9 @@ extension DetailViewController: RingPublishingTrackingKeepAliveDataSource {
         // Return information about content at given point in time
         // We have to return how big content is and how far the user has scrolled
 
-        return KeepAliveContentStatus(scrollOffset: tableView.contentOffset.y, contentSize: tableView.contentSize)
+        let screenSize = UIScreen.main.bounds.size
+        return KeepAliveContentStatus(scrollOffset: tableView.contentOffset.y,
+                                      contentSize: tableView.contentSize,
+                                      screenSize: screenSize)
     }
 }

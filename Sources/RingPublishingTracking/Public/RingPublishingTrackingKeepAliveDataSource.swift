@@ -10,7 +10,25 @@ import Foundation
 import CoreGraphics
 
 /// Keep alive content status
-public typealias KeepAliveContentStatus = (scrollOffset: CGFloat, contentSize: CGSize)
+public struct KeepAliveContentStatus {
+    let scrollOffset: CGFloat
+    let contentSize: CGSize
+    let screenSize: CGSize
+
+    static var zero: KeepAliveContentStatus {
+        return KeepAliveContentStatus(scrollOffset: 0, contentSize: .zero, screenSize: .zero)
+    }
+
+    public init(scrollOffset: CGFloat, contentSize: CGSize, screenSize: CGSize) {
+        self.scrollOffset = scrollOffset
+        self.contentSize = contentSize
+        self.screenSize = screenSize
+    }
+
+    public var shouldSendEffectivePageView: Bool {
+        scrollOffset >= 2 * screenSize.height
+    }
+}
 
 /// RingPublishingTracking keep alive data source
 public protocol RingPublishingTrackingKeepAliveDataSource: AnyObject {

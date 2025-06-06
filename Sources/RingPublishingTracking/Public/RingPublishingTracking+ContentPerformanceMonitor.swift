@@ -131,6 +131,7 @@ public extension RingPublishingTracking {
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
+        eventsService?.isEffectivePageViewEventSent = false
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                       contentMetadata: contentMetadata)
@@ -162,5 +163,39 @@ public extension RingPublishingTracking {
         Logger.log("Stopping content keep alive tracking")
 
         keepAliveManager.stop()
+    }
+
+    func reportEffectivePageView(contentMetadata: ContentMetadata,
+                                 pageViewSource: ContentPageViewSource = .default,
+                                 currentStructurePath: [String],
+                                 partiallyReloaded: Bool,
+                                 componentSource: EffectivePageViewComponentSource,
+                                 triggerSource: EffectivePageViewTriggerSource
+    ) {
+        guard eventsService?.isEffectivePageViewEventSent == false else {
+            Logger.log("Reporting effective page view has been already done for current content: \(contentMetadata)")
+            return
+        }
+
+        eventsService?.isEffectivePageViewEventSent = true
+
+        let log = """
+        Reporting effective page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
+        structure path: '\(currentStructurePath)'
+        """
+        Logger.log(log)
+
+        eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
+                                           contentPageViewSource: pageViewSource)
+
+        let metaData = EffectivePageViewMetadata(componentSource: componentSource,
+                                                 triggerSource: triggerSource,
+                                                 measurement: keepAliveManager.lastMeasurement ?? .zero)
+
+        let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
+                                                               contentMetadata: contentMetadata,
+                                                               metaData: metaData)
+        reportEvents([event])
     }
 }

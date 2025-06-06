@@ -155,6 +155,32 @@ final class EventsFactory {
                         "VM": message
                      ])
     }
+
+    func createEffectivePageViewEvent(contentIdentifier: String?,
+                                      contentMetadata: ContentMetadata?,
+                                      metaData: EffectivePageViewMetadata) -> Event {
+        var parameters: [String: AnyHashable] = [:]
+
+        if let contentIdentifier = contentIdentifier {
+            parameters["PU"] = contentIdentifier
+        }
+
+        if let contentMetadata = contentMetadata {
+            parameters["DX"] = contentMetadata.dxParameter
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter
+        }
+
+        parameters["EV"] = "1.1"
+        parameters["ES"] = metaData.componentSource.rawValue
+        parameters["RS"] = metaData.triggerSource.rawValue
+        parameters["SH"] = Int(metaData.measurement.contentSize.height)
+        parameters["ST"] = Int(metaData.measurement.scrollOffset)
+        parameters["VH"] = Int(metaData.measurement.screenSize.height)
+
+        return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
+                     eventName: EventType.effectivePageView.rawValue,
+                     eventParameters: parameters)
+    }
 }
 
 // MARK: Private

@@ -245,6 +245,14 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
                                                        audioMetadata: sampleAudioMetadata,
                                                        audioState: sampleAudioState)
     }
+
+    @IBAction func onReportEffectivePageViewWithOnetChat(_ sender: Any) {
+        RingPublishingTracking.shared.reportEffectivePageView(contentMetadata: sampleContentMetadata,
+                                                              currentStructurePath: ["currentStructurePath"],
+                                                              partiallyReloaded: false,
+                                                              componentSource: .onetchat,
+                                                              triggerSource: .summary)
+    }
 }
 
 // MARK: Private
@@ -269,6 +277,18 @@ private extension ActionsViewController {
                    visibilityState: .background,
                    audioOutput: .bluetooth)
     }
+
+    // swiftlint:disable force_unwrapping
+
+    var sampleContentMetadata: ContentMetadata {
+        ContentMetadata(publicationId: "1234",
+                        publicationUrl: URL(string: "http://onet.pl/article1")!,
+                        sourceSystemName: "sourceSystemName",
+                        paidContent: true,
+                        contentId: "2345")
+    }
+
+    // swiftlint:enable force_unwrapping
 
     func reportButtonClickEvent(_ sender: Any) {
         // If our click action does not have a name, we can omit it

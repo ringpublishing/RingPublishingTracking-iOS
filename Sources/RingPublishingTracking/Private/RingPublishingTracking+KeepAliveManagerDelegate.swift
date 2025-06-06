@@ -23,4 +23,20 @@ extension RingPublishingTracking: KeepAliveManagerDelegate {
         let event = eventsFactory.createKeepAliveEvent(metaData: metaData, contentMetadata: contentMetadata)
         reportEvents([event])
     }
+
+    func keepAliveManager(_ keepAliveManager: KeepAliveManager,
+                          didTakeMeasurement measurement: KeepAliveContentStatus,
+                          for contentMetadata: ContentMetadata) {
+
+        guard eventsService?.isEffectivePageViewEventSent == false, measurement.shouldSendEffectivePageView else { return }
+
+        eventsService?.isEffectivePageViewEventSent = true
+
+        let metaData = EffectivePageViewMetadata(componentSource: .scroll, triggerSource: .scrl, measurement: measurement)
+
+        let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
+                                                               contentMetadata: contentMetadata,
+                                                               metaData: metaData)
+        reportEvent(event)
+    }
 }
