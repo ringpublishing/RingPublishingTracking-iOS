@@ -26,6 +26,9 @@ public struct SubscriptionPaymentData {
     /// Payment method
     let paymentMethod: PaymentMethod
 
+    /// Subscription offer id
+    let subscriptionOfferId: String?
+
     /// SubscriptionPaymentData initializer
     ///
     /// Parameters:
@@ -38,12 +41,14 @@ public struct SubscriptionPaymentData {
                 subscriptionPromoPrice: Float?,
                 subscriptionPromoDuration: String?,
                 subscriptionPriceCurrency: String,
-                paymentMethod: PaymentMethod) {
+                paymentMethod: PaymentMethod,
+                subscriptionOfferId: String? = nil) {
         self.subscriptionBasePrice = subscriptionBasePrice
         self.subscriptionPromoPrice = subscriptionPromoPrice
         self.subscriptionPromoDuration = subscriptionPromoDuration
         self.subscriptionPriceCurrency = subscriptionPriceCurrency
         self.paymentMethod = paymentMethod
+        self.subscriptionOfferId = subscriptionOfferId
     }
 }
 
