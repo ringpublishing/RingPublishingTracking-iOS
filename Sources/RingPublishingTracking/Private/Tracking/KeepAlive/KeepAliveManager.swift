@@ -32,7 +32,7 @@ final class KeepAliveManager {
     private var isPaused: Bool = false
 
     private var trackingStartDate: Date?
-    private var lastKeepAliveMeasurementDate: Date?
+    private var measurementIntervalSum: TimeInterval = 0
     var lastMeasurement: KeepAliveContentStatus?
 
     private var backgroundTimeStart = [Date]()
@@ -244,8 +244,10 @@ extension KeepAliveManager {
         let interval = intervalsProvider.nextIntervalForContentMetaActivityTracking(for: timeFromStart)
 
         measurementTimer = scheduledTimer(timeInterval: 1, action: { [weak self] in
-            self?.takeMeasurements(measureType: .activityTimer, intervalFromLastStoredMeasurement: interval)
-            self?.scheduleMeasurementTimer()
+            guard let self = self else { return }
+
+            self.takeMeasurements(measureType: .activityTimer, nextMeasurementIntervalSum: self.measurementIntervalSum + interval)
+            self.scheduleMeasurementTimer()
         })
     }
 
@@ -266,7 +268,7 @@ extension KeepAliveManager {
         })
     }
 
-    private func takeMeasurements(measureType: KeepAliveMeasureType, intervalFromLastStoredMeasurement interval: TimeInterval? = nil) {
+    private func takeMeasurements(measureType: KeepAliveMeasureType, nextMeasurementIntervalSum: TimeInterval? = nil) {
         guard
             let timeFromStart = timeFromStart,
             let contentKeepAliveDataSource = contentKeepAliveDataSource,
@@ -292,22 +294,18 @@ extension KeepAliveManager {
                                                     didAskForKeepAliveContentStatus: contentMetadata)
 
         let now = Date()
-        if lastKeepAliveMeasurementDate == nil { lastKeepAliveMeasurementDate = now }
 
-        guard let lastMeasurementDate = lastKeepAliveMeasurementDate, let lastMeasurement = lastMeasurement else {
-            print("[BB] lastMeasurement nil ?!?!")
-            return
-        }
+        guard let lastMeasurement = lastMeasurement else { return }
 
+        // Update current measurement every second
         delegate.keepAliveManager(self, didTakeMeasurement: lastMeasurement, for: contentMetadata)
 
-        if let interval = interval {
-            guard now >= lastMeasurementDate.addingTimeInterval(interval) else {
-                print("[BB] do not store now: \(now) next:\(lastMeasurementDate.addingTimeInterval(interval)) interval: \(interval)")
-                return
-            }
-            self.lastKeepAliveMeasurementDate = now
-            print("[BB] do ___ store now: \(now) next:\(lastMeasurementDate.addingTimeInterval(interval)) interval: \(interval)")
+        // If nextMeasurementIntervalSum is set it means call is from keepAlive timer
+        if let nextMeasurementIntervalSum = nextMeasurementIntervalSum {
+            // Check with intervals if it is a time to store measurements for page view event
+            guard timeFromStart >= nextMeasurementIntervalSum else { return }
+
+            self.measurementIntervalSum = nextMeasurementIntervalSum
         }
 
         addMeasurement(timing: Int(timeFromStart), status: lastMeasurement, measureType: measureType)
