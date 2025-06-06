@@ -11,6 +11,8 @@ import Foundation
 class KeepAliveDataSourceStub: RingPublishingTrackingKeepAliveDataSource {
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
                                 didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
-        (scrollOffset: 0, contentSize: .init(width: 375, height: 1200))
+        KeepAliveContentStatus(scrollOffset: 0,
+                               contentSize: .init(width: 375, height: 1200),
+                               screenSize: .init(width: 375, height: 800))
     }
 }

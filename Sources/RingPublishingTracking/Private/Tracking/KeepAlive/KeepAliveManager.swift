@@ -32,7 +32,7 @@ final class KeepAliveManager {
     private var isPaused: Bool = false
 
     private var trackingStartDate: Date?
-    private var lastMeasurementDate: Date?
+    private var lastKeepAliveMeasurementDate: Date?
     var lastMeasurement: KeepAliveContentStatus?
 
     private var backgroundTimeStart = [Date]()
@@ -292,18 +292,27 @@ extension KeepAliveManager {
                                                     didAskForKeepAliveContentStatus: contentMetadata)
 
         let now = Date()
-        if lastMeasurementDate == nil { lastMeasurementDate = now }
+        if lastKeepAliveMeasurementDate == nil { lastKeepAliveMeasurementDate = now }
 
-        guard let lastMeasurementDate = lastMeasurementDate, let lastMeasurement = lastMeasurement else { return }
+        guard let lastMeasurementDate = lastKeepAliveMeasurementDate, let lastMeasurement = lastMeasurement else {
+            print("[BB] lastMeasurement nil ?!?!")
+            return
+        }
 
         delegate.keepAliveManager(self, didTakeMeasurement: lastMeasurement, for: contentMetadata)
 
         if let interval = interval {
-            guard now >= lastMeasurementDate.addingTimeInterval(interval) else { return }
+            guard now >= lastMeasurementDate.addingTimeInterval(interval) else {
+                print("[BB] do not store now: \(now) next:\(lastMeasurementDate.addingTimeInterval(interval)) interval: \(interval)")
+                return
+            }
+            self.lastKeepAliveMeasurementDate = now
+            print("[BB] do ___ store now: \(now) next:\(lastMeasurementDate.addingTimeInterval(interval)) interval: \(interval)")
+        } else {
+            print("[BB] do ___ store now: \(now) interval: \(interval)")
         }
 
         addMeasurement(timing: Int(timeFromStart), status: lastMeasurement, measureType: measureType)
-        self.lastMeasurementDate = now
     }
 
     private func addMeasurement(timing: Int, status: KeepAliveContentStatus, measureType: KeepAliveMeasureType) {

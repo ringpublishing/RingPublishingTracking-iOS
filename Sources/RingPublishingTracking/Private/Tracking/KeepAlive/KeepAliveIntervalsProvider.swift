@@ -21,6 +21,7 @@ final class KeepAliveIntervalsProvider {
                 fallthrough
             }
 
+            print("[BB] nextInterval: \(interval) - \(elapsedTime) = \(interval - elapsedTime)")
             return interval - elapsedTime
 
         case 15..<50:
