@@ -131,7 +131,9 @@ public extension RingPublishingTracking {
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
-        eventsService?.isEffectivePageViewEventSent = false
+
+        // When new content is open reset effective page view sent flag
+        eventsFactory.isEffectivePageViewEventSent = false
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                       contentMetadata: contentMetadata)
@@ -170,15 +172,7 @@ public extension RingPublishingTracking {
                                  currentStructurePath: [String],
                                  partiallyReloaded: Bool,
                                  componentSource: EffectivePageViewComponentSource,
-                                 triggerSource: EffectivePageViewTriggerSource
-    ) {
-        guard eventsService?.isEffectivePageViewEventSent == false else {
-            Logger.log("Reporting effective page view has been already done for current content: \(contentMetadata)")
-            return
-        }
-
-        eventsService?.isEffectivePageViewEventSent = true
-
+                                 triggerSource: EffectivePageViewTriggerSource) {
         let log = """
         Reporting effective page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
         structure path: '\(currentStructurePath)'
@@ -193,9 +187,13 @@ public extension RingPublishingTracking {
                                                  triggerSource: triggerSource,
                                                  measurement: keepAliveManager.lastMeasurement ?? .zero)
 
-        let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
+        guard let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                                contentMetadata: contentMetadata,
-                                                               metaData: metaData)
+                                                                     metaData: metaData) else {
+            Logger.log("Reporting effective page view has been already done for current content: \(contentMetadata)")
+            return
+        }
+
         reportEvents([event])
     }
 }

@@ -1,27 +1,31 @@
 //
-//  RingPublishingTracking+KeepAliveManagerDelegate.swift
-//  RingPublishingTracking-Example
+//  EPVKeepAliveManagerDelegateMock.swift
+//  RingPublishingTracking
 //
-//  Created by Artur Rymarz on 15/10/2021.
-//  Copyright © 2021 Ringier Axel Springer Tech. All rights reserved.
+//  Created by Bernard Bijoch on 06/06/2025.
+//  Copyright © 2025 Ringier Axel Springer Tech. All rights reserved.
 //
 
 import Foundation
 
-/// Keep Alive Manager Delegate
-extension RingPublishingTracking: KeepAliveManagerDelegate {
+protocol EPVKeepAliveManagerDelegateMockDelegate: AnyObject {
+    func didAskForKeepAliveContentStatus() -> KeepAliveContentStatus
+}
+
+class EPVKeepAliveManagerDelegateMock: KeepAliveManagerDelegate {
+
+    private(set) var events: [Event] = []
+    let eventsFactory = EventsFactory()
+
+    weak var delegate: EPVKeepAliveManagerDelegateMockDelegate?
 
     func keepAliveManager(_ keepAliveManager: KeepAliveManager,
                           contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
                           didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
-        contentKeepAliveDataSource.ringPublishingTracking(self, didAskForKeepAliveContentStatus: content)
+        delegate?.didAskForKeepAliveContentStatus() ?? .zero
     }
 
     func keepAliveEventShouldBeSent(_ keepAliveManager: KeepAliveManager, metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) {
-        Logger.log("Sending keep alive event")
-
-        let event = eventsFactory.createKeepAliveEvent(metaData: metaData, contentMetadata: contentMetadata)
-        reportEvents([event])
     }
 
     func keepAliveManager(_ keepAliveManager: KeepAliveManager,
@@ -32,10 +36,12 @@ extension RingPublishingTracking: KeepAliveManagerDelegate {
 
         let metaData = EffectivePageViewMetadata(componentSource: .scroll, triggerSource: .scrl, measurement: measurement)
 
-        if let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
+        guard let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                                contentMetadata: contentMetadata,
-                                                                  metaData: metaData) {
-            reportEvent(event)
+                                                                     metaData: metaData) else {
+            return
         }
+
+        events.append(event)
     }
 }

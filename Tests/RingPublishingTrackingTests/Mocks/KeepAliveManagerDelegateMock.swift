@@ -34,14 +34,8 @@ class KeepAliveManagerDelegateMock: KeepAliveManagerDelegate {
         keepAliveMetaData.append(metaData)
     }
 
-    func keepAliveManager(_ keepAliveManager: KeepAliveManager, didTakeMeasurement measurement: KeepAliveContentStatus, for contentMetadata: ContentMetadata) {
-        guard measurement.shouldSendEffectivePageView else { return }
-
-        let metaData = EffectivePageViewMetadata(componentSource: .scroll, triggerSource: .scrl, measurement: measurement)
-
-//        let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
-//                                                               contentMetadata: contentMetadata,
-//                                                               metaData: metaData)
-//        reportEvent(event)
+    func keepAliveManager(_ keepAliveManager: KeepAliveManager,
+                          didTakeMeasurement measurement: KeepAliveContentStatus,
+                          for contentMetadata: ContentMetadata) {
     }
 }

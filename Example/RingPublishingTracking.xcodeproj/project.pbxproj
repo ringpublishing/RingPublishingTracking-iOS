@@ -156,6 +156,9 @@
 		7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE4453A26E8913900A93431 /* LoggerTests.swift */; };
 		854F1289D6E3FA4BC790018B /* Pods_RingPublishingTracking_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */; };
 		A039F65F2DF2D84400B9BD67 /* EffectivePageViewMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A039F65E2DF2D84400B9BD67 /* EffectivePageViewMetadata.swift */; };
+		A039F6612DF3137100B9BD67 /* EPVKeepAliveDataSourceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A039F6602DF3136400B9BD67 /* EPVKeepAliveDataSourceStub.swift */; };
+		A039F6632DF3149600B9BD67 /* EffectivePageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A039F6622DF3149000B9BD67 /* EffectivePageViewTests.swift */; };
+		A039F6652DF32A9800B9BD67 /* EPVKeepAliveManagerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A039F6642DF32A8F00B9BD67 /* EPVKeepAliveManagerDelegateMock.swift */; };
 		A03CD5412C88AE44002DFD48 /* Encodable+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD5402C88AE44002DFD48 /* Encodable+JSON.swift */; };
 		A03CD5452C890312002DFD48 /* PaidEventUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD5442C890312002DFD48 /* PaidEventUserId.swift */; };
 		A03CD5472C890A3A002DFD48 /* RingPublishingTracking+Paid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CD5462C890A3A002DFD48 /* RingPublishingTracking+Paid.swift */; };
@@ -353,6 +356,9 @@
 		7DE4453A26E8913900A93431 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		8E2A37C5A1593C87B0EB5A44 /* Pods-RingPublishingTrackingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RingPublishingTrackingTests.release.xcconfig"; path = "Target Support Files/Pods-RingPublishingTrackingTests/Pods-RingPublishingTrackingTests.release.xcconfig"; sourceTree = "<group>"; };
 		A039F65E2DF2D84400B9BD67 /* EffectivePageViewMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectivePageViewMetadata.swift; sourceTree = "<group>"; };
+		A039F6602DF3136400B9BD67 /* EPVKeepAliveDataSourceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPVKeepAliveDataSourceStub.swift; sourceTree = "<group>"; };
+		A039F6622DF3149000B9BD67 /* EffectivePageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectivePageViewTests.swift; sourceTree = "<group>"; };
+		A039F6642DF32A8F00B9BD67 /* EPVKeepAliveManagerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPVKeepAliveManagerDelegateMock.swift; sourceTree = "<group>"; };
 		A03CD5402C88AE44002DFD48 /* Encodable+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encodable+JSON.swift"; sourceTree = "<group>"; };
 		A03CD5442C890312002DFD48 /* PaidEventUserId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidEventUserId.swift; sourceTree = "<group>"; };
 		A03CD5462C890A3A002DFD48 /* RingPublishingTracking+Paid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RingPublishingTracking+Paid.swift"; sourceTree = "<group>"; };
@@ -409,6 +415,7 @@
 				204EAEE1270F0FF0009E2F0D /* SizeProviderStub.swift */,
 				204EAEE3270F0FFE009E2F0D /* ConsentProviderStub.swift */,
 				204EAF21271F1884009E2F0D /* KeepAliveDataSourceStub.swift */,
+				A039F6602DF3136400B9BD67 /* EPVKeepAliveDataSourceStub.swift */,
 			);
 			path = Stub;
 			sourceTree = "<group>";
@@ -442,6 +449,7 @@
 				204EAF1B271DB4C3009E2F0D /* AureusTests.swift */,
 				204EAF1D271EE53C009E2F0D /* KeepAliveTests.swift */,
 				204EAF1F271EE5A2009E2F0D /* KeepAliveIntervalsProviderTests.swift */,
+				A039F6622DF3149000B9BD67 /* EffectivePageViewTests.swift */,
 				204EAF2D272939CB009E2F0D /* ConsentProviderTests.swift */,
 				204EAF2F27293B08009E2F0D /* RingPublishingTrackingTests.swift */,
 				204EAF31272944A4009E2F0D /* RingPublishingTrackingConfigurationTests.swift */,
@@ -461,6 +469,7 @@
 				208CD61B26F9B3C0006A406C /* StaticStorage.swift */,
 				204EAEEE270F1313009E2F0D /* VendorIdentifierProviderMock.swift */,
 				204EAF23271F18AB009E2F0D /* KeepAliveManagerDelegateMock.swift */,
+				A039F6642DF32A8F00B9BD67 /* EPVKeepAliveManagerDelegateMock.swift */,
 				204EAF37272A7917009E2F0D /* RingPublishingTrackingDelegateMock.swift */,
 			);
 			path = Mocks;
@@ -1168,10 +1177,12 @@
 				204EAF22271F1884009E2F0D /* KeepAliveDataSourceStub.swift in Sources */,
 				60108EB02B0515C6005656C1 /* NetworkService.swift in Sources */,
 				60108EB92B0515C6005656C1 /* Dictionary+JSON.swift in Sources */,
+				A039F6632DF3149600B9BD67 /* EffectivePageViewTests.swift in Sources */,
 				60108EAC2B0515C6005656C1 /* AnyCodable.swift in Sources */,
 				60108EA82B0515C6005656C1 /* Event+API.swift in Sources */,
 				A04E94F02CB7E9580048B4AF /* AudioState.swift in Sources */,
 				A04E94F12CB7E9580048B4AF /* AudioContentCategory.swift in Sources */,
+				A039F6652DF32A9800B9BD67 /* EPVKeepAliveManagerDelegateMock.swift in Sources */,
 				A04E94F22CB7E9580048B4AF /* AudioEvent.swift in Sources */,
 				A04E94F32CB7E9580048B4AF /* AudioPlayerVisibilityState.swift in Sources */,
 				A04E94F42CB7E9580048B4AF /* AudioMetadata.swift in Sources */,
@@ -1238,6 +1249,7 @@
 				60108E6D2B0515C6005656C1 /* RingPublishingTrackingDelegate.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
+				A039F6612DF3137100B9BD67 /* EPVKeepAliveDataSourceStub.swift in Sources */,
 				A04E94FA2CB7EE660048B4AF /* EventsFactory+Audio.swift in Sources */,
 				60108EAF2B0515C6005656C1 /* Bodable.swift in Sources */,
 				204EAF32272944A4009E2F0D /* RingPublishingTrackingConfigurationTests.swift in Sources */,

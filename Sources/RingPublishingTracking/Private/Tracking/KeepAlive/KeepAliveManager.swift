@@ -293,8 +293,6 @@ extension KeepAliveManager {
                                                     contentKeepAliveDataSource: contentKeepAliveDataSource,
                                                     didAskForKeepAliveContentStatus: contentMetadata)
 
-        let now = Date()
-
         guard let lastMeasurement = lastMeasurement else { return }
 
         // Update current measurement every second

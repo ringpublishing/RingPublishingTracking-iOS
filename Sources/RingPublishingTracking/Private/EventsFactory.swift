@@ -14,6 +14,7 @@ final class EventsFactory {
     private var videoEventSessionCounter = [String: Int]() // PMU: VEN
     var audioEventSessionTimestamps = [String: String]()
     var audioEventSessionCounter = [String: Int]()
+    var isEffectivePageViewEventSent = false
 
     // MARK: Click
 
@@ -158,7 +159,11 @@ final class EventsFactory {
 
     func createEffectivePageViewEvent(contentIdentifier: String?,
                                       contentMetadata: ContentMetadata?,
-                                      metaData: EffectivePageViewMetadata) -> Event {
+                                      metaData: EffectivePageViewMetadata) -> Event? {
+        guard !isEffectivePageViewEventSent else { return nil }
+
+        isEffectivePageViewEventSent = true
+
         var parameters: [String: AnyHashable] = [:]
 
         if let contentIdentifier = contentIdentifier {
