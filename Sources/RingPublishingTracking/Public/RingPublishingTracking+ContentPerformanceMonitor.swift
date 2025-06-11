@@ -188,7 +188,7 @@ public extension RingPublishingTracking {
                                                  measurement: keepAliveManager.lastMeasurement ?? .zero)
 
         guard let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
-                                                               contentMetadata: contentMetadata,
+                                                                     contentMetadata: contentMetadata,
                                                                      metaData: metaData) else {
             Logger.log("Reporting effective page view has been already done for current content: \(contentMetadata)")
             return
