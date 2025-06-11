@@ -79,7 +79,7 @@ class DecoratorTests: XCTestCase {
     func testParameters_structureInfoDecoratorCreated_returnedParametersAreCorrect() throws {
         // Given
         let applicationRootPath = "Onet"
-        let applicationDefaultStructurePath  = ["Home"]
+        let applicationDefaultStructurePath  = ["home"]
         let sampleArticleURL = try XCTUnwrap(URL(string: "https://test.com/article?id=123"))
 
         let decorator = StructureInfoDecorator()

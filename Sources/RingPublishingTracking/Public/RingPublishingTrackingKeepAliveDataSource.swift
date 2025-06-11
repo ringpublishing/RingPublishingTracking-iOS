@@ -19,9 +19,11 @@ public struct KeepAliveContentStatus {
         return KeepAliveContentStatus(scrollOffset: 0, contentSize: .zero, screenSize: .zero)
     }
 
-    private static let sizeProvider = SizeProvider()
+    public static var defaultScreenSize: CGSize {
+        SizeProvider().screenSize
+    }
 
-    public init(scrollOffset: CGFloat, contentSize: CGSize, screenSize: CGSize = Self.sizeProvider.screenSize) {
+    public init(scrollOffset: CGFloat, contentSize: CGSize, screenSize: CGSize = Self.defaultScreenSize) {
         self.scrollOffset = scrollOffset
         self.contentSize = contentSize
         self.screenSize = screenSize
