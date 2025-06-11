@@ -25,9 +25,7 @@ class KeepAliveManagerDelegateMock: KeepAliveManagerDelegate {
     func keepAliveManager(_ keepAliveManager: KeepAliveManager,
                           contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
                           didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
-        KeepAliveContentStatus(scrollOffset: 0,
-                               contentSize: .init(width: 375, height: 1200),
-                               screenSize: CGSize(width: 375, height: 800))
+        KeepAliveContentStatus(scrollOffset: 0, contentSize: .init(width: 375, height: 1200))
     }
 
     func keepAliveEventShouldBeSent(_ keepAliveManager: KeepAliveManager, metaData: KeepAliveMetadata, contentMetadata: ContentMetadata) {
