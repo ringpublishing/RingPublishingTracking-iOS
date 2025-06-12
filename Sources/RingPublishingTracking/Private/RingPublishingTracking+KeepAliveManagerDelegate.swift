@@ -27,8 +27,7 @@ extension RingPublishingTracking: KeepAliveManagerDelegate {
     func keepAliveManager(_ keepAliveManager: KeepAliveManager,
                           didTakeMeasurement measurement: KeepAliveContentStatus,
                           for contentMetadata: ContentMetadata) {
-
-        guard measurement.shouldSendEffectivePageView else { return }
+        guard configuration?.shouldReportEffectivePageViewEvent == true, measurement.shouldSendEffectivePageView else { return }
 
         let metaData = EffectivePageViewMetadata(componentSource: .scroll, triggerSource: .scrl, measurement: measurement)
 

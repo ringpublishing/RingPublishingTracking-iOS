@@ -41,6 +41,9 @@ public class RingPublishingTracking {
 
     // MARK: Internal properties
 
+    /// Configuration for RingPublishingTracking module
+    var configuration: RingPublishingTrackingConfiguration? = nil
+
     /// Events service for handling all operations on events
     var eventsService: EventsService?
 
@@ -69,6 +72,7 @@ public class RingPublishingTracking {
     ///   - delegate: RingPublishingTrackingDelegate
     public func initialize(configuration: RingPublishingTrackingConfiguration, delegate: RingPublishingTrackingDelegate?) {
         Logger.log("Initializing module with configuration: '\(configuration)'")
+        self.configuration = configuration
         eventsService = EventsService(configuration: configuration, eventsFactory: eventsFactory, operationMode: operationMode)
         self.delegate = delegate
         keepAliveManager.delegate = self

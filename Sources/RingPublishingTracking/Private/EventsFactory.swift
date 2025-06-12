@@ -180,7 +180,7 @@ final class EventsFactory {
         parameters["RS"] = metaData.triggerSource.rawValue
         parameters["SH"] = Int(metaData.measurement.contentSize.height)
         parameters["ST"] = Int(metaData.measurement.scrollOffset)
-        parameters["VH"] = Int(metaData.measurement.screenSize.height)
+        parameters["VH"] = Int(metaData.measurement.defaultScreenSize.height)
 
         return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
                      eventName: EventType.effectivePageView.rawValue,

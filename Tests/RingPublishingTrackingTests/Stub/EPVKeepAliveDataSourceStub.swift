@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
 class EPVKeepAliveDataSourceStub: EPVKeepAliveManagerDelegateMockDelegate, RingPublishingTrackingKeepAliveDataSource {
 
-    private static let screenSize = CGSize(width: 375, height: 800)
+    private static let screenSize = UIScreen.main.bounds.size
     private static let contentSize = CGSize(width: screenSize.width, height: 2000)
     private var scrollOffset: CGFloat = 0
 
@@ -27,11 +28,11 @@ class EPVKeepAliveDataSourceStub: EPVKeepAliveManagerDelegateMockDelegate, RingP
     }
 
     func didAskForKeepAliveContentStatus() -> KeepAliveContentStatus {
-        return KeepAliveContentStatus(scrollOffset: scrollOffset, contentSize: Self.contentSize, screenSize: Self.screenSize)
+        return KeepAliveContentStatus(scrollOffset: scrollOffset, contentSize: Self.contentSize)
     }
 
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
                                 didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus {
-        return KeepAliveContentStatus(scrollOffset: scrollOffset, contentSize: Self.contentSize, screenSize: Self.screenSize)
+        return KeepAliveContentStatus(scrollOffset: scrollOffset, contentSize: Self.contentSize)
     }
 }

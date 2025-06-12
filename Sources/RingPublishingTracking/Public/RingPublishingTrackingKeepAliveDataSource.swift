@@ -13,24 +13,22 @@ import CoreGraphics
 public struct KeepAliveContentStatus {
     let scrollOffset: CGFloat
     let contentSize: CGSize
-    let screenSize: CGSize
 
     static var zero: KeepAliveContentStatus {
-        return KeepAliveContentStatus(scrollOffset: 0, contentSize: .zero, screenSize: .zero)
+        return KeepAliveContentStatus(scrollOffset: 0, contentSize: .zero)
     }
 
-    public static var defaultScreenSize: CGSize {
+    public var defaultScreenSize: CGSize {
         SizeProvider().screenSize
     }
 
-    public init(scrollOffset: CGFloat, contentSize: CGSize, screenSize: CGSize = Self.defaultScreenSize) {
+    public init(scrollOffset: CGFloat, contentSize: CGSize) {
         self.scrollOffset = scrollOffset
         self.contentSize = contentSize
-        self.screenSize = screenSize
     }
 
     public var shouldSendEffectivePageView: Bool {
-        scrollOffset >= 2 * screenSize.height
+        scrollOffset >= 2 * defaultScreenSize.height
     }
 }
 

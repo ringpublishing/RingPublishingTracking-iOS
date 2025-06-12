@@ -110,7 +110,7 @@ class DecoratorTests: XCTestCase {
     func testParameters_structureInfoDecoratorCreatedForContentPageView_returnedParametersAreCorrect() {
         // Given
         let applicationRootPath = "Onet"
-        let applicationDefaultStructurePath  = ["Home"]
+        let applicationDefaultStructurePath  = ["home"]
         let sampleArticleURL = URL(string: "https://test.com/article?id=123")! // swiftlint:disable:this force_unwrapping
 
         let decorator = StructureInfoDecorator()

@@ -83,6 +83,7 @@ class EffectivePageViewTests: XCTestCase {
     func testEPageView_contentProvidedScrolledOneScreenDownThanPlayPressedDuring5SecondFocus_playEventCreatedWithCorrectMeasurements() {
         let dataSourceStub = EPVKeepAliveDataSourceStub()
         let managerDelegateMock = EPVKeepAliveManagerDelegateMock()
+        let screenSize = UIScreen.main.bounds.size
 
         managerDelegateMock.delegate = dataSourceStub
         keepAliveManager.delegate = managerDelegateMock
@@ -110,8 +111,9 @@ class EffectivePageViewTests: XCTestCase {
         keepAliveManager.stop()
 
         let params = event.eventParameters
+        let oneScreenHeight = Int(screenSize.height)
 
-        XCTAssertEqual(params["ST"], 800, "Content offset should be set to 800 (one screen down)")
+        XCTAssertEqual(params["ST"], oneScreenHeight, "Content offset should be set to \(oneScreenHeight) (one screen down)")
         XCTAssertEqual(params["ES"], "audio", "ES parameter should be equal to 'audio'")
         XCTAssertEqual(params["RS"], "play", "RS parameter should be equal to 'play'")
     }
@@ -119,6 +121,7 @@ class EffectivePageViewTests: XCTestCase {
     func testEPageView_contentProvidedScrolledTwoScreensDownThanPlayPressedDuring5SecondFocus_scrollEventCreatedWithCorrectMeasurements() {
         let dataSourceStub = EPVKeepAliveDataSourceStub()
         let managerDelegateMock = EPVKeepAliveManagerDelegateMock()
+        let screenSize = UIScreen.main.bounds.size
 
         managerDelegateMock.delegate = dataSourceStub
         keepAliveManager.delegate = managerDelegateMock
@@ -151,8 +154,9 @@ class EffectivePageViewTests: XCTestCase {
         }
 
         let params = event.eventParameters
+        let twoScreenHeights = Int(screenSize.height * 2)
 
-        XCTAssertEqual(params["ST"], 1600, "Content offset should be set to 800 (one screen down)")
+        XCTAssertEqual(params["ST"], twoScreenHeights, "Content offset should be set to \(twoScreenHeights) (two screens down)")
         XCTAssertEqual(params["ES"], "scroll", "ES parameter should be equal to 'scroll'")
         XCTAssertEqual(params["RS"], "scrl", "RS parameter should be equal to 'scrl'")
     }
@@ -161,8 +165,7 @@ class EffectivePageViewTests: XCTestCase {
         let eventsFactory = EventsFactory()
 
         let measurement = KeepAliveContentStatus(scrollOffset: 0,
-                                                 contentSize: .init(width: 375, height: 2000),
-                                                 screenSize: .init(width: 375, height: 800))
+                                                 contentSize: .init(width: 375, height: 2000))
 
         let metaData = EffectivePageViewMetadata(componentSource: .onetchat, triggerSource: .summary, measurement: measurement)
 

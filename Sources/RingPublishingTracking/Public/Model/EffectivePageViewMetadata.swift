@@ -22,6 +22,7 @@ public enum EffectivePageViewTriggerSource: String {
     case summary
 }
 
+/// Metadata for effective page view event
 struct EffectivePageViewMetadata {
     let componentSource: EffectivePageViewComponentSource
     let triggerSource: EffectivePageViewTriggerSource
