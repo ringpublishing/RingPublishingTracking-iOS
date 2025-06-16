@@ -44,7 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                                 apiUrl: nil,
                                                                 applicationRootPath: applicationRootPath,
                                                                 applicationDefaultStructurePath: applicationDefaultStructurePath,
-                                                                applicationDefaultAdvertisementArea: applicationDefaultAdvertisementArea)
+                                                                applicationDefaultAdvertisementArea: applicationDefaultAdvertisementArea,
+                                                                shouldReportEffectivePageViewEvent: true)
 
         // Set debug mode before initialzing module
 

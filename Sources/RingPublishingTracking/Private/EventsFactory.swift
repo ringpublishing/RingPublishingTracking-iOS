@@ -14,6 +14,7 @@ final class EventsFactory {
     private var videoEventSessionCounter = [String: Int]() // PMU: VEN
     var audioEventSessionTimestamps = [String: String]()
     var audioEventSessionCounter = [String: Int]()
+    var isEffectivePageViewEventSent = false
 
     // MARK: Click
 
@@ -154,6 +155,36 @@ final class EventsFactory {
                         "VE": "AppError",
                         "VM": message
                      ])
+    }
+
+    func createEffectivePageViewEvent(contentIdentifier: String?,
+                                      contentMetadata: ContentMetadata?,
+                                      metaData: EffectivePageViewMetadata) -> Event? {
+        guard !isEffectivePageViewEventSent else { return nil }
+
+        isEffectivePageViewEventSent = true
+
+        var parameters: [String: AnyHashable] = [:]
+
+        if let contentIdentifier = contentIdentifier {
+            parameters["PU"] = contentIdentifier
+        }
+
+        if let contentMetadata = contentMetadata {
+            parameters["DX"] = contentMetadata.dxParameter
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter
+        }
+
+        parameters["EV"] = "1.1"
+        parameters["ES"] = metaData.componentSource.rawValue
+        parameters["RS"] = metaData.triggerSource.rawValue
+        parameters["SH"] = Int(metaData.measurement.contentSize.height)
+        parameters["ST"] = Int(metaData.measurement.scrollOffset)
+        parameters["VH"] = Int(metaData.measurement.defaultScreenSize.height)
+
+        return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
+                     eventName: EventType.effectivePageView.rawValue,
+                     eventParameters: parameters)
     }
 }
 

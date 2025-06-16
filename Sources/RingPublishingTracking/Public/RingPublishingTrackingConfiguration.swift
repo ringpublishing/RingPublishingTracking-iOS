@@ -35,6 +35,9 @@ public struct RingPublishingTrackingConfiguration {
     /// Application advertisement site, which is used as a prefix for all advertisement areas
     public let applicationAdvertisementSite: String?
 
+    /// Flag indicating if effective page view event is enabled.
+    public let shouldReportEffectivePageViewEvent: Bool
+
     // MARK: Init
 
     /// Initialize for configuration data used in RingPublishingTracking SDK
@@ -53,7 +56,8 @@ public struct RingPublishingTrackingConfiguration {
                 applicationRootPath: String,
                 applicationDefaultStructurePath: [String]? = nil,
                 applicationDefaultAdvertisementArea: String? = nil,
-                applicationAdvertisementSite: String? = nil) {
+                applicationAdvertisementSite: String? = nil,
+                shouldReportEffectivePageViewEvent: Bool = true) {
         self.tenantId = tenantId
         self.apiKey = apiKey
         self.apiUrl = apiUrl
@@ -61,5 +65,6 @@ public struct RingPublishingTrackingConfiguration {
         self.applicationDefaultStructurePath = applicationDefaultStructurePath ?? Constants.applicationDefaultStructurePath
         self.applicationDefaultAdvertisementArea = applicationDefaultAdvertisementArea ?? Constants.applicationDefaultAdvertisementArea
         self.applicationAdvertisementSite = applicationAdvertisementSite
+        self.shouldReportEffectivePageViewEvent = shouldReportEffectivePageViewEvent
     }
 }

@@ -132,6 +132,11 @@ public extension RingPublishingTracking {
         eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
 
+        // When new content is open reset effective page view sent flag
+        if !partiallyReloaded {
+            eventsFactory.isEffectivePageViewEventSent = false
+        }
+
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                       contentMetadata: contentMetadata)
         reportEvents([event])
@@ -162,5 +167,56 @@ public extension RingPublishingTracking {
         Logger.log("Stopping content keep alive tracking")
 
         keepAliveManager.stop()
+    }
+
+    /// Reports effective page view event.
+    ///
+    /// - Use this method if you want to report an effective page view event, which indicates that the user has actively viewed the content
+    ///   (e.g. after scrolling or reaching specific thresholds).
+    /// - Effective page view can be reported only one time for the same content
+    /// - This method does not affect keep alive tracking.
+    ///
+    /// - Parameters:
+    ///   - contentMetadata: ContentMetadata
+    ///   - pageViewSource: ContentPageViewSource (default: `.default`)
+    ///   - currentStructurePath: Current application structure path used to identify application screen,
+    ///   for example "home/sport_list_screen"
+    ///   - partiallyReloaded: Pass true if your content was partially reloaded, for example content was refreshed after in app purchase
+    ///   - componentSource: Source of the UI component which triggered effective page view (e.g. audio/video player, onetchat)
+    ///   - triggerSource: Source of the trigger which caused effective page view reporting (e.g. scroll, play pressed)
+
+    func reportEffectivePageView(contentMetadata: ContentMetadata,
+                                 pageViewSource: ContentPageViewSource = .default,
+                                 currentStructurePath: [String],
+                                 partiallyReloaded: Bool,
+                                 componentSource: EffectivePageViewComponentSource,
+                                 triggerSource: EffectivePageViewTriggerSource) {
+        guard configuration?.shouldReportEffectivePageViewEvent == true else {
+            Logger.log("Effective page view event reporting is disabled in configuration")
+            return
+        }
+
+        let log = """
+        Reporting effective page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
+        structure path: '\(currentStructurePath)'
+        """
+        Logger.log(log)
+
+        eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
+        eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
+                                           contentPageViewSource: pageViewSource)
+
+        let metaData = EffectivePageViewMetadata(componentSource: componentSource,
+                                                 triggerSource: triggerSource,
+                                                 measurement: keepAliveManager.lastMeasurement ?? .zero)
+
+        guard let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
+                                                                     contentMetadata: contentMetadata,
+                                                                     metaData: metaData) else {
+            Logger.log("Reporting effective page view has been already done for current content: \(contentMetadata)")
+            return
+        }
+
+        reportEvents([event])
     }
 }

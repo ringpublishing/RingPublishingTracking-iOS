@@ -14,4 +14,7 @@ protocol KeepAliveManagerDelegate: AnyObject {
                           contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
                           didAskForKeepAliveContentStatus content: ContentMetadata) -> KeepAliveContentStatus
     func keepAliveEventShouldBeSent(_ keepAliveManager: KeepAliveManager, metaData: KeepAliveMetadata, contentMetadata: ContentMetadata)
+    func keepAliveManager(_ keepAliveManager: KeepAliveManager,
+                          didTakeMeasurement measurement: KeepAliveContentStatus,
+                          for contentMetadata: ContentMetadata)
 }
