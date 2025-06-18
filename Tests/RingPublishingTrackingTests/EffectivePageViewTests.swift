@@ -95,7 +95,7 @@ class EffectivePageViewTests: XCTestCase {
         wait(for: 3)
 
         // Get last content measurement from keep alive manager and simulate play button pressed
-        let metaData = EffectivePageViewMetadata(componentSource: "audi",
+        let metaData = EffectivePageViewMetadata(componentSource: "audio",
                                                  triggerSource: "play",
                                                  measurement: keepAliveManager.lastMeasurement ?? .zero)
 
