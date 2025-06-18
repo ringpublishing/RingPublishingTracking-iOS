@@ -29,8 +29,8 @@ extension RingPublishingTracking: KeepAliveManagerDelegate {
                           for contentMetadata: ContentMetadata) {
         guard configuration?.shouldReportEffectivePageViewEvent == true, measurement.shouldSendEffectivePageView else { return }
 
-        let metaData = EffectivePageViewMetadata(componentSource: .other(value: "scroll"),
-                                                 triggerSource: .other(value: "scrl"),
+        let metaData = EffectivePageViewMetadata(componentSource: "scroll",
+                                                 triggerSource: "scrl",
                                                  measurement: measurement)
 
         if let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,

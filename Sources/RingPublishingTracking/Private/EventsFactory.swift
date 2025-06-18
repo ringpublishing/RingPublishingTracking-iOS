@@ -176,8 +176,8 @@ final class EventsFactory {
         }
 
         parameters["EV"] = "1.1"
-        parameters["ES"] = metaData.componentSource.value
-        parameters["RS"] = metaData.triggerSource.value
+        parameters["ES"] = metaData.componentSource
+        parameters["RS"] = metaData.triggerSource
         parameters["SH"] = Int(metaData.measurement.contentSize.height)
         parameters["ST"] = Int(metaData.measurement.scrollOffset)
         parameters["VH"] = Int(metaData.measurement.defaultScreenSize.height)
