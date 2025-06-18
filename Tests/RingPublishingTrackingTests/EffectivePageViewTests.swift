@@ -167,7 +167,9 @@ class EffectivePageViewTests: XCTestCase {
         let measurement = KeepAliveContentStatus(scrollOffset: 0,
                                                  contentSize: .init(width: 375, height: 2000))
 
-        let metaData = EffectivePageViewMetadata(componentSource: .onetchat, triggerSource: .summary, measurement: measurement)
+        let metaData = EffectivePageViewMetadata(componentSource: .other(value: "onetchat"),
+                                                 triggerSource: .other(value: "summary"),
+                                                 measurement: measurement)
 
         guard let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: "1",
                                                                contentMetadata: contentMetadata,
