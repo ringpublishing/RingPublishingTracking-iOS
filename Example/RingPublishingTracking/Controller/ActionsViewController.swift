@@ -248,10 +248,8 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
 
     @IBAction func onReportEffectivePageViewWithOnetChat(_ sender: Any) {
         RingPublishingTracking.shared.reportEffectivePageView(contentMetadata: sampleContentMetadata,
-                                                              currentStructurePath: ["currentStructurePath"],
-                                                              partiallyReloaded: false,
-                                                              componentSource: .onetchat,
-                                                              triggerSource: .summary)
+                                                              componentSource: "onetchat",
+                                                              triggerSource: "summary")
     }
 }
 

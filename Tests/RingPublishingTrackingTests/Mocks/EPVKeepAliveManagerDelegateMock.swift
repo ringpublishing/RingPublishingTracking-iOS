@@ -34,7 +34,9 @@ class EPVKeepAliveManagerDelegateMock: KeepAliveManagerDelegate {
 
         guard measurement.shouldSendEffectivePageView else { return }
 
-        let metaData = EffectivePageViewMetadata(componentSource: .scroll, triggerSource: .scrl, measurement: measurement)
+        let metaData = EffectivePageViewMetadata(componentSource: "scroll",
+                                                 triggerSource: "scrl",
+                                                 measurement: measurement)
 
         guard let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                                contentMetadata: contentMetadata,

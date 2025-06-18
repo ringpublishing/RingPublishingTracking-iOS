@@ -95,8 +95,8 @@ class EffectivePageViewTests: XCTestCase {
         wait(for: 3)
 
         // Get last content measurement from keep alive manager and simulate play button pressed
-        let metaData = EffectivePageViewMetadata(componentSource: .audio,
-                                                 triggerSource: .play,
+        let metaData = EffectivePageViewMetadata(componentSource: "audio",
+                                                 triggerSource: "play",
                                                  measurement: keepAliveManager.lastMeasurement ?? .zero)
 
         guard let event = managerDelegateMock.eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -133,8 +133,8 @@ class EffectivePageViewTests: XCTestCase {
         wait(for: 3)
 
         // Get last content measurement from keep alive manager and simulate play button pressed
-        let metaData = EffectivePageViewMetadata(componentSource: .audio,
-                                                 triggerSource: .play,
+        let metaData = EffectivePageViewMetadata(componentSource: "audio",
+                                                 triggerSource: "play",
                                                  measurement: keepAliveManager.lastMeasurement ?? .zero)
 
         if managerDelegateMock.eventsFactory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -167,7 +167,9 @@ class EffectivePageViewTests: XCTestCase {
         let measurement = KeepAliveContentStatus(scrollOffset: 0,
                                                  contentSize: .init(width: 375, height: 2000))
 
-        let metaData = EffectivePageViewMetadata(componentSource: .onetchat, triggerSource: .summary, measurement: measurement)
+        let metaData = EffectivePageViewMetadata(componentSource: "onetchat",
+                                                 triggerSource: "summary",
+                                                 measurement: measurement)
 
         guard let event = eventsFactory.createEffectivePageViewEvent(contentIdentifier: "1",
                                                                contentMetadata: contentMetadata,
