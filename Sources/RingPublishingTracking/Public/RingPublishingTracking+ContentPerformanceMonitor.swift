@@ -186,9 +186,6 @@ public extension RingPublishingTracking {
     ///   - triggerSource: Source of the trigger which caused effective page view reporting (e.g. scroll, play pressed)
 
     func reportEffectivePageView(contentMetadata: ContentMetadata,
-                                 pageViewSource: ContentPageViewSource = .default,
-                                 currentStructurePath: [String],
-                                 partiallyReloaded: Bool,
                                  componentSource: EffectivePageViewComponentSource,
                                  triggerSource: EffectivePageViewTriggerSource) {
         guard configuration?.shouldReportEffectivePageViewEvent == true else {
@@ -196,15 +193,8 @@ public extension RingPublishingTracking {
             return
         }
 
-        let log = """
-        Reporting effective page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
-        structure path: '\(currentStructurePath)'
-        """
-        Logger.log(log)
-
-        eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
-        eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
-                                           contentPageViewSource: pageViewSource)
+        Logger.log("Reporting effective page view event for metadata: '\(contentMetadata)', " +
+                   "component source: '\(componentSource.value)', trigger source: '\(triggerSource.value)''")
 
         let metaData = EffectivePageViewMetadata(componentSource: componentSource,
                                                  triggerSource: triggerSource,

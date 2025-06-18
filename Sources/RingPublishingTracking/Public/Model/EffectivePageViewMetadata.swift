@@ -8,18 +8,36 @@
 import Foundation
 
 /// ES parameter
-public enum EffectivePageViewComponentSource: String {
-    case scroll
+public enum EffectivePageViewComponentSource {
     case audio
     case video
-    case onetchat
+    case other(value: String)
+
+    var value: String {
+        switch self {
+        case .audio:
+            return "audio"
+        case .video:
+            return "video"
+        case .other(let value):
+            return value
+        }
+    }
 }
 
 /// RS parameter
-public enum EffectivePageViewTriggerSource: String {
-    case scrl
+public enum EffectivePageViewTriggerSource {
     case play
-    case summary
+    case other(value: String)
+
+    var value: String {
+        switch self {
+        case .play:
+            return "play"
+        case .other(let value):
+            return value
+        }
+    }
 }
 
 /// Metadata for effective page view event
