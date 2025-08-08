@@ -141,21 +141,7 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
-    // MARK: Error
-
-    func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {
-        let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
-        let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes), reason: exceeding size limit)"
-
-        let message = "Application \(applicationName) tried to send event \(eventInfo)."
-
-        return Event(analyticsSystemName: AnalyticsSystem.kropkaMonitoring.rawValue,
-                     eventName: EventType.error.rawValue,
-                     eventParameters: [
-                        "VE": "AppError",
-                        "VM": message
-                     ])
-    }
+    // MARK: Effective page view
 
     func createEffectivePageViewEvent(contentIdentifier: String?,
                                       contentMetadata: ContentMetadata?,
@@ -185,6 +171,39 @@ final class EventsFactory {
         return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
                      eventName: EventType.effectivePageView.rawValue,
                      eventParameters: parameters)
+    }
+
+    // MARK: Aureus Impression event
+
+    func createAureusImpressionEvent(for teasers: [AureusTeaser], eventContext: AureusEventContext) -> Event {
+        var parameters: [String: AnyHashable] = [:]
+
+        parameters["displayed_items"] = teasers.asJsonArray
+        parameters["client_uuid"] = eventContext.clientUuid
+        parameters["variant_uuid"] = eventContext.variantUuid
+        parameters["segment_id"] = eventContext.segmentId
+        parameters["batch_id"] = eventContext.batchId
+        parameters["recommendation_id"] = eventContext.recommendationId
+
+        return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
+                     eventName: EventType.aureusImpressionEvent.rawValue,
+                     eventParameters: parameters)
+    }
+
+    // MARK: Error
+
+    func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {
+        let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
+        let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes), reason: exceeding size limit)"
+
+        let message = "Application \(applicationName) tried to send event \(eventInfo)."
+
+        return Event(analyticsSystemName: AnalyticsSystem.kropkaMonitoring.rawValue,
+                     eventName: EventType.error.rawValue,
+                     eventParameters: [
+                        "VE": "AppError",
+                        "VM": message
+                     ])
     }
 }
 

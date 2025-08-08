@@ -180,8 +180,23 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // If you have recomendations delivered by personalization engine (Aureus) you should report
         // when those items are displayed to the user
 
-        let offerIds = ["123", "456", "789"]
-        RingPublishingTracking.shared.reportAureusOffersImpressions(offerIds: offerIds)
+        let teaser = AureusTeaser(teaserId: "teaserId", offerId: "offerId", contentId: "contentId")
+        let context = AureusEventContext(clientUuid: "5f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                         variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                         batchId: "g9fewcisss",
+                                         recommendationId: "a5uam4ufuu",
+                                         segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
+                                         impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
+
+        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser], eventContext: context)
+
+        let contextNew = AureusEventContext(clientUuid: "5f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                            variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                            batchId: "g9fewcisss",
+                                            recommendationId: "a5uam4ufuu",
+                                            segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
+                                            impressionEventType: "AUREUS_IMPRESSION_EVENT")
+        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser], eventContext: contextNew)
     }
 
     // MARK: Actions (Video event)
