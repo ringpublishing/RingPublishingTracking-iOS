@@ -49,8 +49,8 @@ class AureusTests: XCTestCase {
                                          impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
 
         // When
-        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser, teaser2, teaser3, teaser4],
-                                                                   eventContext: context)
+        RingPublishingTracking.shared.reportAureusImpression(for: [teaser, teaser2, teaser3, teaser4],
+                                                             eventContext: context)
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
@@ -118,7 +118,7 @@ class AureusTests: XCTestCase {
                                          impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
 
         // When
-        RingPublishingTracking.shared.reportAureusOffersImpression(for: [], eventContext: context)
+        RingPublishingTracking.shared.reportAureusImpression(for: [], eventContext: context)
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {

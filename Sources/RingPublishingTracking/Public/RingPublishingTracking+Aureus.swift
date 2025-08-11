@@ -18,7 +18,7 @@ public extension RingPublishingTracking {
     /// - Parameters:
     ///   - teasers: [AureusTeaser]
     ///   - eventContext: AureusEventContext
-    func reportAureusOffersImpression(for teasers: [AureusTeaser], eventContext: AureusEventContext) {
+    func reportAureusImpression(for teasers: [AureusTeaser], eventContext: AureusEventContext) {
         Logger.log("Reporting 'Aureus' offers impression event for teasers: '\(teasers)'")
 
         switch eventContext.shouldUseLegacyReporting {

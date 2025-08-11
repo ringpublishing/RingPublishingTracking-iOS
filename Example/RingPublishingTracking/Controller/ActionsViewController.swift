@@ -189,14 +189,14 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
                                          segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
                                          impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
 
-        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser, teaser2, teaser3], eventContext: context)
+        RingPublishingTracking.shared.reportAureusImpression(for: [teaser, teaser2, teaser3], eventContext: context)
 
         let contextNew = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
                                             batchId: "g9fewcisss",
                                             recommendationId: "a5uam4ufuu",
                                             segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
                                             impressionEventType: "AUREUS_IMPRESSION_EVENT")
-        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser, teaser2, teaser3], eventContext: contextNew)
+        RingPublishingTracking.shared.reportAureusImpression(for: [teaser, teaser2, teaser3], eventContext: contextNew)
     }
 
     // MARK: Actions (Video event)
