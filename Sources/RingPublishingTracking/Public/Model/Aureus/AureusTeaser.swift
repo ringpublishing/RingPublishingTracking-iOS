@@ -18,18 +18,18 @@ public struct AureusTeaser {
     public let offerId: String?
 
     /// Content identifier
-    public let contentId: String?
+    public let contentId: String
 
     // MARK: Init
 
     /// Initializer
-    /// Either teaserId or offerId must be provided. ContentId is optional.
+    /// Either teaserId or offerId must be provided.
     ///
     /// - Parameters:
     ///   - teaserId: Aureus teaser identifier
     ///   - offerId: Aureus offer identifier / offers batch id identifier
     ///   - contentId: Content identifier
-    public init(teaserId: String?, offerId: String?, contentId: String?) {
+    public init(teaserId: String?, offerId: String?, contentId: String) {
         self.teaserId = teaserId
         self.offerId = offerId
         self.contentId = contentId

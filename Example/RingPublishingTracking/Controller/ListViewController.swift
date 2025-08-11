@@ -93,8 +93,7 @@ extension ListViewController: UITableViewDelegate {
         // Report content click event with Aureus context
 
         let teaser = AureusTeaser(teaserId: "teaserId", offerId: "offerId", contentId: selectedArticle.contentId)
-        let context = AureusEventContext(clientUuid: "5f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
-                                         variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+        let context = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
                                          batchId: "g9fewcisss",
                                          recommendationId: "a5uam4ufuu",
                                          segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
@@ -107,8 +106,7 @@ extension ListViewController: UITableViewDelegate {
 
         // Report content click using new event type for Aureus
 
-        let contextNew = AureusEventContext(clientUuid: "5f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
-                                            variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+        let contextNew = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
                                             batchId: "g9fewcisss",
                                             recommendationId: "a5uam4ufuu",
                                             segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",

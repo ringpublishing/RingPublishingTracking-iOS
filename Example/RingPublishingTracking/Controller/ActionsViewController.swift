@@ -181,22 +181,22 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         // when those items are displayed to the user
 
         let teaser = AureusTeaser(teaserId: "teaserId", offerId: "offerId", contentId: "contentId")
-        let context = AureusEventContext(clientUuid: "5f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
-                                         variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+        let teaser2 = AureusTeaser(teaserId: "teaserId_2", offerId: "offerId_2", contentId: "contentId_2")
+        let teaser3 = AureusTeaser(teaserId: "teaserId_3", offerId: "offerId_3", contentId: "contentId_3")
+        let context = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
                                          batchId: "g9fewcisss",
                                          recommendationId: "a5uam4ufuu",
                                          segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
                                          impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
 
-        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser], eventContext: context)
+        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser, teaser2, teaser3], eventContext: context)
 
-        let contextNew = AureusEventContext(clientUuid: "5f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
-                                            variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+        let contextNew = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
                                             batchId: "g9fewcisss",
                                             recommendationId: "a5uam4ufuu",
                                             segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
                                             impressionEventType: "AUREUS_IMPRESSION_EVENT")
-        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser], eventContext: contextNew)
+        RingPublishingTracking.shared.reportAureusOffersImpression(for: [teaser, teaser2, teaser3], eventContext: contextNew)
     }
 
     // MARK: Actions (Video event)

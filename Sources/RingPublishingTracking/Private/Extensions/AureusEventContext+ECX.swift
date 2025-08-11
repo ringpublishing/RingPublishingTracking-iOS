@@ -13,11 +13,11 @@ extension AureusEventContext {
     /// ECX parameter
     ///
     /// Example:
-    /// {"context":{"aureus":{"client_uuid":"581ad584-2333-4e69-8963-c105184cfd04",
+    /// {"context":{"aureus":{
     /// "variant_uuid":"0e8c860f-006a-49ef-923c-38b8cfc7ca57","batch_id":"79935e2327",
     /// "recommendation_id":"e4b25216db","teaser_id":"_DEFAULT_","segment_id":"group1.segment1"}}}
     var ecxParameter: String? {
-        let wrapper = AureusEventContextWrapper(context: AureusContext(aureus: self))
+        let wrapper = AureusEventContextWrapper(context: AureusContext(aureus: AureusEventContextParams(context: self)))
 
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
@@ -39,5 +39,22 @@ private struct AureusEventContextWrapper: Encodable {
 
 private struct AureusContext: Encodable {
 
-    let aureus: AureusEventContext
+    let aureus: AureusEventContextParams
+}
+
+private struct AureusEventContextParams: Encodable {
+
+    let variantUuid: String
+    let batchId: String
+    let recommendationId: String
+    let segmentId: String
+    let teaserId: String?
+
+    init(context: AureusEventContext) {
+        self.variantUuid = context.variantUuid
+        self.batchId = context.batchId
+        self.recommendationId = context.recommendationId
+        self.segmentId = context.segmentId
+        self.teaserId = context.teaserId
+    }
 }

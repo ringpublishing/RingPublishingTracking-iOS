@@ -86,14 +86,9 @@ private extension RingPublishingTracking {
                                   publicationUrl: URL,
                                   teaser: AureusTeaser,
                                   eventContext: AureusEventContext) {
-        guard let contentId = teaser.contentId else {
-            Logger.log("'Aureus' content click event can't be sent because 'contentId' is missing!", level: .error)
-            return
-        }
-
         let clickEvent = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
                                                         publicationUrl: publicationUrl,
-                                                        contentIdentifier: contentId)
+                                                        contentIdentifier: teaser.contentId)
 
         var parameters = clickEvent.eventParameters
 

@@ -9,12 +9,7 @@
 import Foundation
 
 /// Context for reported Aureus events
-public struct AureusEventContext: Encodable {
-
-    /// Aureus client UUID
-    ///
-    /// Corresponds to a purchase of Aureus service for a given website
-    public let clientUuid: String
+public struct AureusEventContext {
 
     /// Aureus variant UUID
     ///
@@ -43,19 +38,16 @@ public struct AureusEventContext: Encodable {
     /// Initializer
     ///
     /// - Parameters:
-    ///   - clientUuid: Aureus client UUID
     ///   - variantUuid: Aureus variant UUID
     ///   - batchId: Query identifier executed to Aureus
     ///   - recommendationId: Identifier of single recommendation
     ///   - segmentId: Segment identifier of given end user
     ///   - impressionEventType: Type of event which is expected to be reported by Aureus
-    public init(clientUuid: String,
-                variantUuid: String,
+    public init(variantUuid: String,
                 batchId: String,
                 recommendationId: String,
                 segmentId: String,
                 impressionEventType: String) {
-        self.clientUuid = clientUuid
         self.variantUuid = variantUuid
         self.batchId = batchId
         self.recommendationId = recommendationId
