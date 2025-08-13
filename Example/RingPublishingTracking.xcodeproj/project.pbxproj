@@ -143,7 +143,6 @@
 		7D34D08C27BFA9950045CCE0 /* AtomicArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34D08B27BFA9950045CCE0 /* AtomicArrayTests.swift */; };
 		7D54DA992E460BF8009DA251 /* AureusTeaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D54DA982E460BF8009DA251 /* AureusTeaser.swift */; };
 		7D54DA9B2E460C55009DA251 /* AureusEventContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D54DA9A2E460C55009DA251 /* AureusEventContext.swift */; };
-		7D54DA9D2E461033009DA251 /* AureusEventContext+EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D54DA9C2E461033009DA251 /* AureusEventContext+EventType.swift */; };
 		7D54DA9F2E462930009DA251 /* AureusTeaser+Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D54DA9E2E462930009DA251 /* AureusTeaser+Encodable.swift */; };
 		7D54DAA12E4629BB009DA251 /* AureusEventContext+ECX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D54DAA02E4629BB009DA251 /* AureusEventContext+ECX.swift */; };
 		7D7D5B8B26FCA3DF00B79FDD /* SampleArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B7A26FCA3DF00B79FDD /* SampleArticle.swift */; };
@@ -345,7 +344,6 @@
 		7D34D08B27BFA9950045CCE0 /* AtomicArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicArrayTests.swift; sourceTree = "<group>"; };
 		7D54DA982E460BF8009DA251 /* AureusTeaser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AureusTeaser.swift; sourceTree = "<group>"; };
 		7D54DA9A2E460C55009DA251 /* AureusEventContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AureusEventContext.swift; sourceTree = "<group>"; };
-		7D54DA9C2E461033009DA251 /* AureusEventContext+EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AureusEventContext+EventType.swift"; sourceTree = "<group>"; };
 		7D54DA9E2E462930009DA251 /* AureusTeaser+Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AureusTeaser+Encodable.swift"; sourceTree = "<group>"; };
 		7D54DAA02E4629BB009DA251 /* AureusEventContext+ECX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AureusEventContext+ECX.swift"; sourceTree = "<group>"; };
 		7D7D5B7A26FCA3DF00B79FDD /* SampleArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleArticle.swift; sourceTree = "<group>"; };
@@ -740,7 +738,6 @@
 				60108E532B0515C6005656C1 /* VideoStreamFormat+ParameterName.swift */,
 				A03CD5402C88AE44002DFD48 /* Encodable+JSON.swift */,
 				A04E95092CB92D870048B4AF /* AudioMetadata+AudioEventParameter.swift */,
-				7D54DA9C2E461033009DA251 /* AureusEventContext+EventType.swift */,
 				7D54DA9E2E462930009DA251 /* AureusTeaser+Encodable.swift */,
 				7D54DAA02E4629BB009DA251 /* AureusEventContext+ECX.swift */,
 			);
@@ -1268,7 +1265,6 @@
 				60108EA22B0515C6005656C1 /* APIService.swift in Sources */,
 				60108EA62B0515C6005656C1 /* Profile.swift in Sources */,
 				60108E6B2B0515C6005656C1 /* RingPublishingTracking.swift in Sources */,
-				7D54DA9D2E461033009DA251 /* AureusEventContext+EventType.swift in Sources */,
 				60108E732B0515C6005656C1 /* Event.swift in Sources */,
 				60108E9A2B0515C6005656C1 /* ArthemisResponse.swift in Sources */,
 				60108E842B0515C6005656C1 /* Constants.swift in Sources */,

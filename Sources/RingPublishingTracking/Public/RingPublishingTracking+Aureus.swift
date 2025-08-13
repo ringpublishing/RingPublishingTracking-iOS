@@ -21,11 +21,16 @@ public extension RingPublishingTracking {
     func reportAureusImpression(for teasers: [AureusTeaser], eventContext: AureusEventContext) {
         Logger.log("Reporting 'Aureus' offers impression event for teasers: '\(teasers)'")
 
-        switch eventContext.shouldUseLegacyReporting {
-        case true:
+        switch eventContext.impressionEventType.uppercased() {
+        case "USER_ACTION":
             reportLegacyAureusOffersImpression(for: teasers, eventContext: eventContext)
 
-        case false:
+        case "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION":
+            reportLegacyAureusOffersImpression(for: teasers, eventContext: eventContext)
+            reportNewAureusOffersImpression(for: teasers, eventContext: eventContext)
+
+        default:
+            // Other defined cases are: "AUREUS_IMPRESSION_EVENT"
             reportNewAureusOffersImpression(for: teasers, eventContext: eventContext)
         }
     }
@@ -44,19 +49,10 @@ public extension RingPublishingTracking {
         let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting 'Aureus' content click event for element named: \(logData)")
 
-        switch eventContext.shouldUseLegacyReporting {
-        case true:
-            reportLegacyContentClick(selectedElementName: selectedElementName,
-                                     publicationUrl: publicationUrl,
-                                     teaser: teaser,
-                                     eventContext: eventContext)
-
-        case false:
-            reportNewContentClick(selectedElementName: selectedElementName,
-                                  publicationUrl: publicationUrl,
-                                  teaser: teaser,
-                                  eventContext: eventContext)
-        }
+        reportNewContentClick(selectedElementName: selectedElementName,
+                              publicationUrl: publicationUrl,
+                              teaser: teaser,
+                              eventContext: eventContext)
     }
 }
 
@@ -79,27 +75,6 @@ private extension RingPublishingTracking {
         let event = eventsFactory.createUserActionEvent(actionName: "aureusOfferImpressions",
                                                         actionSubtypeName: "offerIds",
                                                         parameter: .plain(encodedListString))
-        reportEvents([event])
-    }
-
-    func reportLegacyContentClick(selectedElementName: String,
-                                  publicationUrl: URL,
-                                  teaser: AureusTeaser,
-                                  eventContext: AureusEventContext) {
-        let clickEvent = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
-                                                        publicationUrl: publicationUrl,
-                                                        contentIdentifier: teaser.contentId)
-
-        var parameters = clickEvent.eventParameters
-
-        if let aureusOfferId = teaser.offerId {
-            parameters["EI"] = aureusOfferId
-        }
-
-        let event = Event(analyticsSystemName: clickEvent.analyticsSystemName,
-                          eventName: clickEvent.eventName,
-                          eventParameters: parameters)
-
         reportEvents([event])
     }
 
