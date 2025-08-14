@@ -90,22 +90,9 @@ extension ListViewController: UITableViewDelegate {
                                                          publicationUrl: selectedArticle.publicationUrl,
                                                          contentId: selectedArticle.contentId)
 
-        // Report content click event with Aureus context
-
-        let teaser = AureusTeaser(teaserId: "teaserId", offerId: "offerId", contentId: selectedArticle.contentId)
-        let context = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
-                                         batchId: "g9fewcisss",
-                                         recommendationId: "a5uam4ufuu",
-                                         segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
-                                         impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
-
-        RingPublishingTracking.shared.reportContentClick(selectedElementName: selectedArticle.title,
-                                                         publicationUrl: selectedArticle.publicationUrl,
-                                                         teaser: teaser,
-                                                         eventContext: context)
-
         // Report content click using new event type for Aureus
 
+        let teaser = AureusTeaser(teaserId: "teaserId", offerId: "offerId", contentId: selectedArticle.contentId)
         let contextNew = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
                                             batchId: "g9fewcisss",
                                             recommendationId: "a5uam4ufuu",
