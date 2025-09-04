@@ -32,7 +32,7 @@ final class EventsFactory {
         }
 
         if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier
+            parameters["PU"] = contentIdentifier.lowercased()
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
@@ -78,7 +78,7 @@ final class EventsFactory {
         var parameters: [String: AnyHashable] = [:]
 
         if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier
+            parameters["PU"] = contentIdentifier.lowercased()
         }
 
         if let contentMetadata = contentMetadata {
@@ -99,7 +99,7 @@ final class EventsFactory {
         let measurements = metaData.keepAliveContentStatus
 
         parameters["DX"] = contentMetadata.dxParameter
-        parameters["PU"] = contentMetadata.contentId.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["PU"] = contentMetadata.contentId.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
         parameters["KHF"] = metaData.hasFocus
         parameters["KMT"] = metaData.keepAliveMeasureType.map { $0.rawValue }
@@ -153,7 +153,7 @@ final class EventsFactory {
         var parameters: [String: AnyHashable] = [:]
 
         if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier
+            parameters["PU"] = contentIdentifier.lowercased()
         }
 
         if let contentMetadata = contentMetadata {

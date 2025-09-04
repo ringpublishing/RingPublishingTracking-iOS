@@ -53,8 +53,8 @@ final class StructureInfoDecorator: Decorator {
         let resolved = structureType.parametersResolved(applicationRootPath: applicationRootPath,
                                                         applicationAdvertisementSite: applicationAdvertisementSite)
         var params = [
-            "DV": resolved.dv,
-            "DU": resolved.du + contentPageViewSource.utmMedium
+            "DV": resolved.dv.lowercased(),
+            "DU": (resolved.du + contentPageViewSource.utmMedium).lowercased()
         ]
 
         if let previousStructureType = previousInfo.structureType {

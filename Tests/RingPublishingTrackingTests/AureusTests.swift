@@ -98,8 +98,8 @@ class AureusTests: XCTestCase {
 
             XCTAssertEqual(params?["VE"], selectedElementName, "VE parameter should be correct")
             XCTAssertEqual(params?["VU"], publicationUrl.absoluteString, "VC parameter should be correct")
-            XCTAssertEqual(params?["PU"], contentId.uuidString, "PU parameter should be nil")
-            XCTAssertEqual(params?["EI"], aureusOfferId, "EI parameter should be nil")
+            XCTAssertEqual(params?["PU"], contentId.uuidString.lowercased(), "PU parameter should be correct")
+            XCTAssertEqual(params?["EI"], aureusOfferId, "EI parameter should be correct")
 
             expectation.fulfill()
         })
