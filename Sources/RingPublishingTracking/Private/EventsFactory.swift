@@ -32,7 +32,7 @@ final class EventsFactory {
         }
 
         if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier
+            parameters["PU"] = contentIdentifier.lowercased()
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaEvents.rawValue,
@@ -78,7 +78,7 @@ final class EventsFactory {
         var parameters: [String: AnyHashable] = [:]
 
         if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier
+            parameters["PU"] = contentIdentifier.lowercased()
         }
 
         if let contentMetadata = contentMetadata {
@@ -99,7 +99,7 @@ final class EventsFactory {
         let measurements = metaData.keepAliveContentStatus
 
         parameters["DX"] = contentMetadata.dxParameter
-        parameters["PU"] = contentMetadata.contentId.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["PU"] = contentMetadata.contentId.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
         parameters["KHF"] = metaData.hasFocus
         parameters["KMT"] = metaData.keepAliveMeasureType.map { $0.rawValue }
@@ -141,21 +141,7 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
-    // MARK: Error
-
-    func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {
-        let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
-        let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes), reason: exceeding size limit)"
-
-        let message = "Application \(applicationName) tried to send event \(eventInfo)."
-
-        return Event(analyticsSystemName: AnalyticsSystem.kropkaMonitoring.rawValue,
-                     eventName: EventType.error.rawValue,
-                     eventParameters: [
-                        "VE": "AppError",
-                        "VM": message
-                     ])
-    }
+    // MARK: Effective page view
 
     func createEffectivePageViewEvent(contentIdentifier: String?,
                                       contentMetadata: ContentMetadata?,
@@ -167,7 +153,7 @@ final class EventsFactory {
         var parameters: [String: AnyHashable] = [:]
 
         if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier
+            parameters["PU"] = contentIdentifier.lowercased()
         }
 
         if let contentMetadata = contentMetadata {
@@ -185,6 +171,41 @@ final class EventsFactory {
         return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
                      eventName: EventType.effectivePageView.rawValue,
                      eventParameters: parameters)
+    }
+
+    // MARK: Aureus Impression event
+
+    func createAureusImpressionEvent(for teasers: [AureusTeaser], eventContext: AureusEventContext) -> Event {
+        let eventDictionary: [String: AnyHashable] = [
+            "displayed_items": teasers.asJsonArray,
+            "variant_uuid": eventContext.variantUuid,
+            "segment_id": eventContext.segmentId,
+            "batch_id": eventContext.batchId,
+            "recommendation_id": eventContext.recommendationId
+        ]
+
+        var parameters: [String: AnyHashable] = [:]
+        parameters["events"] = [eventDictionary]
+
+        return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
+                     eventName: EventType.aureusImpressionEvent.rawValue,
+                     eventParameters: parameters)
+    }
+
+    // MARK: Error
+
+    func createErrorEvent(for event: Event, applicationRootPath: String?) -> Event {
+        let applicationName = [applicationRootPath, Constants.applicationPrefix].compactMap { $0 }.joined(separator: ".")
+        let eventInfo = "(name: \(event.eventName), size: \(event.sizeInBytes), reason: exceeding size limit)"
+
+        let message = "Application \(applicationName) tried to send event \(eventInfo)."
+
+        return Event(analyticsSystemName: AnalyticsSystem.kropkaMonitoring.rawValue,
+                     eventName: EventType.error.rawValue,
+                     eventParameters: [
+                        "VE": "AppError",
+                        "VM": message
+                     ])
     }
 }
 

@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "RingPublishingTracking",
     platforms: [
-        .iOS(.v11)
+        .iOS(.v15)
     ],
     products: [
         .library(

@@ -13,12 +13,56 @@ public extension RingPublishingTracking {
 
     // MARK: Aureus events
 
-    /// Reports 'Aureus' offers impression event
+    /// Reports 'Aureus' impression event
     ///
-    /// - Parameter offerIds: [String]
-    func reportAureusOffersImpressions(offerIds: [String]) {
-        Logger.log("Reporting 'Aureus' offers impression event for offers: '\(offerIds)'")
+    /// - Parameters:
+    ///   - teasers: [AureusTeaser]
+    ///   - eventContext: AureusEventContext
+    func reportAureusImpression(for teasers: [AureusTeaser], eventContext: AureusEventContext) {
+        Logger.log("Reporting 'Aureus' offers impression event for teasers: '\(teasers)'")
 
+        switch eventContext.impressionEventType.uppercased() {
+        case "USER_ACTION":
+            reportLegacyAureusOffersImpression(for: teasers)
+
+        case "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION":
+            reportLegacyAureusOffersImpression(for: teasers)
+            reportNewAureusOffersImpression(for: teasers, eventContext: eventContext)
+
+        default:
+            // Other defined cases are: "AUREUS_IMPRESSION_EVENT"
+            reportNewAureusOffersImpression(for: teasers, eventContext: eventContext)
+        }
+    }
+
+    /// Reports 'Aureus' click event which leads to content page
+    ///
+    /// - Parameters:
+    ///   - selectedElementName: String
+    ///   - publicationUrl: URL
+    ///   - teaser: AureusTeaser
+    ///   - eventContext: AureusEventContext
+    func reportContentClick(selectedElementName: String,
+                            publicationUrl: URL,
+                            teaser: AureusTeaser,
+                            eventContext: AureusEventContext) {
+        let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
+        Logger.log("Reporting 'Aureus' content click event for element named: \(logData)")
+
+        reportNewContentClick(selectedElementName: selectedElementName,
+                              publicationUrl: publicationUrl,
+                              teaser: teaser,
+                              eventContext: eventContext)
+    }
+}
+
+// MARK: Private
+private extension RingPublishingTracking {
+
+    // MARK: Legacy events
+
+    func reportLegacyAureusOffersImpression(for teasers: [AureusTeaser]) {
+        let offerIds = teasers.compactMap { $0.offerId }
         let offerIdsString = offerIds.joined(separator: "\",\"")
 
         let encodedListString: String?
@@ -34,23 +78,33 @@ public extension RingPublishingTracking {
         reportEvents([event])
     }
 
-    /// Reports 'Aureus' click event which leads to content page
-    ///
-    /// - Parameters:
-    ///   - selectedElementName: String
-    ///   - publicationUrl: URL
-    ///   - contentId: String
-    ///   - aureusOfferId: String
-    func reportContentClick(selectedElementName: String, publicationUrl: URL, contentId: String, aureusOfferId: String) {
-        let logData = "'\(selectedElementName)' and publication url: '\(publicationUrl.absoluteString)'"
-        Logger.log("Reporting 'Aureus' content click event for element named: \(logData)")
+    // MARK: New events
 
+    func reportNewAureusOffersImpression(for teasers: [AureusTeaser], eventContext: AureusEventContext) {
+        let event = eventsFactory.createAureusImpressionEvent(for: teasers, eventContext: eventContext)
+        reportEvents([event])
+    }
+
+    func reportNewContentClick(selectedElementName: String,
+                               publicationUrl: URL,
+                               teaser: AureusTeaser,
+                               eventContext: AureusEventContext) {
         let clickEvent = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
                                                         publicationUrl: publicationUrl,
-                                                        contentIdentifier: contentId)
+                                                        contentIdentifier: teaser.contentId)
 
         var parameters = clickEvent.eventParameters
-        parameters["EI"] = aureusOfferId
+
+        if let aureusOfferId = teaser.offerId {
+            parameters["EI"] = aureusOfferId
+        }
+
+        var updatedContext = eventContext
+        updatedContext.teaserId = teaser.teaserId
+
+        if let ecxParameter = updatedContext.ecxParameter {
+            parameters["ECX"] = ecxParameter
+        }
 
         let event = Event(analyticsSystemName: clickEvent.analyticsSystemName,
                           eventName: clickEvent.eventName,

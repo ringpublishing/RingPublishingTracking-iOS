@@ -38,10 +38,19 @@ class AureusTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "Report Aureus Offers Impressions")
 
-        let offerIds = ["a1", "b2", "c3", "d4"]
+        let teaser = AureusTeaser(teaserId: "teaserId", offerId: "a1", contentId: "contentId")
+        let teaser2 = AureusTeaser(teaserId: "teaserId_2", offerId: "b2", contentId: "contentId_2")
+        let teaser3 = AureusTeaser(teaserId: "teaserId_3", offerId: "c3", contentId: "contentId_3")
+        let teaser4 = AureusTeaser(teaserId: "teaserId_3", offerId: "d4", contentId: "contentId_4")
+        let context = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                         batchId: "g9fewcisss",
+                                         recommendationId: "a5uam4ufuu",
+                                         segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
+                                         impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
 
         // When
-        ringPublishingTracking.reportAureusOffersImpressions(offerIds: offerIds)
+        RingPublishingTracking.shared.reportAureusImpression(for: [teaser, teaser2, teaser3, teaser4],
+                                                             eventContext: context)
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
@@ -68,11 +77,18 @@ class AureusTests: XCTestCase {
         let contentId = UUID()
         let aureusOfferId = "12345"
 
+        let teaser = AureusTeaser(teaserId: "teaserId", offerId: aureusOfferId, contentId: contentId.uuidString)
+        let context = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                         batchId: "g9fewcisss",
+                                         recommendationId: "a5uam4ufuu",
+                                         segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
+                                         impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
+
         // When
-        ringPublishingTracking.reportContentClick(selectedElementName: selectedElementName,
-                                                  publicationUrl: publicationUrl,
-                                                  contentId: contentId.uuidString,
-                                                  aureusOfferId: aureusOfferId)
+        RingPublishingTracking.shared.reportContentClick(selectedElementName: selectedElementName,
+                                                         publicationUrl: publicationUrl,
+                                                         teaser: teaser,
+                                                         eventContext: context)
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
@@ -82,8 +98,8 @@ class AureusTests: XCTestCase {
 
             XCTAssertEqual(params?["VE"], selectedElementName, "VE parameter should be correct")
             XCTAssertEqual(params?["VU"], publicationUrl.absoluteString, "VC parameter should be correct")
-            XCTAssertEqual(params?["PU"], contentId.uuidString, "PU parameter should be nil")
-            XCTAssertEqual(params?["EI"], aureusOfferId, "EI parameter should be nil")
+            XCTAssertEqual(params?["PU"], contentId.uuidString.lowercased(), "PU parameter should be correct")
+            XCTAssertEqual(params?["EI"], aureusOfferId, "EI parameter should be correct")
 
             expectation.fulfill()
         })
@@ -95,10 +111,14 @@ class AureusTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "Report Aureus Offers Impressions")
 
-        let offerIds: [String] = []
+        let context = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                         batchId: "g9fewcisss",
+                                         recommendationId: "a5uam4ufuu",
+                                         segmentId: "uuid_word2vec_artemis_id_bisect_50_10.8",
+                                         impressionEventType: "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION")
 
         // When
-        ringPublishingTracking.reportAureusOffersImpressions(offerIds: offerIds)
+        RingPublishingTracking.shared.reportAureusImpression(for: [], eventContext: context)
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {

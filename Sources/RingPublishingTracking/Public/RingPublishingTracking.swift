@@ -42,7 +42,7 @@ public class RingPublishingTracking {
     // MARK: Internal properties
 
     /// Configuration for RingPublishingTracking module
-    var configuration: RingPublishingTrackingConfiguration? = nil
+    var configuration: RingPublishingTrackingConfiguration?
 
     /// Events service for handling all operations on events
     var eventsService: EventsService?
