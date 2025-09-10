@@ -23,10 +23,10 @@ public extension RingPublishingTracking {
 
         switch eventContext.impressionEventType.uppercased() {
         case "USER_ACTION":
-            reportLegacyAureusOffersImpression(for: teasers, eventContext: eventContext)
+            reportLegacyAureusOffersImpression(for: teasers)
 
         case "AUREUS_IMPRESSION_EVENT_AND_USER_ACTION":
-            reportLegacyAureusOffersImpression(for: teasers, eventContext: eventContext)
+            reportLegacyAureusOffersImpression(for: teasers)
             reportNewAureusOffersImpression(for: teasers, eventContext: eventContext)
 
         default:
@@ -61,7 +61,7 @@ private extension RingPublishingTracking {
 
     // MARK: Legacy events
 
-    func reportLegacyAureusOffersImpression(for teasers: [AureusTeaser], eventContext: AureusEventContext) {
+    func reportLegacyAureusOffersImpression(for teasers: [AureusTeaser]) {
         let offerIds = teasers.compactMap { $0.offerId }
         let offerIdsString = offerIds.joined(separator: "\",\"")
 
