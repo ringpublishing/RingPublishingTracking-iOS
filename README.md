@@ -24,8 +24,8 @@ In order to run demo app, execute `pod install` in `Example` directory.
 
 ## Requirements
 
-- iOS 11.0 or later
-- Xcode 12 or later
+- iOS 15.0 or later
+- Xcode 16 or later
 - Swift 5
 
 ## Installation
