@@ -23,12 +23,7 @@ extension Dictionary where Key == String {
     /// Serializes dictionary into JSON data object
     /// - Returns: Data
     func dataUsingJSONSerialization() throws -> Data {
-        let options: JSONSerialization.WritingOptions
-        if #available(iOS 13.0, *) {
-            options = [.sortedKeys, .withoutEscapingSlashes]
-        } else {
-            options = [.sortedKeys]
-        }
+        let options: JSONSerialization.WritingOptions = [.sortedKeys, .withoutEscapingSlashes]
 
         return try JSONSerialization.data(withJSONObject: self, options: options)
     }
