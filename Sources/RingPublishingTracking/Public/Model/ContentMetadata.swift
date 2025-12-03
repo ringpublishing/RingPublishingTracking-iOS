@@ -30,6 +30,9 @@ public struct ContentMetadata {
     /// Content identifier in source system (CMS)
     public let contentId: String
 
+    /// Content space UUID where the content is located (optional)
+    public let contentSpaceUuid: String?
+
     // MARK: Init
 
     /// Initializer
@@ -41,18 +44,21 @@ public struct ContentMetadata {
     ///   - contentPartIndex: Index of displayed content part (applies only if given content can be consumed in parts).
     ///   - paidContent: Did user pay for access to this content?
     ///   - contentId: Content identifier in source system (CMS)
+    ///   - contentSpaceUuid: Content space UUID where the content is located (optional)
     public init(publicationId: String,
                 publicationUrl: URL,
                 sourceSystemName: String,
                 contentPartIndex: Int = 1,
                 paidContent: Bool,
-                contentId: String) {
+                contentId: String,
+                contentSpaceUuid: String? = nil) {
         self.publicationId = publicationId
         self.publicationUrl = publicationUrl
         self.sourceSystemName = sourceSystemName
         self.contentPartIndex = contentPartIndex
         self.paidContent = paidContent
         self.contentId = contentId
+        self.contentSpaceUuid = contentSpaceUuid
     }
 }
 
