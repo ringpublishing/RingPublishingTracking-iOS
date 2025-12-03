@@ -37,6 +37,6 @@ struct ContentMarkAsPaid: Encodable {
         }
 
         publication = Publication(premium: contentMetadata.paidContent)
-        source = Source(id: contentMetadata.contentSpaceUuid ?? "123", system: contentMetadata.sourceSystemName)
+        source = Source(id: contentMetadata.contentSpaceUuid ?? "", system: contentMetadata.sourceSystemName)
     }
 }
