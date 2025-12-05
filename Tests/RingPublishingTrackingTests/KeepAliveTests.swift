@@ -27,7 +27,8 @@ class KeepAliveTests: XCTestCase {
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
                                           paidContent: true,
-                                          contentId: "6789")
+                                          contentId: "6789",
+                                          contentSpaceUuid: "1289")
 
         // When
         keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
@@ -56,7 +57,8 @@ class KeepAliveTests: XCTestCase {
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
                                           paidContent: true,
-                                          contentId: "6789")
+                                          contentId: "6789",
+                                          contentSpaceUuid: "1289")
 
         // When
         keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
@@ -93,7 +95,8 @@ class KeepAliveTests: XCTestCase {
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
                                           paidContent: true,
-                                          contentId: "6789")
+                                          contentId: "6789",
+                                          contentSpaceUuid: "1290")
 
         // When
         keepAliveManager.start(for: contentData, contentKeepAliveDataSource: dataSourceStub, partiallyReloaded: false)
@@ -125,7 +128,8 @@ class KeepAliveTests: XCTestCase {
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
                                               paidContent: false,
-                                              contentId: "6789")
+                                              contentId: "6789",
+                                              contentSpaceUuid: "1290")
         let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [],
                                                   timings: [],
                                                   hasFocus: [],
@@ -148,7 +152,8 @@ class KeepAliveTests: XCTestCase {
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
                                               paidContent: false,
-                                              contentId: "6789")
+                                              contentId: "6789",
+                                              contentSpaceUuid: "1290")
         let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [],
                                                   timings: [],
                                                   hasFocus: [],

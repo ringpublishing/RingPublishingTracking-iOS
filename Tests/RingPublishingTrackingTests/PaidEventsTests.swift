@@ -68,7 +68,8 @@ class PaidEventsFactoryTests: XCTestCase {
             sourceSystemName: "source System_Name",
             contentPartIndex: 1,
             paidContent: true,
-            contentId: "my-unique-content-id-1234"
+            contentId: "my-unique-content-id-1234",
+            contentSpaceUuid: "1290"
         )
     }
 

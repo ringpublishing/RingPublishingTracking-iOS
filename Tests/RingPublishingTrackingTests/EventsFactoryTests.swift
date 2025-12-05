@@ -103,7 +103,8 @@ class EventsFactoryTests: XCTestCase {
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
                                               paidContent: true,
-                                              contentId: "6789")
+                                              contentId: "6789",
+                                              contentSpaceUuid: "9123")
         let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjp0cnVlfSwic291cmNlIjp7ImlkIjoiNjc4OSIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
 
         // When
@@ -124,7 +125,8 @@ class EventsFactoryTests: XCTestCase {
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
                                               paidContent: false,
-                                              contentId: "6789")
+                                              contentId: "6789",
+                                              contentSpaceUuid: "12349")
         let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjY3ODkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
 
         // When
