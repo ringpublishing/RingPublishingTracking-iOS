@@ -154,7 +154,8 @@ private extension DetailViewController {
                                               publicationUrl: article.publicationUrl,
                                               sourceSystemName: article.sourceSystemName,
                                               paidContent: article.paidContent,
-                                              contentId: article.contentId)
+                                              contentId: article.contentId,
+                                              contentSpaceUuid: "")
 
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
                                                             pageViewSource: contentViewSource,

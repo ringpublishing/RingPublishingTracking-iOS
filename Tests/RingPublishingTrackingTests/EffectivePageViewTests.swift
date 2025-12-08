@@ -18,7 +18,8 @@ class EffectivePageViewTests: XCTestCase {
                                           sourceSystemName: "name",
                                           contentPartIndex: 1,
                                           paidContent: true,
-                                          contentId: "6789")
+                                          contentId: "6789",
+                                          contentSpaceUuid: "123")
     // swiftlint:enable force_unwrapping
 
     // MARK: Tests

@@ -298,7 +298,8 @@ private extension ActionsViewController {
                         publicationUrl: URL(string: "http://onet.pl/article1")!,
                         sourceSystemName: "sourceSystemName",
                         paidContent: true,
-                        contentId: "2345")
+                        contentId: "2345",
+                        contentSpaceUuid: "9876")
     }
 
     // swiftlint:enable force_unwrapping

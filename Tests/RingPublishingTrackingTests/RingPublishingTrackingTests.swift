@@ -136,7 +136,8 @@ class RingPublishingTrackingTests: XCTestCase {
                                                publicationUrl: publicationUrl2,
                                                sourceSystemName: "sourceSystemName1",
                                                paidContent: true,
-                                               contentId: "6789")
+                                               contentId: "6789",
+                                               contentSpaceUuid: "1290")
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata1,
                                                             currentStructurePath: ["path4"],
                                                             partiallyReloaded: false,
