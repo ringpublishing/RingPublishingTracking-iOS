@@ -12,7 +12,7 @@ import Foundation
 extension RingPublishingTracking: EventsServiceDelegate {
 
     func eventsService(_ eventsService: EventsService, retrievedTrackingIdentifier identifier: TrackingIdentifier) {
-        delegate?.ringPublishingTracking(self, didAssignTrackingIdentifier: identifier)
+        trackingIdentifier = identifier
     }
 
     func eventsService(_ eventsService: EventsService, didFailWhileRetrievingTrackingIdentifier error: ServiceError) {
