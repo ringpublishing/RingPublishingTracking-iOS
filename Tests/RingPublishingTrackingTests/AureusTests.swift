@@ -34,6 +34,7 @@ class AureusTests: XCTestCase {
     }
 
     // MARK: Tests
+
     func testReportAureusOffersImpressions_offerIdsProvided_properlyReportedEvent() {
         // Given
         let expectation = XCTestExpectation(description: "Report Aureus Offers Impressions")
@@ -129,6 +130,60 @@ class AureusTests: XCTestCase {
             XCTAssertEqual(params?["VE"], "aureusOfferImpressions", "VE parameter should be correct")
             XCTAssertEqual(params?["VC"], "offerIds", "VC parameter should be correct")
             XCTAssertNil(params?["VM"], "VM parameter should be nil")
+
+            expectation.fulfill()
+        })
+
+        wait(for: [expectation], timeout: 10.0)
+    }
+
+    func testReportAureusDeboostingEvent_offerIdsProvided_properlyReportedEvent() {
+        // Given
+        let expectation = XCTestExpectation(description: "Report Aureus Deboosting Event")
+
+        let teaser = AureusTeaser(teaserId: "teaserId", offerId: "a1", contentId: "contentId")
+        let teaser2 = AureusTeaser(teaserId: "teaserId_2", offerId: "b2", contentId: "contentId_2")
+        let teaser3 = AureusTeaser(teaserId: "teaserId_3", offerId: "c3", contentId: "contentId_3")
+        let teaser4 = AureusTeaser(teaserId: "teaserId_3", offerId: "d4", contentId: "contentId_4")
+
+        // When
+        RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3, teaser4], strategy: .click)
+
+        // Then
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            let request = self.ringPublishingTracking.eventsService?.buildEventRequest()
+            let event = request?.events.first
+            let params = event?.eventParameters
+
+            XCTAssertEqual(params?["version"] as? String, "1.0.0", "version parameter should be correct")
+
+            guard let events = params?["events"] as? [[String: AnyHashable]] else {
+                XCTFail("events parameter should be an array of dictionaries")
+                expectation.fulfill()
+                return
+            }
+
+            XCTAssertEqual(events.count, 1, "events should contain one event")
+
+            let eventDict = events[0]
+            XCTAssertEqual(eventDict["type"] as? String, "deboosting", "type should be deboosting")
+            XCTAssertEqual(eventDict["strategy"] as? String, "click", "strategy should be click")
+
+            guard let items = eventDict["items"] as? [[String: AnyHashable]] else {
+                XCTFail("items should be an array of dictionaries")
+                expectation.fulfill()
+                return
+            }
+
+            XCTAssertEqual(items.count, 4, "items should contain 4 teasers")
+            XCTAssertEqual(items[0]["content_id"] as? String, "contentId")
+            XCTAssertEqual(items[0]["teaser_id"] as? String, "teaserId")
+            XCTAssertEqual(items[1]["content_id"] as? String, "contentId_2")
+            XCTAssertEqual(items[1]["teaser_id"] as? String, "teaserId_2")
+            XCTAssertEqual(items[2]["content_id"] as? String, "contentId_3")
+            XCTAssertEqual(items[2]["teaser_id"] as? String, "teaserId_3")
+            XCTAssertEqual(items[3]["content_id"] as? String, "contentId_4")
+            XCTAssertEqual(items[3]["teaser_id"] as? String, "teaserId_3")
 
             expectation.fulfill()
         })

@@ -173,7 +173,7 @@ final class EventsFactory {
                      eventParameters: parameters)
     }
 
-    // MARK: Aureus Impression event
+    // MARK: Aureus events
 
     func createAureusImpressionEvent(for teasers: [AureusTeaser], eventContext: AureusEventContext) -> Event {
         let eventDictionary: [String: AnyHashable] = [
@@ -189,6 +189,23 @@ final class EventsFactory {
 
         return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
                      eventName: EventType.aureusImpressionEvent.rawValue,
+                     eventParameters: parameters)
+    }
+
+    func createAureusDeboostingEvent(for teasers: [AureusTeaser], strategy: AureusDeboostingStrategy) -> Event {
+        let eventDictionary: [String: AnyHashable] = [
+            "type": "deboosting",
+            "strategy": strategy.rawValue,
+            "items": teasers.asJsonArray
+        ]
+
+        let parameters: [String: AnyHashable] = [
+            "version": "1.0.0",
+            "events": [eventDictionary]
+        ]
+
+        return Event(analyticsSystemName: AnalyticsSystem.generic.rawValue,
+                     eventName: EventType.aureusEvent.rawValue,
                      eventParameters: parameters)
     }
 

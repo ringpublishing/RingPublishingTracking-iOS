@@ -17,6 +17,7 @@ enum EventType: String {
     case videoEvent = "VidEvent"
     case paid = "PaidEvent"
     case effectivePageView = "PolarisEvent"
+    case aureusEvent = "AureusEvent"
     case aureusImpressionEvent = "AureusImpressionEvent"
     case error = "ErrEvent"
 }
