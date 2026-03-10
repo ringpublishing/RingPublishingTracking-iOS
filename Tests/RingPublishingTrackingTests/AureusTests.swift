@@ -155,7 +155,7 @@ class AureusTests: XCTestCase {
             let event = request?.events.first
             let params = event?.eventParameters
 
-            XCTAssertEqual(params?["version"] as? String, "1.0.0", "version parameter should be correct")
+            XCTAssertEqual(params?["version"] as? String, "1.0.1", "version parameter should be correct")
 
             guard let events = params?["events"] as? [[String: AnyHashable]] else {
                 XCTFail("events parameter should be an array of dictionaries")
@@ -176,14 +176,14 @@ class AureusTests: XCTestCase {
             }
 
             XCTAssertEqual(items.count, 4, "items should contain 4 teasers")
-            XCTAssertEqual(items[0]["content_id"] as? String, "contentId")
-            XCTAssertEqual(items[0]["teaser_id"] as? String, "teaserId")
-            XCTAssertEqual(items[1]["content_id"] as? String, "contentId_2")
-            XCTAssertEqual(items[1]["teaser_id"] as? String, "teaserId_2")
-            XCTAssertEqual(items[2]["content_id"] as? String, "contentId_3")
-            XCTAssertEqual(items[2]["teaser_id"] as? String, "teaserId_3")
-            XCTAssertEqual(items[3]["content_id"] as? String, "contentId_4")
-            XCTAssertEqual(items[3]["teaser_id"] as? String, "teaserId_3")
+            XCTAssertEqual(items[0]["contentId"] as? String, "contentId")
+            XCTAssertEqual(items[0]["offerId"] as? String, "a1")
+            XCTAssertEqual(items[1]["contentId"] as? String, "contentId_2")
+            XCTAssertEqual(items[1]["offerId"] as? String, "b2")
+            XCTAssertEqual(items[2]["contentId"] as? String, "contentId_3")
+            XCTAssertEqual(items[2]["offerId"] as? String, "c3")
+            XCTAssertEqual(items[3]["contentId"] as? String, "contentId_4")
+            XCTAssertEqual(items[3]["offerId"] as? String, "d4")
 
             expectation.fulfill()
         })

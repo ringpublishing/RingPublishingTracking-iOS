@@ -14,6 +14,6 @@ public struct TrackingIdentifier {
     /// EaUUID identifier
     public let eaUUID: Identifier
 
-    /// Arthemis identifier
+    /// Artemis identifier
     public let artemisID: Identifier
 }

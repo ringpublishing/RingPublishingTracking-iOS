@@ -196,11 +196,12 @@ final class EventsFactory {
         let eventDictionary: [String: AnyHashable] = [
             "type": "deboosting",
             "strategy": strategy.rawValue,
-            "items": teasers.asJsonArray
+            "items": teasers.asDeboostingJsonArray
         ]
 
+        // Version 1.0.1 assuming that ArtemisId is always used by SDK
         let parameters: [String: AnyHashable] = [
-            "version": "1.0.0",
+            "version": "1.0.1",
             "events": [eventDictionary]
         ]
 

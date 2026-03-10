@@ -18,4 +18,13 @@ extension Array where Element == AureusTeaser {
             ]
         }
     }
+
+    var asDeboostingJsonArray: [[String: String?]] {
+        self.map { teaser in
+            return [
+                "offerId": teaser.offerId,
+                "contentId": teaser.contentId
+            ]
+        }
+    }
 }

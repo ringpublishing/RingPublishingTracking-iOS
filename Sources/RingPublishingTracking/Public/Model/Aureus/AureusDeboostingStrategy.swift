@@ -14,5 +14,8 @@ public enum AureusDeboostingStrategy: String {
     case click
 
     /// User saw content multiple times but never interacted with it
-    case view
+    case viewability
+
+    /// User saw video content
+    case videoViews = "video_views"
 }

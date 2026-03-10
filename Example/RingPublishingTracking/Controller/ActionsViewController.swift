@@ -205,7 +205,8 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         let teaser3 = AureusTeaser(teaserId: "teaserId_3", offerId: "offerId_3", contentId: "contentId_3")
 
         RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .click)
-        RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .view)
+        RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .viewability)
+        RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .videoViews)
     }
 
     // MARK: Actions (Video event)
