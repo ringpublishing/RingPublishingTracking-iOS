@@ -157,6 +157,7 @@
 		7D7D5B9426FCA3DF00B79FDD /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8726FCA3DF00B79FDD /* ActionsViewController.swift */; };
 		7D7D5B9526FCA3DF00B79FDD /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8926FCA3DF00B79FDD /* PagerViewController.swift */; };
 		7D7D5B9626FCA3DF00B79FDD /* TraceableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D5B8A26FCA3DF00B79FDD /* TraceableScreen.swift */; };
+		7DDC7E362F5AB4D6000F254C /* AureusDeboostingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDC7E352F5AB4D6000F254C /* AureusDeboostingStrategy.swift */; };
 		7DE4453B26E8913900A93431 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE4453A26E8913900A93431 /* LoggerTests.swift */; };
 		854F1289D6E3FA4BC790018B /* Pods_RingPublishingTracking_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2945259492AA544792B04F /* Pods_RingPublishingTracking_Example.framework */; };
 		A039F65F2DF2D84400B9BD67 /* EffectivePageViewMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A039F65E2DF2D84400B9BD67 /* EffectivePageViewMetadata.swift */; };
@@ -361,6 +362,7 @@
 		7D9F12B82791A15D00F3635A /* RingPublishingTracking.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = RingPublishingTracking.podspec; path = ../RingPublishingTracking.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7D9F12B92791A15D00F3635A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7D9F12BA2791A15D00F3635A /* Changelogs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Changelogs; path = ../Changelogs; sourceTree = "<group>"; };
+		7DDC7E352F5AB4D6000F254C /* AureusDeboostingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AureusDeboostingStrategy.swift; sourceTree = "<group>"; };
 		7DE4453A26E8913900A93431 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		8E2A37C5A1593C87B0EB5A44 /* Pods-RingPublishingTrackingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RingPublishingTrackingTests.release.xcconfig"; path = "Target Support Files/Pods-RingPublishingTrackingTests/Pods-RingPublishingTrackingTests.release.xcconfig"; sourceTree = "<group>"; };
 		A039F65E2DF2D84400B9BD67 /* EffectivePageViewMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectivePageViewMetadata.swift; sourceTree = "<group>"; };
@@ -845,6 +847,7 @@
 		7D54DA972E460B99009DA251 /* Aureus */ = {
 			isa = PBXGroup;
 			children = (
+				7DDC7E352F5AB4D6000F254C /* AureusDeboostingStrategy.swift */,
 				7D54DA982E460BF8009DA251 /* AureusTeaser.swift */,
 				7D54DA9A2E460C55009DA251 /* AureusEventContext.swift */,
 			);
@@ -1299,6 +1302,7 @@
 				A04E94DD2CB7E6E10048B4AF /* AudioEventsTests.swift in Sources */,
 				60108E8D2B0515C6005656C1 /* ConsentProvider.swift in Sources */,
 				60108E702B0515C6005656C1 /* VideoStartMode.swift in Sources */,
+				7DDC7E362F5AB4D6000F254C /* AureusDeboostingStrategy.swift in Sources */,
 				60108EBF2B0515C6005656C1 /* VideoAdsConfiguration+ParameterName.swift in Sources */,
 				204EAF3627294BF7009E2F0D /* EventTests.swift in Sources */,
 				60108ECA2B0515C6005656C1 /* KeepAliveIntervalsProvider.swift in Sources */,
@@ -1471,7 +1475,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.11.2;
+				MARKETING_VERSION = 1.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1495,7 +1499,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.11.2;
+				MARKETING_VERSION = 1.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.RingPublishingTracking-Example.RingPublishingTracking";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

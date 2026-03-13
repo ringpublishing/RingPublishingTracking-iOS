@@ -54,6 +54,18 @@ public extension RingPublishingTracking {
                               teaser: teaser,
                               eventContext: eventContext)
     }
+
+    /// Report 'Aureus' deboosting event
+    ///
+    /// - Parameters:
+    ///   - teasers: [AureusTeaser]
+    ///   - strategy: AureusDeboostingStrategy
+    func reportAureusDeboostingEvent(for teasers: [AureusTeaser], strategy: AureusDeboostingStrategy) {
+        Logger.log("Reporting 'Aureus' deboosting event for teasers: '\(teasers)'")
+
+        let event = eventsFactory.createAureusDeboostingEvent(for: teasers, strategy: strategy)
+        reportEvents([event])
+    }
 }
 
 // MARK: Private
