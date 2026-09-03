@@ -10,6 +10,7 @@ import Foundation
 struct Client: Encodable {
 
     let client: ClientType
+    let variant: ClientVariant?
 }
 
 struct ClientType: Encodable {
@@ -20,4 +21,9 @@ struct ClientType: Encodable {
 enum ClientPlatform: String, Encodable {
 
     case nativeApp = "native_app"
+}
+
+struct ClientVariant: Encodable {
+
+    let external: [String: String]
 }

@@ -1,0 +1,10 @@
+1.13.0 Release notes (2026-09-x) // TODO: Update release date
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added IS (session identifier) field to every tracking event
+* Extended RDLC field with variant.external custom parameters
+* Added SQ (sequence) field to every tracking event
