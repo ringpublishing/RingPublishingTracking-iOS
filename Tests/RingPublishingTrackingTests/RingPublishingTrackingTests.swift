@@ -157,4 +157,17 @@ class RingPublishingTrackingTests: XCTestCase {
 
         wait(for: [expectation], timeout: 10.0)
     }
+
+    func testReportPageView_viewTypeWasReportedForContent_viewTypeIsClearedFromClientData() {
+        // Given
+        RingPublishingTracking.shared.eventsService?.updateViewType(.audio)
+
+        // When
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["list"], partiallyReloaded: false)
+
+        // Then
+        let clientData = RingPublishingTracking.shared.eventsService?.clientDecorator.parameters["RDLC"]
+        XCTAssertEqual(clientData, "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should not contain view type")
+    }
+
 }

@@ -9,13 +9,21 @@ import Foundation
 
 final class ClientDecorator: Decorator {
 
-    private let client = Client(client: ClientType(type: .nativeApp))
+    private var viewType: ContentViewType?
 
     var parameters: [String: AnyHashable] {
         var userDataParams: [String: AnyHashable] = [:]
 
+        let client = Client(client: ClientType(type: .nativeApp, viewType: viewType))
         userDataParams["RDLC"] = client.jsonStringBase64
 
         return userDataParams
+    }
+}
+
+extension ClientDecorator {
+
+    func updateViewType(_ viewType: ContentViewType?) {
+        self.viewType = viewType
     }
 }

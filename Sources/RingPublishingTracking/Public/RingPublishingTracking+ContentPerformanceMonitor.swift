@@ -86,6 +86,7 @@ public extension RingPublishingTracking {
     ///
     /// - Use this method if you want to report page view event which is not article content.
     /// - For reporting article content, see `reportContentPageView(...)`
+    /// - Reporting a page view which is not article content clears the content view type reported before it.
     ///
     /// - Parameters:
     ///   - currentStructurePath: Current application structure path used to identify application screen,
@@ -97,6 +98,7 @@ public extension RingPublishingTracking {
 
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService?.updateStructureType(structureType: .structurePath(currentStructurePath), contentPageViewSource: nil)
+        eventsService?.updateViewType(nil)
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
         reportEvents([event])
@@ -117,11 +119,13 @@ public extension RingPublishingTracking {
     ///   for example "home/sport_list_screen"
     ///   - partiallyReloaded: Pass true if your content was partially reloaded, for example content was refreshed after in app purchase
     ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource
+    ///   - viewType: Mode in which the content is presented to the user. Reported until the next page view event.
     func reportContentPageView(contentMetadata: ContentMetadata,
                                pageViewSource: ContentPageViewSource = .default,
                                currentStructurePath: [String],
                                partiallyReloaded: Bool,
-                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource) {
+                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
+                               viewType: ContentViewType? = nil) {
         let log = """
         Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
         structure path: '\(currentStructurePath)'
@@ -131,6 +135,7 @@ public extension RingPublishingTracking {
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
+        eventsService?.updateViewType(viewType)
 
         // When new content is open reset effective page view sent flag
         if !partiallyReloaded {

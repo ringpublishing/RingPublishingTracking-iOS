@@ -42,6 +42,7 @@
 		60108E6F2B0515C6005656C1 /* RingPublishingTrackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF12B0515C6005656C1 /* RingPublishingTrackingConfiguration.swift */; };
 		60108E702B0515C6005656C1 /* VideoStartMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF32B0515C6005656C1 /* VideoStartMode.swift */; };
 		60108E712B0515C6005656C1 /* ContentPageViewSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF42B0515C6005656C1 /* ContentPageViewSource.swift */; };
+		32950678E7CA6F90D3BB6067 /* ContentViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A99FD54572C383DD02E29B /* ContentViewType.swift */; };
 		60108E722B0515C6005656C1 /* VideoStreamFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF52B0515C6005656C1 /* VideoStreamFormat.swift */; };
 		60108E732B0515C6005656C1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF62B0515C6005656C1 /* Event.swift */; };
 		60108E742B0515C6005656C1 /* VideoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60108DF72B0515C6005656C1 /* VideoState.swift */; };
@@ -239,6 +240,7 @@
 		60108DF12B0515C6005656C1 /* RingPublishingTrackingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingPublishingTrackingConfiguration.swift; sourceTree = "<group>"; };
 		60108DF32B0515C6005656C1 /* VideoStartMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoStartMode.swift; sourceTree = "<group>"; };
 		60108DF42B0515C6005656C1 /* ContentPageViewSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPageViewSource.swift; sourceTree = "<group>"; };
+		81A99FD54572C383DD02E29B /* ContentViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewType.swift; sourceTree = "<group>"; };
 		60108DF52B0515C6005656C1 /* VideoStreamFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoStreamFormat.swift; sourceTree = "<group>"; };
 		60108DF62B0515C6005656C1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		60108DF72B0515C6005656C1 /* VideoState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoState.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 				A03CD54F2C891219002DFD48 /* Paid */,
 				60108DF32B0515C6005656C1 /* VideoStartMode.swift */,
 				60108DF42B0515C6005656C1 /* ContentPageViewSource.swift */,
+				81A99FD54572C383DD02E29B /* ContentViewType.swift */,
 				60108DF52B0515C6005656C1 /* VideoStreamFormat.swift */,
 				60108DF62B0515C6005656C1 /* Event.swift */,
 				60108DF72B0515C6005656C1 /* VideoState.swift */,
@@ -1170,6 +1173,7 @@
 				60108ED12B0515C6005656C1 /* EventsService+EventsQueueManagerDelegate.swift in Sources */,
 				A03CD5542C891219002DFD48 /* SubscriptionPaymentData.swift in Sources */,
 				60108E712B0515C6005656C1 /* ContentPageViewSource.swift in Sources */,
+				32950678E7CA6F90D3BB6067 /* ContentViewType.swift in Sources */,
 				A04E950A2CB92D870048B4AF /* AudioMetadata+AudioEventParameter.swift in Sources */,
 				60108EB62B0515C6005656C1 /* UserDefaultsStorage.swift in Sources */,
 				60108E6E2B0515C6005656C1 /* RingPublishingTracking+Aureus.swift in Sources */,

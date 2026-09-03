@@ -161,7 +161,8 @@ private extension DetailViewController {
                                                             pageViewSource: contentViewSource,
                                                             currentStructurePath: screenTrackingData.structurePath,
                                                             partiallyReloaded: partiallyReloaded,
-                                                            contentKeepAliveDataSource: self)
+                                                            contentKeepAliveDataSource: self,
+                                                            viewType: .text)
     }
 }
 
