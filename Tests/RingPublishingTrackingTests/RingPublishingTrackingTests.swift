@@ -170,4 +170,83 @@ class RingPublishingTrackingTests: XCTestCase {
         XCTAssertEqual(clientData, "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should not contain view type")
     }
 
+    func testReportedEvents_viewTypeProvidedForContent_onlyContentEventCarriesViewTypeInClientData() throws {
+        // Given
+        let configuration = RingPublishingTrackingConfiguration(tenantId: tenantId,
+                                                                apiKey: apiKey,
+                                                                applicationRootPath: applicationRootPath,
+                                                                shouldTrackContentKeepAlive: false)
+        RingPublishingTracking.shared.initialize(configuration: configuration, delegate: ringPublishingTrackingDelegateMock)
+
+        let queueManager = RingPublishingTracking.shared.eventsService?.eventsQueueManager
+        let publicationUrl = URL(string: "https://tests.example.com")! // swiftlint:disable:this force_unwrapping
+        let contentMetadata = ContentMetadata(publicationId: "publicationId",
+                                              publicationUrl: publicationUrl,
+                                              sourceSystemName: "sourceSystemName",
+                                              paidContent: false,
+                                              contentId: "contentId",
+                                              contentSpaceUuid: "contentSpaceUuid")
+
+        // When
+        RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+                                                            currentStructurePath: ["article"],
+                                                            partiallyReloaded: false,
+                                                            viewType: .audio)
+
+        // Then
+        let contentEvent = try XCTUnwrap(queueManager?.events.allElements.last)
+        XCTAssertEqual(try decodedClientData(from: contentEvent),
+                       "{\"client\":{\"type\":\"native_app\",\"viewType\":\"audio\"}}",
+                       "Reported content page view should carry view type")
+
+        // When
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["list"], partiallyReloaded: false)
+
+        // Then
+        let pageViewEvent = try XCTUnwrap(queueManager?.events.allElements.last)
+        XCTAssertEqual(try decodedClientData(from: pageViewEvent),
+                       "{\"client\":{\"type\":\"native_app\"}}",
+                       "Reported page view should not carry view type")
+    }
+
+    private func decodedClientData(from event: Event) throws -> String {
+        let clientData = try XCTUnwrap(event.eventParameters["RDLC"] as? String)
+        let data = try XCTUnwrap(Data(base64Encoded: clientData))
+
+        return try XCTUnwrap(String(data: data, encoding: .utf8))
+    }
+
+    func testReportContentPageView_keepAliveTrackingDisabled_viewTypeIsReportedAndKeepAliveDoesNotStart() {
+        // Given
+        let configuration = RingPublishingTrackingConfiguration(tenantId: tenantId,
+                                                                apiKey: apiKey,
+                                                                applicationRootPath: applicationRootPath,
+                                                                shouldTrackContentKeepAlive: false)
+        RingPublishingTracking.shared.initialize(configuration: configuration, delegate: ringPublishingTrackingDelegateMock)
+
+        var reportedLogs = [String]()
+        RingPublishingTracking.shared.loggerOutput = { reportedLogs.append($0) }
+
+        let publicationUrl = URL(string: "https://tests.example.com")! // swiftlint:disable:this force_unwrapping
+        let contentMetadata = ContentMetadata(publicationId: "publicationId",
+                                              publicationUrl: publicationUrl,
+                                              sourceSystemName: "sourceSystemName",
+                                              paidContent: false,
+                                              contentId: "contentId",
+                                              contentSpaceUuid: "contentSpaceUuid")
+
+        // When
+        RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+                                                            currentStructurePath: ["article"],
+                                                            partiallyReloaded: false,
+                                                            viewType: .audio)
+
+        // Then
+        let clientData = RingPublishingTracking.shared.eventsService?.clientDecorator.parameters["RDLC"]
+        XCTAssertEqual(clientData,
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6ImF1ZGlvIn19",
+                       "RDLC should contain audio view type")
+        XCTAssertFalse(reportedLogs.contains { $0.contains("Starting content keep alive tracking") },
+                       "Keep alive tracking should not start")
+    }
 }

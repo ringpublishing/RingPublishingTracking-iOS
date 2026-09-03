@@ -1,0 +1,15 @@
+1.13.0 Release notes (2026-09-03)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added optional 'viewType' field to the 'RDLC' parameter, reported with content page view event
+    - new public 'ContentViewType' enum with 'text', 'video', 'tts' and 'audio' values
+    - reporting a page view which is not article content clears the previously reported view type
+    - 'RDLC' stays unchanged for hosts which do not report a view type
+* Added 'shouldTrackContentKeepAlive' configuration flag, enabled by default
+    - when disabled, reporting content page view does not start keep alive tracking
+    - 'contentKeepAliveDataSource' parameter is now optional
+    - disabling keep alive also disables automatic effective page view reporting, which is driven by keep alive measurements

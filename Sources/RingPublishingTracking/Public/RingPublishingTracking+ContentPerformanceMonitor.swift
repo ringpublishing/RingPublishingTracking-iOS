@@ -111,6 +111,8 @@ public extension RingPublishingTracking {
     /// - Use this method if you want to report article content page view event.
     /// - Only one content at the time can be tracked.
     /// - Reporting new content page view stops current tracking and start tracking for new content.
+    /// - Keep alive tracking is skipped when it is disabled in the configuration
+    /// (`shouldTrackContentKeepAlive`) or when no data source is provided.
     ///
     /// - Parameters:
     ///   - contentMetdata: ContentMetadata
@@ -118,13 +120,13 @@ public extension RingPublishingTracking {
     ///   - currentStructurePath: Current application structure path used to identify application screen,
     ///   for example "home/sport_list_screen"
     ///   - partiallyReloaded: Pass true if your content was partially reloaded, for example content was refreshed after in app purchase
-    ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource
+    ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource, required for keep alive tracking
     ///   - viewType: Mode in which the content is presented to the user. Reported until the next page view event.
     func reportContentPageView(contentMetadata: ContentMetadata,
                                pageViewSource: ContentPageViewSource = .default,
                                currentStructurePath: [String],
                                partiallyReloaded: Bool,
-                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource,
+                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource? = nil,
                                viewType: ContentViewType? = nil) {
         let log = """
         Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
@@ -145,6 +147,16 @@ public extension RingPublishingTracking {
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                       contentMetadata: contentMetadata)
         reportEvents([event])
+
+        guard configuration?.shouldTrackContentKeepAlive == true else {
+            Logger.log("Content keep alive tracking is disabled in configuration")
+            return
+        }
+
+        guard let contentKeepAliveDataSource = contentKeepAliveDataSource else {
+            Logger.log("Content keep alive tracking is enabled but no data source was provided", level: .error)
+            return
+        }
 
         // Start keepAlive
         Logger.log("Starting content keep alive tracking")
