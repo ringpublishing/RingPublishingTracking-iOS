@@ -35,6 +35,10 @@ extension Event {
 
         for decorator in decorators {
             decorator.parameters.forEach {
+                // Decorators carry values shared by every event, so an event which provided the parameter
+                // itself keeps its own value.
+                guard parameters[$0.key] == nil else { return }
+
                 parameters[$0.key] = $0.value
             }
         }

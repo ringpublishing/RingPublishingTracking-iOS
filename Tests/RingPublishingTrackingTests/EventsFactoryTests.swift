@@ -140,6 +140,54 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
     }
 
+    func testCreatePageViewEvent_viewTypeProvided_clientDataContainsViewType() {
+        // Given
+        let factory = EventsFactory()
+
+        // When
+        let textEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .text)
+
+        // Then
+        XCTAssertEqual(textEvent.eventParameters["RDLC"],
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifX0=",
+                       "RDLC should contain text view type")
+
+        // When
+        let videoEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .video)
+
+        // Then
+        XCTAssertEqual(videoEvent.eventParameters["RDLC"],
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InZpZGVvIn19",
+                       "RDLC should contain video view type")
+
+        // When
+        let ttsEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .tts)
+
+        // Then
+        XCTAssertEqual(ttsEvent.eventParameters["RDLC"],
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InR0cyJ9fQ==",
+                       "RDLC should contain tts view type")
+
+        // When
+        let audioEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .audio)
+
+        // Then
+        XCTAssertEqual(audioEvent.eventParameters["RDLC"],
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6ImF1ZGlvIn19",
+                       "RDLC should contain audio view type")
+    }
+
+    func testCreatePageViewEvent_viewTypeNotProvided_clientDataIsLeftToDecorator() {
+        // Given
+        let factory = EventsFactory()
+
+        // When
+        let event = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
+
+        // Then
+        XCTAssertNil(event.eventParameters["RDLC"], "RDLC should be left to the client decorator")
+    }
+
     // MARK: - ErrorEvent Tests
 
     func testCreateErrorEvent_incorrectEventProvided_returnedEventIsDecorated() {

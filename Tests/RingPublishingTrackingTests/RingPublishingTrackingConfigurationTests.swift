@@ -56,6 +56,5 @@ class RingPublishingTrackingConfigurationTests: XCTestCase {
         XCTAssertEqual(configuration.applicationDefaultStructurePath, Constants.applicationDefaultStructurePath)
         XCTAssertEqual(configuration.applicationDefaultAdvertisementArea, Constants.applicationDefaultAdvertisementArea)
         XCTAssertEqual(configuration.apiUrl?.absoluteString, nil)
-        XCTAssertTrue(configuration.shouldTrackContentKeepAlive, "Content keep alive tracking should be enabled by default")
     }
 }

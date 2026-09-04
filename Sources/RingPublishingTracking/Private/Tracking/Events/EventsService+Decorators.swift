@@ -58,10 +58,6 @@ extension EventsService {
         tenantIdentifierDecorator.updateTenantId(tenantId: tenantId)
     }
 
-    func updateViewType(_ viewType: ContentViewType?) {
-        clientDecorator.updateViewType(viewType)
-    }
-
     func updateStructureType(structureType: StructureType, contentPageViewSource: ContentPageViewSource?) {
         structureInfoDecorator.updateStructureType(structureType: structureType, contentPageViewSource: contentPageViewSource)
     }

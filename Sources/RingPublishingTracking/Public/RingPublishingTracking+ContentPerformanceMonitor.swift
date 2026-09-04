@@ -86,7 +86,6 @@ public extension RingPublishingTracking {
     ///
     /// - Use this method if you want to report page view event which is not article content.
     /// - For reporting article content, see `reportContentPageView(...)`
-    /// - Reporting a page view which is not article content clears the content view type reported before it.
     ///
     /// - Parameters:
     ///   - currentStructurePath: Current application structure path used to identify application screen,
@@ -98,7 +97,6 @@ public extension RingPublishingTracking {
 
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService?.updateStructureType(structureType: .structurePath(currentStructurePath), contentPageViewSource: nil)
-        eventsService?.updateViewType(nil)
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
         reportEvents([event])
@@ -111,23 +109,22 @@ public extension RingPublishingTracking {
     /// - Use this method if you want to report article content page view event.
     /// - Only one content at the time can be tracked.
     /// - Reporting new content page view stops current tracking and start tracking for new content.
-    /// - Keep alive tracking is skipped when it is disabled in the configuration
-    /// (`shouldTrackContentKeepAlive`) or when no data source is provided.
+    /// - Keep alive tracking is skipped when no data source is provided.
     ///
     /// - Parameters:
     ///   - contentMetdata: ContentMetadata
+    ///   - viewType: Mode in which the content is presented to the user, reported with this event only
     ///   - pageViewSource: ContentPageViewSource
     ///   - currentStructurePath: Current application structure path used to identify application screen,
     ///   for example "home/sport_list_screen"
     ///   - partiallyReloaded: Pass true if your content was partially reloaded, for example content was refreshed after in app purchase
     ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource, pass nil to skip keep alive tracking
-    ///   - viewType: Mode in which the content is presented to the user. Reported until the next page view event.
     func reportContentPageView(contentMetadata: ContentMetadata,
+                               viewType: ContentViewType? = nil,
                                pageViewSource: ContentPageViewSource = .default,
                                currentStructurePath: [String],
                                partiallyReloaded: Bool,
-                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource?,
-                               viewType: ContentViewType? = nil) {
+                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource?) {
         let log = """
         Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
         structure path: '\(currentStructurePath)'
@@ -137,7 +134,6 @@ public extension RingPublishingTracking {
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
                                           contentPageViewSource: pageViewSource)
-        eventsService?.updateViewType(viewType)
 
         // When new content is open reset effective page view sent flag
         if !partiallyReloaded {
@@ -145,20 +141,16 @@ public extension RingPublishingTracking {
         }
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
-                                                      contentMetadata: contentMetadata)
+                                                      contentMetadata: contentMetadata,
+                                                      viewType: viewType)
         reportEvents([event])
 
-        // Closing the previous content's measurement is normally done by `KeepAliveManager.start`, so skipping
-        // it here has to stop that measurement explicitly — otherwise it keeps reporting for content the user
-        // has already left.
-        guard configuration?.shouldTrackContentKeepAlive == true else {
-            Logger.log("Content keep alive tracking is disabled in configuration")
-            keepAliveManager.stop()
-            return
-        }
-
         guard let contentKeepAliveDataSource = contentKeepAliveDataSource else {
-            Logger.log("Content keep alive tracking is enabled but no data source was provided", level: .error)
+            Logger.log("Content keep alive tracking skipped, no data source was provided")
+
+            // Closing the previous content's measurement is normally done by `KeepAliveManager.start`, so
+            // skipping it here has to stop that measurement explicitly — otherwise it keeps reporting for
+            // content the user has already left.
             keepAliveManager.stop()
             return
         }

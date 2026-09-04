@@ -5,12 +5,12 @@ Improvements to the 'RingPublishingTracking' module.
 
 ### Changes
 
-* Added optional 'viewType' field to the 'RDLC' parameter, reported with content page view event
+* Added optional 'viewType' field to the 'RDLC' parameter, reported with page view event
     - new public 'ContentViewType' enum with 'text', 'video', 'tts' and 'audio' values
-    - reporting a page view which is not article content clears the previously reported view type
-    - 'RDLC' stays unchanged for hosts which do not report a view type
-* Added 'shouldTrackContentKeepAlive' configuration flag, enabled by default
-    - when disabled, reporting content page view does not start keep alive tracking
-    - 'contentKeepAliveDataSource' parameter is now optional, without a default value, so a new call site has to decide explicitly
+    - passed to 'reportContentPageView' and reported with that event only, it is not carried over to the events which follow it
+    - events reported without a view type keep the 'RDLC' value they have today, which is the client alone
+    - a parameter provided by an event is no longer overwritten by a decorator, so an event can extend a value otherwise shared by all events
+* 'contentKeepAliveDataSource' parameter of 'reportContentPageView' is now optional
+    - passing nil skips keep alive tracking for the reported content
+    - the parameter has no default value, so a new call site has to make that decision explicitly
     - when keep alive tracking is skipped, measurement of the previously reported content is stopped
-    - disabling keep alive also disables automatic effective page view reporting, which is driven by keep alive measurements

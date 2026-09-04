@@ -74,7 +74,9 @@ final class EventsFactory {
 
     // MARK: Page View
 
-    func createPageViewEvent(contentIdentifier: String?, contentMetadata: ContentMetadata?) -> Event {
+    func createPageViewEvent(contentIdentifier: String?,
+                             contentMetadata: ContentMetadata?,
+                             viewType: ContentViewType? = nil) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
         if let contentIdentifier = contentIdentifier {
@@ -84,6 +86,12 @@ final class EventsFactory {
         if let contentMetadata = contentMetadata {
             parameters["DX"] = contentMetadata.dxParameter
             parameters["RDLCN"] = contentMetadata.rdlcnParameter
+        }
+
+        // Reported only here: the view type describes this page view, not the events which follow it.
+        // Without a view type the parameter is left to `ClientDecorator`, which reports the client alone.
+        if let viewType = viewType {
+            parameters["RDLC"] = Client(viewType: viewType).jsonStringBase64
         }
 
         return Event(analyticsSystemName: AnalyticsSystem.kropkaStats.rawValue,

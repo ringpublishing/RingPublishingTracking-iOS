@@ -38,12 +38,6 @@ public struct RingPublishingTrackingConfiguration {
     /// Flag indicating if effective page view event is enabled.
     public let shouldReportEffectivePageViewEvent: Bool
 
-    /// Flag indicating if content keep alive tracking is enabled.
-    ///
-    /// Disabling it also disables automatic effective page view reporting, which is driven by keep alive
-    /// measurements.
-    public let shouldTrackContentKeepAlive: Bool
-
     // MARK: Init
 
     /// Initialize for configuration data used in RingPublishingTracking SDK
@@ -57,7 +51,6 @@ public struct RingPublishingTrackingConfiguration {
     ///   - applicationDefaultAdvertisementArea: Default ad space name of the application,
     ///   for example "ads/list/sport", "undefined" by default
     ///   - shouldReportEffectivePageViewEvent: Should effective page view events be reported, true by default
-    ///   - shouldTrackContentKeepAlive: Should content keep alive be tracked, true by default
     public init(tenantId: String,
                 apiKey: String,
                 apiUrl: URL? = nil,
@@ -65,8 +58,7 @@ public struct RingPublishingTrackingConfiguration {
                 applicationDefaultStructurePath: [String]? = nil,
                 applicationDefaultAdvertisementArea: String? = nil,
                 applicationAdvertisementSite: String? = nil,
-                shouldReportEffectivePageViewEvent: Bool = true,
-                shouldTrackContentKeepAlive: Bool = true) {
+                shouldReportEffectivePageViewEvent: Bool = true) {
         self.tenantId = tenantId
         self.apiKey = apiKey
         self.apiUrl = apiUrl
@@ -75,6 +67,5 @@ public struct RingPublishingTrackingConfiguration {
         self.applicationDefaultAdvertisementArea = applicationDefaultAdvertisementArea ?? Constants.applicationDefaultAdvertisementArea
         self.applicationAdvertisementSite = applicationAdvertisementSite
         self.shouldReportEffectivePageViewEvent = shouldReportEffectivePageViewEvent
-        self.shouldTrackContentKeepAlive = shouldTrackContentKeepAlive
     }
 }
