@@ -50,7 +50,6 @@ public struct RingPublishingTrackingConfiguration {
     ///   - applicationDefaultStructurePath: Application default area, for example "home_screen", "undefined" by default
     ///   - applicationDefaultAdvertisementArea: Default ad space name of the application,
     ///   for example "ads/list/sport", "undefined" by default
-    ///   - shouldReportEffectivePageViewEvent: Should effective page view events be reported, true by default
     public init(tenantId: String,
                 apiKey: String,
                 apiUrl: URL? = nil,

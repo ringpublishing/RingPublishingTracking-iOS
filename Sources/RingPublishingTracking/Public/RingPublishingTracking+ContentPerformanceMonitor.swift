@@ -104,7 +104,8 @@ public extension RingPublishingTracking {
 
     // MARK: Content page view event & keep alive
 
-    /// Reports content page view event and immediately starts content keep alive tracking.
+    /// Reports content page view event and, when a data source is provided, immediately starts content keep
+    /// alive tracking.
     ///
     /// - Use this method if you want to report article content page view event.
     /// - Only one content at the time can be tracked.
