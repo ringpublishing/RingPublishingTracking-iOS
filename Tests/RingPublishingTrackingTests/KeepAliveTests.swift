@@ -134,7 +134,7 @@ class KeepAliveTests: XCTestCase {
                                                   timings: [],
                                                   hasFocus: [],
                                                   keepAliveMeasureType: [])
-        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjY3ODkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjEyOTAiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
 
         // When
         let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
@@ -151,14 +151,14 @@ class KeepAliveTests: XCTestCase {
         let contentMetadata = ContentMetadata(publicationId: "12345",
                                               publicationUrl: URL(fileURLWithPath: "path"),
                                               sourceSystemName: "system_name",
-                                              paidContent: false,
+                                              paidContent: true,
                                               contentId: "6789",
                                               contentSpaceUuid: "1290")
         let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [],
                                                   timings: [],
                                                   hasFocus: [],
                                                   keepAliveMeasureType: [])
-        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjY3ODkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjp0cnVlfSwic291cmNlIjp7ImlkIjoiMTI5MCIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
 
         // When
         let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
