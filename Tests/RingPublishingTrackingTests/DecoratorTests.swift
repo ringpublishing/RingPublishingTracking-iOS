@@ -305,5 +305,4 @@ class DecoratorTests: XCTestCase {
 
         XCTAssertEqual(params["RDLC"], "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should be correct")
     }
-
 }
