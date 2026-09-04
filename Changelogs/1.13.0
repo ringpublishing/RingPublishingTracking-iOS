@@ -11,5 +11,6 @@ Improvements to the 'RingPublishingTracking' module.
     - 'RDLC' stays unchanged for hosts which do not report a view type
 * Added 'shouldTrackContentKeepAlive' configuration flag, enabled by default
     - when disabled, reporting content page view does not start keep alive tracking
-    - 'contentKeepAliveDataSource' parameter is now optional
+    - 'contentKeepAliveDataSource' parameter is now optional, without a default value, so a new call site has to decide explicitly
+    - when keep alive tracking is skipped, measurement of the previously reported content is stopped
     - disabling keep alive also disables automatic effective page view reporting, which is driven by keep alive measurements

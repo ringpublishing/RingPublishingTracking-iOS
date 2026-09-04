@@ -210,13 +210,6 @@ class RingPublishingTrackingTests: XCTestCase {
                        "Reported page view should not carry view type")
     }
 
-    private func decodedClientData(from event: Event) throws -> String {
-        let clientData = try XCTUnwrap(event.eventParameters["RDLC"] as? String)
-        let data = try XCTUnwrap(Data(base64Encoded: clientData))
-
-        return try XCTUnwrap(String(data: data, encoding: .utf8))
-    }
-
     func testReportContentPageView_keepAliveTrackingDisabled_viewTypeIsReportedAndKeepAliveDoesNotStart() {
         // Given
         let configuration = RingPublishingTrackingConfiguration(tenantId: tenantId,
@@ -250,5 +243,14 @@ class RingPublishingTrackingTests: XCTestCase {
                        "RDLC should contain audio view type")
         XCTAssertFalse(reportedLogs.contains { $0.contains("Starting content keep alive tracking") },
                        "Keep alive tracking should not start")
+    }
+
+    // MARK: Helpers
+
+    private func decodedClientData(from event: Event) throws -> String {
+        let clientData = try XCTUnwrap(event.eventParameters["RDLC"] as? String)
+        let data = try XCTUnwrap(Data(base64Encoded: clientData))
+
+        return try XCTUnwrap(String(data: data, encoding: .utf8))
     }
 }
