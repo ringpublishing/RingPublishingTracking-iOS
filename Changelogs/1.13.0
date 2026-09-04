@@ -6,7 +6,7 @@ Improvements to the 'RingPublishingTracking' module.
 ### Changes
 
 * Added optional 'viewType' field to the 'RDLC' parameter, reported with page view event
-    - new public 'ContentViewType' enum with 'text', 'video', 'tts' and 'audio' values
+    - new public 'ContentViewType' enum with 'text', 'tts' and 'smartshort' values
     - passed to 'reportContentPageView' and reported with that event only, it is not carried over to the events which follow it
     - events reported without a view type keep the 'RDLC' value they have today, which is the client alone
     - a parameter provided by an event is no longer overwritten by a decorator, so an event can extend a value otherwise shared by all events

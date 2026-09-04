@@ -171,7 +171,7 @@ class RingPublishingTrackingTests: XCTestCase {
 
         // When
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
-                                                            viewType: .audio,
+                                                            viewType: .smartshort,
                                                             currentStructurePath: ["article"],
                                                             partiallyReloaded: false,
                                                             contentKeepAliveDataSource: nil)
@@ -179,7 +179,7 @@ class RingPublishingTrackingTests: XCTestCase {
         // Then
         let contentEvent = try XCTUnwrap(queueManager?.events.allElements.last)
         XCTAssertEqual(try decodedClientData(from: contentEvent),
-                       "{\"client\":{\"type\":\"native_app\",\"viewType\":\"audio\"}}",
+                       "{\"client\":{\"type\":\"native_app\",\"viewType\":\"smartshort\"}}",
                        "Reported content page view should carry view type")
 
         // When
@@ -207,7 +207,7 @@ class RingPublishingTrackingTests: XCTestCase {
 
         // When
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
-                                                            viewType: .audio,
+                                                            viewType: .smartshort,
                                                             currentStructurePath: ["article"],
                                                             partiallyReloaded: false,
                                                             contentKeepAliveDataSource: nil)

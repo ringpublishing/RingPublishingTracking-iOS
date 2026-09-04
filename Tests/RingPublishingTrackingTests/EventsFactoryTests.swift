@@ -153,14 +153,6 @@ class EventsFactoryTests: XCTestCase {
                        "RDLC should contain text view type")
 
         // When
-        let videoEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .video)
-
-        // Then
-        XCTAssertEqual(videoEvent.eventParameters["RDLC"],
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InZpZGVvIn19",
-                       "RDLC should contain video view type")
-
-        // When
         let ttsEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .tts)
 
         // Then
@@ -169,12 +161,12 @@ class EventsFactoryTests: XCTestCase {
                        "RDLC should contain tts view type")
 
         // When
-        let audioEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .audio)
+        let smartShortEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .smartshort)
 
         // Then
-        XCTAssertEqual(audioEvent.eventParameters["RDLC"],
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6ImF1ZGlvIn19",
-                       "RDLC should contain audio view type")
+        XCTAssertEqual(smartShortEvent.eventParameters["RDLC"],
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InNtYXJ0c2hvcnQifX0=",
+                       "RDLC should contain smart short view type")
     }
 
     func testCreatePageViewEvent_viewTypeNotProvided_clientDataIsLeftToDecorator() {
