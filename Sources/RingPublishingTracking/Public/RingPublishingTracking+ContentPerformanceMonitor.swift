@@ -120,13 +120,13 @@ public extension RingPublishingTracking {
     ///   - currentStructurePath: Current application structure path used to identify application screen,
     ///   for example "home/sport_list_screen"
     ///   - partiallyReloaded: Pass true if your content was partially reloaded, for example content was refreshed after in app purchase
-    ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource, required for keep alive tracking
+    ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource, pass nil to skip keep alive tracking
     ///   - viewType: Mode in which the content is presented to the user. Reported until the next page view event.
     func reportContentPageView(contentMetadata: ContentMetadata,
                                pageViewSource: ContentPageViewSource = .default,
                                currentStructurePath: [String],
                                partiallyReloaded: Bool,
-                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource? = nil,
+                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource?,
                                viewType: ContentViewType? = nil) {
         let log = """
         Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
@@ -148,13 +148,18 @@ public extension RingPublishingTracking {
                                                       contentMetadata: contentMetadata)
         reportEvents([event])
 
+        // Closing the previous content's measurement is normally done by `KeepAliveManager.start`, so skipping
+        // it here has to stop that measurement explicitly — otherwise it keeps reporting for content the user
+        // has already left.
         guard configuration?.shouldTrackContentKeepAlive == true else {
             Logger.log("Content keep alive tracking is disabled in configuration")
+            keepAliveManager.stop()
             return
         }
 
         guard let contentKeepAliveDataSource = contentKeepAliveDataSource else {
             Logger.log("Content keep alive tracking is enabled but no data source was provided", level: .error)
+            keepAliveManager.stop()
             return
         }
 

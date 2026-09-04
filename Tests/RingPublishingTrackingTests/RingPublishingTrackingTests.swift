@@ -191,6 +191,7 @@ class RingPublishingTrackingTests: XCTestCase {
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
                                                             currentStructurePath: ["article"],
                                                             partiallyReloaded: false,
+                                                            contentKeepAliveDataSource: nil,
                                                             viewType: .audio)
 
         // Then
@@ -239,6 +240,7 @@ class RingPublishingTrackingTests: XCTestCase {
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
                                                             currentStructurePath: ["article"],
                                                             partiallyReloaded: false,
+                                                            contentKeepAliveDataSource: nil,
                                                             viewType: .audio)
 
         // Then
