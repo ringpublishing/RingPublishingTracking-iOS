@@ -184,13 +184,16 @@ final class EventsFactory {
     // MARK: Aureus events
 
     func createAureusImpressionEvent(for teasers: [AureusTeaser], eventContext: AureusEventContext) -> Event {
-        let eventDictionary: [String: AnyHashable] = [
+        var eventDictionary: [String: AnyHashable] = [
             "displayed_items": teasers.asJsonArray,
             "variant_uuid": eventContext.variantUuid,
-            "segment_id": eventContext.segmentId,
             "batch_id": eventContext.batchId,
             "recommendation_id": eventContext.recommendationId
         ]
+
+        if let segmentId = eventContext.segmentId {
+            eventDictionary["segment_id"] = segmentId
+        }
 
         var parameters: [String: AnyHashable] = [:]
         parameters["events"] = [eventDictionary]

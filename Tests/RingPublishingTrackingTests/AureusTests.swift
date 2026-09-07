@@ -190,4 +190,33 @@ class AureusTests: XCTestCase {
 
         wait(for: [expectation], timeout: 10.0)
     }
+
+    func testReportAureusImpression_segmentIdNil_segmentIdKeyOmitted() async throws {
+        // Given
+        let teaser = AureusTeaser(teaserId: "teaserId", offerId: "a1", contentId: "contentId")
+        let context = AureusEventContext(variantUuid: "4f37f85f-a8ad-4e6c-a426-5a42fce67ecc",
+                                         batchId: "g9fewcisss",
+                                         recommendationId: "a5uam4ufuu",
+                                         segmentId: nil,
+                                         impressionEventType: "AUREUS_IMPRESSION_EVENT")
+
+        // When
+        RingPublishingTracking.shared.reportAureusImpression(for: [teaser], eventContext: context)
+
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+
+        // Then
+        let request = ringPublishingTracking.eventsService?.buildEventRequest()
+        let event = request?.events.first
+        let params = event?.eventParameters
+
+        guard let events = params?["events"] as? [[String: AnyHashable]] else {
+            XCTFail("events parameter should be an array of dictionaries")
+            return
+        }
+
+        let eventDict = events[0]
+        XCTAssertNil(eventDict["segment_id"], "segment_id key should be omitted when segmentId is nil")
+        XCTAssertEqual(eventDict["variant_uuid"] as? String, context.variantUuid, "variant_uuid parameter should be correct")
+    }
 }
