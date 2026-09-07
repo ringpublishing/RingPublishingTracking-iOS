@@ -21,11 +21,13 @@ extension EventsService {
         // Generic
         registerDecorator(SizeDecorator())
         registerDecorator(uniqueIdentifierDecorator)
+        registerDecorator(sessionIdentifierDecorator)
         registerDecorator(structureInfoDecorator)
         registerDecorator(adAreaDecorator)
         registerDecorator(userDataDecorator)
         registerDecorator(tenantIdentifierDecorator)
         registerDecorator(clientDecorator)
+        registerDecorator(sequenceDecorator)
     }
 
     // MARK: - Decorators helpers
@@ -69,5 +71,9 @@ extension EventsService {
     func updateApplicationAdvertisementSite(applicationAdvertisementSite: String?) {
         structureInfoDecorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: applicationAdvertisementSite)
         adAreaDecorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: applicationAdvertisementSite)
+    }
+
+    func updateVariantExternalParameters(_ parameters: [String: String]) {
+        clientDecorator.updateVariantExternalParameters(parameters)
     }
 }

@@ -41,6 +41,8 @@ extension Event {
 
                 parameters[$0.key] = $0.value
             }
+
+            decorator.eventDecorated()
         }
 
         return Event(analyticsSystemName: analyticsSystemName, eventName: eventName, eventParameters: parameters)

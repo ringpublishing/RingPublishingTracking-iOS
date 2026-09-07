@@ -51,4 +51,11 @@ public extension RingPublishingTracking {
 
         eventsService?.updateApplicationAdvertisementArea(currentAdvertisementArea)
     }
+
+    /// Update `variant.external` parameters reported inside `RDLC`; rejected (unchanged) over 10 keys or 10 chars each.
+    func updateVariantExternalParameters(_ parameters: [String: String]) {
+        Logger.log("Updating variant external parameters: '\(parameters)'")
+
+        eventsService?.updateVariantExternalParameters(parameters)
+    }
 }

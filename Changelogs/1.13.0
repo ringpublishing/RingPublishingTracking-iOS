@@ -1,10 +1,13 @@
-1.13.0 Release notes (2026-09-04)
+1.13.0 Release notes (2026-09-x) // TODO: Update release date
 ================================
 
 Improvements to the 'RingPublishingTracking' module.
 
 ### Changes
 
+* Added IS (session identifier) field to every tracking event
+* Extended RDLC field with variant.external custom parameters
+* Added SQ (sequence) field to every tracking event
 * Added optional 'viewType' field to the 'RDLC' parameter, reported with page view event
     - new public 'ContentViewType' enum with 'text', 'tts' and 'smartshort' values
     - passed to 'reportContentPageView' and reported with that event only, it is not carried over to the events which follow it

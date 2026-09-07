@@ -10,9 +10,11 @@ import Foundation
 struct Client: Encodable {
 
     let client: ClientContext
+    let variant: ClientVariant?
 
-    init(viewType: ContentViewType? = nil) {
+    init(viewType: ContentViewType? = nil, variant: ClientVariant? = nil) {
         self.client = ClientContext(type: .nativeApp, viewType: viewType)
+        self.variant = variant
     }
 }
 
@@ -28,4 +30,9 @@ struct ClientContext: Encodable {
 enum ClientPlatform: String, Encodable {
 
     case nativeApp = "native_app"
+}
+
+struct ClientVariant: Encodable {
+
+    let external: [String: String]
 }
