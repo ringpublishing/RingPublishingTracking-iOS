@@ -15,10 +15,9 @@ final class ClientDecorator: Decorator {
     private var variantExternalParameters: [String: String]?
 
     var parameters: [String: AnyHashable] {
-        let client = Client(client: ClientType(type: .nativeApp), variant: variant)
         var userDataParams: [String: AnyHashable] = [:]
 
-        userDataParams["RDLC"] = client.jsonStringBase64
+        userDataParams["RDLC"] = Client(variant: variant).jsonStringBase64
 
         return userDataParams
     }
@@ -43,6 +42,11 @@ extension ClientDecorator {
         }
 
         variantExternalParameters = parameters
+    }
+
+    /// Builds `RDLC` for a single event, carrying given view type on top of the client data reported for every event
+    func clientData(viewType: ContentViewType) -> String? {
+        Client(viewType: viewType, variant: variant).jsonStringBase64
     }
 }
 

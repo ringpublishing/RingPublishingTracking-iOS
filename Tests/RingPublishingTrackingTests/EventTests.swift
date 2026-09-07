@@ -51,6 +51,18 @@ class EventTests: XCTestCase {
         XCTAssertTrue(keys.contains("CW"))
     }
 
+    func testDecorated_eventProvidesParameterAlsoSetByDecorator_valueFromEventIsKept() {
+        // Given
+        let event = Event(analyticsSystemName: "a", eventName: "b", eventParameters: ["RDLC": "value from event"])
+        let decorator = ClientDecorator()
+
+        // When
+        let decorated = event.decorated(using: [decorator])
+
+        // Then
+        XCTAssertEqual(decorated.eventParameters["RDLC"], "value from event", "Value provided by the event should win")
+    }
+
     func testEquatable_twoEventsWithSameParameters_eventsAreNotEqual() {
         // Given
         let firstEvent = Event(analyticsSystemName: "a", eventName: "b", eventParameters: ["c": "d"])

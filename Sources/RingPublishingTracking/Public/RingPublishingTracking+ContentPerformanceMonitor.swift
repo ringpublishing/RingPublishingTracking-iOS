@@ -104,24 +104,28 @@ public extension RingPublishingTracking {
 
     // MARK: Content page view event & keep alive
 
-    /// Reports content page view event and immediately starts content keep alive tracking.
+    /// Reports content page view event and, when a data source is provided, immediately starts content keep
+    /// alive tracking.
     ///
     /// - Use this method if you want to report article content page view event.
     /// - Only one content at the time can be tracked.
     /// - Reporting new content page view stops current tracking and start tracking for new content.
+    /// - Keep alive tracking is skipped when no data source is provided.
     ///
     /// - Parameters:
     ///   - contentMetdata: ContentMetadata
+    ///   - viewType: Mode in which the content is presented to the user, reported with this event only
     ///   - pageViewSource: ContentPageViewSource
     ///   - currentStructurePath: Current application structure path used to identify application screen,
     ///   for example "home/sport_list_screen"
     ///   - partiallyReloaded: Pass true if your content was partially reloaded, for example content was refreshed after in app purchase
-    ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource
+    ///   - contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource, pass nil to skip keep alive tracking
     func reportContentPageView(contentMetadata: ContentMetadata,
+                               viewType: ContentViewType? = nil,
                                pageViewSource: ContentPageViewSource = .default,
                                currentStructurePath: [String],
                                partiallyReloaded: Bool,
-                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource) {
+                               contentKeepAliveDataSource: RingPublishingTrackingKeepAliveDataSource?) {
         let log = """
         Reporting content page view event for metadata: '\(contentMetadata)' and page view source: '\(pageViewSource)',
         structure path: '\(currentStructurePath)'
@@ -138,8 +142,19 @@ public extension RingPublishingTracking {
         }
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
-                                                      contentMetadata: contentMetadata)
+                                                      contentMetadata: contentMetadata,
+                                                      clientData: eventsService?.clientData(viewType: viewType))
         reportEvents([event])
+
+        guard let contentKeepAliveDataSource = contentKeepAliveDataSource else {
+            Logger.log("Content keep alive tracking skipped, no data source was provided")
+
+            // Closing the previous content's measurement is normally done by `KeepAliveManager.start`, so
+            // skipping it here has to stop that measurement explicitly — otherwise it keeps reporting for
+            // content the user has already left.
+            keepAliveManager.stop()
+            return
+        }
 
         // Start keepAlive
         Logger.log("Starting content keep alive tracking")

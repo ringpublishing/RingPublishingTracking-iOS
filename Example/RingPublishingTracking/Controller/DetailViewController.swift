@@ -158,6 +158,7 @@ private extension DetailViewController {
                                               contentSpaceUuid: "")
 
         RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+                                                            viewType: .text,
                                                             pageViewSource: contentViewSource,
                                                             currentStructurePath: screenTrackingData.structurePath,
                                                             partiallyReloaded: partiallyReloaded,
