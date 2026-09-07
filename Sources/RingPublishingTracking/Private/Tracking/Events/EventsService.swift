@@ -38,11 +38,13 @@ final class EventsService {
     var decorators: [Decorator]
 
     let uniqueIdentifierDecorator = UniqueIdentifierDecorator()
+    let sessionIdentifierDecorator = SessionIdentifierDecorator()
     let structureInfoDecorator = StructureInfoDecorator()
     let adAreaDecorator = AdAreaDecorator()
     let userDataDecorator = UserDataDecorator()
     let tenantIdentifierDecorator = TenantIdentifierDecorator()
     let clientDecorator = ClientDecorator()
+    let sequenceDecorator = SequenceDecorator()
 
     let configuration: RingPublishingTrackingConfiguration
 
