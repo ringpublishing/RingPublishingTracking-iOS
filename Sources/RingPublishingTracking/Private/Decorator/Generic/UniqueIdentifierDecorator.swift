@@ -10,7 +10,13 @@ import Foundation
 
 final class UniqueIdentifierDecorator: Decorator {
 
-    private static let pageIdDateFormat = "yyyyMMddHHmmssSSS"
+    private static let pageIdDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmssSSS"
+
+        return formatter
+    }()
+
     private static let identifierRandomPartLength = 7
 
     private var primaryIdentifier: String
@@ -32,7 +38,7 @@ final class UniqueIdentifierDecorator: Decorator {
 
     private static func generatePageId() -> String {
         String.timestampIdentifier(
-            dateFormat: Self.pageIdDateFormat,
+            dateFormatter: Self.pageIdDateFormatter,
             randomPartLength: Self.identifierRandomPartLength
         )
     }
