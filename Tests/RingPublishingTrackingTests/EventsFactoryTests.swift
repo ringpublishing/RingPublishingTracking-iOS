@@ -140,36 +140,19 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
     }
 
-    func testCreatePageViewEvent_viewTypeProvided_clientDataContainsViewType() {
+    func testCreatePageViewEvent_clientDataProvided_clientDataIsReportedInRDLC() {
         // Given
         let factory = EventsFactory()
+        let clientData = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifX0="
 
         // When
-        let textEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .text)
+        let event = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, clientData: clientData)
 
         // Then
-        XCTAssertEqual(textEvent.eventParameters["RDLC"],
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifX0=",
-                       "RDLC should contain text view type")
-
-        // When
-        let ttsEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .tts)
-
-        // Then
-        XCTAssertEqual(ttsEvent.eventParameters["RDLC"],
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InR0cyJ9fQ==",
-                       "RDLC should contain tts view type")
-
-        // When
-        let smartShortEvent = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, viewType: .smartshort)
-
-        // Then
-        XCTAssertEqual(smartShortEvent.eventParameters["RDLC"],
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InNtYXJ0c2hvcnQifX0=",
-                       "RDLC should contain smart short view type")
+        XCTAssertEqual(event.eventParameters["RDLC"], clientData, "RDLC should be taken from provided client data")
     }
 
-    func testCreatePageViewEvent_viewTypeNotProvided_clientDataIsLeftToDecorator() {
+    func testCreatePageViewEvent_clientDataNotProvided_clientDataIsLeftToDecorator() {
         // Given
         let factory = EventsFactory()
 

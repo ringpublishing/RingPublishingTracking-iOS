@@ -43,6 +43,11 @@ extension ClientDecorator {
 
         variantExternalParameters = parameters
     }
+
+    /// Builds `RDLC` for a single event, carrying given view type on top of the client data reported for every event
+    func clientData(viewType: ContentViewType) -> String? {
+        Client(viewType: viewType, variant: variant).jsonStringBase64
+    }
 }
 
 private extension ClientDecorator {

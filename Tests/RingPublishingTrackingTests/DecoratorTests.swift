@@ -427,4 +427,35 @@ class DecoratorTests: XCTestCase {
         decorator.updateVariantExternalParameters(["k": "a_value_too_long_here"])
         XCTAssertEqual(decorator.parameters["RDLC"], "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should reject too long value")
     }
+
+    func testClientData_viewTypeProvided_returnedClientDataContainsViewType() {
+        // Given
+        let decorator = ClientDecorator()
+
+        // When / Then
+        XCTAssertEqual(decorator.clientData(viewType: .text),
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifX0=",
+                       "Client data should contain text view type")
+
+        XCTAssertEqual(decorator.clientData(viewType: .tts),
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InR0cyJ9fQ==",
+                       "Client data should contain tts view type")
+
+        XCTAssertEqual(decorator.clientData(viewType: .smartshort),
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InNtYXJ0c2hvcnQifX0=",
+                       "Client data should contain smart short view type")
+    }
+
+    func testClientData_viewTypeProvidedAndVariantExternalParametersSet_returnedClientDataContainsBoth() {
+        // Given
+        let decorator = ClientDecorator()
+
+        // When
+        decorator.updateVariantExternalParameters(["api_ver": "1.0.1b"])
+
+        // Then
+        // swiftlint:disable:next line_length
+        let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifSwidmFyaWFudCI6eyJleHRlcm5hbCI6eyJhcGlfdmVyIjoiMS4wLjFiIn19fQ=="
+        XCTAssertEqual(decorator.clientData(viewType: .text), expectedBase64, "Client data should contain view type and variant.external")
+    }
 }

@@ -161,7 +161,7 @@ class RingPublishingTrackingTests: XCTestCase {
     func testReportedEvents_viewTypeProvidedForContent_onlyContentEventCarriesViewTypeInClientData() throws {
         // Given
         let queueManager = RingPublishingTracking.shared.eventsService?.eventsQueueManager
-        let publicationUrl = URL(string: "https://tests.example.com")! // swiftlint:disable:this force_unwrapping
+        let publicationUrl = URL(string: "https://tests.example.com")!
         let contentMetadata = ContentMetadata(publicationId: "publicationId",
                                               publicationUrl: publicationUrl,
                                               sourceSystemName: "sourceSystemName",
@@ -197,7 +197,7 @@ class RingPublishingTrackingTests: XCTestCase {
         var reportedLogs = [String]()
         RingPublishingTracking.shared.loggerOutput = { reportedLogs.append($0) }
 
-        let publicationUrl = URL(string: "https://tests.example.com")! // swiftlint:disable:this force_unwrapping
+        let publicationUrl = URL(string: "https://tests.example.com")!
         let contentMetadata = ContentMetadata(publicationId: "publicationId",
                                               publicationUrl: publicationUrl,
                                               sourceSystemName: "sourceSystemName",

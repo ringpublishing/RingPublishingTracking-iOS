@@ -143,7 +143,7 @@ public extension RingPublishingTracking {
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                       contentMetadata: contentMetadata,
-                                                      viewType: viewType)
+                                                      clientData: eventsService?.clientData(viewType: viewType))
         reportEvents([event])
 
         guard let contentKeepAliveDataSource = contentKeepAliveDataSource else {
