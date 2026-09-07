@@ -9,16 +9,21 @@ import Foundation
 
 final class SequenceDecorator: Decorator {
 
-    private var sequence: Int32 = 0
+    private var sequence: Int
 
-    /// Increments on each access, so every decorated event gets its own `SQ`.
-    var parameters: [String: AnyHashable] {
-        defer { sequence = Self.nextValue(after: sequence) }
-
-        return ["SQ": sequence]
+    init(sequence: Int = 0) {
+        self.sequence = sequence
     }
 
-    static func nextValue(after value: Int32) -> Int32 {
-        value == Int32.max ? 0 : value + 1
+    var parameters: [String: AnyHashable] {
+        ["SQ": sequence]
+    }
+
+    func eventDecorated() {
+        sequence = nextValue(after: sequence)
+    }
+
+    private func nextValue(after value: Int) -> Int {
+        value == Int.max ? 0 : value + 1
     }
 }

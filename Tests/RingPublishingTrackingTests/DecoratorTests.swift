@@ -95,20 +95,46 @@ class DecoratorTests: XCTestCase {
 
     // MARK: - SequenceDecorator Tests
 
-    func testParameters_sequenceDecoratorCreated_valueIncrementsPerCall() {
+    func testParameters_sequenceDecoratorEventDecoratedCalled_valueIncrementsPerCall() {
         // Given
         let decorator = SequenceDecorator()
 
         // Then
-        XCTAssertEqual(decorator.parameters["SQ"], Int32(0), "First SQ value should be 0")
-        XCTAssertEqual(decorator.parameters["SQ"], Int32(1), "SQ should increment by 1 on each call")
-        XCTAssertEqual(decorator.parameters["SQ"], Int32(2), "SQ should increment by 1 on each call")
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "First SQ value should be 0")
+
+        // When
+        decorator.eventDecorated()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 1, "SQ should increment by 1 after eventDecorated() call")
+
+        // When
+        decorator.eventDecorated()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 2, "SQ should increment by 1 after eventDecorated() call")
     }
 
-    func testNextValue_sequenceDecoratorReachedMaxValue_valueWrapsToZero() {
-        XCTAssertEqual(SequenceDecorator.nextValue(after: Int32.max), 0, "SQ should wrap to 0 after reaching Int32.max")
-        XCTAssertEqual(SequenceDecorator.nextValue(after: 5), 6, "SQ should increment by 1 otherwise")
+    func testParameters_sequenceDecoratorEventDecoratedNotCalled_valueStaysConstant() {
+        // Given
+        let decorator = SequenceDecorator()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "SQ should not change without calling eventDecorated()")
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "SQ should not change without calling eventDecorated()")
     }
+
+    func testParameters_sequenceDecoratorReachedMaxValue_valueWrapsToZero() {
+        // Given
+        let decorator = SequenceDecorator(sequence: Int.max)
+
+        // When
+        decorator.eventDecorated()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "SQ should wrap to 0 after reaching Int.max")
+    }
+
 
     // MARK: - SizeDecorator Tests
 

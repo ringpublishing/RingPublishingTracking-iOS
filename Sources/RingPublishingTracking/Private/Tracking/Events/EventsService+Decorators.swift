@@ -27,7 +27,6 @@ extension EventsService {
         registerDecorator(userDataDecorator)
         registerDecorator(tenantIdentifierDecorator)
         registerDecorator(clientDecorator)
-        // Must stay last: parameters getter increments SQ as a side effect on each call.
         registerDecorator(sequenceDecorator)
     }
 

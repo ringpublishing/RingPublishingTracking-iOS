@@ -9,13 +9,7 @@ import Foundation
 
 final class SessionIdentifierDecorator: Decorator {
 
-    private static let sessionIdDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmmss"
-
-        return formatter
-    }()
-
+    private static let sessionIdDateFormat = "yyyyMMddHHmmss"
     private static let identifierRandomPartLength = 10
 
     private var sessionIdentifier: String
@@ -29,13 +23,10 @@ final class SessionIdentifierDecorator: Decorator {
     }
 
     private static func generateSessionIdentifier() -> String {
-        let now = Date()
-        var sessionId = Self.sessionIdDateFormatter.string(from: now)
-
-        let randomPart = (0..<Self.identifierRandomPartLength).map { _ in String(Int.random(in: 0...9)) }.joined()
-        sessionId += randomPart
-
-        return sessionId
+        String.timestampIdentifier(
+            dateFormat: Self.sessionIdDateFormat,
+            randomPartLength: Self.identifierRandomPartLength
+        )
     }
 }
 
