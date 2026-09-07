@@ -47,7 +47,7 @@ private struct AureusEventContextParams: Encodable {
     let variantUuid: String
     let batchId: String
     let recommendationId: String
-    let segmentId: String
+    let segmentId: String?
     let teaserId: String?
 
     init(context: AureusEventContext) {

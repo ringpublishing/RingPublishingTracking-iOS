@@ -24,8 +24,8 @@ public struct AureusEventContext {
     /// A batch contains one or more recommendations
     public let recommendationId: String
 
-    /// Segment identifier of given end user
-    public let segmentId: String
+    /// Segment identifier of given end user, nullable
+    public let segmentId: String?
 
     /// Type of event which is expected to be reported by Aureus
     public let impressionEventType: String
@@ -46,7 +46,7 @@ public struct AureusEventContext {
     public init(variantUuid: String,
                 batchId: String,
                 recommendationId: String,
-                segmentId: String,
+                segmentId: String?,
                 impressionEventType: String) {
         self.variantUuid = variantUuid
         self.batchId = batchId

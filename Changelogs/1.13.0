@@ -8,6 +8,8 @@ Improvements to the 'RingPublishingTracking' module.
 * Added IS (session identifier) field to every tracking event
 * Extended RDLC field with variant.external custom parameters
 * Added SQ (sequence) field to every tracking event
+* 'segmentId' field of 'AureusEventContext' is now optional
+    - passing nil omits the 'segment_id' key from the reported event instead of sending an empty value
 * Added optional 'viewType' field to the 'RDLC' parameter, reported with page view event
     - new public 'ContentViewType' enum with 'text', 'tts' and 'smartshort' values
     - passed to 'reportContentPageView' and reported with that event only, it is not carried over to the events which follow it
