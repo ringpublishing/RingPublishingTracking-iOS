@@ -144,6 +144,19 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         RingPublishingTracking.shared.reportEvent(customEvent)
     }
 
+    // MARK: Actions (Client)
+
+    @IBAction func onUpdateVariantExternalParametersActionTouch(_ sender: Any) {
+        // You can attach custom `variant.external` parameters (e.g. A/B test variant info) reported in RDLC
+        // Maximum 10 keys, each key and value limited to 10 characters - if exceeded, the update is rejected
+
+        RingPublishingTracking.shared.updateVariantExternalParameters(["abTest": "variantA", "flavor": "premium"])
+
+        // Each non content button click we can report using 'reportClick' method
+
+        reportButtonClickEvent(sender)
+    }
+
     // MARK: Actions (Debug mode)
 
     @IBAction func onEnableDebugModeActionTouch(_ sender: Any) {
