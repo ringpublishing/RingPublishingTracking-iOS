@@ -33,6 +33,17 @@ private extension EventsService {
 
     // Calls the root endpoint from the API
     func sendEvents(for eventsQueueManager: EventsQueueManager) {
+        sendEventsLock.lock()
+        if isSendingEvents {
+            eventsSendPending = true
+            sendEventsLock.unlock()
+            return
+        }
+
+        isSendingEvents = true
+        eventsSendPending = false
+        sendEventsLock.unlock()
+
         let body = buildEventRequest()
         let endpoint = SendEventEnpoint(body: body)
 
@@ -50,7 +61,22 @@ private extension EventsService {
                     break
                 }
             }
+
+            self?.onSendEventsFinished()
         })
+    }
+
+    // Marks the in-flight request as finished and, if another send was requested meanwhile, starts it now
+    func onSendEventsFinished() {
+        sendEventsLock.lock()
+        isSendingEvents = false
+        let shouldRetry = eventsSendPending
+        eventsSendPending = false
+        sendEventsLock.unlock()
+
+        if shouldRetry {
+            eventsQueueManager.sendEventsIfPossible()
+        }
     }
 
     func checkIfIdentityRequestShouldBePerformed() {
