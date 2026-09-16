@@ -34,6 +34,12 @@ final class EventsService {
 
     var isIdentifyMeRequestInProgress: Bool = false
 
+    /// Guards `sendEvents(for:)` against overlapping in-flight requests resending the same unacked queue.
+    /// The completion runs on a background queue, so access is serialized through `sendEventsLock`.
+    let sendEventsLock = NSLock()
+    var isSendingEvents = false
+    var eventsSendPending = false
+
     /// Registered decorators
     var decorators: [Decorator]
 
