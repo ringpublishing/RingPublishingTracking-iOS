@@ -14,8 +14,11 @@ final class AdAreaDecorator: Decorator {
     private var applicationAdvertisementSite: String?
 
     var parameters: [String: AnyHashable] {
-        return  [
-            "DA": [applicationAdvertisementSite, applicationAdvertisementArea].compactMap { $0 }.joined(separator: "/")
+        // An empty half is treated as absent, so DA never carries a bare leading or trailing separator.
+        let components = [applicationAdvertisementSite, applicationAdvertisementArea].compactMap { $0 }.filter { !$0.isEmpty }
+
+        return [
+            "DA": components.joined(separator: "/")
         ]
     }
 }

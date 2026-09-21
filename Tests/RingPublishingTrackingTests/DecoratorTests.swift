@@ -249,6 +249,12 @@ class DecoratorTests: XCTestCase {
 
         // Then
         XCTAssertEqual(decorator.parameters["DV"], "onet_app_ios/home", "DV should fall back to the root path prefix")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DV"], "onet_app_ios/home", "An empty site should fall back like nil")
     }
 
     // MARK: - AdAreaDecorator Tests
@@ -275,6 +281,12 @@ class DecoratorTests: XCTestCase {
 
         // Then
         XCTAssertEqual(decorator.parameters["DA"], "Onet_Konto_iOS/TestAdvertisementArea", "DA should keep the site case and lead with it")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DA"], "TestAdvertisementArea", "An empty site should be dropped like nil")
 
         // When
         decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: nil)
