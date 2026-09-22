@@ -23,5 +23,10 @@ extension TraceableScreen {
         // so each event send from this moment will have it correctly assigned
 
         RingPublishingTracking.shared.updateApplicationAdvertisementArea(currentAdvertisementArea: screenTrackingData.advertisementArea)
+
+        // Advertisement site is reported as a prefix of the DV field and of the DA field,
+        // so a screen which belongs to a different site should update it here as well
+
+        RingPublishingTracking.shared.updateApplicationAdvertisementSite(currentAdvertisementSite: screenTrackingData.advertisementSite)
     }
 }

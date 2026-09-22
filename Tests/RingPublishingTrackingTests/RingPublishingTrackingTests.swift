@@ -217,6 +217,36 @@ class RingPublishingTrackingTests: XCTestCase {
                        "Keep alive tracking should not start")
     }
 
+    func testReportedEvents_advertisementSiteUpdatedAfterInitialize_siteIsReportedInFieldsDaAndDv() throws {
+        // Given
+        let queueManager = RingPublishingTracking.shared.eventsService?.eventsQueueManager
+        RingPublishingTracking.shared.setOptOutMode(enabled: false)
+
+        // When
+        RingPublishingTracking.shared.updateApplicationAdvertisementSite(currentAdvertisementSite: "tests_site_ios")
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["list"], partiallyReloaded: false)
+
+        // Then
+        let eventWithSite = try XCTUnwrap(queueManager?.events.allElements.last)
+
+        XCTAssertEqual(eventWithSite.eventParameters["DA"] as? String, "tests_site_ios/\(applicationDefaultAdvertisementArea)",
+                       "DA should lead with the updated site")
+        XCTAssertEqual(eventWithSite.eventParameters["DV"] as? String, "tests_site_ios/list",
+                       "DV should be prefixed with the updated site instead of the root path")
+
+        // When
+        RingPublishingTracking.shared.updateApplicationAdvertisementSite(currentAdvertisementSite: nil)
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["list"], partiallyReloaded: false)
+
+        // Then
+        let eventWithoutSite = try XCTUnwrap(queueManager?.events.allElements.last)
+
+        XCTAssertEqual(eventWithoutSite.eventParameters["DA"] as? String, applicationDefaultAdvertisementArea,
+                       "DA should hold the area alone once the site is cleared")
+        XCTAssertEqual(eventWithoutSite.eventParameters["DV"] as? String, "ringpublishingtrackingtests_app_ios/list",
+                       "DV should fall back to the root path prefix once the site is cleared")
+    }
+
     // MARK: Helpers
 
     private func decodedClientData(from event: Event) throws -> String {

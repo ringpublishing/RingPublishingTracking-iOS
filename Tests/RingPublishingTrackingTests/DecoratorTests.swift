@@ -231,6 +231,32 @@ class DecoratorTests: XCTestCase {
         XCTAssertEqual(params3["DR"], params2["DU"], "DR should be equal to previous DU")
     }
 
+    func testParameters_structureInfoDecoratorUpdatedWithAdvertisementSite_siteReplacesRootPathPrefixInFieldDV() {
+        // Given
+        let decorator = StructureInfoDecorator()
+        decorator.updateApplicationRootPath(applicationRootPath: "Onet")
+        decorator.updateStructureType(structureType: .structurePath(["home"]), contentPageViewSource: nil)
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "Onet_Konto_iOS")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DV"], "onet_konto_ios/home", "DV should be prefixed with the lowercased site")
+        XCTAssertEqual(decorator.parameters["DU"], "https://onet.app.ios/home", "DU should be built from the root path, not the site")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: nil)
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DV"], "onet_app_ios/home", "DV should fall back to the root path prefix")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DV"], "onet_app_ios/home", "An empty site should fall back like nil")
+    }
+
     // MARK: - AdAreaDecorator Tests
 
     func testParameters_adAreaDecoratorCreated_returnedParametersAreCorrect() {
@@ -243,6 +269,30 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         XCTAssertEqual(params["DA"], applicationDefaultAdvertisementArea, "DA should be correct")
+    }
+
+    func testParameters_adAreaDecoratorUpdatedWithAdvertisementSite_siteIsJoinedInFrontOfTheArea() {
+        // Given
+        let decorator = AdAreaDecorator()
+        decorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: "TestAdvertisementArea")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "Onet_Konto_iOS")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DA"], "Onet_Konto_iOS/TestAdvertisementArea", "DA should keep the site case and lead with it")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DA"], "TestAdvertisementArea", "An empty site should be dropped like nil")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: nil)
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DA"], "TestAdvertisementArea", "DA should hold the area alone once the site is cleared")
     }
 
     // MARK: - UserDataDecorator Tests

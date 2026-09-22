@@ -19,3 +19,7 @@ Improvements to the 'RingPublishingTracking' module.
     - passing nil skips keep alive tracking for the reported content
     - the parameter has no default value, so a new call site has to make that decision explicitly
     - when keep alive tracking is skipped, measurement of the previously reported content is stopped
+* New public 'updateApplicationAdvertisementSite' method, so the advertisement site can be changed after 'initialize'
+    - until now the site could only be set once, through 'applicationAdvertisementSite' of the configuration
+    - the site leads the 'DA' field and replaces the root path derived prefix of the 'DV' field, exactly as the configured one does
+    - passing nil clears it, which restores the root path derived prefix and leaves 'DA' with the area alone
