@@ -12,4 +12,5 @@ struct ScreenTrackingData {
 
     let structurePath: [String]
     let advertisementArea: String
+    let advertisementSite: String
 }

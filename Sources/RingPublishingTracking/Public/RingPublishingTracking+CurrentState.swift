@@ -51,4 +51,20 @@ public extension RingPublishingTracking {
 
         eventsService?.updateApplicationAdvertisementArea(currentAdvertisementArea)
     }
+
+    /// Update ad site name of the application, for example "superapp_konto_ios"
+    ///
+    /// - Parameter currentAdvertisementSite: String?
+    func updateApplicationAdvertisementSite(currentAdvertisementSite: String?) {
+        Logger.log("Updating application advertisement site to: '\(String(describing: currentAdvertisementSite))'")
+
+        eventsService?.updateApplicationAdvertisementSite(applicationAdvertisementSite: currentAdvertisementSite)
+    }
+
+    /// Update `variant.external` parameters reported inside `RDLC`; rejected (unchanged) over 10 keys or 10 chars each.
+    func updateVariantExternalParameters(_ parameters: [String: String]) {
+        Logger.log("Updating variant external parameters: '\(parameters)'")
+
+        eventsService?.updateVariantExternalParameters(parameters)
+    }
 }

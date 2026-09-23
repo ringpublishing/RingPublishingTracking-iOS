@@ -157,4 +157,102 @@ class RingPublishingTrackingTests: XCTestCase {
 
         wait(for: [expectation], timeout: 10.0)
     }
+
+    func testReportedEvents_viewTypeProvidedForContent_onlyContentEventCarriesViewTypeInClientData() throws {
+        // Given
+        let queueManager = RingPublishingTracking.shared.eventsService?.eventsQueueManager
+        let publicationUrl = URL(string: "https://tests.example.com")!
+        let contentMetadata = ContentMetadata(publicationId: "publicationId",
+                                              publicationUrl: publicationUrl,
+                                              sourceSystemName: "sourceSystemName",
+                                              paidContent: false,
+                                              contentId: "contentId",
+                                              contentSpaceUuid: "contentSpaceUuid")
+
+        // When
+        RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+                                                            viewType: .smartshort,
+                                                            currentStructurePath: ["article"],
+                                                            partiallyReloaded: false,
+                                                            contentKeepAliveDataSource: nil)
+
+        // Then
+        let contentEvent = try XCTUnwrap(queueManager?.events.allElements.last)
+        XCTAssertEqual(try decodedClientData(from: contentEvent),
+                       "{\"client\":{\"type\":\"native_app\",\"viewType\":\"smartshort\"}}",
+                       "Reported content page view should carry view type")
+
+        // When
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["list"], partiallyReloaded: false)
+
+        // Then
+        let pageViewEvent = try XCTUnwrap(queueManager?.events.allElements.last)
+        XCTAssertEqual(try decodedClientData(from: pageViewEvent),
+                       "{\"client\":{\"type\":\"native_app\"}}",
+                       "Reported page view should not carry view type")
+    }
+
+    func testReportContentPageView_noKeepAliveDataSourceProvided_keepAliveTrackingDoesNotStart() {
+        // Given
+        var reportedLogs = [String]()
+        RingPublishingTracking.shared.loggerOutput = { reportedLogs.append($0) }
+
+        let publicationUrl = URL(string: "https://tests.example.com")!
+        let contentMetadata = ContentMetadata(publicationId: "publicationId",
+                                              publicationUrl: publicationUrl,
+                                              sourceSystemName: "sourceSystemName",
+                                              paidContent: false,
+                                              contentId: "contentId",
+                                              contentSpaceUuid: "contentSpaceUuid")
+
+        // When
+        RingPublishingTracking.shared.reportContentPageView(contentMetadata: contentMetadata,
+                                                            viewType: .smartshort,
+                                                            currentStructurePath: ["article"],
+                                                            partiallyReloaded: false,
+                                                            contentKeepAliveDataSource: nil)
+
+        // Then
+        XCTAssertFalse(reportedLogs.contains { $0.contains("Starting content keep alive tracking") },
+                       "Keep alive tracking should not start")
+    }
+
+    func testReportedEvents_advertisementSiteUpdatedAfterInitialize_siteIsReportedInFieldsDaAndDv() throws {
+        // Given
+        let queueManager = RingPublishingTracking.shared.eventsService?.eventsQueueManager
+        RingPublishingTracking.shared.setOptOutMode(enabled: false)
+
+        // When
+        RingPublishingTracking.shared.updateApplicationAdvertisementSite(currentAdvertisementSite: "tests_site_ios")
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["list"], partiallyReloaded: false)
+
+        // Then
+        let eventWithSite = try XCTUnwrap(queueManager?.events.allElements.last)
+
+        XCTAssertEqual(eventWithSite.eventParameters["DA"] as? String, "tests_site_ios/\(applicationDefaultAdvertisementArea)",
+                       "DA should lead with the updated site")
+        XCTAssertEqual(eventWithSite.eventParameters["DV"] as? String, "tests_site_ios/list",
+                       "DV should be prefixed with the updated site instead of the root path")
+
+        // When
+        RingPublishingTracking.shared.updateApplicationAdvertisementSite(currentAdvertisementSite: nil)
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["list"], partiallyReloaded: false)
+
+        // Then
+        let eventWithoutSite = try XCTUnwrap(queueManager?.events.allElements.last)
+
+        XCTAssertEqual(eventWithoutSite.eventParameters["DA"] as? String, applicationDefaultAdvertisementArea,
+                       "DA should hold the area alone once the site is cleared")
+        XCTAssertEqual(eventWithoutSite.eventParameters["DV"] as? String, "ringpublishingtrackingtests_app_ios/list",
+                       "DV should fall back to the root path prefix once the site is cleared")
+    }
+
+    // MARK: Helpers
+
+    private func decodedClientData(from event: Event) throws -> String {
+        let clientData = try XCTUnwrap(event.eventParameters["RDLC"] as? String)
+        let data = try XCTUnwrap(Data(base64Encoded: clientData))
+
+        return try XCTUnwrap(String(data: data, encoding: .utf8))
+    }
 }

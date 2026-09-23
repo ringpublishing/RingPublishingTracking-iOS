@@ -54,6 +54,88 @@ class DecoratorTests: XCTestCase {
         }
     }
 
+    // MARK: - SessionIdentifierDecorator Tests
+
+    func testParameters_sessionIdentifierDecoratorCreated_returnedParameterHasCorrectLength() {
+        for _ in 0...100 {
+            // Given
+            let decorator = SessionIdentifierDecorator()
+
+            // When
+            let isParam = decorator.parameters["IS"] as? String ?? ""
+
+            // Then
+            XCTAssertEqual(isParam.count, 24, "IS parameter should have 24 characters")
+            XCTAssertTrue(isParam.allSatisfy(\.isNumber), "IS parameter should only contain digits")
+        }
+    }
+
+    func testParameters_sessionIdentifierDecoratorCreated_valueStaysConstantUntilNewSessionStarted() {
+        // Given
+        let decorator = SessionIdentifierDecorator()
+        let initialIsParam = decorator.parameters["IS"]
+
+        // When
+        decorator.startNewSession()
+
+        // Then
+        XCTAssertNotEqual(initialIsParam, decorator.parameters["IS"], "IS should change after starting a new session")
+    }
+
+    func testParameters_twoSessionIdentifierDecoratorsCreated_returnedParametersAreDifferent() {
+        // Given
+        let decorator1 = SessionIdentifierDecorator()
+        Thread.sleep(forTimeInterval: 1)
+        let decorator2 = SessionIdentifierDecorator()
+
+        // Then
+        XCTAssertNotEqual(decorator1.parameters["IS"], decorator2.parameters["IS"],
+                           "IS should be different for two separate decorator instances")
+    }
+
+    // MARK: - SequenceDecorator Tests
+
+    func testParameters_sequenceDecoratorEventDecoratedCalled_valueIncrementsPerCall() {
+        // Given
+        let decorator = SequenceDecorator()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "First SQ value should be 0")
+
+        // When
+        decorator.eventDecorated()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 1, "SQ should increment by 1 after eventDecorated() call")
+
+        // When
+        decorator.eventDecorated()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 2, "SQ should increment by 1 after eventDecorated() call")
+    }
+
+    func testParameters_sequenceDecoratorEventDecoratedNotCalled_valueStaysConstant() {
+        // Given
+        let decorator = SequenceDecorator()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "SQ should not change without calling eventDecorated()")
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "SQ should not change without calling eventDecorated()")
+    }
+
+    func testParameters_sequenceDecoratorReachedMaxValue_valueWrapsToZero() {
+        // Given
+        let decorator = SequenceDecorator(sequence: Int.max)
+
+        // When
+        decorator.eventDecorated()
+
+        // Then
+        XCTAssertEqual(decorator.parameters["SQ"], 0, "SQ should wrap to 0 after reaching Int.max")
+    }
+
+
     // MARK: - SizeDecorator Tests
 
     func testParameters_sizeDecoratorCreated_returnedParametersAreCorrect() {
@@ -149,6 +231,32 @@ class DecoratorTests: XCTestCase {
         XCTAssertEqual(params3["DR"], params2["DU"], "DR should be equal to previous DU")
     }
 
+    func testParameters_structureInfoDecoratorUpdatedWithAdvertisementSite_siteReplacesRootPathPrefixInFieldDV() {
+        // Given
+        let decorator = StructureInfoDecorator()
+        decorator.updateApplicationRootPath(applicationRootPath: "Onet")
+        decorator.updateStructureType(structureType: .structurePath(["home"]), contentPageViewSource: nil)
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "Onet_Konto_iOS")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DV"], "onet_konto_ios/home", "DV should be prefixed with the lowercased site")
+        XCTAssertEqual(decorator.parameters["DU"], "https://onet.app.ios/home", "DU should be built from the root path, not the site")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: nil)
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DV"], "onet_app_ios/home", "DV should fall back to the root path prefix")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DV"], "onet_app_ios/home", "An empty site should fall back like nil")
+    }
+
     // MARK: - AdAreaDecorator Tests
 
     func testParameters_adAreaDecoratorCreated_returnedParametersAreCorrect() {
@@ -161,6 +269,30 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         XCTAssertEqual(params["DA"], applicationDefaultAdvertisementArea, "DA should be correct")
+    }
+
+    func testParameters_adAreaDecoratorUpdatedWithAdvertisementSite_siteIsJoinedInFrontOfTheArea() {
+        // Given
+        let decorator = AdAreaDecorator()
+        decorator.updateApplicationAdvertisementArea(applicationAdvertisementArea: "TestAdvertisementArea")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "Onet_Konto_iOS")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DA"], "Onet_Konto_iOS/TestAdvertisementArea", "DA should keep the site case and lead with it")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "")
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DA"], "TestAdvertisementArea", "An empty site should be dropped like nil")
+
+        // When
+        decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: nil)
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DA"], "TestAdvertisementArea", "DA should hold the area alone once the site is cleared")
     }
 
     // MARK: - UserDataDecorator Tests
@@ -304,5 +436,76 @@ class DecoratorTests: XCTestCase {
         let params = decorator.parameters
 
         XCTAssertEqual(params["RDLC"], "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should be correct")
+    }
+
+    func testParameters_clientDecoratorUpdatedWithValidVariantExternalParameters_rdlcContainsVariant() {
+        // Given
+        let decorator = ClientDecorator()
+
+        // When
+        decorator.updateVariantExternalParameters(["api_ver": "1.0.1b"])
+        let params = decorator.parameters
+
+        // Then
+        // swiftlint:disable line_length
+        let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidmFyaWFudCI6eyJleHRlcm5hbCI6eyJhcGlfdmVyIjoiMS4wLjFiIn19fQ=="
+        // swiftlint:enable line_length
+        XCTAssertEqual(params["RDLC"], expectedBase64, "RDLC should contain variant.external")
+    }
+
+    func testParameters_clientDecoratorUpdatedWithTooManyVariantExternalKeys_parametersAreRejected() {
+        // Given
+        let decorator = ClientDecorator()
+        let tooManyKeys = Dictionary(uniqueKeysWithValues: (0..<11).map { ("k\($0)", "v") })
+
+        // When
+        decorator.updateVariantExternalParameters(tooManyKeys)
+        let params = decorator.parameters
+
+        // Then
+        XCTAssertEqual(params["RDLC"], "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should not contain rejected variant.external")
+    }
+
+    func testParameters_clientDecoratorUpdatedWithTooLongVariantExternalKeyOrValue_parametersAreRejected() {
+        // Given
+        let decorator = ClientDecorator()
+
+        // When / Then
+        decorator.updateVariantExternalParameters(["a_key_too_long_here": "v"])
+        XCTAssertEqual(decorator.parameters["RDLC"], "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should reject too long key")
+
+        decorator.updateVariantExternalParameters(["k": "a_value_too_long_here"])
+        XCTAssertEqual(decorator.parameters["RDLC"], "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifX0=", "RDLC should reject too long value")
+    }
+
+    func testClientData_viewTypeProvided_returnedClientDataContainsViewType() {
+        // Given
+        let decorator = ClientDecorator()
+
+        // When / Then
+        XCTAssertEqual(decorator.clientData(viewType: .text),
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifX0=",
+                       "Client data should contain text view type")
+
+        XCTAssertEqual(decorator.clientData(viewType: .tts),
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InR0cyJ9fQ==",
+                       "Client data should contain tts view type")
+
+        XCTAssertEqual(decorator.clientData(viewType: .smartshort),
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InNtYXJ0c2hvcnQifX0=",
+                       "Client data should contain smart short view type")
+    }
+
+    func testClientData_viewTypeProvidedAndVariantExternalParametersSet_returnedClientDataContainsBoth() {
+        // Given
+        let decorator = ClientDecorator()
+
+        // When
+        decorator.updateVariantExternalParameters(["api_ver": "1.0.1b"])
+
+        // Then
+        // swiftlint:disable:next line_length
+        let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifSwidmFyaWFudCI6eyJleHRlcm5hbCI6eyJhcGlfdmVyIjoiMS4wLjFiIn19fQ=="
+        XCTAssertEqual(decorator.clientData(viewType: .text), expectedBase64, "Client data should contain view type and variant.external")
     }
 }

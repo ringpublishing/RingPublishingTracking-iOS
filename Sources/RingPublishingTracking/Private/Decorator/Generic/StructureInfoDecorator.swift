@@ -16,13 +16,16 @@ enum StructureType {
     func parametersResolved(applicationRootPath: String, applicationAdvertisementSite: String?) -> (dv: String, du: String) {
         let dvField: String
         let duField: String
+        // An empty site is not a site: joined as-is it would leave DV with a bare leading
+        // separator and no application identity at all.
+        let site = applicationAdvertisementSite.flatMap { $0.isEmpty ? nil : $0 }
 
         switch self {
         case .publicationUrl(let url, let array):
-            dvField = ([applicationAdvertisementSite ?? formatFieldDV(for: applicationRootPath)] + array).joined(separator: "/")
+            dvField = ([site ?? formatFieldDV(for: applicationRootPath)] + array).joined(separator: "/")
             duField = url.absoluteString
         case .structurePath(let array):
-            dvField = ([applicationAdvertisementSite ?? formatFieldDV(for: applicationRootPath)] + array).joined(separator: "/")
+            dvField = ([site ?? formatFieldDV(for: applicationRootPath)] + array).joined(separator: "/")
             duField = "https://\(applicationRootPath).\(Constants.applicationPrefix)/\(array.joined(separator: "/"))".lowercased()
         }
 

@@ -21,11 +21,13 @@ extension EventsService {
         // Generic
         registerDecorator(SizeDecorator())
         registerDecorator(uniqueIdentifierDecorator)
+        registerDecorator(sessionIdentifierDecorator)
         registerDecorator(structureInfoDecorator)
         registerDecorator(adAreaDecorator)
         registerDecorator(userDataDecorator)
         registerDecorator(tenantIdentifierDecorator)
         registerDecorator(clientDecorator)
+        registerDecorator(sequenceDecorator)
     }
 
     // MARK: - Decorators helpers
@@ -69,5 +71,17 @@ extension EventsService {
     func updateApplicationAdvertisementSite(applicationAdvertisementSite: String?) {
         structureInfoDecorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: applicationAdvertisementSite)
         adAreaDecorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: applicationAdvertisementSite)
+    }
+
+    func updateVariantExternalParameters(_ parameters: [String: String]) {
+        clientDecorator.updateVariantExternalParameters(parameters)
+    }
+
+    /// - Returns: `RDLC` value for a single event, or nil when there is no view type to report and the
+    /// parameter can be left to `ClientDecorator`
+    func clientData(viewType: ContentViewType?) -> String? {
+        guard let viewType = viewType else { return nil }
+
+        return clientDecorator.clientData(viewType: viewType)
     }
 }

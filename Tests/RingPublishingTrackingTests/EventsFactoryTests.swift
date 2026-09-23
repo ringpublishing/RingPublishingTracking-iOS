@@ -105,7 +105,7 @@ class EventsFactoryTests: XCTestCase {
                                               paidContent: true,
                                               contentId: "6789",
                                               contentSpaceUuid: "9123")
-        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjp0cnVlfSwic291cmNlIjp7ImlkIjoiNjc4OSIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjp0cnVlfSwic291cmNlIjp7ImlkIjoiOTEyMyIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
 
         // When
         let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -127,7 +127,7 @@ class EventsFactoryTests: XCTestCase {
                                               paidContent: false,
                                               contentId: "6789",
                                               contentSpaceUuid: "12349")
-        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjY3ODkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjEyMzQ5Iiwic3lzdGVtIjoic3lzdGVtX25hbWUifX0="
 
         // When
         let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -138,6 +138,29 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(params["PU"], contentMetadata.contentId, "PU parameter should be equal to content identifier")
         XCTAssertEqual(params["DX"], "PV_4,system_name,12345,1,f", "DX parameter should be in correct format")
         XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
+    }
+
+    func testCreatePageViewEvent_clientDataProvided_clientDataIsReportedInRDLC() {
+        // Given
+        let factory = EventsFactory()
+        let clientData = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifX0="
+
+        // When
+        let event = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil, clientData: clientData)
+
+        // Then
+        XCTAssertEqual(event.eventParameters["RDLC"], clientData, "RDLC should be taken from provided client data")
+    }
+
+    func testCreatePageViewEvent_clientDataNotProvided_clientDataIsLeftToDecorator() {
+        // Given
+        let factory = EventsFactory()
+
+        // When
+        let event = factory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
+
+        // Then
+        XCTAssertNil(event.eventParameters["RDLC"], "RDLC should be left to the client decorator")
     }
 
     // MARK: - ErrorEvent Tests
