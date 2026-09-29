@@ -10,3 +10,7 @@ Improvements to the 'RingPublishingTracking' module.
     - new 'didAssignSessionIdentifier' method of 'RingPublishingTrackingDelegate', called during 'initialize', before the backend identifiers are fetched
     - both deliver the same value, which is also the 'IS' reported with every event, so it is not replaced once the backend identifiers arrive
     - the new delegate method has a default empty implementation, existing delegates keep compiling
+* View type of the 'RDLC' parameter moved out of the 'client' object
+    - reported as top level 'view' key next to 'client' and 'variant', instead of 'client.viewType' introduced in 1.13.0
+    - public API is unchanged, 'viewType' of 'reportContentPageView' works as before
+    - events reported without a view type still omit the key
