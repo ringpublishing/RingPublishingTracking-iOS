@@ -14,4 +14,6 @@ protocol EventsServiceDelegate: AnyObject {
     func eventsService(_ eventsService: EventsService, didFailWhileRetrievingTrackingIdentifier error: ServiceError)
 
     func eventsService(_ eventsService: EventsService, retrievedTrackingIdentifier identifier: TrackingIdentifier)
+
+    func eventsService(_ eventsService: EventsService, didAssignSessionIdentifier identifier: String)
 }

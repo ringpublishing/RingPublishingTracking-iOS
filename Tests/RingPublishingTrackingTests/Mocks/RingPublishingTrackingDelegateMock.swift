@@ -10,6 +10,13 @@ import Foundation
 
 class RingPublishingTrackingDelegateMock: RingPublishingTrackingDelegate {
 
+    private(set) var assignedSessionIdentifiers: [String] = []
+
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didAssignSessionIdentifier identifier: String) {
+        assignedSessionIdentifiers.append(identifier)
+    }
+
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
                                 didAssignTrackingIdentifier identifier: TrackingIdentifier) {
 

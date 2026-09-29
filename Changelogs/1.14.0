@@ -1,0 +1,12 @@
+1.14.0 Release notes (2026-09-29)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Session identifier ("IS") is now available to the host application
+    - new 'sessionIdentifier' field of the public 'TrackingIdentifier' model, delivered with 'didAssignTrackingIdentifier'
+    - new 'didAssignSessionIdentifier' method of 'RingPublishingTrackingDelegate', called during 'initialize', before the backend identifiers are fetched
+    - both deliver the same value, which is also the 'IS' reported with every event, so it is not replaced once the backend identifiers arrive
+    - the new delegate method has a default empty implementation, existing delegates keep compiling

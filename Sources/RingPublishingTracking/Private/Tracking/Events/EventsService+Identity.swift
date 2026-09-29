@@ -204,7 +204,9 @@ extension EventsService {
     func publishTrackingIdentifier(eaUUID: EaUUID, artemis: Artemis) {
         let eaUUID = Identifier(value: eaUUID.value, expirationDate: eaUUID.expirationDate)
         let artemisId = Identifier(value: artemis.id.artemis, expirationDate: artemis.expirationDate)
-        let trackingIdentifier: TrackingIdentifier = TrackingIdentifier(eaUUID: eaUUID, artemisID: artemisId)
+        let trackingIdentifier = TrackingIdentifier(eaUUID: eaUUID,
+                                                    artemisID: artemisId,
+                                                    sessionIdentifier: sessionIdentifierDecorator.currentIdentifier)
 
         delegate?.eventsService(self, retrievedTrackingIdentifier: trackingIdentifier)
     }
