@@ -484,15 +484,15 @@ class DecoratorTests: XCTestCase {
 
         // When / Then
         XCTAssertEqual(decorator.clientData(viewType: .text),
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifX0=",
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidmlldyI6InRleHQifQ==",
                        "Client data should contain text view type")
 
         XCTAssertEqual(decorator.clientData(viewType: .tts),
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InR0cyJ9fQ==",
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidmlldyI6InR0cyJ9",
                        "Client data should contain tts view type")
 
         XCTAssertEqual(decorator.clientData(viewType: .smartshort),
-                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InNtYXJ0c2hvcnQifX0=",
+                       "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidmlldyI6InNtYXJ0c2hvcnQifQ==",
                        "Client data should contain smart short view type")
     }
 
@@ -505,7 +505,7 @@ class DecoratorTests: XCTestCase {
 
         // Then
         // swiftlint:disable:next line_length
-        let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAiLCJ2aWV3VHlwZSI6InRleHQifSwidmFyaWFudCI6eyJleHRlcm5hbCI6eyJhcGlfdmVyIjoiMS4wLjFiIn19fQ=="
+        let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidmFyaWFudCI6eyJleHRlcm5hbCI6eyJhcGlfdmVyIjoiMS4wLjFiIn19LCJ2aWV3IjoidGV4dCJ9"
         XCTAssertEqual(decorator.clientData(viewType: .text), expectedBase64, "Client data should contain view type and variant.external")
     }
 }

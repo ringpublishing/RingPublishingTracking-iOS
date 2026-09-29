@@ -188,7 +188,7 @@ class RingPublishingTrackingTests: XCTestCase {
         // Then
         let contentEvent = try XCTUnwrap(queueManager?.events.allElements.last)
         XCTAssertEqual(try decodedClientData(from: contentEvent),
-                       "{\"client\":{\"type\":\"native_app\",\"viewType\":\"smartshort\"}}",
+                       "{\"client\":{\"type\":\"native_app\"},\"view\":\"smartshort\"}",
                        "Reported content page view should carry view type")
 
         // When
