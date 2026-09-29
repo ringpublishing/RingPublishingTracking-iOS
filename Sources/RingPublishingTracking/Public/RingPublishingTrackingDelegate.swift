@@ -28,4 +28,20 @@ public protocol RingPublishingTrackingDelegate: AnyObject {
     ///   - error: TrackingIdentifierError
     func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
                                 didFailToRetrieveTrackingIdentifier error: TrackingIdentifierError)
+
+    /// Delegate method informing that RingPublishingTracking module generated the session identifier ("IS").
+    /// Called synchronously during `initialize`, without waiting for the backend identifiers.
+    /// The value is the same one later delivered in `TrackingIdentifier.sessionIdentifier`.
+    ///
+    /// - Parameters:
+    ///   - ringPublishingTracking: RingPublishingTracking
+    ///   - identifier: Session identifier
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didAssignSessionIdentifier identifier: String)
+}
+
+public extension RingPublishingTrackingDelegate {
+
+    func ringPublishingTracking(_ ringPublishingTracking: RingPublishingTracking,
+                                didAssignSessionIdentifier identifier: String) {}
 }

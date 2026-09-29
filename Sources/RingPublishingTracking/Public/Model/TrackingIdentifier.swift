@@ -16,4 +16,7 @@ public struct TrackingIdentifier {
 
     /// Artemis identifier
     public let artemisID: Identifier
+
+    /// Session identifier ("IS"), the same value the module reports with every event
+    public let sessionIdentifier: String
 }

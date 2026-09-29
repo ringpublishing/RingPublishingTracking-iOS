@@ -24,6 +24,10 @@ final class SessionIdentifierDecorator: Decorator {
         sessionIdentifier = SessionIdentifierDecorator.generateSessionIdentifier()
     }
 
+    var currentIdentifier: String {
+        sessionIdentifier
+    }
+
     var parameters: [String: AnyHashable] {
         ["IS": sessionIdentifier]
     }

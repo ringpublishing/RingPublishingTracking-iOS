@@ -35,6 +35,15 @@ class RingPublishingTrackingTests: XCTestCase {
 
     // MARK: Tests
 
+    func testInitialize_moduleInitialized_sessionIdentifierIsDeliveredImmediatelyAndMatchesReportedIS() throws {
+        // Then
+        let deliveredIdentifier = try XCTUnwrap(ringPublishingTrackingDelegateMock.assignedSessionIdentifiers.last)
+        let eventsService = try XCTUnwrap(RingPublishingTracking.shared.eventsService)
+
+        XCTAssertFalse(deliveredIdentifier.isEmpty)
+        XCTAssertEqual(deliveredIdentifier, eventsService.sessionIdentifierDecorator.parameters["IS"])
+    }
+
     func testDebugMode_debugModeEnabledOrDisabled_logsShouldBeReported() {
         // Given
         let expectation1 = self.expectation(description: "log reported")
