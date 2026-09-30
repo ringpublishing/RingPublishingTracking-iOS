@@ -91,7 +91,6 @@ extension EventsService {
     ///   - tenantID: Instance of tenantID.
     ///   - completion: Completion handler.
     func performSequentialIdentity(tenantID: String, completion: @escaping (Result<(EaUUID, Artemis), ServiceError>) -> Void) {
-        self.isIdentifyMeRequestInProgress = true
         identityRequestStarted()
 
         let finish: (Result<(EaUUID, Artemis), ServiceError>) -> Void = { [weak self] result in
@@ -131,20 +130,17 @@ extension EventsService {
     /// Retry whole identity process from start.
     /// - Parameter error: `ServiceError` instance from previous operation.
     func retryIdentityRequest(error: ServiceError) {
-        switch shouldRetryIdentifyRequest {
+        switch shouldRetryWholeIdentityProcess() {
         case true:
             self.handleIdentifyMeRequestFailure(error: error)
-            self.isIdentifyMeRequestInProgress = false
         case false:
             guard let eaUUID = storage.eaUUID else { return }
             retryArtemisRequest(eaUUID: eaUUID) { [weak self] artemisResult in
                 switch artemisResult {
                 case .success(let artemis):
                     self?.publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
-                    self?.isIdentifyMeRequestInProgress = false
                 case .failure(let error):
                     self?.handleIdentifyMeRequestFailure(error: error)
-                    self?.isIdentifyMeRequestInProgress = false
                 }
             }
         }
@@ -226,6 +222,7 @@ extension EventsService {
     func identityRequestStarted() {
         identityLock.lock()
         identityRequestsInProgress += 1
+        lastIdentityRequestDate = Date()
         identityLock.unlock()
     }
 
@@ -248,7 +245,7 @@ extension EventsService {
     }
 
     /// Checks if sending has to wait for the identity request in flight.
-    /// Sent before it finishes, events would reach the backend without eaUUID and Artemis identifier,
+    /// Sent before it finishes, events would reach the backend without eaUUID,
     /// which is what happened to the first events reported after a fresh install.
     ///
     /// - Returns: `True` if identifiers are missing and an identity request is in flight, otherwise `False`
@@ -264,30 +261,16 @@ extension EventsService {
         return true
     }
 
-    /// Remembers events decorated before the Artemis identifier was known, see `completeEventsWithoutArtemisID()`
+    /// Checks if enough time has passed since the last identity request to retry it,
+    /// so an offline device does not call /me for every reported event.
     ///
-    /// - Parameter events: Decorated events added to the queue
-    func rememberEventsWithoutArtemisID(_ events: [Event]) {
-        guard operationMode.canSendNetworkRequests else { return }
+    /// - Returns: `True` if an identity request may be retried now, otherwise `False`
+    func isIdentityRetryAllowed() -> Bool {
+        identityLock.lock()
+        defer { identityLock.unlock() }
 
-        events.filter { !$0.carriesArtemisID }.forEach { eventsWithoutArtemisID.append($0) }
-    }
+        guard let lastIdentityRequestDate else { return true }
 
-    /// Adds the Artemis identifier to the queued events decorated before it was known.
-    /// Must be called while no request is in flight: queued events are replaced, and a finished request removes
-    /// its events from the queue by equality.
-    func completeEventsWithoutArtemisID() {
-        let events = eventsWithoutArtemisID.allElements
-        guard !events.isEmpty else { return }
-
-        let queuedEvents = eventsQueueManager.events.allElements
-        eventsWithoutArtemisID.removeItems(events.filter { !queuedEvents.contains($0) })
-
-        guard isArtemisIDValid, let artemisID = storage.artemisID?.id else { return }
-
-        eventsQueueManager.events.replaceElements { event in
-            events.contains(event) ? event.addingArtemisID(artemisID) : event
-        }
-        eventsWithoutArtemisID.removeItems(events)
+        return Date() >= lastIdentityRequestDate.addingTimeInterval(identityRetryInterval)
     }
 }

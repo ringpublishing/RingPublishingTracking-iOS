@@ -31,6 +31,9 @@ struct Constants {
     /// Key for the tracking identifier in API
     static let trackingIdentifierKey = "eaUUID"
 
+    /// Minimum time in seconds between identity requests retried while the tracking identifiers are missing
+    static let identityRetryInterval: TimeInterval = 30
+
     // MARK: Config
 
     static let applicationDefaultStructurePath = ["undefined"]

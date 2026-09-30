@@ -32,8 +32,6 @@ final class EventsService {
     /// Service responsible for sending requests to the backend
     var apiService: APIService?
 
-    var isIdentifyMeRequestInProgress: Bool = false
-
     /// Guards `sendEvents(for:)` against overlapping in-flight requests resending the same unacked queue.
     /// The completion runs on a background queue, so access is serialized through `sendEventsLock`.
     let sendEventsLock = NSLock()
@@ -41,14 +39,25 @@ final class EventsService {
     var eventsSendPending = false
 
     /// Counts the identity requests (/me followed by /user) in flight, so events queued while the identifiers are
-    /// still missing wait for them instead of being sent without eaUUID and Artemis identifier.
+    /// still missing wait for them instead of being sent without eaUUID.
     /// Updated from network completions as well as from the main thread, so access is serialized through `identityLock`.
     let identityLock = NSLock()
     var identityRequestsInProgress = 0
     var isSendingWaitingForIdentity = false
 
-    /// Events decorated before the Artemis identifier was known, completed with it right before they are sent
-    let eventsWithoutArtemisID = AtomicArray<Event>()
+    /// Start of the last identity request, used to throttle retries while the identifiers are missing
+    var lastIdentityRequestDate: Date?
+
+    /// Minimum time between identity requests retried from sending events
+    var identityRetryInterval: TimeInterval = Constants.identityRetryInterval
+
+    /// Whether an identity request (/me followed by /user) is in flight
+    var isIdentifyMeRequestInProgress: Bool {
+        identityLock.lock()
+        defer { identityLock.unlock() }
+
+        return identityRequestsInProgress > 0
+    }
 
     /// Registered decorators
     var decorators: [Decorator]
@@ -129,6 +138,11 @@ final class EventsService {
         // Prepare decorators
         prepareDecorators()
 
+        // Events reported before the Artemis identifier is fetched again carry the one stored by the previous session
+        if isArtemisIDValid, let artemis = storage.artemisID {
+            userDataDecorator.updateArtemisData(artemis: artemis.id)
+        }
+
         delegate?.eventsService(self, didAssignSessionIdentifier: sessionIdentifierDecorator.currentIdentifier)
 
         // Prepare random unique device identifier
@@ -152,7 +166,6 @@ final class EventsService {
                 switch result {
                 case .success(let identifiers):
                     self.publishTrackingIdentifier(eaUUID: identifiers.0, artemis: identifiers.1)
-                    self.isIdentifyMeRequestInProgress = false
                 case .failure(let error):
                     self.retryIdentityRequest(error: error)
                 }
@@ -178,7 +191,6 @@ final class EventsService {
                 return true
             }
 
-            self?.rememberEventsWithoutArtemisID(filteredEvents)
             self?.eventsQueueManager.addEvents(filteredEvents)
         }
     }

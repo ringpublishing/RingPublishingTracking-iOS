@@ -44,8 +44,6 @@ private extension EventsService {
         eventsSendPending = false
         sendEventsLock.unlock()
 
-        completeEventsWithoutArtemisID()
-
         let body = buildEventRequest()
         let endpoint = SendEventEnpoint(body: body)
 
@@ -87,7 +85,7 @@ private extension EventsService {
             return
         }
 
-        guard shouldRetryIdentifyRequest else {
+        guard shouldRetryIdentifyRequest, isIdentityRetryAllowed() else {
             sendEvents(for: eventsQueueManager)
             return
         }

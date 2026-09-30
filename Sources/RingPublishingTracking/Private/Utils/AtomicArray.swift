@@ -33,10 +33,4 @@ final class AtomicArray<T: Equatable> {
             }
         }
     }
-
-    func replaceElements(using transform: (T) -> T) {
-        queue.sync(flags: .barrier) {
-            storage = storage.map(transform)
-        }
-    }
 }
