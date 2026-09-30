@@ -28,17 +28,7 @@ extension ContentMetadata {
         return "PV_4,\(sourceSystem),\(pubId),\(part),\(paid)".replacingOccurrences(of: " ", with: "_")
     }
 
-    /// Content identifier reported in `PU` by events built from the content metadata alone
-    var normalizedContentId: String {
-        contentId.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-    }
-
-    /// Builds `RDLCN` parameter
-    ///
-    /// - Parameter objectIdentifier: Content identifier reported as `PU` by the same event, sent as `object.id`.
-    ///   `object` is omitted when the identifier is empty.
-    /// - Returns: Base64 encoded parameter value
-    func rdlcnParameter(objectIdentifier: String?) -> String? {
-        return ContentMarkAsPaid(contentMetadata: self, objectIdentifier: objectIdentifier).jsonStringBase64
+    var rdlcnParameter: String? {
+        return ContentMarkAsPaid(contentMetadata: self).jsonStringBase64
     }
 }

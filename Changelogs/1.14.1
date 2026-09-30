@@ -6,6 +6,6 @@ Improvements to the 'RingPublishingTracking' module.
 ### Changes
 
 * Content identifier reported in the 'RDLCN' parameter as 'object.id'
-    - taken from 'contentId' of 'ContentMetadata' and lowercased the same way as 'PU', so it equals the 'PU' of page view, effective page view and keep alive events
-    - also sent with paid events, which report no 'PU'
-    - omitted when the content identifier is empty, 'publication' and 'source' are unchanged
+    - taken from 'contentId' of 'ContentMetadata', trimmed and lowercased, and reported only when the result is a UUID matching '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'; otherwise 'object' is omitted and a message is logged
+    - the same value in page view, effective page view, keep alive and paid events, following the same rule as the Android SDK
+    - 'PU', 'publication' and 'source' are unchanged

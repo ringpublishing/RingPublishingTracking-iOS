@@ -105,8 +105,7 @@ class EventsFactoryTests: XCTestCase {
                                               paidContent: true,
                                               contentId: "6789",
                                               contentSpaceUuid: "9123")
-        // swiftlint:disable:next line_length
-        let rdlcnParam = "eyJvYmplY3QiOnsiaWQiOiI2Nzg5In0sInB1YmxpY2F0aW9uIjp7InByZW1pdW0iOnRydWV9LCJzb3VyY2UiOnsiaWQiOiI5MTIzIiwic3lzdGVtIjoic3lzdGVtX25hbWUifX0="
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjp0cnVlfSwic291cmNlIjp7ImlkIjoiOTEyMyIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
 
         // When
         let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -128,8 +127,7 @@ class EventsFactoryTests: XCTestCase {
                                               paidContent: false,
                                               contentId: "6789",
                                               contentSpaceUuid: "12349")
-        // swiftlint:disable:next line_length
-        let rdlcnParam = "eyJvYmplY3QiOnsiaWQiOiI2Nzg5In0sInB1YmxpY2F0aW9uIjp7InByZW1pdW0iOmZhbHNlfSwic291cmNlIjp7ImlkIjoiMTIzNDkiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
+        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjEyMzQ5Iiwic3lzdGVtIjoic3lzdGVtX25hbWUifX0="
 
         // When
         let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
@@ -165,7 +163,9 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertNil(event.eventParameters["RDLC"], "RDLC should be left to the client decorator")
     }
 
-    func testCreatePageViewEvent_contentIdentifierWithUppercaseLetters_rdlcnObjectIdentifierEqualsPU() throws {
+    // MARK: - RDLCN object identifier
+
+    func testCreatePageViewEvent_uuidContentIdentifier_rdlcnReportsContentObject() {
         // Given
         let factory = EventsFactory()
         let contentMetadata = ContentMetadata(publicationId: "12345",
@@ -174,60 +174,73 @@ class EventsFactoryTests: XCTestCase {
                                               paidContent: false,
                                               contentId: "E0BE23E3-A100-4D4F-A347-0635DE46BFC4",
                                               contentSpaceUuid: "9123")
+        // {"object":{"id":"e0be23e3-a100-4d4f-a347-0635de46bfc4"},"publication":{"premium":false},
+        //  "source":{"id":"9123","system":"system_name"}}
+        let rdlcnParam = "eyJvYmplY3QiOnsiaWQiOiJlMGJlMjNlMy1hMTAwLTRkNGYtYTM0Ny0wNjM1ZGU0NmJmYzQifSwi" +
+            "cHVibGljYXRpb24iOnsicHJlbWl1bSI6ZmFsc2V9LCJzb3VyY2UiOnsiaWQiOiI5MTIzIiwic3lzdGVtIjoic3lzdGVtX25hbWUifX0="
 
         // When
         let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
                                                 contentMetadata: contentMetadata)
-        let params = event.eventParameters
-        let rdlcn = try decodedJSONParameter(params["RDLCN"])
-        let object = try XCTUnwrap(rdlcn["object"] as? [String: Any])
 
         // Then
-        XCTAssertEqual(params["PU"], "e0be23e3-a100-4d4f-a347-0635de46bfc4", "PU parameter should be the lowercased content identifier")
-        XCTAssertEqual(object["id"] as? String, params["PU"] as? String, "RDLCN object identifier should be equal to PU")
+        XCTAssertEqual(event.eventParameters["RDLCN"], rdlcnParam, "RDLCN parameter should carry the content object")
     }
 
-    func testCreatePageViewEvent_blankContentIdentifier_rdlcnHasNoObject() throws {
-        // Given
-        let factory = EventsFactory()
-        let contentMetadata = ContentMetadata(publicationId: "12345",
-                                              publicationUrl: URL(fileURLWithPath: "path"),
-                                              sourceSystemName: "system_name",
-                                              paidContent: false,
-                                              contentId: "  ",
-                                              contentSpaceUuid: "9123")
+    /// Vectors shared with the Android SDK, which has to report the same `object.id` for the same content
+    func testRDLCNObjectIdentifier_sharedTestVectors_sameIdentifierReportedByEveryEvent() throws {
+        let canonicalIdentifier = "e0be23e3-a100-4d4f-a347-0635de46bfc4"
+        let vectors: [(contentId: String, objectIdentifier: String?)] = [
+            ("E0BE23E3-A100-4D4F-A347-0635DE46BFC4", canonicalIdentifier),
+            ("  e0be23e3-a100-4d4f-a347-0635de46bfc4  ", canonicalIdentifier),
+            ("e0be23e3-a100-4d4f-a347-0635de46bfc4", canonicalIdentifier),
+            ("12345", nil),
+            ("my-unique-content-id-1234", nil),
+            ("e0be23e3a1004d4fa3470635de46bfc4", nil),
+            ("", nil),
+            ("   ", nil)
+        ]
 
-        // When
-        let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
-                                                contentMetadata: contentMetadata)
-        let rdlcn = try decodedJSONParameter(event.eventParameters["RDLCN"])
+        for vector in vectors {
+            // Given
+            let factory = EventsFactory()
+            let contentMetadata = ContentMetadata(publicationId: "12345",
+                                                  publicationUrl: URL(fileURLWithPath: "path"),
+                                                  sourceSystemName: "system_name",
+                                                  paidContent: false,
+                                                  contentId: vector.contentId,
+                                                  contentSpaceUuid: "9123")
+            let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [], timings: [], hasFocus: [], keepAliveMeasureType: [])
+            let effectivePageViewMetadata = EffectivePageViewMetadata(componentSource: "audio", triggerSource: "play", measurement: .zero)
+            let supplierData = SupplierData(supplierAppId: "app", paywallSupplier: "piano")
+            let metricsData = MetricsData(metricLimitName: "OnetMeter", freePageViewCount: 9, freePageViewLimit: 10)
 
-        // Then
-        XCTAssertNil(rdlcn["object"], "RDLCN should have no object without a content identifier")
-        XCTAssertNotNil(rdlcn["publication"], "RDLCN publication should be reported as before")
-        XCTAssertNotNil(rdlcn["source"], "RDLCN source should be reported as before")
-    }
+            // When
+            let pageView = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId, contentMetadata: contentMetadata)
+            let effectivePageView = factory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
+                                                                         contentMetadata: contentMetadata,
+                                                                         metaData: effectivePageViewMetadata)
+            let keepAlive = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
+            let showMetricLimit = factory.createShowMetricLimitEvent(contentMetadata: contentMetadata,
+                                                                     supplierData: supplierData,
+                                                                     metricsData: metricsData)
 
-    func testCreateEffectivePageViewEvent_contentIdentifierWithUppercaseLetters_rdlcnObjectIdentifierEqualsPU() throws {
-        // Given
-        let factory = EventsFactory()
-        let contentMetadata = ContentMetadata(publicationId: "12345",
-                                              publicationUrl: URL(fileURLWithPath: "path"),
-                                              sourceSystemName: "system_name",
-                                              paidContent: false,
-                                              contentId: "E0BE23E3-A100-4D4F-A347-0635DE46BFC4",
-                                              contentSpaceUuid: "9123")
-        let metaData = EffectivePageViewMetadata(componentSource: "audio", triggerSource: "play", measurement: .zero)
+            // Then
+            let events: [(name: String, event: Event?)] = [
+                ("page view", pageView),
+                ("effective page view", effectivePageView),
+                ("keep alive", keepAlive),
+                ("show metric limit", showMetricLimit)
+            ]
 
-        // When
-        let event = try XCTUnwrap(factory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
-                                                                       contentMetadata: contentMetadata,
-                                                                       metaData: metaData))
-        let params = event.eventParameters
-        let object = try XCTUnwrap(decodedJSONParameter(params["RDLCN"])["object"] as? [String: Any])
+            for (name, event) in events {
+                let rdlcn = try decodedJSONParameter(XCTUnwrap(event).eventParameters["RDLCN"])
+                let object = rdlcn["object"] as? [String: Any]
 
-        // Then
-        XCTAssertEqual(object["id"] as? String, params["PU"] as? String, "RDLCN object identifier should be equal to PU")
+                XCTAssertEqual(object?["id"] as? String, vector.objectIdentifier, "\(name), content identifier '\(vector.contentId)'")
+                XCTAssertEqual(rdlcn["object"] == nil, vector.objectIdentifier == nil, "\(name), content identifier '\(vector.contentId)'")
+            }
+        }
     }
 
     // MARK: - ErrorEvent Tests

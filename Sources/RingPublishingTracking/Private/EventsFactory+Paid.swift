@@ -34,7 +34,7 @@ extension EventsFactory {
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["closure_percentage"] = offerContextData.closurePercentage
         parameters["tpcc"] = targetPromotionCampaignCode
-        parameters["RDLCN"] = contentMetadata?.rdlcnParameter(objectIdentifier: contentMetadata?.normalizedContentId)
+        parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
     }
@@ -57,7 +57,7 @@ extension EventsFactory {
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["closure_percentage"] = offerContextData.closurePercentage
         parameters["tpcc"] = targetPromotionCampaignCode
-        parameters["RDLCN"] = contentMetadata?.rdlcnParameter(objectIdentifier: contentMetadata?.normalizedContentId)
+        parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
     }
@@ -81,7 +81,7 @@ extension EventsFactory {
         parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["paywall_variant_id"] = offerData.paywallVariantId
         parameters["tpcc"] = targetPromotionCampaignCode
-        parameters["RDLCN"] = contentMetadata?.rdlcnParameter(objectIdentifier: contentMetadata?.normalizedContentId)
+        parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
     }
@@ -114,7 +114,7 @@ extension EventsFactory {
         parameters["event_details"] = EventDetails(fakeUserId: temporaryUserId,
                                                    subscriptionPaymentData: subscriptionPaymentData).jsonString
         parameters["payment_method"] = subscriptionPaymentData.paymentMethod.rawValue
-        parameters["RDLCN"] = contentMetadata?.rdlcnParameter(objectIdentifier: contentMetadata?.normalizedContentId)
+        parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
     }
@@ -135,7 +135,7 @@ extension EventsFactory {
         parameters["free_pv_limit"] = metricsData.freePageViewLimit
         parameters["source_dx"] = contentMetadata.dxParameter
         parameters["source_publication_uuid"] = contentMetadata.contentId
-        parameters["RDLCN"] = contentMetadata.rdlcnParameter(objectIdentifier: contentMetadata.normalizedContentId)
+        parameters["RDLCN"] = contentMetadata.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
     }
@@ -152,7 +152,7 @@ extension EventsFactory {
         parameters["source_dx"] = contentMetadata?.dxParameter
         parameters["source_publication_uuid"] = contentMetadata?.contentId
         parameters["event_details"] = likelihoodData.jsonString
-        parameters["RDLCN"] = contentMetadata?.rdlcnParameter(objectIdentifier: contentMetadata?.normalizedContentId)
+        parameters["RDLCN"] = contentMetadata?.rdlcnParameter
 
         return createPaidEvent(parameters: parameters)
     }

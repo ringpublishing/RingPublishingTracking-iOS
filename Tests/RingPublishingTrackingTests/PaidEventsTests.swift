@@ -287,8 +287,7 @@ class PaidEventsFactoryTests: XCTestCase {
 
     // Utility function
     private func mockRdlcnEncodingPaid() -> String {
-        let input = "{\"object\":{\"id\":\"\(sampleContentMetadata.contentId)\"}," +
-        "\"publication\":{\"premium\":\(sampleContentMetadata.paidContent)},\"source\":{\"id\":" +
+        let input = "{\"publication\":{\"premium\":\(sampleContentMetadata.paidContent)},\"source\":{\"id\":" +
         "\"\(sampleContentMetadata.contentSpaceUuid)\",\"system\":\"\(sampleContentMetadata.sourceSystemName)\"}}"
         return encode(input: input)
     }
