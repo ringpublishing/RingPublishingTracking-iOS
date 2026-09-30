@@ -198,7 +198,9 @@ class EventsFactoryTests: XCTestCase {
             ("my-unique-content-id-1234", nil),
             ("e0be23e3a1004d4fa3470635de46bfc4", nil),
             ("", nil),
-            ("   ", nil)
+            ("   ", nil),
+            ("\u{0085}e0be23e3-a100-4d4f-a347-0635de46bfc4\u{0085}", nil),
+            ("e0be23e3-a100-4d4f-a347-0635de46bfc4\u{0085}", nil)
         ]
 
         for vector in vectors {
@@ -243,6 +245,32 @@ class EventsFactoryTests: XCTestCase {
         }
     }
 
+    func testRDLCNObjectIdentifier_sameInvalidIdentifierInRepeatedEvents_warningIsLoggedOncePerIdentifier() {
+        // Given
+        let messages = LoggedMessages()
+        let previousLoggerOutput = Logger.shared.loggerOutput
+        Logger.shared.loggerOutput = { messages.append($0) }
+        defer { Logger.shared.loggerOutput = previousLoggerOutput }
+
+        let factory = EventsFactory()
+        let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [], timings: [], hasFocus: [], keepAliveMeasureType: [])
+        let firstContent = contentMetadata(contentId: "invalid-content-identifier-1")
+        let secondContent = contentMetadata(contentId: "invalid-content-identifier-2")
+
+        // When
+        for _ in 0..<3 {
+            _ = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: firstContent)
+        }
+        _ = factory.createPageViewEvent(contentIdentifier: firstContent.contentId, contentMetadata: firstContent)
+        _ = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: secondContent)
+
+        // Then
+        XCTAssertEqual(messages.count(containing: "'invalid-content-identifier-1' is not a UUID"), 1,
+                       "Repeated events with the same invalid identifier should log it once")
+        XCTAssertEqual(messages.count(containing: "'invalid-content-identifier-2' is not a UUID"), 1,
+                       "Another invalid identifier should be logged again")
+    }
+
     // MARK: - ErrorEvent Tests
 
     func testCreateErrorEvent_incorrectEventProvided_returnedEventIsDecorated() {
@@ -259,5 +287,37 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(event.analyticsSystemName, AnalyticsSystem.kropkaMonitoring.rawValue, "analyticsSystemName should be proper")
         XCTAssertEqual(params["VE"], "AppError", "VE arameter should match")
         XCTAssertNotNil(params["VM"], "VM parameter should contain message")
+    }
+}
+
+private extension EventsFactoryTests {
+
+    func contentMetadata(contentId: String) -> ContentMetadata {
+        ContentMetadata(publicationId: "12345",
+                        publicationUrl: URL(fileURLWithPath: "path"),
+                        sourceSystemName: "system_name",
+                        paidContent: false,
+                        contentId: contentId,
+                        contentSpaceUuid: "9123")
+    }
+}
+
+/// Collects module logs, which may arrive from any thread
+private final class LoggedMessages {
+
+    private let lock = NSLock()
+    private var messages: [String] = []
+
+    func append(_ message: String) {
+        lock.lock()
+        messages.append(message)
+        lock.unlock()
+    }
+
+    func count(containing text: String) -> Int {
+        lock.lock()
+        defer { lock.unlock() }
+
+        return messages.filter { $0.contains(text) }.count
     }
 }
