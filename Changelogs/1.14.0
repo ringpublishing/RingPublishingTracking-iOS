@@ -14,3 +14,7 @@ Improvements to the 'RingPublishingTracking' module.
     - reported as top level 'view' object next to 'client' and 'variant', carrying the value under 'type' (e.g. {"view":{"type":"text"}}), instead of 'client.viewType' introduced in 1.13.0
     - public API is unchanged, 'viewType' of 'reportContentPageView' works as before
     - events reported without a view type still omit the key
+* Events reported before the tracking identifiers are fetched are now sent with them
+    - on a fresh install the first events (e.g. the first page view) were sent before the identify and Artemis requests finished, without 'eaUUID' and without the Artemis identifier in 'RDLU'
+    - such events now wait for the identity request in flight and get the Artemis identifier added to 'RDLU' right before they are sent, every other 'RDLU' value stays as it was when the event was reported
+    - when the identity request fails, waiting events are still sent, as before

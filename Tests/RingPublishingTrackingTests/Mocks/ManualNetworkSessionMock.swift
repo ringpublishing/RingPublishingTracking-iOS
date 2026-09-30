@@ -13,10 +13,12 @@ import Foundation
 class ManualNetworkSessionMock: NetworkSession {
 
     private(set) var callCount = 0
+    private(set) var requests: [URLRequest] = []
     private var pendingCompletionHandlers: [(Data?, URLResponse?, Error?) -> Void] = []
 
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         callCount += 1
+        requests.append(request)
         pendingCompletionHandlers.append(completionHandler)
     }
 

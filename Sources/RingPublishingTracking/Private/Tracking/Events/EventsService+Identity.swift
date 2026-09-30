@@ -92,19 +92,26 @@ extension EventsService {
     ///   - completion: Completion handler.
     func performSequentialIdentity(tenantID: String, completion: @escaping (Result<(EaUUID, Artemis), ServiceError>) -> Void) {
         self.isIdentifyMeRequestInProgress = true
+        identityRequestStarted()
+
+        let finish: (Result<(EaUUID, Artemis), ServiceError>) -> Void = { [weak self] result in
+            self?.identityRequestFinished()
+            completion(result)
+        }
+
         fetchIdentity { [weak self] identityResult in
             switch identityResult {
             case .success(let eaUUID):
                 self?.fetchArtemisID(tenantID: tenantID, eaUUID: eaUUID) { artemisResult in
                     switch artemisResult {
                     case .success(let artemis):
-                        completion(.success(((eaUUID, artemis))))
+                        finish(.success(((eaUUID, artemis))))
                     case .failure(let error):
-                        completion(.failure(error))
+                        finish(.failure(error))
                     }
                 }
             case .failure(let error):
-                completion(.failure(error))
+                finish(.failure(error))
             }
         }
     }
@@ -209,5 +216,78 @@ extension EventsService {
                                                     sessionIdentifier: sessionIdentifierDecorator.currentIdentifier)
 
         delegate?.eventsService(self, retrievedTrackingIdentifier: trackingIdentifier)
+    }
+}
+
+// MARK: - Events queued before the identity is known
+extension EventsService {
+
+    /// Marks an identity request (/me followed by /user) as started
+    func identityRequestStarted() {
+        identityLock.lock()
+        identityRequestsInProgress += 1
+        identityLock.unlock()
+    }
+
+    /// Marks an identity request as finished and, once none is left in flight, sends the events which waited for it
+    func identityRequestFinished() {
+        identityLock.lock()
+        identityRequestsInProgress = max(identityRequestsInProgress - 1, 0)
+        let shouldSendWaitingEvents = identityRequestsInProgress == 0 && isSendingWaitingForIdentity
+        if shouldSendWaitingEvents {
+            isSendingWaitingForIdentity = false
+        }
+        identityLock.unlock()
+
+        guard shouldSendWaitingEvents else { return }
+
+        // Identity completions run on a background queue, while the queue manager schedules its timer on the main run loop
+        DispatchQueue.main.async { [weak self] in
+            self?.eventsQueueManager.sendEventsIfPossible()
+        }
+    }
+
+    /// Checks if sending has to wait for the identity request in flight.
+    /// Sent before it finishes, events would reach the backend without eaUUID and Artemis identifier,
+    /// which is what happened to the first events reported after a fresh install.
+    ///
+    /// - Returns: `True` if identifiers are missing and an identity request is in flight, otherwise `False`
+    func shouldWaitForIdentityInProgress() -> Bool {
+        guard !isEaUuidValid || !hasPostIntervalStored || !isArtemisIDValid else { return false }
+
+        identityLock.lock()
+        defer { identityLock.unlock() }
+
+        guard identityRequestsInProgress > 0 else { return false }
+
+        isSendingWaitingForIdentity = true
+        return true
+    }
+
+    /// Remembers events decorated before the Artemis identifier was known, see `completeEventsWithoutArtemisID()`
+    ///
+    /// - Parameter events: Decorated events added to the queue
+    func rememberEventsWithoutArtemisID(_ events: [Event]) {
+        guard operationMode.canSendNetworkRequests else { return }
+
+        events.filter { !$0.carriesArtemisID }.forEach { eventsWithoutArtemisID.append($0) }
+    }
+
+    /// Adds the Artemis identifier to the queued events decorated before it was known.
+    /// Must be called while no request is in flight: queued events are replaced, and a finished request removes
+    /// its events from the queue by equality.
+    func completeEventsWithoutArtemisID() {
+        let events = eventsWithoutArtemisID.allElements
+        guard !events.isEmpty else { return }
+
+        let queuedEvents = eventsQueueManager.events.allElements
+        eventsWithoutArtemisID.removeItems(events.filter { !queuedEvents.contains($0) })
+
+        guard isArtemisIDValid, let artemisID = storage.artemisID?.id else { return }
+
+        eventsQueueManager.events.replaceElements { event in
+            events.contains(event) ? event.addingArtemisID(artemisID) : event
+        }
+        eventsWithoutArtemisID.removeItems(events)
     }
 }

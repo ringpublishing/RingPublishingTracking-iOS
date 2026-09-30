@@ -40,6 +40,16 @@ final class EventsService {
     var isSendingEvents = false
     var eventsSendPending = false
 
+    /// Counts the identity requests (/me followed by /user) in flight, so events queued while the identifiers are
+    /// still missing wait for them instead of being sent without eaUUID and Artemis identifier.
+    /// Updated from network completions as well as from the main thread, so access is serialized through `identityLock`.
+    let identityLock = NSLock()
+    var identityRequestsInProgress = 0
+    var isSendingWaitingForIdentity = false
+
+    /// Events decorated before the Artemis identifier was known, completed with it right before they are sent
+    let eventsWithoutArtemisID = AtomicArray<Event>()
+
     /// Registered decorators
     var decorators: [Decorator]
 
@@ -168,6 +178,7 @@ final class EventsService {
                 return true
             }
 
+            self?.rememberEventsWithoutArtemisID(filteredEvents)
             self?.eventsQueueManager.addEvents(filteredEvents)
         }
     }

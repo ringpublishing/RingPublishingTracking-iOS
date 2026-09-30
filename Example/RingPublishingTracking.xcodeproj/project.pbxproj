@@ -29,6 +29,7 @@
 		204EAF38272A7918009E2F0D /* RingPublishingTrackingDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EAF37272A7917009E2F0D /* RingPublishingTrackingDelegateMock.swift */; };
 		2088320B2702926D00EA53FD /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208832092702924D00EA53FD /* XCTestCase+Helpers.swift */; };
 		2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088321227046EB100EA53FD /* EventsServiceTests.swift */; };
+		D34116AB10E3E6F8F824462A /* EventsServiceIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3F4F8C8A7398AE84398BA0 /* EventsServiceIdentityTests.swift */; };
 		208CD61A26F9B276006A406C /* EventsQueueManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */; };
 		208CD61C26F9B3C0006A406C /* StaticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61B26F9B3C0006A406C /* StaticStorage.swift */; };
 		208CD61E26F9BADA006A406C /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208CD61D26F9BADA006A406C /* DictionaryTests.swift */; };
@@ -232,6 +233,7 @@
 		204EAF37272A7917009E2F0D /* RingPublishingTrackingDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingPublishingTrackingDelegateMock.swift; sourceTree = "<group>"; };
 		208832092702924D00EA53FD /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
 		2088321227046EB100EA53FD /* EventsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsServiceTests.swift; sourceTree = "<group>"; };
+		1D3F4F8C8A7398AE84398BA0 /* EventsServiceIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsServiceIdentityTests.swift; sourceTree = "<group>"; };
 		208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsQueueManagerTests.swift; sourceTree = "<group>"; };
 		208CD61B26F9B3C0006A406C /* StaticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticStorage.swift; sourceTree = "<group>"; };
 		208CD61D26F9BADA006A406C /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				7D1A2B6326E796C000648882 /* StoredValueInUserDefaultsTests.swift */,
 				7DE4453A26E8913900A93431 /* LoggerTests.swift */,
 				2088321227046EB100EA53FD /* EventsServiceTests.swift */,
+				1D3F4F8C8A7398AE84398BA0 /* EventsServiceIdentityTests.swift */,
 				208CD61926F9B276006A406C /* EventsQueueManagerTests.swift */,
 				208CD61D26F9BADA006A406C /* DictionaryTests.swift */,
 				204EAED2270EF5EB009E2F0D /* DecoratorTests.swift */,
@@ -1300,6 +1303,7 @@
 				60108E6D2B0515C6005656C1 /* RingPublishingTrackingDelegate.swift in Sources */,
 				20C2394B26F22238005A734A /* EndpointTests.swift in Sources */,
 				2088321427046EBB00EA53FD /* EventsServiceTests.swift in Sources */,
+				D34116AB10E3E6F8F824462A /* EventsServiceIdentityTests.swift in Sources */,
 				A039F6612DF3137100B9BD67 /* EPVKeepAliveDataSourceStub.swift in Sources */,
 				A04E94FA2CB7EE660048B4AF /* EventsFactory+Audio.swift in Sources */,
 				60108EAF2B0515C6005656C1 /* Bodable.swift in Sources */,

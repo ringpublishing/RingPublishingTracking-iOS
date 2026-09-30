@@ -44,6 +44,8 @@ private extension EventsService {
         eventsSendPending = false
         sendEventsLock.unlock()
 
+        completeEventsWithoutArtemisID()
+
         let body = buildEventRequest()
         let endpoint = SendEventEnpoint(body: body)
 
@@ -80,6 +82,11 @@ private extension EventsService {
     }
 
     func checkIfIdentityRequestShouldBePerformed() {
+        guard !shouldWaitForIdentityInProgress() else {
+            Logger.log("Identity request is in progress. Events will be sent once it finishes.")
+            return
+        }
+
         guard shouldRetryIdentifyRequest else {
             sendEvents(for: eventsQueueManager)
             return

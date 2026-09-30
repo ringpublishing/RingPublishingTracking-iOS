@@ -8,6 +8,8 @@
 
 import Foundation
 
+private let userDataParameterName = "RDLU"
+
 final class UserDataDecorator: Decorator {
 
     private lazy var encoder = {
@@ -27,7 +29,7 @@ final class UserDataDecorator: Decorator {
 
         // RDLU
         if let rdlu = prepareRDLU(data: data) {
-            userDataParams["RDLU"] = rdlu.base64EncodedString()
+            userDataParams[userDataParameterName] = rdlu.base64EncodedString()
         }
 
         // IZ
@@ -65,5 +67,50 @@ private extension UserDataDecorator {
         guard let data = data, data.sso != nil || data.id != nil else { return nil }
 
         return try? encoder.encode(data)
+    }
+}
+
+// MARK: - Completing the user data of a decorated event
+extension Event {
+
+    /// Whether the user data (`RDLU`) of the event carries the Artemis identifier
+    var carriesArtemisID: Bool {
+        userData?[UserData.CodingKeys.id.rawValue] != nil
+    }
+
+    /// Returns the event with the Artemis identifier added to its user data (`RDLU`).
+    /// Every other field of the user data keeps the value the event was decorated with.
+    ///
+    /// - Parameter artemisID: Artemis identifier which was not known yet when the event was decorated
+    /// - Returns: `Event`
+    func addingArtemisID(_ artemisID: ArtemisID) -> Event {
+        guard !carriesArtemisID,
+              let artemisData = try? JSONEncoder().encode(artemisID),
+              let artemisObject = try? JSONSerialization.jsonObject(with: artemisData) else {
+            return self
+        }
+
+        var completedUserData = userData ?? [:]
+        completedUserData[UserData.CodingKeys.id.rawValue] = artemisObject
+
+        guard let userDataJSON = try? JSONSerialization.data(withJSONObject: completedUserData, options: .sortedKeys) else {
+            return self
+        }
+
+        var parameters = eventParameters
+        parameters[userDataParameterName] = userDataJSON.base64EncodedString()
+
+        return Event(analyticsSystemName: analyticsSystemName, eventName: eventName, eventParameters: parameters)
+    }
+}
+
+private extension Event {
+
+    var userData: [String: Any]? {
+        guard let value = eventParameters[userDataParameterName] as? String, let data = Data(base64Encoded: value) else {
+            return nil
+        }
+
+        return (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
     }
 }
