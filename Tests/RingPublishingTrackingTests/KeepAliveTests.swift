@@ -134,7 +134,8 @@ class KeepAliveTests: XCTestCase {
                                                   timings: [],
                                                   hasFocus: [],
                                                   keepAliveMeasureType: [])
-        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjpmYWxzZX0sInNvdXJjZSI6eyJpZCI6IjEyOTAiLCJzeXN0ZW0iOiJzeXN0ZW1fbmFtZSJ9fQ=="
+        // swiftlint:disable:next line_length
+        let rdlcnParam = "eyJvYmplY3QiOnsiaWQiOiI2Nzg5In0sInB1YmxpY2F0aW9uIjp7InByZW1pdW0iOmZhbHNlfSwic291cmNlIjp7ImlkIjoiMTI5MCIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
 
         // When
         let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
@@ -158,7 +159,8 @@ class KeepAliveTests: XCTestCase {
                                                   timings: [],
                                                   hasFocus: [],
                                                   keepAliveMeasureType: [])
-        let rdlcnParam = "eyJwdWJsaWNhdGlvbiI6eyJwcmVtaXVtIjp0cnVlfSwic291cmNlIjp7ImlkIjoiMTI5MCIsInN5c3RlbSI6InN5c3RlbV9uYW1lIn19"
+        // swiftlint:disable:next line_length
+        let rdlcnParam = "eyJvYmplY3QiOnsiaWQiOiI2Nzg5In0sInB1YmxpY2F0aW9uIjp7InByZW1pdW0iOnRydWV9LCJzb3VyY2UiOnsiaWQiOiIxMjkwIiwic3lzdGVtIjoic3lzdGVtX25hbWUifX0="
 
         // When
         let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
@@ -166,5 +168,54 @@ class KeepAliveTests: XCTestCase {
 
         // Then
         XCTAssertEqual(params["RDLCN"], rdlcnParam, "RDLCN parameter should be in correct format")
+    }
+
+    func testCreateKeepAliveEvent_contentIdentifierWithWhitespaceAndUppercaseLetters_rdlcnObjectIdentifierEqualsPU() throws {
+        // Given
+        let factory = EventsFactory()
+
+        let contentMetadata = ContentMetadata(publicationId: "12345",
+                                              publicationUrl: URL(fileURLWithPath: "path"),
+                                              sourceSystemName: "system_name",
+                                              paidContent: false,
+                                              contentId: " E0BE23E3-A100-4D4F-A347-0635DE46BFC4 ",
+                                              contentSpaceUuid: "1290")
+        let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [],
+                                                  timings: [],
+                                                  hasFocus: [],
+                                                  keepAliveMeasureType: [])
+
+        // When
+        let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
+        let params = event.eventParameters
+        let object = try XCTUnwrap(decodedJSONParameter(params["RDLCN"])["object"] as? [String: Any])
+
+        // Then
+        XCTAssertEqual(params["PU"], "e0be23e3-a100-4d4f-a347-0635de46bfc4", "PU should be the trimmed and lowercased content identifier")
+        XCTAssertEqual(object["id"] as? String, params["PU"] as? String, "RDLCN object identifier should be equal to PU")
+    }
+
+    func testCreateKeepAliveEvent_blankContentIdentifier_rdlcnHasNoObject() throws {
+        // Given
+        let factory = EventsFactory()
+
+        let contentMetadata = ContentMetadata(publicationId: "12345",
+                                              publicationUrl: URL(fileURLWithPath: "path"),
+                                              sourceSystemName: "system_name",
+                                              paidContent: false,
+                                              contentId: " \n",
+                                              contentSpaceUuid: "1290")
+        let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [],
+                                                  timings: [],
+                                                  hasFocus: [],
+                                                  keepAliveMeasureType: [])
+
+        // When
+        let event = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
+        let rdlcn = try decodedJSONParameter(event.eventParameters["RDLCN"])
+
+        // Then
+        XCTAssertNil(rdlcn["object"], "RDLCN should have no object without a content identifier")
+        XCTAssertNotNil(rdlcn["publication"], "RDLCN publication should be reported as before")
     }
 }

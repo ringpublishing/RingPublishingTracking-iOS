@@ -1,0 +1,11 @@
+1.14.1 Release notes (2026-09-30)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Content identifier reported in the 'RDLCN' parameter as 'object.id'
+    - taken from 'contentId' of 'ContentMetadata' and lowercased the same way as 'PU', so it equals the 'PU' of page view, effective page view and keep alive events
+    - also sent with paid events, which report no 'PU'
+    - omitted when the content identifier is empty, 'publication' and 'source' are unchanged

@@ -79,13 +79,15 @@ final class EventsFactory {
                              clientData: String? = nil) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
-        if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier.lowercased()
+        let reportedContentIdentifier = contentIdentifier?.lowercased()
+
+        if let reportedContentIdentifier = reportedContentIdentifier {
+            parameters["PU"] = reportedContentIdentifier
         }
 
         if let contentMetadata = contentMetadata {
             parameters["DX"] = contentMetadata.dxParameter
-            parameters["RDLCN"] = contentMetadata.rdlcnParameter
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter(objectIdentifier: reportedContentIdentifier)
         }
 
         // Reported only here: the client data carries the view type of this page view, which does not
@@ -105,16 +107,17 @@ final class EventsFactory {
         var parameters: [String: AnyHashable] = [:]
 
         let measurements = metaData.keepAliveContentStatus
+        let reportedContentIdentifier = contentMetadata.normalizedContentId
 
         parameters["DX"] = contentMetadata.dxParameter
-        parameters["PU"] = contentMetadata.contentId.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        parameters["PU"] = reportedContentIdentifier
         parameters["KDS"] = measurements.map { "\(Int($0.contentSize.width))x\(Int($0.contentSize.height))" }
         parameters["KHF"] = metaData.hasFocus
         parameters["KMT"] = metaData.keepAliveMeasureType.map { $0.rawValue }
         parameters["KTA"] = 1
         parameters["KTP"] = metaData.timings
         parameters["KTS"] = measurements.map { Int($0.scrollOffset) }
-        parameters["RDLCN"] = contentMetadata.rdlcnParameter
+        parameters["RDLCN"] = contentMetadata.rdlcnParameter(objectIdentifier: reportedContentIdentifier)
 
         return Event(analyticsSystemName: AnalyticsSystem.timescore.rawValue,
                      eventName: EventType.keepAlive.rawValue,
@@ -160,13 +163,15 @@ final class EventsFactory {
 
         var parameters: [String: AnyHashable] = [:]
 
-        if let contentIdentifier = contentIdentifier {
-            parameters["PU"] = contentIdentifier.lowercased()
+        let reportedContentIdentifier = contentIdentifier?.lowercased()
+
+        if let reportedContentIdentifier = reportedContentIdentifier {
+            parameters["PU"] = reportedContentIdentifier
         }
 
         if let contentMetadata = contentMetadata {
             parameters["DX"] = contentMetadata.dxParameter
-            parameters["RDLCN"] = contentMetadata.rdlcnParameter
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter(objectIdentifier: reportedContentIdentifier)
         }
 
         parameters["EV"] = "1.1"
