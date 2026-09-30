@@ -90,10 +90,12 @@ private extension EventsService {
             return
         }
 
-        retryIdentifyRequest { [weak self] result in
+        // The queued events are sent once the retried identify request answers, see `identifyRequestFinished()`
+        waitForIdentityRetry()
+        retryIdentifyRequest { result in
             switch result {
             case .success:
-                self?.eventsQueueManager.sendEventsIfPossible()
+                break
             case .failure:
                 Logger.log("Error occured during the retrying of identity check.")
             }

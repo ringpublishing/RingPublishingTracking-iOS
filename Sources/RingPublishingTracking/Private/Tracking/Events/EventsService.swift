@@ -38,14 +38,15 @@ final class EventsService {
     var isSendingEvents = false
     var eventsSendPending = false
 
-    /// Counts the identity requests (/me followed by /user) in flight, so events queued while the identifiers are
-    /// still missing wait for them instead of being sent without eaUUID.
+    /// Counts the identity requests (/me followed by /user) in flight, and those still waiting for /me, so events
+    /// queued while eaUUID is missing wait for /me instead of being sent without it.
     /// Updated from network completions as well as from the main thread, so access is serialized through `identityLock`.
     let identityLock = NSLock()
     var identityRequestsInProgress = 0
+    var identifyRequestsInProgress = 0
     var isSendingWaitingForIdentity = false
 
-    /// Start of the last identity request, used to throttle retries while the identifiers are missing
+    /// End of the last identity request, used to throttle retries while the identifiers are missing
     var lastIdentityRequestDate: Date?
 
     /// Minimum time between identity requests retried from sending events
