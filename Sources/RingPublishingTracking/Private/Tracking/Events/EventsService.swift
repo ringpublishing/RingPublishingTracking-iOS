@@ -119,6 +119,8 @@ final class EventsService {
         // Prepare decorators
         prepareDecorators()
 
+        delegate?.eventsService(self, didAssignSessionIdentifier: sessionIdentifierDecorator.currentIdentifier)
+
         // Prepare random unique device identifier
         if storage.randomUniqueDeviceId == nil {
             storage.randomUniqueDeviceId = UUID().uuidString

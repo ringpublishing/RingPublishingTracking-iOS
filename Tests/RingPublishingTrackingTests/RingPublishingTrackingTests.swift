@@ -35,6 +35,15 @@ class RingPublishingTrackingTests: XCTestCase {
 
     // MARK: Tests
 
+    func testInitialize_moduleInitialized_sessionIdentifierIsDeliveredImmediatelyAndMatchesReportedIS() throws {
+        // Then
+        let deliveredIdentifier = try XCTUnwrap(ringPublishingTrackingDelegateMock.assignedSessionIdentifiers.last)
+        let eventsService = try XCTUnwrap(RingPublishingTracking.shared.eventsService)
+
+        XCTAssertFalse(deliveredIdentifier.isEmpty)
+        XCTAssertEqual(deliveredIdentifier, eventsService.sessionIdentifierDecorator.parameters["IS"])
+    }
+
     func testDebugMode_debugModeEnabledOrDisabled_logsShouldBeReported() {
         // Given
         let expectation1 = self.expectation(description: "log reported")
@@ -179,7 +188,7 @@ class RingPublishingTrackingTests: XCTestCase {
         // Then
         let contentEvent = try XCTUnwrap(queueManager?.events.allElements.last)
         XCTAssertEqual(try decodedClientData(from: contentEvent),
-                       "{\"client\":{\"type\":\"native_app\",\"viewType\":\"smartshort\"}}",
+                       "{\"client\":{\"type\":\"native_app\"},\"view\":{\"type\":\"smartshort\"}}",
                        "Reported content page view should carry view type")
 
         // When

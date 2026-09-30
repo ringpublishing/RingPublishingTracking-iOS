@@ -15,6 +15,10 @@ extension RingPublishingTracking: EventsServiceDelegate {
         trackingIdentifier = identifier
     }
 
+    func eventsService(_ eventsService: EventsService, didAssignSessionIdentifier identifier: String) {
+        delegate?.ringPublishingTracking(self, didAssignSessionIdentifier: identifier)
+    }
+
     func eventsService(_ eventsService: EventsService, didFailWhileRetrievingTrackingIdentifier error: ServiceError) {
         let trackingError = TrackingIdentifierError(serviceError: error)
         delegate?.ringPublishingTracking(self, didFailToRetrieveTrackingIdentifier: trackingError)
