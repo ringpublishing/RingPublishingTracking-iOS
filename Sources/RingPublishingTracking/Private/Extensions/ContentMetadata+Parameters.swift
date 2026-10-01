@@ -28,11 +28,7 @@ extension ContentMetadata {
         return "PV_4,\(sourceSystem),\(pubId),\(part),\(paid)".replacingOccurrences(of: " ", with: "_")
     }
 
-    /// Builds `RDLCN` parameter
-    ///
-    /// - Parameter invalidContentIdentifiers: Content identifiers already logged as not being a UUID
-    /// - Returns: Base64 encoded parameter value
-    func rdlcnParameter(invalidContentIdentifiers: InvalidContentIdentifiers) -> String? {
-        return ContentMarkAsPaid(contentMetadata: self, invalidContentIdentifiers: invalidContentIdentifiers).jsonStringBase64
+    var rdlcnParameter: String? {
+        return ContentMarkAsPaid(contentMetadata: self).jsonStringBase64
     }
 }

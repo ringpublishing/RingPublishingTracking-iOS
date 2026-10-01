@@ -37,42 +37,19 @@ extension ContentObject {
 
     /// Creates the content object from the content identifier, trimmed and lowercased
     ///
-    /// - Parameters:
-    ///   - contentId: Content identifier from `ContentMetadata`
-    ///   - invalidContentIdentifiers: Identifiers already logged as not being a UUID
+    /// - Parameter contentId: Content identifier from `ContentMetadata`
     /// - Returns: `nil` when the identifier is not a UUID
-    init?(contentId: String, invalidContentIdentifiers: InvalidContentIdentifiers) {
+    init?(contentId: String) {
         let identifier = contentId.trimmingCharacters(in: Self.trimmedCharacters).lowercased()
 
         // The whole identifier has to match: `$` alone also matches before a trailing line terminator such as U+0085
         guard let match = identifier.range(of: Self.identifierPattern, options: .regularExpression),
               match == identifier.startIndex..<identifier.endIndex else {
-            if invalidContentIdentifiers.insert(contentId) {
-                Logger.log("Content identifier '\(contentId)' is not a UUID. 'object' is not reported in 'RDLCN'.", level: .default)
-            }
+            Logger.log("Content identifier '\(contentId)' is not a UUID. 'object' is not reported in 'RDLCN'.", level: .default)
             return nil
         }
 
         self.init(id: identifier)
-    }
-}
-
-/// Content identifiers already logged as not being a UUID, so each is logged once for the lifetime of the module
-/// rather than with every keep alive event of the same content
-final class InvalidContentIdentifiers {
-
-    private let lock = NSLock()
-    private var identifiers = Set<String>()
-
-    /// Remembers the identifier
-    ///
-    /// - Parameter identifier: Raw content identifier
-    /// - Returns: `True` the first time the identifier is remembered, otherwise `False`
-    func insert(_ identifier: String) -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-
-        return identifiers.insert(identifier).inserted
     }
 }
 
@@ -87,12 +64,12 @@ struct ContentMarkAsPaid: Encodable {
         case source
     }
 
-    init?(contentMetadata: ContentMetadata?, invalidContentIdentifiers: InvalidContentIdentifiers) {
+    init?(contentMetadata: ContentMetadata?) {
         guard let contentMetadata = contentMetadata else {
             return nil
         }
 
-        object = ContentObject(contentId: contentMetadata.contentId, invalidContentIdentifiers: invalidContentIdentifiers)
+        object = ContentObject(contentId: contentMetadata.contentId)
         publication = Publication(premium: contentMetadata.paidContent)
         source = Source(id: contentMetadata.contentSpaceUuid, system: contentMetadata.sourceSystemName)
     }

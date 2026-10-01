@@ -79,12 +79,8 @@ extension EventsService {
                 completion(.success((object)))
 
             case .failure(let error):
-                // Without an answer from the backend the stored identifier is kept while it is valid, so an offline
-                // relaunch does not lose the one `setup` seeded. Only an identifier request the backend rejects removes it.
-                if error.isRejectedByBackend || self?.isArtemisIDValid == false {
-                    self?.storeArtemis(nil)
-                    self?.userDataDecorator.updateArtemisData(artemis: nil)
-                }
+                self?.storeArtemis(nil)
+                self?.userDataDecorator.updateArtemisData(artemis: nil)
                 completion(.failure(error))
             }
         }
@@ -95,18 +91,23 @@ extension EventsService {
     ///   - tenantID: Instance of tenantID.
     ///   - completion: Completion handler.
     func performSequentialIdentity(tenantID: String, completion: @escaping (Result<(EaUUID, Artemis), ServiceError>) -> Void) {
-        identityRequestStarted()
+        self.isIdentifyMeRequestInProgress = true
 
+        // Every path ends here, so a failed request does not leave the identity request in progress
         let finish: (Result<(EaUUID, Artemis), ServiceError>) -> Void = { [weak self] result in
-            self?.identityRequestFinished()
+            self?.isIdentifyMeRequestInProgress = false
             completion(result)
+
+            // Send the events which queued up while there was no eaUUID
+            guard self?.isEaUuidValid == true else { return }
+            DispatchQueue.main.async {
+                self?.eventsQueueManager.sendEventsIfPossible()
+            }
         }
 
         fetchIdentity { [weak self] identityResult in
             switch identityResult {
             case .success(let eaUUID):
-                // Waiting events need eaUUID only: the Artemis identifier is taken when an event is reported
-                self?.identifyRequestFinished()
                 self?.fetchArtemisID(tenantID: tenantID, eaUUID: eaUUID) { artemisResult in
                     switch artemisResult {
                     case .success(let artemis):
@@ -116,9 +117,7 @@ extension EventsService {
                     }
                 }
             case .failure(let error):
-                // Finished first, so the retry interval already counts when waiting events are sent
                 finish(.failure(error))
-                self?.identifyRequestFinished()
             }
         }
     }
@@ -138,17 +137,20 @@ extension EventsService {
     /// Retry whole identity process from start.
     /// - Parameter error: `ServiceError` instance from previous operation.
     func retryIdentityRequest(error: ServiceError) {
-        switch shouldRetryWholeIdentityProcess() {
+        switch shouldRetryIdentifyRequest {
         case true:
             self.handleIdentifyMeRequestFailure(error: error)
+            self.isIdentifyMeRequestInProgress = false
         case false:
             guard let eaUUID = storage.eaUUID else { return }
             retryArtemisRequest(eaUUID: eaUUID) { [weak self] artemisResult in
                 switch artemisResult {
                 case .success(let artemis):
                     self?.publishTrackingIdentifier(eaUUID: eaUUID, artemis: artemis)
+                    self?.isIdentifyMeRequestInProgress = false
                 case .failure(let error):
                     self?.handleIdentifyMeRequestFailure(error: error)
+                    self?.isIdentifyMeRequestInProgress = false
                 }
             }
         }
@@ -171,10 +173,9 @@ extension EventsService {
 
     func retryIdentifyRequest(completion: @escaping (Result<Void, Error>) -> Void) {
         Logger.log("Retrying identify request as required data is missing.")
-        performSequentialIdentity(tenantID: configuration.tenantId) { [weak self] result in
+        performSequentialIdentity(tenantID: configuration.tenantId) { result in
             switch result {
-            case .success(let identifiers):
-                self?.publishTrackingIdentifier(eaUUID: identifiers.0, artemis: identifiers.1)
+            case .success:
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))
@@ -221,82 +222,5 @@ extension EventsService {
                                                     sessionIdentifier: sessionIdentifierDecorator.currentIdentifier)
 
         delegate?.eventsService(self, retrievedTrackingIdentifier: trackingIdentifier)
-    }
-}
-
-// MARK: - Events queued before the identity is known
-extension EventsService {
-
-    /// Marks an identity request (/me followed by /user) as started
-    func identityRequestStarted() {
-        identityLock.lock()
-        identityRequestsInProgress += 1
-        identifyRequestsInProgress += 1
-        identityLock.unlock()
-    }
-
-    /// Marks an identity request as finished, which starts the retry interval
-    func identityRequestFinished() {
-        identityLock.lock()
-        identityRequestsInProgress = max(identityRequestsInProgress - 1, 0)
-        lastIdentityRequestDate = Date()
-        identityLock.unlock()
-    }
-
-    /// Marks the identify request (/me) of an identity request as answered and, once none is left in flight,
-    /// sends the events which waited for it
-    func identifyRequestFinished() {
-        identityLock.lock()
-        identifyRequestsInProgress = max(identifyRequestsInProgress - 1, 0)
-        let shouldSendWaitingEvents = identifyRequestsInProgress == 0 && isSendingWaitingForIdentity
-        if shouldSendWaitingEvents {
-            isSendingWaitingForIdentity = false
-        }
-        identityLock.unlock()
-
-        guard shouldSendWaitingEvents else { return }
-
-        // Identity completions run on a background queue, sending resumes on the main thread where events are reported
-        DispatchQueue.main.async { [weak self] in
-            self?.eventsQueueManager.sendEventsIfPossible()
-        }
-    }
-
-    /// Checks if sending has to wait for the identify request (/me) in flight.
-    /// Sent before it answers, events would reach the backend without eaUUID,
-    /// which is what happened to the first events reported after a fresh install.
-    ///
-    /// - Returns: `True` if eaUUID or the post interval is missing and an identify request is in flight, otherwise `False`
-    func shouldWaitForIdentityInProgress() -> Bool {
-        guard !isEaUuidValid || !hasPostIntervalStored else { return false }
-
-        identityLock.lock()
-        defer { identityLock.unlock() }
-
-        guard identifyRequestsInProgress > 0 else { return false }
-
-        isSendingWaitingForIdentity = true
-        return true
-    }
-
-    /// Makes the events which start an identity retry wait for its identify request (/me),
-    /// like the events reported while one is in flight
-    func waitForIdentityRetry() {
-        identityLock.lock()
-        isSendingWaitingForIdentity = true
-        identityLock.unlock()
-    }
-
-    /// Checks if enough time has passed since the last identity request to retry it,
-    /// so an offline device does not call /me for every reported event.
-    ///
-    /// - Returns: `True` if an identity request may be retried now, otherwise `False`
-    func isIdentityRetryAllowed() -> Bool {
-        identityLock.lock()
-        defer { identityLock.unlock() }
-
-        guard let lastIdentityRequestDate else { return true }
-
-        return Date() >= lastIdentityRequestDate.addingTimeInterval(identityRetryInterval)
     }
 }

@@ -15,7 +15,6 @@ final class EventsFactory {
     var audioEventSessionTimestamps = [String: String]()
     var audioEventSessionCounter = [String: Int]()
     var isEffectivePageViewEventSent = false
-    let invalidContentIdentifiers = InvalidContentIdentifiers()
 
     // MARK: Click
 
@@ -86,7 +85,7 @@ final class EventsFactory {
 
         if let contentMetadata = contentMetadata {
             parameters["DX"] = contentMetadata.dxParameter
-            parameters["RDLCN"] = contentMetadata.rdlcnParameter(invalidContentIdentifiers: invalidContentIdentifiers)
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter
         }
 
         // Reported only here: the client data carries the view type of this page view, which does not
@@ -115,7 +114,7 @@ final class EventsFactory {
         parameters["KTA"] = 1
         parameters["KTP"] = metaData.timings
         parameters["KTS"] = measurements.map { Int($0.scrollOffset) }
-        parameters["RDLCN"] = contentMetadata.rdlcnParameter(invalidContentIdentifiers: invalidContentIdentifiers)
+        parameters["RDLCN"] = contentMetadata.rdlcnParameter
 
         return Event(analyticsSystemName: AnalyticsSystem.timescore.rawValue,
                      eventName: EventType.keepAlive.rawValue,
@@ -167,7 +166,7 @@ final class EventsFactory {
 
         if let contentMetadata = contentMetadata {
             parameters["DX"] = contentMetadata.dxParameter
-            parameters["RDLCN"] = contentMetadata.rdlcnParameter(invalidContentIdentifiers: invalidContentIdentifiers)
+            parameters["RDLCN"] = contentMetadata.rdlcnParameter
         }
 
         parameters["EV"] = "1.1"

@@ -24,30 +24,6 @@ class EventsQueueManagerTests: XCTestCase {
 
     // MARK: Tests
 
-    func testSendEventsIfPossible_calledOffMainThreadBeforePostIntervalPasses_eventsAreSentOnceItPasses() {
-        // Given: the first send has just happened, and the post interval is 200 ms
-        let manager = EventsQueueManager(storage: StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: 200),
-                                         operationMode: OperationMode())
-        let delegate = EventsQueueManagerDelegateSpy()
-        manager.delegate = delegate
-        manager.addEvents([Event.smallEvent()])
-
-        // When: another send is requested from a background thread, as a network completion does, before the interval passes
-        var requestedOnMainThread = true
-        let requested = expectation(description: "Send requested from a background thread")
-        DispatchQueue.global().async {
-            requestedOnMainThread = Thread.isMainThread
-            manager.sendEventsIfPossible()
-            requested.fulfill()
-        }
-        wait(for: [requested], timeout: 1)
-        wait(for: 0.5)
-
-        // Then
-        XCTAssertFalse(requestedOnMainThread, "The send should have been requested off the main thread")
-        XCTAssertEqual(delegate.readyToSendEventsCount, 2, "The timer scheduled from a background thread should still fire")
-    }
-
     func testAddEvents_FiveEventsAddedToQueue_builtRequestContainsFiveEvents() {
         // Given
         let manager = EventsQueueManager(storage: StaticStorage(), operationMode: OperationMode())
@@ -247,18 +223,4 @@ Duis libero nunc, imperdiet sit amet condimentum sit amet, finibus vel augue. In
 
     // swiftlint:enable function_body_length
     // swiftlint:enable line_length
-}
-
-/// Counts the queue's requests to send events
-private final class EventsQueueManagerDelegateSpy: EventsQueueManagerDelegate {
-
-    private(set) var readyToSendEventsCount = 0
-
-    func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {
-        readyToSendEventsCount += 1
-    }
-
-    func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager) {}
-
-    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {}
 }

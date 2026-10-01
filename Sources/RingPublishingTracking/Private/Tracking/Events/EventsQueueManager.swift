@@ -115,14 +115,6 @@ extension EventsQueueManager {
             return
         }
 
-        // A timer fires only on a thread whose run loop runs, and network completions call this from a background queue
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { [weak self] in
-                self?.scheduleTimer()
-            }
-            return
-        }
-
         guard timer == nil else {
             Logger.log("Timer is already scheduled.")
             return

@@ -12,45 +12,21 @@ import Foundation
 /// so overlapping requests can be simulated deterministically.
 class ManualNetworkSessionMock: NetworkSession {
 
-    /// Requests may be made from the main thread while a test completes others on a background thread
-    private let lock = NSLock()
-    private var _callCount = 0
-    private var _requests: [URLRequest] = []
+    private(set) var callCount = 0
+    private(set) var requests: [URLRequest] = []
     private var pendingCompletionHandlers: [(Data?, URLResponse?, Error?) -> Void] = []
 
-    var callCount: Int {
-        lock.lock()
-        defer { lock.unlock() }
-
-        return _callCount
-    }
-
-    var requests: [URLRequest] {
-        lock.lock()
-        defer { lock.unlock() }
-
-        return _requests
-    }
-
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        lock.lock()
-        _callCount += 1
-        _requests.append(request)
+        callCount += 1
+        requests.append(request)
         pendingCompletionHandlers.append(completionHandler)
-        lock.unlock()
     }
 
     /// Completes the oldest still-pending request with the given result
     func completeOldestPendingRequest(data: Data? = nil, response: URLResponse? = nil, error: Error? = nil) {
-        lock.lock()
-        guard !pendingCompletionHandlers.isEmpty else {
-            lock.unlock()
-            return
-        }
+        guard !pendingCompletionHandlers.isEmpty else { return }
 
         let completionHandler = pendingCompletionHandlers.removeFirst()
-        lock.unlock()
-
         completionHandler(data, response, error)
     }
 }

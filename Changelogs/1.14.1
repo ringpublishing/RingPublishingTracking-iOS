@@ -5,18 +5,14 @@ Improvements to the 'RingPublishingTracking' module.
 
 ### Changes
 
-* Events reported while the tracking identifiers are fetched now wait for the identify request
-    - on a fresh install the first events (e.g. the first page view) were sent before the identify request answered, without 'eaUUID' in 'ids', so the backend recorded them without 'lu'
-    - such events are now sent as soon as the identify request answers, without waiting for the Artemis request; when it fails they are still sent, as before
+* Events are sent only once 'eaUUID' is known
+    - on a fresh install the first events (e.g. the first page view) were sent before the identify request finished, without 'eaUUID' in 'ids', so the backend recorded them without 'lu'
+    - events reported without 'eaUUID' now stay in the queue, as in the Android SDK, and are sent once the identity request finishes
     - the Artemis identifier in 'RDLU' is still taken when the event is reported, so the very first event of a fresh install can still go out without it
 * Identity is requested again after a failed identify request
-    - a failed first identify request left the SDK without identifiers for the rest of the session; it is now retried when events are sent, at most once every 30 seconds counted from the end of the previous attempt
-    - the identifier fetched by such a retry is delivered with 'didAssignTrackingIdentifier', like the one fetched during 'initialize'
-* Events reported after a relaunch, before the Artemis identifier is fetched again, carry the still valid identifier stored by the previous session
-    - the stored identifier is kept when the Artemis request gets no answer (e.g. offline) and removed only when the backend rejects the request
-* A send requested from a network completion before the post interval passed no longer leaves the events queue with a timer that never fires
+    - a failed identify request left the identity request marked as in progress, so the identifiers were never requested again in that session; the next events sent now retry it
 * Content identifier reported in the 'RDLCN' parameter as 'object.id'
     - taken from 'contentId' of 'ContentMetadata' with ASCII whitespace trimmed (space, tab, line feed, carriage return, vertical tab, form feed), lowercased, and reported only when the whole result matches '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
-    - otherwise 'object' is omitted and a message is logged, once per content identifier
+    - otherwise 'object' is omitted and a message is logged
     - the same value in page view, effective page view, keep alive and paid events, following the same rule as the Android SDK
     - 'PU', 'publication' and 'source' are unchanged

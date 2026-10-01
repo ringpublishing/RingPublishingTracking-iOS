@@ -17,16 +17,3 @@ enum ServiceError: Error {
     case missingDecodedTrackingIdentifier
     case missingEaUUID
 }
-
-extension ServiceError {
-
-    /// Whether the backend answered the request and rejected it, as opposed to the request getting no answer
-    var isRejectedByBackend: Bool {
-        switch self {
-        case .responseError(let statusCode):
-            return (400..<500).contains(statusCode)
-        default:
-            return false
-        }
-    }
-}
