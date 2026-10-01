@@ -163,6 +163,88 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertNil(event.eventParameters["RDLC"], "RDLC should be left to the client decorator")
     }
 
+    // MARK: - RDLCN object identifier
+
+    func testCreatePageViewEvent_uuidContentIdentifier_rdlcnReportsContentObject() {
+        // Given
+        let factory = EventsFactory()
+        let contentMetadata = ContentMetadata(publicationId: "12345",
+                                              publicationUrl: URL(fileURLWithPath: "path"),
+                                              sourceSystemName: "system_name",
+                                              paidContent: false,
+                                              contentId: "E0BE23E3-A100-4D4F-A347-0635DE46BFC4",
+                                              contentSpaceUuid: "9123")
+        // {"object":{"id":"e0be23e3-a100-4d4f-a347-0635de46bfc4"},"publication":{"premium":false},
+        //  "source":{"id":"9123","system":"system_name"}}
+        let rdlcnParam = "eyJvYmplY3QiOnsiaWQiOiJlMGJlMjNlMy1hMTAwLTRkNGYtYTM0Ny0wNjM1ZGU0NmJmYzQifSwi" +
+            "cHVibGljYXRpb24iOnsicHJlbWl1bSI6ZmFsc2V9LCJzb3VyY2UiOnsiaWQiOiI5MTIzIiwic3lzdGVtIjoic3lzdGVtX25hbWUifX0="
+
+        // When
+        let event = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId,
+                                                contentMetadata: contentMetadata)
+
+        // Then
+        XCTAssertEqual(event.eventParameters["RDLCN"], rdlcnParam, "RDLCN parameter should carry the content object")
+    }
+
+    /// Vectors shared with the Android SDK, which has to report the same `object.id` for the same content
+    func testRDLCNObjectIdentifier_sharedTestVectors_sameIdentifierReportedByEveryEvent() throws {
+        let canonicalIdentifier = "e0be23e3-a100-4d4f-a347-0635de46bfc4"
+        let vectors: [(contentId: String, objectIdentifier: String?)] = [
+            ("E0BE23E3-A100-4D4F-A347-0635DE46BFC4", canonicalIdentifier),
+            ("  e0be23e3-a100-4d4f-a347-0635de46bfc4  ", canonicalIdentifier),
+            ("e0be23e3-a100-4d4f-a347-0635de46bfc4", canonicalIdentifier),
+            ("12345", nil),
+            ("my-unique-content-id-1234", nil),
+            ("e0be23e3a1004d4fa3470635de46bfc4", nil),
+            ("", nil),
+            ("   ", nil),
+            ("\u{0085}e0be23e3-a100-4d4f-a347-0635de46bfc4\u{0085}", nil),
+            ("e0be23e3-a100-4d4f-a347-0635de46bfc4\u{0085}", nil)
+        ]
+
+        for vector in vectors {
+            // Given
+            let factory = EventsFactory()
+            let contentMetadata = ContentMetadata(publicationId: "12345",
+                                                  publicationUrl: URL(fileURLWithPath: "path"),
+                                                  sourceSystemName: "system_name",
+                                                  paidContent: false,
+                                                  contentId: vector.contentId,
+                                                  contentSpaceUuid: "9123")
+            let keepAliveMetadata = KeepAliveMetadata(keepAliveContentStatus: [], timings: [], hasFocus: [], keepAliveMeasureType: [])
+            let effectivePageViewMetadata = EffectivePageViewMetadata(componentSource: "audio", triggerSource: "play", measurement: .zero)
+            let supplierData = SupplierData(supplierAppId: "app", paywallSupplier: "piano")
+            let metricsData = MetricsData(metricLimitName: "OnetMeter", freePageViewCount: 9, freePageViewLimit: 10)
+
+            // When
+            let pageView = factory.createPageViewEvent(contentIdentifier: contentMetadata.contentId, contentMetadata: contentMetadata)
+            let effectivePageView = factory.createEffectivePageViewEvent(contentIdentifier: contentMetadata.contentId,
+                                                                         contentMetadata: contentMetadata,
+                                                                         metaData: effectivePageViewMetadata)
+            let keepAlive = factory.createKeepAliveEvent(metaData: keepAliveMetadata, contentMetadata: contentMetadata)
+            let showMetricLimit = factory.createShowMetricLimitEvent(contentMetadata: contentMetadata,
+                                                                     supplierData: supplierData,
+                                                                     metricsData: metricsData)
+
+            // Then
+            let events: [(name: String, event: Event?)] = [
+                ("page view", pageView),
+                ("effective page view", effectivePageView),
+                ("keep alive", keepAlive),
+                ("show metric limit", showMetricLimit)
+            ]
+
+            for (name, event) in events {
+                let rdlcn = try decodedJSONParameter(XCTUnwrap(event).eventParameters["RDLCN"])
+                let object = rdlcn["object"] as? [String: Any]
+
+                XCTAssertEqual(object?["id"] as? String, vector.objectIdentifier, "\(name), content identifier '\(vector.contentId)'")
+                XCTAssertEqual(rdlcn["object"] == nil, vector.objectIdentifier == nil, "\(name), content identifier '\(vector.contentId)'")
+            }
+        }
+    }
+
     // MARK: - ErrorEvent Tests
 
     func testCreateErrorEvent_incorrectEventProvided_returnedEventIsDecorated() {

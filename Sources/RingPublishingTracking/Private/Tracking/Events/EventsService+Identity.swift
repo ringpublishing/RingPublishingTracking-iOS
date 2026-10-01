@@ -92,19 +92,32 @@ extension EventsService {
     ///   - completion: Completion handler.
     func performSequentialIdentity(tenantID: String, completion: @escaping (Result<(EaUUID, Artemis), ServiceError>) -> Void) {
         self.isIdentifyMeRequestInProgress = true
+
+        // Every path ends here, so a failed request does not leave the identity request in progress
+        let finish: (Result<(EaUUID, Artemis), ServiceError>) -> Void = { [weak self] result in
+            self?.isIdentifyMeRequestInProgress = false
+            completion(result)
+
+            // Send the events which queued up while there was no eaUUID
+            guard self?.isEaUuidValid == true else { return }
+            DispatchQueue.main.async {
+                self?.eventsQueueManager.sendEventsIfPossible()
+            }
+        }
+
         fetchIdentity { [weak self] identityResult in
             switch identityResult {
             case .success(let eaUUID):
                 self?.fetchArtemisID(tenantID: tenantID, eaUUID: eaUUID) { artemisResult in
                     switch artemisResult {
                     case .success(let artemis):
-                        completion(.success(((eaUUID, artemis))))
+                        finish(.success(((eaUUID, artemis))))
                     case .failure(let error):
-                        completion(.failure(error))
+                        finish(.failure(error))
                     }
                 }
             case .failure(let error):
-                completion(.failure(error))
+                finish(.failure(error))
             }
         }
     }

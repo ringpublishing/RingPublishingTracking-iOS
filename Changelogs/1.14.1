@@ -1,0 +1,18 @@
+1.14.1 Release notes (2026-09-30)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Events are sent only once 'eaUUID' is known
+    - on a fresh install the first events (e.g. the first page view) were sent before the identify request finished, without 'eaUUID' in 'ids', so the backend recorded them without 'lu'
+    - events reported without 'eaUUID' now stay in the queue, as in the Android SDK, and are sent once the identity request finishes
+    - the Artemis identifier in 'RDLU' is still taken when the event is reported, so the very first event of a fresh install can still go out without it
+* Identity is requested again after a failed identify request
+    - a failed identify request left the identity request marked as in progress, so the identifiers were never requested again in that session; the next events sent now retry it
+* Content identifier reported in the 'RDLCN' parameter as 'object.id'
+    - taken from 'contentId' of 'ContentMetadata' with ASCII whitespace trimmed (space, tab, line feed, carriage return, vertical tab, form feed), lowercased, and reported only when the whole result matches '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+    - otherwise 'object' is omitted and a message is logged
+    - the same value in page view, effective page view, keep alive and paid events, following the same rule as the Android SDK
+    - 'PU', 'publication' and 'source' are unchanged

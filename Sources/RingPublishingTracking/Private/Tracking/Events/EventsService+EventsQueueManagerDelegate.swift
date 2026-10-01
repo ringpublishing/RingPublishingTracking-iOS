@@ -80,18 +80,21 @@ private extension EventsService {
     }
 
     func checkIfIdentityRequestShouldBePerformed() {
-        guard shouldRetryIdentifyRequest else {
-            sendEvents(for: eventsQueueManager)
-            return
-        }
-
-        retryIdentifyRequest { [weak self] result in
-            switch result {
-            case .success:
-                self?.eventsQueueManager.sendEventsIfPossible()
-            case .failure:
-                Logger.log("Error occured during the retrying of identity check.")
+        if shouldRetryIdentifyRequest {
+            // On success `performSequentialIdentity` sends the queued events
+            retryIdentifyRequest { result in
+                switch result {
+                case .success:
+                    break
+                case .failure:
+                    Logger.log("Error occured during the retrying of identity check.")
+                }
             }
         }
+
+        // Without eaUUID the events stay queued, as in the Android SDK
+        guard isEaUuidValid else { return }
+
+        sendEvents(for: eventsQueueManager)
     }
 }
