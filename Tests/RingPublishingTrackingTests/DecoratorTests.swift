@@ -430,7 +430,7 @@ class DecoratorTests: XCTestCase {
 
     func testParameters_clientDecoratorCreated_returnedParametersAreCorrect() {
         // Given
-        let decorator = ClientDecorator()
+        let decorator = ClientDecorator(testData: false)
 
         // Then
         let params = decorator.parameters
@@ -440,7 +440,7 @@ class DecoratorTests: XCTestCase {
 
     func testParameters_clientDecoratorUpdatedWithValidVariantExternalParameters_rdlcContainsVariant() {
         // Given
-        let decorator = ClientDecorator()
+        let decorator = ClientDecorator(testData: false)
 
         // When
         decorator.updateVariantExternalParameters(["api_ver": "1.0.1b"])
@@ -455,7 +455,7 @@ class DecoratorTests: XCTestCase {
 
     func testParameters_clientDecoratorUpdatedWithTooManyVariantExternalKeys_parametersAreRejected() {
         // Given
-        let decorator = ClientDecorator()
+        let decorator = ClientDecorator(testData: false)
         let tooManyKeys = Dictionary(uniqueKeysWithValues: (0..<11).map { ("k\($0)", "v") })
 
         // When
@@ -468,7 +468,7 @@ class DecoratorTests: XCTestCase {
 
     func testParameters_clientDecoratorUpdatedWithTooLongVariantExternalKeyOrValue_parametersAreRejected() {
         // Given
-        let decorator = ClientDecorator()
+        let decorator = ClientDecorator(testData: false)
 
         // When / Then
         decorator.updateVariantExternalParameters(["a_key_too_long_here": "v"])
@@ -480,7 +480,7 @@ class DecoratorTests: XCTestCase {
 
     func testClientData_viewTypeProvided_returnedClientDataContainsViewType() {
         // Given
-        let decorator = ClientDecorator()
+        let decorator = ClientDecorator(testData: false)
 
         // When / Then
         XCTAssertEqual(decorator.clientData(viewType: .text),
@@ -498,7 +498,7 @@ class DecoratorTests: XCTestCase {
 
     func testClientData_viewTypeProvidedAndVariantExternalParametersSet_returnedClientDataContainsBoth() {
         // Given
-        let decorator = ClientDecorator()
+        let decorator = ClientDecorator(testData: false)
 
         // When
         decorator.updateVariantExternalParameters(["api_ver": "1.0.1b"])
@@ -507,5 +507,32 @@ class DecoratorTests: XCTestCase {
         // swiftlint:disable:next line_length
         let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidmFyaWFudCI6eyJleHRlcm5hbCI6eyJhcGlfdmVyIjoiMS4wLjFiIn19LCJ2aWV3Ijp7InR5cGUiOiJ0ZXh0In19"
         XCTAssertEqual(decorator.clientData(viewType: .text), expectedBase64, "Client data should contain view type and variant.external")
+    }
+
+    func testParameters_clientDecoratorWithTestData_rdlcContainsTrackingStage() {
+        // Given
+        let decorator = ClientDecorator(testData: true)
+
+        // Then
+        let params = decorator.parameters
+
+        // swiftlint:disable:next line_length
+        let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidHJhY2tpbmciOnsiZW52Ijp7InN0YWdlIjp0cnVlfX19"
+        XCTAssertEqual(params["RDLC"], expectedBase64, "RDLC should contain tracking.env.stage")
+    }
+
+    func testClientData_testDataViewTypeAndVariantExternalParametersSet_returnedClientDataContainsAll() {
+        // Given
+        let decorator = ClientDecorator(testData: true)
+
+        // When
+        decorator.updateVariantExternalParameters(["api_ver": "1.0.1b"])
+
+        // Then
+        // swiftlint:disable:next line_length
+        let expectedBase64 = "eyJjbGllbnQiOnsidHlwZSI6Im5hdGl2ZV9hcHAifSwidHJhY2tpbmciOnsiZW52Ijp7InN0YWdlIjp0cnVlfX0sInZhcmlhbnQiOnsiZXh0ZXJuYWwiOnsiYXBpX3ZlciI6IjEuMC4xYiJ9fSwidmlldyI6eyJ0eXBlIjoidGV4dCJ9fQ=="
+        XCTAssertEqual(decorator.clientData(viewType: .text),
+                       expectedBase64,
+                       "Client data should contain tracking, variant.external and view type")
     }
 }

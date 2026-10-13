@@ -49,7 +49,7 @@ final class EventsService {
     let adAreaDecorator = AdAreaDecorator()
     let userDataDecorator = UserDataDecorator()
     let tenantIdentifierDecorator = TenantIdentifierDecorator()
-    let clientDecorator = ClientDecorator()
+    let clientDecorator: ClientDecorator
     let sequenceDecorator = SequenceDecorator()
 
     let configuration: RingPublishingTrackingConfiguration
@@ -97,6 +97,7 @@ final class EventsService {
          eventsFactory: EventsFactory,
          operationMode: Operationable) {
         self.configuration = configuration
+        self.clientDecorator = ClientDecorator(testData: configuration.testData)
         self.storage = storage
         self.eventsQueueManager = EventsQueueManager(storage: storage, operationMode: operationMode)
         self.eventsFactory = eventsFactory

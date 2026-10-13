@@ -38,6 +38,10 @@ public struct RingPublishingTrackingConfiguration {
     /// Flag indicating if effective page view event is enabled.
     public let shouldReportEffectivePageViewEvent: Bool
 
+    /// Flag marking reported events as test data, so they are stored apart from production data.
+    /// When enabled, `RDLC` carries `{"tracking":{"env":{"stage":true}}}`.
+    public let testData: Bool
+
     // MARK: Init
 
     /// Initialize for configuration data used in RingPublishingTracking SDK
@@ -50,6 +54,7 @@ public struct RingPublishingTrackingConfiguration {
     ///   - applicationDefaultStructurePath: Application default area, for example "home_screen", "undefined" by default
     ///   - applicationDefaultAdvertisementArea: Default ad space name of the application,
     ///   for example "ads/list/sport", "undefined" by default
+    ///   - testData: Marks reported events as test data, disabled by default
     public init(tenantId: String,
                 apiKey: String,
                 apiUrl: URL? = nil,
@@ -57,7 +62,8 @@ public struct RingPublishingTrackingConfiguration {
                 applicationDefaultStructurePath: [String]? = nil,
                 applicationDefaultAdvertisementArea: String? = nil,
                 applicationAdvertisementSite: String? = nil,
-                shouldReportEffectivePageViewEvent: Bool = true) {
+                shouldReportEffectivePageViewEvent: Bool = true,
+                testData: Bool = false) {
         self.tenantId = tenantId
         self.apiKey = apiKey
         self.apiUrl = apiUrl
@@ -66,5 +72,6 @@ public struct RingPublishingTrackingConfiguration {
         self.applicationDefaultAdvertisementArea = applicationDefaultAdvertisementArea ?? Constants.applicationDefaultAdvertisementArea
         self.applicationAdvertisementSite = applicationAdvertisementSite
         self.shouldReportEffectivePageViewEvent = shouldReportEffectivePageViewEvent
+        self.testData = testData
     }
 }

@@ -27,7 +27,8 @@ class RingPublishingTrackingConfigurationTests: XCTestCase {
                                                                 apiUrl: apiUrl,
                                                                 applicationRootPath: applicationRootPath,
                                                                 applicationDefaultStructurePath: applicationDefaultStructurePath,
-                                                                applicationDefaultAdvertisementArea: applicationDefaultAdvertisementArea)
+                                                                applicationDefaultAdvertisementArea: applicationDefaultAdvertisementArea,
+                                                                testData: true)
 
         // Then
         XCTAssertEqual(configuration.tenantId, tenantId)
@@ -36,6 +37,7 @@ class RingPublishingTrackingConfigurationTests: XCTestCase {
         XCTAssertEqual(configuration.applicationDefaultStructurePath, applicationDefaultStructurePath)
         XCTAssertEqual(configuration.applicationDefaultAdvertisementArea, applicationDefaultAdvertisementArea)
         XCTAssertEqual(configuration.apiUrl?.absoluteString, apiUrl.absoluteString)
+        XCTAssertTrue(configuration.testData)
     }
 
     func testInit_requiredParametersProvided_configurationCreatedWithDefaultValues() {
@@ -56,5 +58,6 @@ class RingPublishingTrackingConfigurationTests: XCTestCase {
         XCTAssertEqual(configuration.applicationDefaultStructurePath, Constants.applicationDefaultStructurePath)
         XCTAssertEqual(configuration.applicationDefaultAdvertisementArea, Constants.applicationDefaultAdvertisementArea)
         XCTAssertEqual(configuration.apiUrl?.absoluteString, nil)
+        XCTAssertFalse(configuration.testData)
     }
 }
