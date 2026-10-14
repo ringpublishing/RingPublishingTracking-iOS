@@ -12,12 +12,18 @@ final class ClientDecorator: Decorator {
     private static let maxVariantExternalParametersCount = 10
     private static let maxVariantExternalParameterLength = 10
 
+    private let tracking: ClientTracking?
+
     private var variantExternalParameters: [String: String]?
+
+    init(testData: Bool) {
+        tracking = testData ? ClientTracking(env: ClientTrackingEnvironment(stage: true)) : nil
+    }
 
     var parameters: [String: AnyHashable] {
         var userDataParams: [String: AnyHashable] = [:]
 
-        userDataParams["RDLC"] = Client(variant: variant).jsonStringBase64
+        userDataParams["RDLC"] = Client(variant: variant, tracking: tracking).jsonStringBase64
 
         return userDataParams
     }
@@ -46,7 +52,7 @@ extension ClientDecorator {
 
     /// Builds `RDLC` for a single event, carrying given view type on top of the client data reported for every event
     func clientData(viewType: ContentViewType) -> String? {
-        Client(viewType: viewType, variant: variant).jsonStringBase64
+        Client(viewType: viewType, variant: variant, tracking: tracking).jsonStringBase64
     }
 }
 

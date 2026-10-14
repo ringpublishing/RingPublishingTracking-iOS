@@ -1,0 +1,10 @@
+1.14.2 Release notes (2026-10-13)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added 'testData' to 'RingPublishingTrackingConfiguration' (disabled by default)
+    - when enabled, the 'RDLC' parameter of every event carries 'tracking.env.stage' (e.g. {"client":{"type":"native_app"},"tracking":{"env":{"stage":true}}}), so the events are stored as test data
+    - when disabled, 'RDLC' is unchanged

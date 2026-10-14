@@ -54,7 +54,7 @@ class EventTests: XCTestCase {
     func testDecorated_eventProvidesParameterAlsoSetByDecorator_valueFromEventIsKept() {
         // Given
         let event = Event(analyticsSystemName: "a", eventName: "b", eventParameters: ["RDLC": "value from event"])
-        let decorator = ClientDecorator()
+        let decorator = ClientDecorator(testData: false)
 
         // When
         let decorated = event.decorated(using: [decorator])
