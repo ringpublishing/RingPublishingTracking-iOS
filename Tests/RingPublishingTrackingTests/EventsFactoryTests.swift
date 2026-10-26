@@ -18,28 +18,9 @@ class EventsFactoryTests: XCTestCase {
     func testCreateClickEvent_allParametersProvided_returnedEventIsDecorated() {
         // Given
         let elementName = "TestName"
-        let sampleUrl = "https://test.com"
-        let sampleId = "12345"
-        let factory = EventsFactory()
-
-        // Then
-        let event = factory.createClickEvent(selectedElementName: elementName,
-                                             publicationUrl: URL(string: sampleUrl),
-                                             contentIdentifier: sampleId)
-        let params = event.eventParameters
-
-        XCTAssertEqual(params["VE"], elementName, "VE should be correct")
-        XCTAssertEqual(params["VU"], sampleUrl, "VU should be correct")
-        XCTAssertEqual(params["PU"], sampleId, "PU should be correct")
-        XCTAssertNil(params["VC"], "VC should be empty")
-    }
-
-    func testCreateClickEvent_clickContextProvided_returnedEventHasVCParameter() {
-        // Given
-        let elementName = "TestName"
         let clickContext = "selected_for_you"
         let sampleUrl = "https://test.com"
-        let sampleId = "ABC-123"
+        let sampleId = "12345"
         let factory = EventsFactory()
 
         // Then
@@ -52,7 +33,20 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(params["VE"], elementName, "VE should be correct")
         XCTAssertEqual(params["VC"], clickContext, "VC should be correct")
         XCTAssertEqual(params["VU"], sampleUrl, "VU should be correct")
-        XCTAssertEqual(params["PU"], "abc-123", "PU should be correct")
+        XCTAssertEqual(params["PU"], sampleId, "PU should be correct")
+    }
+
+    func testCreateClickEvent_clickContextNotProvided_returnedEventHasNoVCParameter() {
+        // Given
+        let factory = EventsFactory()
+
+        // Then
+        let event = factory.createClickEvent(selectedElementName: "TestName",
+                                             publicationUrl: URL(string: "https://test.com"),
+                                             contentIdentifier: "12345")
+        let params = event.eventParameters
+
+        XCTAssertNil(params["VC"], "VC should be empty")
     }
 
     func testCreateClickEvent_noParametersProvided_returnedEventIsNotDecorated() {

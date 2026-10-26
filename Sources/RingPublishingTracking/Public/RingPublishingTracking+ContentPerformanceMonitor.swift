@@ -53,7 +53,10 @@ public extension RingPublishingTracking {
     ///   - clickContext: String
     ///   - publicationUrl: URL
     ///   - contentId: String
-    func reportContentClick(selectedElementName: String, clickContext: String, publicationUrl: URL, contentId: String) {
+    func reportContentClick(selectedElementName: String,
+                            clickContext: String,
+                            publicationUrl: URL,
+                            contentId: String) {
         let logData = "'\(selectedElementName)', click context: '\(clickContext)' and publication url: '\(publicationUrl.absoluteString)'"
         Logger.log("Reporting content click event for element named: \(logData)")
 
