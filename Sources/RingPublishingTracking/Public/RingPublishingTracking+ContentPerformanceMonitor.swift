@@ -46,6 +46,27 @@ public extension RingPublishingTracking {
         reportEvents([event])
     }
 
+    /// Reports click event with click context which leads to content page
+    ///
+    /// - Parameters:
+    ///   - selectedElementName: String
+    ///   - clickContext: String
+    ///   - publicationUrl: URL
+    ///   - contentId: String
+    func reportContentClick(selectedElementName: String,
+                            clickContext: String,
+                            publicationUrl: URL,
+                            contentId: String) {
+        let logData = "'\(selectedElementName)', click context: '\(clickContext)' and publication url: '\(publicationUrl.absoluteString)'"
+        Logger.log("Reporting content click event for element named: \(logData)")
+
+        let event = eventsFactory.createClickEvent(selectedElementName: selectedElementName,
+                                                   publicationUrl: publicationUrl,
+                                                   contentIdentifier: contentId,
+                                                   clickContext: clickContext)
+        reportEvents([event])
+    }
+
     // MARK: User action event
 
     /// Reports user action event

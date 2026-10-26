@@ -18,6 +18,7 @@ class EventsFactoryTests: XCTestCase {
     func testCreateClickEvent_allParametersProvided_returnedEventIsDecorated() {
         // Given
         let elementName = "TestName"
+        let clickContext = "selected_for_you"
         let sampleUrl = "https://test.com"
         let sampleId = "12345"
         let factory = EventsFactory()
@@ -25,12 +26,27 @@ class EventsFactoryTests: XCTestCase {
         // Then
         let event = factory.createClickEvent(selectedElementName: elementName,
                                              publicationUrl: URL(string: sampleUrl),
-                                             contentIdentifier: sampleId)
+                                             contentIdentifier: sampleId,
+                                             clickContext: clickContext)
         let params = event.eventParameters
 
         XCTAssertEqual(params["VE"], elementName, "VE should be correct")
+        XCTAssertEqual(params["VC"], clickContext, "VC should be correct")
         XCTAssertEqual(params["VU"], sampleUrl, "VU should be correct")
         XCTAssertEqual(params["PU"], sampleId, "PU should be correct")
+    }
+
+    func testCreateClickEvent_clickContextNotProvided_returnedEventHasNoVCParameter() {
+        // Given
+        let factory = EventsFactory()
+
+        // Then
+        let event = factory.createClickEvent(selectedElementName: "TestName",
+                                             publicationUrl: URL(string: "https://test.com"),
+                                             contentIdentifier: "12345")
+        let params = event.eventParameters
+
+        XCTAssertNil(params["VC"], "VC should be empty")
     }
 
     func testCreateClickEvent_noParametersProvided_returnedEventIsNotDecorated() {
@@ -46,6 +62,7 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertNil(params["VE"], "VE should be empty")
         XCTAssertNil(params["VU"], "VU should be empty")
         XCTAssertNil(params["PU"], "PU should be empty")
+        XCTAssertNil(params["VC"], "VC should be empty")
         XCTAssertNil(params["EI"], "EI should be empty")
     }
 
