@@ -222,6 +222,7 @@ class ActionsViewController: UIViewController, PagerViewController, TraceableScr
         RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .click)
         RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .viewability)
         RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .videoViews)
+        RingPublishingTracking.shared.reportAureusDeboostingEvent(for: [teaser, teaser2, teaser3], strategy: .smartShorts)
     }
 
     // MARK: Actions (Video event)

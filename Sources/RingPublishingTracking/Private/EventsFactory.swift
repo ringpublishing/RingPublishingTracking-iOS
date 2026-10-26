@@ -20,11 +20,16 @@ final class EventsFactory {
 
     func createClickEvent(selectedElementName: String?,
                           publicationUrl: URL?,
-                          contentIdentifier: String?) -> Event {
+                          contentIdentifier: String?,
+                          clickContext: String? = nil) -> Event {
         var parameters: [String: AnyHashable] = [:]
 
         if let selectedElementName = selectedElementName {
             parameters["VE"] = selectedElementName
+        }
+
+        if let clickContext = clickContext {
+            parameters["VC"] = clickContext
         }
 
         if let publicationUrl = publicationUrl {

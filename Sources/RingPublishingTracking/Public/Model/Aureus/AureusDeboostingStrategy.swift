@@ -18,4 +18,7 @@ public enum AureusDeboostingStrategy: String {
 
     /// User saw video content
     case videoViews = "video_views"
+
+    /// User saw smart shorts content
+    case smartShorts = "smartshorts"
 }

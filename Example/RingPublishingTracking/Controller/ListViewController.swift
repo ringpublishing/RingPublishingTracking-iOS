@@ -92,6 +92,13 @@ extension ListViewController: UITableViewDelegate {
                                                          publicationUrl: selectedArticle.publicationUrl,
                                                          contentId: selectedArticle.contentId)
 
+        // Content click can also be reported with additional click context, e.g. section code
+
+        RingPublishingTracking.shared.reportContentClick(selectedElementName: selectedArticle.title,
+                                                         clickContext: "selected_for_you",
+                                                         publicationUrl: selectedArticle.publicationUrl,
+                                                         contentId: selectedArticle.contentId)
+
         // Report content click using new event type for Aureus
 
         let teaser = AureusTeaser(teaserId: "teaserId", offerId: "offerId", contentId: selectedArticle.contentId)

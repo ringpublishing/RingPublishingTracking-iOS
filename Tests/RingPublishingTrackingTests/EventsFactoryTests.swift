@@ -31,6 +31,28 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertEqual(params["VE"], elementName, "VE should be correct")
         XCTAssertEqual(params["VU"], sampleUrl, "VU should be correct")
         XCTAssertEqual(params["PU"], sampleId, "PU should be correct")
+        XCTAssertNil(params["VC"], "VC should be empty")
+    }
+
+    func testCreateClickEvent_clickContextProvided_returnedEventHasVCParameter() {
+        // Given
+        let elementName = "TestName"
+        let clickContext = "selected_for_you"
+        let sampleUrl = "https://test.com"
+        let sampleId = "ABC-123"
+        let factory = EventsFactory()
+
+        // Then
+        let event = factory.createClickEvent(selectedElementName: elementName,
+                                             publicationUrl: URL(string: sampleUrl),
+                                             contentIdentifier: sampleId,
+                                             clickContext: clickContext)
+        let params = event.eventParameters
+
+        XCTAssertEqual(params["VE"], elementName, "VE should be correct")
+        XCTAssertEqual(params["VC"], clickContext, "VC should be correct")
+        XCTAssertEqual(params["VU"], sampleUrl, "VU should be correct")
+        XCTAssertEqual(params["PU"], "abc-123", "PU should be correct")
     }
 
     func testCreateClickEvent_noParametersProvided_returnedEventIsNotDecorated() {
@@ -46,6 +68,7 @@ class EventsFactoryTests: XCTestCase {
         XCTAssertNil(params["VE"], "VE should be empty")
         XCTAssertNil(params["VU"], "VU should be empty")
         XCTAssertNil(params["PU"], "PU should be empty")
+        XCTAssertNil(params["VC"], "VC should be empty")
         XCTAssertNil(params["EI"], "EI should be empty")
     }
 
