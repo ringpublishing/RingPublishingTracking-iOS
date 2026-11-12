@@ -9,12 +9,7 @@ import Foundation
 
 final class SessionIdentifierDecorator: Decorator {
 
-    private static let sessionIdDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmmss"
-
-        return formatter
-    }()
+    private static let sessionIdDateFormatter = DateFormatter.timestampIdentifierFormatter(dateFormat: "yyyyMMddHHmmss")
 
     private static let identifierRandomPartLength = 10
 
