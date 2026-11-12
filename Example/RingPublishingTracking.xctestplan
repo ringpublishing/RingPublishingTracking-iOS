@@ -1,0 +1,68 @@
+{
+  "configurations" : [
+    {
+      "id" : "2660ED53-15C9-4BDD-8050-F8066562BAB9",
+      "name" : "Default",
+      "options" : {
+
+      }
+    },
+    {
+      "id" : "14C43EE2-EEF7-4FC9-9DC1-851D6C231B3E",
+      "name" : "12-hour time",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-AppleICUForce12HourTime <true\/>"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "97E93892-B968-428C-A437-2B09460171FA",
+      "name" : "Buddhist calendar",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-AppleLocale th_TH@calendar=buddhist"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "0E672432-8A01-4380-93D1-65C161C5914A",
+      "name" : "Japanese calendar",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-AppleLocale ja_JP@calendar=japanese"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "F1207496-D71D-4447-B184-6DA62C736BC2",
+      "name" : "Arabic-Indic digits",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-AppleLocale ar_EG"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:RingPublishingTracking.xcodeproj",
+        "identifier" : "7D1C1B5826E657460051A267",
+        "name" : "RingPublishingTrackingTests"
+      }
+    }
+  ],
+  "version" : 1
+}

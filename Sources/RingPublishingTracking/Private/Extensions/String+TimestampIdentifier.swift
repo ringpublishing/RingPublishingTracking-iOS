@@ -22,3 +22,16 @@ extension String {
         return dateFormatter.string(from: date) + randomPart
     }
 }
+
+extension DateFormatter {
+
+    /// Formatter for the date part of a timestamp identifier. The backend accepts only ASCII digits, so the output must not
+    /// follow the device's calendar, numbering system or 12-hour time setting (which rewrites `HH` to `h a`).
+    static func timestampIdentifierFormatter(dateFormat: String) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = dateFormat
+
+        return formatter
+    }
+}

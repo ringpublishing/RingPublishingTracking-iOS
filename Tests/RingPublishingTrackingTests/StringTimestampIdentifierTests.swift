@@ -73,14 +73,26 @@ class StringTimestampIdentifierTests: XCTestCase {
         // Then
         XCTAssertNotEqual(identifier1, identifier2)
     }
+
+    // Asserts the same value under every configuration of the test plan, each of which launches with different device
+    // settings (12-hour time, non-Gregorian calendars, non-ASCII digits)
+    func testTimestampIdentifierFormatter_afternoonDate_formatsGregorian24HourAsciiDigits() {
+        // Given
+        let date = Date(timeIntervalSince1970: 1_794_319_509.5) // 2026-11-10 14:05:09.500 UTC
+        let formatter = DateFormatter.timestampIdentifierFormatter(dateFormat: "yyyyMMddHHmmssSSS")
+        formatter.timeZone = TimeZone(identifier: "UTC")
+
+        // When
+        let formatted = formatter.string(from: date)
+
+        // Then
+        XCTAssertEqual(formatted, "20261110140509500")
+    }
 }
 
 private extension StringTimestampIdentifierTests {
-    
+
     func makeFormatter(dateFormat: String) -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = dateFormat
-        
-        return formatter
+        DateFormatter.timestampIdentifierFormatter(dateFormat: dateFormat)
     }
 }

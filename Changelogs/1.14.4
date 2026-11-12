@@ -1,0 +1,12 @@
+1.14.4 Release notes (2026-11-12)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Fixed 'IP', 'IV' and 'IS' depending on the device's date and time settings
+    - their date part was formatted with the device's locale, so with 24-hour time turned off it came out as e.g. '2026111285612 AM0364453364', and a non-Gregorian calendar (Buddhist, Japanese) or non-Latin digits (e.g. Arabic) changed it too
+    - the backend drops such values, so every event from those devices was stored without 'ip', 'iv' and 'is'
+    - the date part is now always formatted with the 'en_US_POSIX' locale, so all three are 24 ASCII digits; the device's time zone is still used, as before
+* The test plan of the example project runs the tests under 12-hour time, Buddhist and Japanese calendars and Arabic-Indic digits, next to the default configuration

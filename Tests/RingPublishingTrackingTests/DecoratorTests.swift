@@ -37,7 +37,7 @@ class DecoratorTests: XCTestCase {
         XCTAssertNotEqual(params1["IV"], params3["IV"], "Initial IV and new IV parameters should be different")
     }
 
-    func testParameters_uniqueIdentifierDecoratorCreated_returnedParametersHaveCorrectLength() {
+    func testParameters_uniqueIdentifierDecoratorCreated_returnedParametersAreTwentyFourAsciiDigits() {
         // Run this test multiple times as only sometimes identifiers could be generated wrong
 
         for _ in 0...100 {
@@ -49,14 +49,14 @@ class DecoratorTests: XCTestCase {
             let ivParam = decorator.parameters["IV"] as? String ?? ""
 
             // Then
-            XCTAssertEqual(ipParam.count, 24, "IP parameter should have 24 characters")
-            XCTAssertEqual(ivParam.count, 24, "IV parameter should have 24 characters")
+            XCTAssertTrue(ipParam.isTwentyFourAsciiDigits, "IP parameter should be 24 ASCII digits, was '\(ipParam)'")
+            XCTAssertTrue(ivParam.isTwentyFourAsciiDigits, "IV parameter should be 24 ASCII digits, was '\(ivParam)'")
         }
     }
 
     // MARK: - SessionIdentifierDecorator Tests
 
-    func testParameters_sessionIdentifierDecoratorCreated_returnedParameterHasCorrectLength() {
+    func testParameters_sessionIdentifierDecoratorCreated_returnedParameterIsTwentyFourAsciiDigits() {
         for _ in 0...100 {
             // Given
             let decorator = SessionIdentifierDecorator()
@@ -65,8 +65,7 @@ class DecoratorTests: XCTestCase {
             let isParam = decorator.parameters["IS"] as? String ?? ""
 
             // Then
-            XCTAssertEqual(isParam.count, 24, "IS parameter should have 24 characters")
-            XCTAssertTrue(isParam.allSatisfy(\.isNumber), "IS parameter should only contain digits")
+            XCTAssertTrue(isParam.isTwentyFourAsciiDigits, "IS parameter should be 24 ASCII digits, was '\(isParam)'")
         }
     }
 
@@ -534,5 +533,13 @@ class DecoratorTests: XCTestCase {
         XCTAssertEqual(decorator.clientData(viewType: .text),
                        expectedBase64,
                        "Client data should contain tracking, variant.external and view type")
+    }
+}
+
+private extension String {
+
+    /// `Character.isNumber` also accepts non-ASCII digits (e.g. Arabic-Indic), which the backend rejects
+    var isTwentyFourAsciiDigits: Bool {
+        range(of: "^[0-9]{24}$", options: .regularExpression) != nil
     }
 }

@@ -10,12 +10,7 @@ import Foundation
 
 final class UniqueIdentifierDecorator: Decorator {
 
-    private static let pageIdDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmmssSSS"
-
-        return formatter
-    }()
+    private static let pageIdDateFormatter = DateFormatter.timestampIdentifierFormatter(dateFormat: "yyyyMMddHHmmssSSS")
 
     private static let identifierRandomPartLength = 7
 
