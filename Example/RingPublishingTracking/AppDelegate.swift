@@ -29,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Pass '-debugModeEnabled NO' as a launch argument to send events to the network
 
-        let debugModeEnabled = UserDefaults.standard.object(forKey: "debugModeEnabled") as? Bool ?? true
+        UserDefaults.standard.register(defaults: ["debugModeEnabled": true])
+        let debugModeEnabled = UserDefaults.standard.bool(forKey: "debugModeEnabled")
 
         // Configuration data
 
