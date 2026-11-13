@@ -192,6 +192,21 @@ final class MediaEventsTests: XCTestCase {
         XCTAssertTrue(logs.contains { $0.contains("playingProgress ignored") })
     }
 
+    func testIgnoredSeekStart_whenSeekIsOpen_logsSeekReason() {
+        let session = recorder.makeSession(mediaType: .video)
+        let content = session.createMediaContent()
+        content.playingStart(MediaPlayingStartParameters(mediaId: "v1", durationSec: 100, mediaContentType: .main,
+                                                         playbackIntent: .autoplay, positionSec: 0))
+        content.seekStart(positionSec: 1)
+        let countBefore = recorder.events.count
+
+        content.seekStart(positionSec: 2)
+
+        XCTAssertEqual(recorder.events.count, countBefore)
+        XCTAssertTrue(logs.contains { $0.contains("seekStart ignored: a seek is already in progress") })
+        XCTAssertFalse(logs.contains { $0.contains("seekStart ignored: not allowed in the current state") })
+    }
+
     // MARK: State machine
 
     func testAd_pausesRelatedContentAndResumesItAtContentPosition() {

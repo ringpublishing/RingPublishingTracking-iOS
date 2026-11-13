@@ -204,7 +204,8 @@ public final class MediaContent {
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func seekStart(positionSec: Double, targetSec: Double? = nil, userEngaged: Bool? = nil) {
         session.transact {
-            guard isIn(.playing, .paused), !seeking else { return ignored("seekStart") }
+            guard isIn(.playing, .paused) else { return ignored("seekStart") }
+            guard !seeking else { return MediaValidation.ignored("seekStart", reason: "a seek is already in progress") }
 
             let startPosition = position(positionSec, "seekStart")
             let target = MediaValidation.finite(targetSec, field: "target_sec", method: "seekStart")
