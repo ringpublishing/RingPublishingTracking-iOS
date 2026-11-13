@@ -11,6 +11,10 @@ import Foundation
 ///
 /// The session owns `media_session_id`, `event_ordinal`, state carried between events and the state machine of its contents.
 /// All methods can be called from any thread. Call `end()` when the player is finished.
+///
+/// Events are created under the session lock, which fixes their order, and queued. After the lock is released the calling thread
+/// delivers the queue to the SDK, unless another thread is already delivering. No SDK code runs while the lock is held, and a call
+/// made while another thread delivers returns without waiting for that delivery.
 public final class MediaSession {
 
     // MARK: Internal state (guarded by `lock`)
@@ -22,6 +26,8 @@ public final class MediaSession {
     var activeContent: MediaContent?
     var lastPlayback: MediaContent?
     var contents = [MediaContent]()
+    private var outbox = [Event]()
+    private var delivering = false
 
     // MARK: Private properties
 
@@ -90,12 +96,14 @@ public final class MediaSession {
     /// - Parameter configuration: Content configuration
     /// - Returns: Media content
     public func createMediaContent(_ configuration: MediaContentConfiguration = MediaContentConfiguration()) -> MediaContent {
-        return locked {
+        return transact {
+            let playbackRate = MediaValidation.finite(configuration.playbackRate, field: "playback_rate", method: "createMediaContent")
+
             state.audioOutput = configuration.audioOutput ?? state.audioOutput
             state.muted = configuration.muted ?? state.muted
-            state.playbackRate = configuration.playbackRate ?? state.playbackRate
+            state.playbackRate = playbackRate ?? state.playbackRate
             state.visibilityState = configuration.visibilityState ?? state.visibilityState
-            MediaValidation.playbackRate(configuration.playbackRate, method: "createMediaContent")
+            MediaValidation.playbackRate(playbackRate, method: "createMediaContent")
 
             let content = MediaContent(session: self, configuration: configuration)
 
@@ -113,21 +121,23 @@ public final class MediaSession {
     ///
     /// - Parameter playbackRate: Playback rate (1.0 is normal speed)
     public func updatePlaybackRate(_ playbackRate: Double) {
-        locked {
+        transact {
             guard !ended else {
                 MediaValidation.ignored("updatePlaybackRate", reason: "session has ended")
                 return
             }
 
-            MediaValidation.playbackRate(playbackRate, method: "updatePlaybackRate")
-            state.playbackRate = playbackRate
+            guard let rate = MediaValidation.finite(playbackRate, field: "playback_rate", method: "updatePlaybackRate") else { return }
+
+            MediaValidation.playbackRate(rate, method: "updatePlaybackRate")
+            state.playbackRate = rate
         }
     }
 
     /// Ends the session. Open seeks are closed, then `MEDIA_SESSION_END` is sent if the session had started.
     /// Calling it again does nothing.
     public func end() {
-        locked {
+        transact {
             guard !ended else {
                 MediaValidation.ignored("end", reason: "session has ended")
                 return
@@ -158,7 +168,44 @@ public final class MediaSession {
         return body()
     }
 
-    /// Increments the ordinal and hands the event to the sink. Has to be called with the lock held,
+    /// Runs `body` under the lock, then delivers the queued events to the sink outside of it.
+    /// Only one thread delivers at a time, so the sink receives events in ordinal order. A sink calling back into
+    /// the session only queues, the running delivery loop sends it.
+    func transact<T>(_ body: () -> T) -> T {
+        let result = locked(body)
+        deliver()
+
+        return result
+    }
+
+    private func deliver() {
+        let claimed: Bool = locked {
+            guard !delivering, !outbox.isEmpty else { return false }
+
+            delivering = true
+            return true
+        }
+
+        guard claimed else { return }
+
+        while true {
+            let batch: [Event] = locked {
+                guard !outbox.isEmpty else {
+                    delivering = false
+                    return []
+                }
+
+                defer { outbox.removeAll() }
+                return outbox
+            }
+
+            guard !batch.isEmpty else { return }
+
+            batch.forEach(eventSink)
+        }
+    }
+
+    /// Increments the ordinal and queues the event for delivery. Has to be called with the lock held,
     /// which keeps events in ordinal order.
     func send(_ type: MediaEventType,
               playback: MediaContent?,
@@ -183,6 +230,6 @@ public final class MediaSession {
                                       errorMessage: errorMessage)
         MediaValidation.nonNegative(positionSec, field: "position_sec", method: type.rawValue)
 
-        eventSink(eventsFactory.createMediaEvent(fields: fields))
+        outbox.append(eventsFactory.createMediaEvent(fields: fields))
     }
 }

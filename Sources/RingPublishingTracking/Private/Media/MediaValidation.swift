@@ -20,15 +20,23 @@ enum MediaValidation {
     }
 
     static func nonNegative(_ value: Double?, field: String, method: String) {
-        guard let value = value, !(value >= 0) else { return }
+        guard let value = value, value.isFinite, !(value >= 0) else { return }
 
         warn(method, "'\(field)' is \(value), must be at least 0")
     }
 
     static func playbackRate(_ value: Double?, method: String) {
-        guard let value = value, !(value >= 0 && value <= 16) else { return }
+        guard let value = value, value.isFinite, !(value >= 0 && value <= 16) else { return }
 
         warn(method, "'playback_rate' is \(value), allowed: 0...16")
+    }
+
+    /// JSON cannot carry NaN or infinity. Returns nil (and logs) for such a value, the value itself otherwise.
+    static func finite(_ value: Double?, field: String, method: String) -> Double? {
+        guard let value = value, !value.isFinite else { return value }
+
+        Logger.log("[MediaEvent] \(method): '\(field)' must be a finite number, got \(value)", level: .default)
+        return nil
     }
 
     static func warn(_ method: String, _ message: String) {

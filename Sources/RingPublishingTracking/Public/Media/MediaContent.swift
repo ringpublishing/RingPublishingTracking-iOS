@@ -63,13 +63,16 @@ public final class MediaContent {
     ///
     /// - Parameter parameters: Start parameters
     public func playingStart(_ parameters: MediaPlayingStartParameters) {
-        session.locked {
+        session.transact {
             guard isIn(.initialized) else { return ignored("playingStart") }
 
             let isAd = parameters.mediaContentType == .ad
             let relatedMediaId = isAd ? (parameters.relatedMediaId ?? session.activeContent?.playback.mediaId) : nil
 
-            validate(parameters, relatedMediaId: relatedMediaId)
+            let durationSec = MediaValidation.finite(parameters.durationSec, field: "duration_sec", method: "playingStart")
+            let positionSec = position(parameters.positionSec, "playingStart")
+
+            validate(parameters, durationSec: durationSec, relatedMediaId: relatedMediaId)
 
             mode = .playing
 
@@ -81,7 +84,7 @@ public final class MediaContent {
                 playback.relatedMediaId = nil
             }
 
-            playback.durationSec = parameters.durationSec
+            playback.durationSec = durationSec
             playback.mediaContentType = parameters.mediaContentType
             playback.mediaId = parameters.mediaId
             playback.playbackIntent = parameters.playbackIntent
@@ -108,7 +111,7 @@ public final class MediaContent {
             session.contents.append(self)
             session.activeContent = self
 
-            send(.playingStart, positionSec: parameters.positionSec, startMode: parameters.startMode)
+            send(.playingStart, positionSec: positionSec, startMode: parameters.startMode)
         }
     }
 
@@ -118,11 +121,11 @@ public final class MediaContent {
     ///   - positionSec: Playback position in seconds
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func playingProgress(positionSec: Double, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.playing) else { return ignored("playingProgress") }
 
             playback.userEngaged = userEngaged ?? playback.userEngaged
-            send(.playingProgress, positionSec: positionSec)
+            send(.playingProgress, positionSec: position(positionSec, "playingProgress"))
         }
     }
 
@@ -134,14 +137,14 @@ public final class MediaContent {
     ///   - reason: Reason of ending the playback
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func playingEnd(positionSec: Double, reason: MediaPlaybackEndReason, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.playing, .paused) else { return ignored("playingEnd") }
 
             dropPending()
 
             mode = .initialized
             playback.userEngaged = userEngaged ?? playback.userEngaged
-            send(.playingEnd, positionSec: positionSec, playbackEndReason: reason)
+            send(.playingEnd, positionSec: position(positionSec, "playingEnd"), playbackEndReason: reason)
 
             session.contents.removeAll { $0 === self }
 
@@ -162,12 +165,12 @@ public final class MediaContent {
     ///   - reason: Reason of pausing the playback
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func pause(positionSec: Double, reason: MediaPauseReason, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             heldResume = nil
 
             guard isIn(.playing) else { return ignored("pause") }
 
-            emitPause(positionSec: positionSec, reason: reason, userEngaged: userEngaged)
+            emitPause(positionSec: position(positionSec, "pause"), reason: reason, userEngaged: userEngaged)
         }
     }
 
@@ -178,7 +181,7 @@ public final class MediaContent {
     ///   - positionSec: Playback position in seconds
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func resume(positionSec: Double, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.paused) else { return ignored("resume") }
 
             if seeking {
@@ -186,7 +189,7 @@ public final class MediaContent {
                 return
             }
 
-            emitResume(positionSec: positionSec, userEngaged: userEngaged)
+            emitResume(positionSec: position(positionSec, "resume"), userEngaged: userEngaged)
         }
     }
 
@@ -197,15 +200,16 @@ public final class MediaContent {
     ///   - targetSec: Position the seek is heading to. Reported if the seek is closed before its end is reported.
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func seekStart(positionSec: Double, targetSec: Double? = nil, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.playing, .paused), !seeking else { return ignored("seekStart") }
 
-            MediaValidation.nonNegative(targetSec, field: "target_sec", method: "seekStart")
+            let target = MediaValidation.finite(targetSec, field: "target_sec", method: "seekStart")
+            MediaValidation.nonNegative(target, field: "target_sec", method: "seekStart")
 
-            seekTarget = targetSec
+            seekTarget = target
             seeking = true
             playback.userEngaged = userEngaged ?? playback.userEngaged
-            send(.seekStart, positionSec: positionSec)
+            send(.seekStart, positionSec: position(positionSec, "seekStart"))
         }
     }
 
@@ -216,10 +220,10 @@ public final class MediaContent {
     ///   - positionSec: Position the seek ended at
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func seekEnd(positionSec: Double, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.playing, .paused) else { return ignored("seekEnd") }
 
-            endSeek(positionSec: positionSec, userEngaged: userEngaged)
+            endSeek(positionSec: position(positionSec, "seekEnd"), userEngaged: userEngaged)
         }
     }
 
@@ -248,12 +252,12 @@ public final class MediaContent {
     ///   - audioOutput: New audio output
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func outputChange(positionSec: Double, audioOutput: MediaAudioOutput, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.playing, .paused) else { return ignored("outputChange") }
 
             session.state.audioOutput = audioOutput
             playback.userEngaged = userEngaged ?? playback.userEngaged
-            send(.outputChange, positionSec: positionSec)
+            send(.outputChange, positionSec: position(positionSec, "outputChange"))
         }
     }
 
@@ -264,12 +268,12 @@ public final class MediaContent {
     ///   - visibilityState: New visibility of the player
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func visibilityChange(positionSec: Double, visibilityState: MediaVisibilityState, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.playing, .paused) else { return ignored("visibilityChange") }
 
             session.state.visibilityState = visibilityState
             playback.userEngaged = userEngaged ?? playback.userEngaged
-            send(.visibilityChange, positionSec: positionSec)
+            send(.visibilityChange, positionSec: position(positionSec, "visibilityChange"))
         }
     }
 
@@ -281,14 +285,14 @@ public final class MediaContent {
     ///   - message: Error message (1 to 1024 characters)
     ///   - userEngaged: Whether the user is engaged. When nil the previous value is kept.
     public func error(positionSec: Double, code: String, message: String, userEngaged: Bool? = nil) {
-        session.locked {
+        session.transact {
             guard isIn(.initialized, .playing, .paused) else { return ignored("error") }
 
             MediaValidation.text(code, field: "error_code", method: "error", min: 1, max: 8)
             MediaValidation.text(message, field: "error_message", method: "error", min: 1, max: 1024)
 
             playback.userEngaged = userEngaged ?? playback.userEngaged
-            send(.error, positionSec: positionSec, errorCode: code, errorMessage: message)
+            send(.error, positionSec: position(positionSec, "error"), errorCode: code, errorMessage: message)
         }
     }
 }
@@ -302,7 +306,7 @@ extension MediaContent {
         heldResume = nil
 
         if seeking {
-            endSeek(positionSec: nil, userEngaged: nil)
+            endSeek(positionSec: nil, fallsBackToContentPosition: true, userEngaged: nil)
         }
     }
 }
@@ -314,6 +318,10 @@ private extension MediaContent {
     /// Seek target while a seek with a target is open, the last sent position otherwise
     var contentPosition: Double {
         return seekTarget ?? lastPosition
+    }
+
+    func position(_ value: Double?, _ method: String) -> Double? {
+        return MediaValidation.finite(value, field: "position_sec", method: method)
     }
 
     func isIn(_ modes: Mode...) -> Bool {
@@ -345,13 +353,13 @@ private extension MediaContent {
                      errorMessage: errorMessage)
     }
 
-    func emitPause(positionSec: Double, reason: MediaPauseReason, userEngaged: Bool?) {
+    func emitPause(positionSec: Double?, reason: MediaPauseReason, userEngaged: Bool?) {
         mode = .paused
         playback.userEngaged = userEngaged ?? playback.userEngaged
         send(.pause, positionSec: positionSec, pauseReason: reason)
     }
 
-    func emitResume(positionSec: Double, userEngaged: Bool?) {
+    func emitResume(positionSec: Double?, userEngaged: Bool?) {
         guard isIn(.paused) else { return }
 
         mode = .playing
@@ -373,8 +381,8 @@ private extension MediaContent {
     }
 
     /// Closes the seek. Without a position the seek target (or last position) is reported.
-    func endSeek(positionSec: Double?, userEngaged: Bool?) {
-        let position = positionSec ?? contentPosition
+    func endSeek(positionSec: Double?, fallsBackToContentPosition: Bool = false, userEngaged: Bool?) {
+        let position = fallsBackToContentPosition ? (positionSec ?? contentPosition) : positionSec
 
         seeking = false
         seekTarget = nil
@@ -391,16 +399,16 @@ private extension MediaContent {
     }
 
     func setMuted(_ muted: Bool, positionSec: Double, userEngaged: Bool?, method: String) {
-        session.locked {
+        session.transact {
             guard isIn(.playing, .paused) else { return ignored(method) }
 
             session.state.muted = muted
             playback.userEngaged = userEngaged ?? !muted
-            send(muted ? .mute : .unmute, positionSec: positionSec)
+            send(muted ? .mute : .unmute, positionSec: position(positionSec, method))
         }
     }
 
-    func validate(_ parameters: MediaPlayingStartParameters, relatedMediaId: String?) {
+    func validate(_ parameters: MediaPlayingStartParameters, durationSec: Double?, relatedMediaId: String?) {
         let method = "playingStart"
 
         MediaValidation.text(parameters.mediaId, field: "media_id", method: method, min: 1, max: 36)
@@ -410,7 +418,7 @@ private extension MediaContent {
         MediaValidation.text(parameters.adCreativeId, field: "ad_creative_id", method: method, max: 36)
         MediaValidation.text(relatedMediaId, field: "related_media_id", method: method, max: 36)
         MediaValidation.text(parameters.adSlot, field: "ad_slot", method: method, max: 128)
-        MediaValidation.nonNegative(parameters.durationSec, field: "duration_sec", method: method)
+        MediaValidation.nonNegative(durationSec, field: "duration_sec", method: method)
 
         if parameters.mediaContentType == .ad {
             if parameters.mediaContentSubtype == nil {
