@@ -27,7 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // We are enabling debug mode by default in demo app
 
-        let debugModeEnabled = true
+        // Pass '-debugModeEnabled NO' as a launch argument to send events to the network
+
+        let debugModeEnabled = UserDefaults.standard.object(forKey: "debugModeEnabled") as? Bool ?? true
 
         // Configuration data
 
