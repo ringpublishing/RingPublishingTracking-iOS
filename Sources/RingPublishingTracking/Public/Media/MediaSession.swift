@@ -31,13 +31,13 @@ public final class MediaSession {
 
     // MARK: Private properties
 
-    private let id = UUID().uuidString
+    private let id = UUID().uuidString.lowercased()
     private let eventsFactory: EventsFactory
     private let eventSink: (Event) -> Void
 
     // MARK: Public properties
 
-    /// Unique id of the session (UUID v4, 36 characters), sent as `media_session_id`
+    /// Unique id of the session (lowercase UUID v4, 36 characters), sent as `media_session_id`
     public var sessionId: String {
         return id
     }

@@ -79,6 +79,7 @@ final class MediaEventsTests: XCTestCase {
 
         XCTAssertEqual(session.sessionId.count, 36)
         XCTAssertNotNil(UUID(uuidString: session.sessionId))
+        XCTAssertEqual(session.sessionId, session.sessionId.lowercased())
         XCTAssertNotEqual(session.sessionId, recorder.makeSession(mediaType: .audio).sessionId)
     }
 
@@ -382,6 +383,7 @@ private extension MediaEventsTests {
                 if key == "media_session_id" {
                     XCTAssertEqual(actualValue as? String, session.sessionId, context, file: file, line: line)
                     XCTAssertEqual(session.sessionId.count, 36, context, file: file, line: line)
+                    XCTAssertEqual(session.sessionId, session.sessionId.lowercased(), context, file: file, line: line)
                     XCTAssertNotNil(UUID(uuidString: session.sessionId), context, file: file, line: line)
                 } else {
                     XCTAssertTrue(equal(actualValue.base, expectedValue), "\(context): \(key) \(actualValue) != \(expectedValue)",
