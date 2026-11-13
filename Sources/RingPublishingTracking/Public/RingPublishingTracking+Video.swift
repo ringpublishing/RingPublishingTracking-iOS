@@ -19,6 +19,7 @@ public extension RingPublishingTracking {
     ///   - videoEvent: Type of Video event to report
     ///   - videoMetadata: Video material metadata
     ///   - videoState: Current Video material state in video player
+    @available(*, deprecated, message: "Sends the legacy VidEvent. Use createMediaSession(mediaType:playerVariant:) to report MediaEvent.")
     func reportVideoEvent(_ videoEvent: VideoEvent, videoMetadata: VideoMetadata, videoState: VideoState) {
         Logger.log("Reporting video event: '\(videoEvent)' for publicationId: '\(videoMetadata.publicationId)'")
 
