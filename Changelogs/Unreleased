@@ -1,0 +1,13 @@
+Unreleased
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Added 'createMediaSession(mediaType:playerVariant:)'
+    - reports the new 'MediaEvent' for video, audio and TTS players through 'MediaSession' and 'MediaContent'
+    - 'MediaSession' owns 'media_session_id', 'event_ordinal' and the state carried between events
+* Deprecated 'reportVideoEvent(_:videoMetadata:videoState:)' and 'reportAudioEvent(audioEvent:audioMetadata:audioState:)'
+    - both still send the legacy 'VidEvent' and behave as before
+    - use 'createMediaSession(mediaType:playerVariant:)' to report 'MediaEvent'
