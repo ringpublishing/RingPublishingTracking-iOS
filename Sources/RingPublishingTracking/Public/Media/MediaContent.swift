@@ -10,6 +10,9 @@ import Foundation
 /// One piece of content (video, episode, advertisement) played in a `MediaSession`. Created by `MediaSession.createMediaContent(_:)`.
 ///
 /// A call which is not allowed in the current state sends nothing and changes nothing.
+///
+/// A NaN or infinite `positionSec` is logged and replaced by the content position: the seek target while a seek with a target
+/// is open, otherwise the last position this content sent, 0 if it sent none. A NaN or infinite `durationSec` is logged and sent as 0.
 /// All methods can be called from any thread.
 public final class MediaContent {
 
@@ -69,7 +72,7 @@ public final class MediaContent {
             let isAd = parameters.mediaContentType == .ad
             let relatedMediaId = isAd ? (parameters.relatedMediaId ?? session.activeContent?.playback.mediaId) : nil
 
-            let durationSec = MediaValidation.finite(parameters.durationSec, field: "duration_sec", method: "playingStart")
+            let durationSec = MediaValidation.finite(parameters.durationSec, field: "duration_sec", method: "playingStart") { 0 }
             let positionSec = position(parameters.positionSec, "playingStart")
 
             validate(parameters, durationSec: durationSec, relatedMediaId: relatedMediaId)
@@ -203,13 +206,14 @@ public final class MediaContent {
         session.transact {
             guard isIn(.playing, .paused), !seeking else { return ignored("seekStart") }
 
+            let startPosition = position(positionSec, "seekStart")
             let target = MediaValidation.finite(targetSec, field: "target_sec", method: "seekStart")
             MediaValidation.nonNegative(target, field: "target_sec", method: "seekStart")
 
             seekTarget = target
             seeking = true
             playback.userEngaged = userEngaged ?? playback.userEngaged
-            send(.seekStart, positionSec: position(positionSec, "seekStart"))
+            send(.seekStart, positionSec: startPosition)
         }
     }
 
@@ -315,13 +319,14 @@ extension MediaContent {
 
 private extension MediaContent {
 
-    /// Seek target while a seek with a target is open, the last sent position otherwise
+    /// Seek target while a seek with a target is open, the last sent position otherwise (0 before the first)
     var contentPosition: Double {
         return seekTarget ?? lastPosition
     }
 
-    func position(_ value: Double?, _ method: String) -> Double? {
-        return MediaValidation.finite(value, field: "position_sec", method: method)
+    /// A non-finite position is replaced by the content position, so the event keeps the `position_sec` the schema requires.
+    func position(_ value: Double, _ method: String) -> Double {
+        return MediaValidation.finite(value, field: "position_sec", method: method) { contentPosition }
     }
 
     func isIn(_ modes: Mode...) -> Bool {

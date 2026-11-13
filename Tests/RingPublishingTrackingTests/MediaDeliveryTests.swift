@@ -128,7 +128,12 @@ final class MediaDeliveryTests: XCTestCase {
         return (session, content)
     }
 
-    func testNonFinite_positionInEveryMethod_isDroppedAndEventStillSent() {
+    private func positions(_ type: String) -> [Double?] {
+        return recorder.events.filter { $0.eventParameters["event_type"] as? String == type }
+            .map { $0.eventParameters["position_sec"] as? Double }
+    }
+
+    func testNonFinite_positionInEveryMethod_isReplacedByZeroForNewContent() {
         let values = [Double.nan, .infinity, -.infinity]
 
         for value in values {
@@ -156,8 +161,9 @@ final class MediaDeliveryTests: XCTestCase {
                                    "MEDIA_SEEK_START", "MEDIA_SEEK_END", "MEDIA_MUTE", "MEDIA_UNMUTE", "MEDIA_OUTPUT_CHANGE",
                                    "MEDIA_VISIBILITY_CHANGE", "MEDIA_ERROR", "MEDIA_PLAYING_END"])
 
-            for event in recorder.events {
-                XCTAssertNil(event.eventParameters["position_sec"])
+            for event in recorder.events.dropFirst() {
+                let type = event.eventParameters["event_type"] as? String ?? ""
+                XCTAssertEqual(event.eventParameters["position_sec"] as? Double, 0.0, type)
                 assertNoNonFiniteNumbers(in: event)
             }
 
@@ -170,19 +176,75 @@ final class MediaDeliveryTests: XCTestCase {
         }
     }
 
-    func testNonFinite_position_leavesLastPositionUnchanged() {
+    func testNonFinite_position_isReplacedByLastPositionOfContent() {
         let (_, content) = startedContent()
 
         content.playingProgress(positionSec: 20)
-        content.seekStart(positionSec: 20)
         content.playingProgress(positionSec: .nan)
-        content.pause(positionSec: 21, reason: .userAction)
+        content.pause(positionSec: .infinity, reason: .userAction)
+        content.resume(positionSec: -.infinity)
+
+        XCTAssertEqual(positions("MEDIA_PLAYING_PROGRESS"), [20.0, 20.0])
+        XCTAssertEqual(positions("MEDIA_PAUSE"), [20.0])
+        XCTAssertEqual(positions("MEDIA_RESUME"), [20.0])
+    }
+
+    func testNonFinite_seekEnd_landsOnSeekTargetAndHeldResumeFollowsThere() {
+        let (_, content) = startedContent()
+
+        content.pause(positionSec: 12, reason: .userAction)
+        content.seekStart(positionSec: 12, targetSec: 45)
+        content.resume(positionSec: 12)
         content.seekEnd(positionSec: .nan)
+        content.playingProgress(positionSec: .nan)
 
-        let seekEnd = recorder.events.last { $0.eventParameters["event_type"] as? String == "MEDIA_SEEK_END" }
-        XCTAssertNotNil(seekEnd)
-        XCTAssertNil(seekEnd?.eventParameters["position_sec"])
+        XCTAssertEqual(positions("MEDIA_SEEK_START"), [12.0])
+        XCTAssertEqual(positions("MEDIA_SEEK_END"), [45.0])
+        XCTAssertEqual(positions("MEDIA_RESUME"), [45.0])
+        XCTAssertEqual(positions("MEDIA_PLAYING_PROGRESS"), [45.0])
+    }
 
+    func testNonFinite_positionDuringOpenSeek_usesSeekTarget() {
+        let (_, content) = startedContent()
+
+        content.seekStart(positionSec: 10, targetSec: 30)
+        content.mute(positionSec: .nan)
+        content.seekEnd(positionSec: 31)
+
+        XCTAssertEqual(positions("MEDIA_MUTE"), [30.0])
+        XCTAssertEqual(positions("MEDIA_SEEK_END"), [31.0])
+    }
+
+    func testNonFinite_seekStart_usesLastPositionNotItsOwnTarget() {
+        let (_, content) = startedContent()
+
+        content.playingProgress(positionSec: 15)
+        content.seekStart(positionSec: .nan, targetSec: 90)
+
+        XCTAssertEqual(positions("MEDIA_SEEK_START"), [15.0])
+    }
+
+    func testNonFinite_playingStart_usesLastPositionOfContentPlayedBefore() {
+        let (_, content) = startedContent()
+
+        content.playingEnd(positionSec: 33, reason: .naturalCompletion)
+        content.playingStart(MediaPlayingStartParameters(mediaId: "a1", durationSec: 60, mediaContentType: .main,
+                                                         playbackIntent: .autoplay, positionSec: .nan))
+
+        XCTAssertEqual(positions("MEDIA_PLAYING_START"), [10.0, 33.0])
+    }
+
+    func testNonFinite_playingEndClosingOpenSeek_usesSeekTarget() {
+        let (_, content) = startedContent()
+
+        content.seekStart(positionSec: 10, targetSec: 50)
+        content.playingEnd(positionSec: .nan, reason: .userStopped)
+
+        XCTAssertEqual(positions("MEDIA_SEEK_END"), [50.0])
+        XCTAssertEqual(positions("MEDIA_PLAYING_END"), [50.0])
+    }
+
+    func testNonFinite_adPausesMainAtItsPosition() {
         let session = recorder.makeSession(mediaType: .video)
         let main = session.createMediaContent()
         main.playingStart(MediaPlayingStartParameters(mediaId: "v1", durationSec: 60, mediaContentType: .main,
@@ -191,12 +253,11 @@ final class MediaDeliveryTests: XCTestCase {
         let advert = session.createMediaContent()
         advert.playingStart(MediaPlayingStartParameters(mediaId: "ad1", durationSec: 10, mediaContentType: .ad, playbackIntent: .autoplay,
                                                         positionSec: 0, mediaContentSubtype: .preroll))
-        let pause = recorder.events.last { $0.eventParameters["event_type"] as? String == "MEDIA_PAUSE" }
 
-        XCTAssertEqual(pause?.eventParameters["position_sec"], 30.0)
+        XCTAssertEqual(positions("MEDIA_PAUSE"), [30.0])
     }
 
-    func testNonFinite_duration_isLeftOutOfThisAndLaterEvents() {
+    func testNonFinite_duration_becomesZeroAndIsCarried() {
         let session = recorder.makeSession(mediaType: .video)
         let content = session.createMediaContent()
 
@@ -208,7 +269,7 @@ final class MediaDeliveryTests: XCTestCase {
         XCTAssertFalse(logs.contains { $0.contains("duration_sec") && $0.contains("must be at least 0") })
 
         for event in recorder.events.dropFirst() {
-            XCTAssertNil(event.eventParameters["duration_sec"])
+            XCTAssertEqual(event.eventParameters["duration_sec"] as? Double, 0.0)
             assertNoNonFiniteNumbers(in: event)
         }
 

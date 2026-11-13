@@ -39,6 +39,11 @@ enum MediaValidation {
         return nil
     }
 
+    /// Like `finite`, but a non-finite value is replaced by `substitute()` instead of nil.
+    static func finite(_ value: Double, field: String, method: String, substitute: () -> Double) -> Double {
+        return finite(value, field: field, method: method) ?? substitute()
+    }
+
     static func warn(_ method: String, _ message: String) {
         Logger.log("[MediaEvent] \(method): \(message). The value is used as is.", level: .default)
     }
