@@ -51,10 +51,10 @@ public enum MediaAudioOutput: String {
     /// Car system (for example CarPlay)
     case car
 
-    /// Chromecast or other casting target
+    /// Chromecast
     case chromecast
 
-    /// Other external output
+    /// Other external output, for example AirPlay
     case external
 }
 
