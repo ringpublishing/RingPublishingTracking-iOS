@@ -32,8 +32,13 @@ private extension HomeViewController {
         let controllerIdentifiers = ["ListViewController", "ActionsViewController", "NonContentViewController"]
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
 
-        return controllerIdentifiers.compactMap { storyboard.instantiateViewController(withIdentifier: $0) as? PagerViewController }
-            .sorted { return $0.pageIndex < $1.pageIndex }
+        let storyboardControllers = controllerIdentifiers.compactMap {
+            storyboard.instantiateViewController(withIdentifier: $0) as? PagerViewController
+        }
+
+        // Media page is built in code, it is not a part of the storyboard
+
+        return (storyboardControllers + [MediaViewController()]).sorted { return $0.pageIndex < $1.pageIndex }
     }
 }
 
