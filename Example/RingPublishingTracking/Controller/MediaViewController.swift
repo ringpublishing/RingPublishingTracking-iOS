@@ -79,6 +79,11 @@ class MediaViewController: UIViewController, PagerViewController, TraceableScree
         first.playingStart(MediaPlayingStartParameters(mediaId: "a1", durationSec: 1800, mediaContentType: .main,
                                                        playbackIntent: .userInitiated, positionSec: 0, mediaVariant: "mp3",
                                                        userEngaged: true))
+
+        // The user moves to another screen while the audio keeps playing. The page view gets a new IP and IV.
+        // The events of this content keep the ones of the screen where it started.
+        RingPublishingTracking.shared.reportPageView(currentStructurePath: ["Home", "Media", "Episode"], partiallyReloaded: false)
+
         first.playingProgress(positionSec: 15)
         first.pause(positionSec: 42, reason: .userAction)
         first.playingProgress(positionSec: 43) // Ignored, the content is paused
