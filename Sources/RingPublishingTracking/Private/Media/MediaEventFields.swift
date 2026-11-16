@@ -54,4 +54,5 @@ struct MediaEventFields {
     var playbackEndReason: MediaPlaybackEndReason?
     var errorCode: String?
     var errorMessage: String?
+    var identifierPin: MediaIdentifierPin?
 }

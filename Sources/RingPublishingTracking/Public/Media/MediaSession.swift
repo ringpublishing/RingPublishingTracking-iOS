@@ -9,6 +9,9 @@ import Foundation
 
 /// Session of a video, audio or TTS player. Reports `MediaEvent` through the SDK.
 ///
+/// The events of a content carry the page identifiers (`IP`, `IV`) of the screen where its playback started, so audio which keeps
+/// playing while the user moves between screens stays one playback.
+///
 /// The session owns `media_session_id`, `event_ordinal`, state carried between events and the state machine of its contents.
 /// All methods can be called from any thread. Call `end()` when the player is finished.
 ///
@@ -227,7 +230,8 @@ public final class MediaSession {
                                       pauseReason: pauseReason,
                                       playbackEndReason: playbackEndReason,
                                       errorCode: errorCode,
-                                      errorMessage: errorMessage)
+                                      errorMessage: errorMessage,
+                                      identifierPin: playback?.identifierPin)
         MediaValidation.nonNegative(positionSec, field: "position_sec", method: type.rawValue)
 
         outbox.append(eventsFactory.createMediaEvent(fields: fields))

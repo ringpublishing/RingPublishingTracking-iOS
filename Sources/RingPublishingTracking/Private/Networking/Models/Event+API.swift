@@ -33,6 +33,11 @@ extension Event {
     func decorated(using decorators: [Decorator]) -> Self {
         var parameters = eventParameters
 
+        if !pinsIdentifiers, let pin = identifierPin {
+            // Decorators keep a parameter the event already has
+            parameters.merge(pin.identifiers) { current, _ in current }
+        }
+
         for decorator in decorators {
             decorator.parameters.forEach {
                 // Decorators carry values shared by every event, so an event which provided the parameter
@@ -43,6 +48,10 @@ extension Event {
             }
 
             decorator.eventDecorated()
+        }
+
+        if pinsIdentifiers {
+            identifierPin?.pin(parameters)
         }
 
         return Event(analyticsSystemName: analyticsSystemName, eventName: eventName, eventParameters: parameters)

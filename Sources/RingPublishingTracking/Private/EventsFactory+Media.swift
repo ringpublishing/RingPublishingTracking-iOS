@@ -55,6 +55,10 @@ extension EventsFactory {
         parameters["error_code"] = fields.errorCode
         parameters["error_message"] = fields.errorMessage
 
-        return createMediaEvent(parameters: parameters)
+        var event = createMediaEvent(parameters: parameters)
+        event.identifierPin = fields.identifierPin
+        event.pinsIdentifiers = fields.type == .playingStart
+
+        return event
     }
 }

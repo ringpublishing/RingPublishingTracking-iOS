@@ -11,3 +11,6 @@ Improvements to the 'RingPublishingTracking' module.
 * Deprecated 'reportVideoEvent(_:videoMetadata:videoState:)' and 'reportAudioEvent(audioEvent:audioMetadata:audioState:)'
     - both still send the legacy 'VidEvent' and behave as before
     - use 'createMediaSession(mediaType:playerVariant:)' to report 'MediaEvent'
+* 'MediaEvent' keeps the page identifiers of the screen where the playback started
+    - events of a 'MediaContent' carry the 'IP' and 'IV' sent with its 'MEDIA_PLAYING_START', also after a page view was reported
+    - audio which keeps playing while the user moves between screens stays one playback

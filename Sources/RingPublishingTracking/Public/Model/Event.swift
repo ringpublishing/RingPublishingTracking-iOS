@@ -23,6 +23,12 @@ public struct Event: Equatable {
     /// Event seed to distinguish event from another one with same parameters
     private let seed = UUID().uuidString
 
+    /// Set on `MediaEvent` only, see `MediaIdentifierPin`
+    var identifierPin: MediaIdentifierPin?
+
+    /// True when decorating this event stores its identifiers in `identifierPin`
+    var pinsIdentifiers = false
+
     // MARK: Init
 
     /// Initializer

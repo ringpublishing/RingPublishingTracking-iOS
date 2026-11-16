@@ -9,6 +9,9 @@ import Foundation
 
 /// One piece of content (video, episode, advertisement) played in a `MediaSession`. Created by `MediaSession.createMediaContent(_:)`.
 ///
+/// The events of the content carry the page identifiers (`IP`, `IV`) of the screen where `playingStart(_:)` was called, also
+/// after a page view was reported. The next `playingStart(_:)` takes the identifiers current at that moment.
+///
 /// A call which is not allowed in the current state sends nothing and changes nothing.
 ///
 /// A NaN or infinite `positionSec` is logged and replaced by the content position: the seek target while a seek with a target
@@ -28,6 +31,8 @@ public final class MediaContent {
 
     var playback: MediaPlaybackState
     var mode = Mode.initialized
+
+    let identifierPin = MediaIdentifierPin()
 
     private let session: MediaSession
     private var seeking = false
