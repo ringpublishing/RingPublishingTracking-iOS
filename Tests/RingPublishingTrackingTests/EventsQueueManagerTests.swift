@@ -134,6 +134,54 @@ class EventsQueueManagerTests: XCTestCase {
         // Then
         XCTAssertTrue(manager.canSendEvents(), "Should be allowed to send events")
     }
+
+    func testSendEventsIfPossible_sendDeferredTwiceFromBackgroundThread_eachDeferredSendFires() {
+        // Given
+        let manager = EventsQueueManager(storage: StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: 200),
+                                         operationMode: OperationMode())
+        let delegate = EventsQueueManagerDelegateMock()
+        manager.delegate = delegate
+
+        // When
+        deferSendFromBackgroundThread(manager: manager, delegate: delegate)
+        deferSendFromBackgroundThread(manager: manager, delegate: delegate)
+
+        // Then
+        XCTAssertEqual(delegate.readyToSendEventsCount, 2, "A deferred send which fired should not block the next one")
+    }
+}
+
+// MARK: Helpers
+private extension EventsQueueManagerTests {
+
+    /// Adds an event on a background thread right after a send, so the next send is deferred from that thread, and waits for it
+    func deferSendFromBackgroundThread(manager: EventsQueueManager, delegate: EventsQueueManagerDelegateMock) {
+        let deferredSendFired = expectation(description: "Deferred send fired")
+        delegate.onReadyToSendEvents = { deferredSendFired.fulfill() }
+
+        manager.updateLastSendDate()
+        DispatchQueue.global().async {
+            manager.addEvents([Event.smallEvent()])
+        }
+
+        wait(for: [deferredSendFired], timeout: 1)
+        delegate.onReadyToSendEvents = nil
+    }
+}
+
+private final class EventsQueueManagerDelegateMock: EventsQueueManagerDelegate {
+
+    private(set) var readyToSendEventsCount = 0
+    var onReadyToSendEvents: (() -> Void)?
+
+    func eventsQueueBecameReadyToSendEvents(_ eventsQueueManager: EventsQueueManager) {
+        readyToSendEventsCount += 1
+        onReadyToSendEvents?()
+    }
+
+    func eventsQueueFailedToScheduleTimer(_ eventsQueueManager: EventsQueueManager) {}
+
+    func eventsQueueFailedToAddEvent(_ eventsQueueManager: EventsQueueManager, event: Event) {}
 }
 
 extension Event {

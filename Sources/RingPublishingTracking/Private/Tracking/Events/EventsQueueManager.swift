@@ -17,11 +17,15 @@ final class EventsQueueManager {
     /// Concurrent events array
     private(set) var events = AtomicArray<Event>()
 
+    /// Guards `lastSentDate` and `timer`. Both are used from the main thread and from the completion queue of a send request.
+    private let stateLock = NSLock()
+
     /// Last time the events has been sent to the server
     private var lastSentDate = Date(timeIntervalSince1970: TimeInterval(0))
 
-    /// Timer
-    private var timer: Timer?
+    /// Delayed send. It fires on the main queue whichever thread schedules it, unlike a run loop `Timer`,
+    /// which never fires when scheduled from the completion queue of a request.
+    private var timer: DispatchSourceTimer?
 
     /// Storage
     private let storage: TrackingStorage
@@ -34,6 +38,10 @@ final class EventsQueueManager {
     init(storage: TrackingStorage, operationMode: Operationable) {
         self.storage = storage
         self.operationMode = operationMode
+    }
+
+    deinit {
+        timer?.cancel()
     }
 }
 
@@ -62,12 +70,18 @@ extension EventsQueueManager {
         }
 
         let intervalInSeconds = TimeInterval(Double(interval) / Double(1000))
+
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
         return Date() > lastSentDate.addingTimeInterval(intervalInSeconds)
     }
 
     /// Sets the last sent date for events to the current date and time
     func updateLastSendDate() {
+        stateLock.lock()
         lastSentDate = Date()
+        stateLock.unlock()
     }
 }
 
@@ -115,23 +129,41 @@ extension EventsQueueManager {
             return
         }
 
-        guard timer == nil else {
+        let intervalInSeconds = TimeInterval(Double(interval) / Double(1000))
+
+        stateLock.lock()
+        let isTimerScheduled = timer != nil
+        if !isTimerScheduled {
+            timer = makeTimer(firingAfter: intervalInSeconds)
+        }
+        stateLock.unlock()
+
+        guard !isTimerScheduled else {
             Logger.log("Timer is already scheduled.")
             return
         }
 
-        let intervalInSeconds = TimeInterval(Double(interval) / Double(1000))
         Logger.log("SDK is not ready to send events yet. Scheduling a timer with interval \(intervalInSeconds)s.")
+    }
 
-        timer = Timer.scheduledTimer(withTimeInterval: intervalInSeconds, repeats: false) { [weak self] _ in
+    /// Makes a one-shot timer which clears itself and sends the queued events on the main queue
+    private func makeTimer(firingAfter interval: TimeInterval) -> DispatchSourceTimer {
+        let timer = DispatchSource.makeTimerSource(queue: .main)
+        timer.setEventHandler { [weak self] in
             self?.invalidateTimer()
             self?.sendEventsIfPossible()
         }
+        timer.schedule(deadline: .now() + interval, repeating: .never)
+        timer.activate()
+
+        return timer
     }
 
     /// Invalidates scheduled timer
     private func invalidateTimer() {
-        timer?.invalidate()
+        stateLock.lock()
+        timer?.cancel()
         timer = nil
+        stateLock.unlock()
     }
 }

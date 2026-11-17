@@ -16,10 +16,14 @@ class ManualNetworkSessionMock: NetworkSession {
     private(set) var requests: [URLRequest] = []
     private var pendingCompletionHandlers: [(Data?, URLResponse?, Error?) -> Void] = []
 
+    /// Called on the thread which made the request, once it is captured
+    var onDataTask: ((URLRequest) -> Void)?
+
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         callCount += 1
         requests.append(request)
         pendingCompletionHandlers.append(completionHandler)
+        onDataTask?(request)
     }
 
     /// Completes the oldest still-pending request with the given result

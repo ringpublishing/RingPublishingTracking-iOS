@@ -14,3 +14,7 @@ Improvements to the 'RingPublishingTracking' module.
 * 'MediaEvent' keeps the page identifiers of the screen where the playback started
     - events of a 'MediaContent' carry the 'IP' and 'IV' sent with its 'MEDIA_PLAYING_START', also after a page view was reported
     - audio which keeps playing while the user moves between screens stays one playback
+* Fixed events reported while a request was in flight waiting for the next reported event
+    - the send left pending by the in-flight request is retried from its network callback, and when 'postInterval' had not passed yet, the retry scheduled a run loop timer on the callback's thread, which never fired
+    - every later delayed send was then taken as already scheduled, so for the rest of the app session such events went out only with the next reported event, and the last events of a session stayed in the queue
+    - the delayed send now fires on the main queue whichever thread schedules it, still 'postInterval' after the last send
