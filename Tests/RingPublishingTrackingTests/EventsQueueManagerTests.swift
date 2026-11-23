@@ -149,6 +149,28 @@ class EventsQueueManagerTests: XCTestCase {
         // Then
         XCTAssertEqual(delegate.readyToSendEventsCount, 2, "A deferred send which fired should not block the next one")
     }
+
+    func testSendEventsIfPossible_sendDeferredOnMainThreadWhileScrolling_deferredSendFires() {
+        // Given
+        let manager = EventsQueueManager(storage: StaticStorage(eaUUID: nil, trackingIds: nil, postInterval: 200),
+                                         operationMode: OperationMode())
+        let delegate = EventsQueueManagerDelegateMock()
+        manager.delegate = delegate
+        // UIKit makes the tracking mode a common mode at app start. A test target without a host app does not.
+        CFRunLoopAddCommonMode(CFRunLoopGetMain(), CFRunLoopMode(RunLoop.Mode.tracking.rawValue as CFString))
+
+        // When
+        manager.updateLastSendDate()
+        manager.addEvents([Event.smallEvent()])
+
+        let deadline = Date().addingTimeInterval(2)
+        while delegate.readyToSendEventsCount < 1 && Date() < deadline {
+            RunLoop.main.run(mode: .tracking, before: Date().addingTimeInterval(0.05))
+        }
+
+        // Then
+        XCTAssertEqual(delegate.readyToSendEventsCount, 1, "A deferred send should fire while the run loop is in tracking mode")
+    }
 }
 
 // MARK: Helpers
