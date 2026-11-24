@@ -22,7 +22,9 @@ public extension RingPublishingTracking {
     ///   - playerVariant: Variant of the player (up to 64 characters)
     /// - Returns: Media session
     func createMediaSession(mediaType: MediaType, playerVariant: String? = nil) -> MediaSession {
-        return MediaSession(mediaType: mediaType, playerVariant: playerVariant) { [self] event in
+        let eventsFactory = EventsFactory { [weak self] in self?.eventsService?.userDataDecorator.isActiveSubscriber }
+
+        return MediaSession(mediaType: mediaType, playerVariant: playerVariant, eventsFactory: eventsFactory) { [self] event in
             reportEvent(event)
         }
     }

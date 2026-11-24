@@ -47,6 +47,7 @@ extension EventsFactory {
         parameters["related_media_id"] = playback?.relatedMediaId
         parameters["subscription_tier"] = playback?.subscriptionTier?.rawValue
         parameters["user_engaged"] = playback?.userEngaged ?? false
+        parameters["user_type"] = isActiveSubscriber() == true ? Constants.subscriberUserType : nil
 
         parameters["position_sec"] = fields.positionSec
         parameters["start_mode"] = fields.startMode?.rawValue

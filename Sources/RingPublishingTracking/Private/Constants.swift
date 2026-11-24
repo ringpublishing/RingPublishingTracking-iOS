@@ -45,6 +45,7 @@ struct Constants {
     // MARK: Video event
 
     static let videoEventParametersPrefix = "video"
+    static let subscriberUserType = "subscriber"
 
     // MARK: SSO system name
 
