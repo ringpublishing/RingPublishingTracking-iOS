@@ -60,8 +60,10 @@ extension EventsService {
         tenantIdentifierDecorator.updateTenantId(tenantId: tenantId)
     }
 
-    func updateStructureType(structureType: StructureType, contentPageViewSource: ContentPageViewSource?) {
-        structureInfoDecorator.updateStructureType(structureType: structureType, contentPageViewSource: contentPageViewSource)
+    func updateStructureType(structureType: StructureType, contentPageViewSource: ContentPageViewSource?, partiallyReloaded: Bool) {
+        structureInfoDecorator.updateStructureType(structureType: structureType,
+                                                   contentPageViewSource: contentPageViewSource,
+                                                   partiallyReloaded: partiallyReloaded)
     }
 
     func updateApplicationRootPath(applicationRootPath: String) {

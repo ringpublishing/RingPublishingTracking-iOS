@@ -167,7 +167,9 @@ class DecoratorTests: XCTestCase {
 
         // When
         decorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
-        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath), contentPageViewSource: nil)
+        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath),
+                                      contentPageViewSource: nil,
+                                      partiallyReloaded: false)
 
         // Then
         let params1 = decorator.parameters
@@ -178,7 +180,8 @@ class DecoratorTests: XCTestCase {
 
         // When
         decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
-                                      contentPageViewSource: .default)
+                                      contentPageViewSource: .default,
+                                      partiallyReloaded: false)
 
         // Then
         let params2 = decorator.parameters
@@ -198,7 +201,9 @@ class DecoratorTests: XCTestCase {
 
         // When
         decorator.updateApplicationRootPath(applicationRootPath: applicationRootPath)
-        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath), contentPageViewSource: nil)
+        decorator.updateStructureType(structureType: .structurePath(applicationDefaultStructurePath),
+                                      contentPageViewSource: nil,
+                                      partiallyReloaded: false)
 
         // Then
         let params1 = decorator.parameters
@@ -209,7 +214,8 @@ class DecoratorTests: XCTestCase {
 
         // When
         decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
-                                      contentPageViewSource: .socialMedia)
+                                      contentPageViewSource: .socialMedia,
+                                      partiallyReloaded: false)
 
         // Then
         let params2 = decorator.parameters
@@ -220,7 +226,8 @@ class DecoratorTests: XCTestCase {
 
         // When
         decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, ["home", "sport", "article_123"]),
-                                      contentPageViewSource: .pushNotifcation)
+                                      contentPageViewSource: .pushNotifcation,
+                                      partiallyReloaded: false)
 
         // Then
         let params3 = decorator.parameters
@@ -230,11 +237,48 @@ class DecoratorTests: XCTestCase {
         XCTAssertEqual(params3["DR"], params2["DU"], "DR should be equal to previous DU")
     }
 
+    func testParameters_structureInfoDecoratorPartiallyReloaded_referrerIsKeptUntilNextFullView() throws {
+        // Given
+        let sampleArticleURL = try XCTUnwrap(URL(string: "https://test.com/article?id=123"))
+        let articlePath = ["home", "sport", "article_123"]
+
+        let decorator = StructureInfoDecorator()
+        decorator.updateApplicationRootPath(applicationRootPath: "Onet")
+        decorator.updateStructureType(structureType: .structurePath(["home"]),
+                                      contentPageViewSource: nil,
+                                      partiallyReloaded: false)
+        let homeParams = decorator.parameters
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, articlePath),
+                                      contentPageViewSource: .pushNotifcation,
+                                      partiallyReloaded: false)
+
+        // When
+        decorator.updateStructureType(structureType: .publicationUrl(sampleArticleURL, articlePath),
+                                      contentPageViewSource: .pushNotifcation,
+                                      partiallyReloaded: true)
+
+        // Then
+        let reloadedParams = decorator.parameters
+
+        XCTAssertEqual(reloadedParams["DU"], sampleArticleURL.absoluteString + "?utm_medium=push", "DU should be correct")
+        XCTAssertEqual(reloadedParams["DR"], homeParams["DU"], "DR should stay the referrer the view was entered from")
+
+        // When
+        decorator.updateStructureType(structureType: .structurePath(["home"]),
+                                      contentPageViewSource: nil,
+                                      partiallyReloaded: false)
+
+        // Then
+        XCTAssertEqual(decorator.parameters["DR"], reloadedParams["DU"], "DR should be equal to previous DU")
+    }
+
     func testParameters_structureInfoDecoratorUpdatedWithAdvertisementSite_siteReplacesRootPathPrefixInFieldDV() {
         // Given
         let decorator = StructureInfoDecorator()
         decorator.updateApplicationRootPath(applicationRootPath: "Onet")
-        decorator.updateStructureType(structureType: .structurePath(["home"]), contentPageViewSource: nil)
+        decorator.updateStructureType(structureType: .structurePath(["home"]),
+                                      contentPageViewSource: nil,
+                                      partiallyReloaded: false)
 
         // When
         decorator.updateApplicationAdvertisementSite(applicationAdvertisementSite: "Onet_Konto_iOS")

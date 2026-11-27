@@ -117,7 +117,9 @@ public extension RingPublishingTracking {
         Logger.log("Reporting page view event, structure path: '\(currentStructurePath)', partially reloaded: '\(partiallyReloaded)'")
 
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
-        eventsService?.updateStructureType(structureType: .structurePath(currentStructurePath), contentPageViewSource: nil)
+        eventsService?.updateStructureType(structureType: .structurePath(currentStructurePath),
+                                          contentPageViewSource: nil,
+                                          partiallyReloaded: partiallyReloaded)
 
         let event = eventsFactory.createPageViewEvent(contentIdentifier: nil, contentMetadata: nil)
         reportEvents([event])
@@ -155,7 +157,8 @@ public extension RingPublishingTracking {
 
         eventsService?.updateUniqueIdentifier(partiallyReloaded: partiallyReloaded)
         eventsService?.updateStructureType(structureType: .publicationUrl(contentMetadata.publicationUrl, currentStructurePath),
-                                          contentPageViewSource: pageViewSource)
+                                          contentPageViewSource: pageViewSource,
+                                          partiallyReloaded: partiallyReloaded)
 
         // When new content is open reset effective page view sent flag
         if !partiallyReloaded {

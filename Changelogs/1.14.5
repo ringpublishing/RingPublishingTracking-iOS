@@ -1,0 +1,10 @@
+1.14.5 Release notes (2026-11-27)
+================================
+
+Improvements to the 'RingPublishingTracking' module.
+
+### Changes
+
+* Fixed 'DR' changing on a partially reloaded page view
+    - 'DR' was always built from the previously reported view, so a view reported again with 'partiallyReloaded' set to true got its own address as 'DR'
+    - a partially reloaded view now keeps the 'DR' it was entered with, and the next full page view gets it as 'DR', as on Android

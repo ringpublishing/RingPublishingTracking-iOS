@@ -73,8 +73,11 @@ final class StructureInfoDecorator: Decorator {
 
 extension StructureInfoDecorator {
 
-    func updateStructureType(structureType: StructureType, contentPageViewSource: ContentPageViewSource?) {
-        self.previousInfo = (self.structureType, self.contentPageViewSource)
+    func updateStructureType(structureType: StructureType, contentPageViewSource: ContentPageViewSource?, partiallyReloaded: Bool) {
+        // A partially reloaded view is the same view reported again, so it keeps the referrer it was entered from.
+        if !partiallyReloaded {
+            self.previousInfo = (self.structureType, self.contentPageViewSource)
+        }
         self.structureType = structureType
         self.contentPageViewSource = contentPageViewSource
     }
