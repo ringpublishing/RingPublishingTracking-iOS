@@ -16,6 +16,13 @@ final class EventsFactory {
     var audioEventSessionCounter = [String: Int]()
     var isEffectivePageViewEventSent = false
 
+    /// Read when each MediaEvent is created, so a flag changed between two events shows in the second one
+    let isActiveSubscriber: () -> Bool?
+
+    init(isActiveSubscriber: @escaping () -> Bool? = { nil }) {
+        self.isActiveSubscriber = isActiveSubscriber
+    }
+
     // MARK: Click
 
     func createClickEvent(selectedElementName: String?,

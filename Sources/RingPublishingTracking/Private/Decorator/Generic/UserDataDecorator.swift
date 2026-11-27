@@ -22,6 +22,10 @@ final class UserDataDecorator: Decorator {
         return data.sso
     }
 
+    var isActiveSubscriber: Bool? {
+        return data.isActiveSubscriber
+    }
+
     var parameters: [String: AnyHashable] {
         var userDataParams: [String: AnyHashable] = [:]
 

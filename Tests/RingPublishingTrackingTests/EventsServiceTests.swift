@@ -438,6 +438,52 @@ class EventsServiceTests: XCTestCase {
     }
 }
 
+// MARK: sendEvents deferred from a background thread
+extension EventsServiceTests {
+
+    func testSendEvents_inFlightRequestFinishesOnBackgroundThread_pendingEventIsSentWithoutAnotherEvent() throws {
+        // Given
+        let postInterval = 500
+        let postIntervalInSeconds = TimeInterval(postInterval) / 1000
+        let sessionMock = ManualNetworkSessionMock()
+        let service = try readyService(storage: validIdentityStorage(postInterval: postInterval), session: sessionMock)
+
+        service.addEvents([Event(eventParameters: ["order": "first"])])
+
+        // After postInterval the second event asks for a send at once. The first request is still in flight, so it stays pending.
+        wait(for: postIntervalInSeconds + 0.1)
+
+        let secondEventQueued = expectation(description: "Second event queued")
+        DispatchQueue.global().async {
+            service.addEvents([Event(eventParameters: ["order": "second"])])
+            secondEventQueued.fulfill()
+        }
+        wait(for: [secondEventQueued], timeout: 1)
+        XCTAssertTrue(service.eventsSendPending, "The send asked for by the second event should wait for the first request")
+
+        let secondRequestSent = expectation(description: "Second request sent")
+        sessionMock.onDataTask = { _ in secondRequestSent.fulfill() }
+
+        // When
+        // The first request completes on a background thread, as with URLSession. Its retry of the pending send comes
+        // within postInterval of the last send, so it is deferred from that thread.
+        let firstResponseData = eventResponseData(postInterval: postInterval)
+        let firstResponse = httpResponse(statusCode: 200)
+        DispatchQueue.global().async {
+            sessionMock.completeOldestPendingRequest(data: firstResponseData, response: firstResponse)
+        }
+
+        // Then
+        wait(for: [secondRequestSent], timeout: postIntervalInSeconds * 3)
+        sessionMock.onDataTask = nil
+        XCTAssertEqual(sessionMock.callCount, 2, "The deferred send should go out without waiting for another event")
+
+        sessionMock.completeOldestPendingRequest(data: eventResponseData(postInterval: postInterval),
+                                                 response: httpResponse(statusCode: 200))
+        XCTAssertTrue(service.eventsQueueManager.events.allElements.isEmpty, "The second request should carry the second event")
+    }
+}
+
 // MARK: Helpers
 private extension EventsServiceTests {
 
