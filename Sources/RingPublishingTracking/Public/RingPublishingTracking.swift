@@ -82,7 +82,8 @@ public class RingPublishingTracking {
         eventsService?.updateApplicationRootPath(applicationRootPath: configuration.applicationRootPath)
         eventsService?.updateApplicationAdvertisementSite(applicationAdvertisementSite: configuration.applicationAdvertisementSite)
         eventsService?.updateStructureType(structureType: .structurePath(configuration.applicationDefaultStructurePath),
-                                          contentPageViewSource: nil)
+                                          contentPageViewSource: nil,
+                                          partiallyReloaded: false)
     }
 
     // MARK: Debug mode / opt-out mode
